@@ -23,7 +23,8 @@ describe('generate function', () => {
     });
 
     expect(result).toMatchInlineSnapshot(`
-      "export type Transfer = {
+      "
+          export type Transfer = {
               types: [MoveStruct];
               args: [MovePrimitiveAddress,MovePrimitiveU64];
               return: [];
@@ -47,7 +48,8 @@ describe('generate function', () => {
     });
 
     expect(result).toMatchInlineSnapshot(`
-      "export type Decimals = {
+      "
+          export type Decimals = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveU8];

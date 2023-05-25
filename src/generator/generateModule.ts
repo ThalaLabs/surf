@@ -5,20 +5,21 @@ import { generateStruct } from "./generateStruct.js";
 
 // TODO: how to resolve same name module from difference address
 export function generateModule(abi: ABIRoot): string {
-    return `namespace ${generateModuleName(abi)} {
+    return `
+    namespace ${generateModuleName(abi)} {
         export namespace Structs {
             ${abi.structs
-                .map(struct => generateStruct(struct))
-                .join('\n\n')}
+            .map(struct => generateStruct(struct))
+            .join('\n\n')}
         }
 
         export namespace Functions {
-            ${abi.exposed_functions.filter(func => func.is_entry || func.is_view)  
-                .map(func => generateFunction(func))
-                .join('\n\n')}
+            ${abi.exposed_functions.filter(func => func.is_entry || func.is_view)
+            .map(func => generateFunction(func))
+            .join('\n\n')}
         }
     }`;
 }
 
 
-    
+

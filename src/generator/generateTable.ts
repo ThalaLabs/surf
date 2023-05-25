@@ -8,7 +8,8 @@ function generateFunctionTable(func: ABIFunction[], abi: ABIRoot): string {
 }
 
 export function generateTable(abi: ABIRoot): string {
-    return `type AllEntryFunctions = {
+    return `
+        type AllEntryFunctions = {
             ${generateFunctionTable(abi.exposed_functions.filter(func => func.is_entry), abi)}
         };
 
@@ -22,8 +23,8 @@ export function generateTable(abi: ABIRoot): string {
 
         type AllStructs = {
             ${abi.structs
-                .map(struct => `'${abi.address}::${abi.name}::${struct.name}' : ${generateModuleName(abi)}.Structs.${generateStructName(struct.name)};`)
-                .join('\n')}
+            .map(struct => `'${abi.address}::${abi.name}::${struct.name}' : ${generateModuleName(abi)}.Structs.${generateStructName(struct.name)};`)
+            .join('\n')}
         };
         
         type MoveStruct = keyof AllStructs;

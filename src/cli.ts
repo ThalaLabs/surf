@@ -4,6 +4,7 @@ import { ABIRoot } from './abi.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { generateAll } from './generator/generateAll.js';
+import { format } from 'prettier'
 
 type Options = {
     sourceDir: string, targetDir: string
@@ -26,8 +27,11 @@ async function main(options: Options) {
 
     const abi: ABIRoot = JSON.parse(await fs.readFile(filepath, 'utf-8'));
 
+    const generated = generateAll(abi);
+    const formatted = format(generated, { parser: 'typescript' });
+    
     fs.mkdir(options.targetDir, { recursive: true });
-    fs.writeFile(path.join(options.targetDir, 'coin.ts'), generateAll(abi));
+    fs.writeFile(path.join(options.targetDir, 'coin.ts'), formatted);
 }
 
 main(commandLineArgs(optionDefinitions));

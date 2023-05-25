@@ -10,10 +10,13 @@ describe('generate module', () => {
   afterAll(() => {});
 
   it('generate function table', async () => {
-    const abi: ABIRoot = JSON.parse(await fs.readFile('./abi/coin.json', 'utf-8'));
+    const abi: ABIRoot = JSON.parse(
+      await fs.readFile('./abi/coin.json', 'utf-8'),
+    );
     const result = generateTable(abi);
     expect(result).toMatchInlineSnapshot(`
-      "type AllEntryFunctions = {
+      "
+              type AllEntryFunctions = {
                   '0x1::coin::freeze_coin_store' : ModuleCoin.Functions.Freeze_coin_store;
       '0x1::coin::transfer' : ModuleCoin.Functions.Transfer;
       '0x1::coin::unfreeze_coin_store' : ModuleCoin.Functions.Unfreeze_coin_store;
