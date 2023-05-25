@@ -85,9 +85,14 @@ describe('generate function', () => {
           }
           
           type MovePrimitiveU8 = number;
+          type MovePrimitiveU16 = number;
+          type MovePrimitiveU32 = number;
           type MovePrimitiveU64 = bigint;
+          type MovePrimitiveU128 = bigint;
+          type MovePrimitiveU256 = bigint;
           type MovePrimitiveAddress = \`0x\${string}\`;
           type MovePrimitiveBool = boolean;
+          type MoveString = string;
           "
     `);
   });

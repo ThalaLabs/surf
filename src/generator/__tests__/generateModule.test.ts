@@ -10,7 +10,9 @@ describe('generate module', () => {
   afterAll(() => {});
 
   it('generate module basic', async () => {
-    const abi: ABIRoot = JSON.parse(await fs.readFile('./abi/coin.json', 'utf-8'));
+    const abi: ABIRoot = JSON.parse(
+      await fs.readFile('./abi/coin.json', 'utf-8'),
+    );
     const result = generateModule(abi);
     expect(result).toMatchInlineSnapshot(`
       "namespace ModuleCoin {
@@ -28,8 +30,8 @@ describe('generate module', () => {
           }
 
       export interface CoinInfo {
-              name: any;
-      symbol: any;
+              name: MoveString;
+      symbol: MoveString;
       decimals: MovePrimitiveU8;
       supply: any;
           }
@@ -96,7 +98,7 @@ describe('generate module', () => {
       export type Name = {
               types: [MoveStruct];
               args: [];
-              return: [any];
+              return: [MoveString];
           };
 
       export type Supply = {
@@ -108,7 +110,7 @@ describe('generate module', () => {
       export type Symbol = {
               types: [MoveStruct];
               args: [];
-              return: [any];
+              return: [MoveString];
           };
 
       export type Transfer = {

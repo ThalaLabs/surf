@@ -19,5 +19,5 @@
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": ["src/**/*", "bindings/**/*", "__tests__/**/*"]
+  "include": ["src/**/*", "__tests__/**/*"]
 }

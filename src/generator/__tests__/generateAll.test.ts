@@ -89,9 +89,14 @@ describe('generate all', () => {
           }
           
           type MovePrimitiveU8 = number;
+          type MovePrimitiveU16 = number;
+          type MovePrimitiveU32 = number;
           type MovePrimitiveU64 = bigint;
+          type MovePrimitiveU128 = bigint;
+          type MovePrimitiveU256 = bigint;
           type MovePrimitiveAddress = \`0x\${string}\`;
           type MovePrimitiveBool = boolean;
+          type MoveString = string;
           
 
               type AllEntryFunctions = {
@@ -146,8 +151,8 @@ describe('generate all', () => {
           }
 
       export interface CoinInfo {
-              name: any;
-      symbol: any;
+              name: MoveString;
+      symbol: MoveString;
       decimals: MovePrimitiveU8;
       supply: any;
           }
@@ -214,7 +219,7 @@ describe('generate all', () => {
       export type Name = {
               types: [MoveStruct];
               args: [];
-              return: [any];
+              return: [MoveString];
           };
 
       export type Supply = {
@@ -226,7 +231,7 @@ describe('generate all', () => {
       export type Symbol = {
               types: [MoveStruct];
               args: [];
-              return: [any];
+              return: [MoveString];
           };
 
       export type Transfer = {
