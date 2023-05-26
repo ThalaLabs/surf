@@ -3,7 +3,6 @@
 // 2. We won't put all of the functions into a class,
 // So that if the function isn't used by the app, it won't be included in the bundle because of tree shaking.
 
-import { ABIFunction, ABIRoot } from "../abi.js";
 import { generateBCSArgument } from "./generateBCSArgument.js";
 import { generateArgumentType } from "./generatePrimitive.js";
 import { capitalizeFirstLetter } from "./utils.js";

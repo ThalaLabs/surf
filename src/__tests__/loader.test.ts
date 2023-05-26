@@ -1,4 +1,3 @@
-import type { ABIRoot } from '../abi.d.ts';
 const fs = require('fs/promises');
 
 describe('main', () => {

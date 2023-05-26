@@ -1,5 +1,4 @@
 import { generateTable } from '../generateTable.js';
-import type { ABIRoot } from '../../abi.js';
 const fs = require('fs/promises');
 
 describe('generate module', () => {
@@ -13,7 +12,7 @@ describe('generate module', () => {
     const abi: ABIRoot = JSON.parse(
       await fs.readFile('./abi/coin.json', 'utf-8'),
     );
-    const result = generateTable(abi);
+    const result = generateTable([abi]);
     expect(result).toMatchInlineSnapshot(`
       "
               type AllEntryFunctions = {

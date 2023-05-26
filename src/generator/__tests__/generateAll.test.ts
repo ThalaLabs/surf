@@ -15,8 +15,6 @@ describe('generate all', () => {
     expect(result).toMatchInlineSnapshot(`
       "
               
-          import { AptosClient as Client } from 'aptos';
-          
           type ViewRequest<T0 extends MoveViewFunction,
               T1 extends AllViewFunctions[T0]['types'],
               T2 extends AllViewFunctions[T0]['args'],
@@ -31,102 +29,6 @@ describe('generate all', () => {
                */
               arguments: T2;
           }
-          
-          export class AptosClient {
-              // TODO: make this configurable
-              client: Client = new Client('https://fullnode.testnet.aptoslabs.com/v1');
-              serverClient = new Client(
-                  "https://aptos-mainnet.nodereal.io/v1/742235cb25ef46c3aee41db5681af358"
-              );
-
-              constructor() {
-                  this.client
-              }
-
-              async view<T0 extends MoveViewFunction,
-                  T1 extends AllViewFunctions[T0]['types'],
-                  T2 extends AllViewFunctions[T0]['args'],
-                  T3 extends AllViewFunctions[T0]['return'],
-              >(request: ViewRequest<T0, T1, T2>): Promise<T3> {
-                  // TODO: serialization for input, and deserialization for output
-                  return this.client.view(request) as Promise<T3>;
-              }
-
-              // TODO: the submit function hasn't tested
-              // TODO: Move the account argument to constructor
-              // TODO: add types
-              // TODO: We may need to generate some metadata, otherwise how could we correctly serialize args?
-              // Another way is fetch the ABI on the fly.
-              // async submit(
-              //     account: AptosAccount,
-              //     entryFunction: TxnBuilderTypes.EntryFunction
-              // ): Promise<string> {
-              //     const entryFunctionPayload =
-              //         new TxnBuilderTypes.TransactionPayloadEntryFunction(entryFunction);
-
-              //     // Create a raw transaction out of the transaction payload
-              //     const rawTxn = await this.serverClient.generateRawTransaction(
-              //         account.address(),
-              //         entryFunctionPayload
-              //     );
-
-              //     // Sign the raw transaction with account's private key
-              //     const bcsTxn = Client.generateBCSTransaction(account, rawTxn);
-
-              //     // Submit the transaction
-              //     const transactionRes = await this.serverClient.submitSignedBCSTransaction(
-              //         bcsTxn
-              //     );
-
-              //     // Wait for the transaction to finish
-              //     // throws an error if the tx fails or not confirmed after timeout
-              //     await this.serverClient.waitForTransaction(transactionRes.hash, {
-              //         timeoutSecs: 120,
-              //         checkSuccess: true,
-              //     });
-              //     return transactionRes.hash;
-              // }
-          }
-          
-          export async function submitEntryFunctionImpl(
-              account: AptosAccount,
-              entryFunction: TxnBuilderTypes.EntryFunction
-          ) {
-              const entryFunctionPayload =
-                  new TxnBuilderTypes.TransactionPayloadEntryFunction(entryFunction);
-          
-              // Create a raw transaction out of the transaction payload
-              const rawTxn = await this.serverClient.generateRawTransaction(
-                  account.address(),
-                  entryFunctionPayload
-              );
-          
-              // Sign the raw transaction with account's private key
-              const bcsTxn = Client.generateBCSTransaction(account, rawTxn);
-          
-              // Submit the transaction
-              const transactionRes = await this.serverClient.submitSignedBCSTransaction(
-                  bcsTxn
-              );
-          
-              // Wait for the transaction to finish
-              // throws an error if the tx fails or not confirmed after timeout
-              await this.serverClient.waitForTransaction(transactionRes.hash, {
-                  timeoutSecs: 120,
-                  checkSuccess: true,
-              });
-              return transactionRes.hash;
-          }
-
-          type MovePrimitiveU8 = number;
-          type MovePrimitiveU16 = number;
-          type MovePrimitiveU32 = number;
-          type MovePrimitiveU64 = bigint;
-          type MovePrimitiveU128 = bigint;
-          type MovePrimitiveU256 = bigint;
-          type MovePrimitiveAddress = \`0x\${string}\`;
-          type MovePrimitiveBool = boolean;
-          type MoveString = string;
           
 
               
@@ -168,25 +70,25 @@ describe('generate all', () => {
           
 
               
-          namespace ModuleCoin {
-              export namespace Structs {
+          declare namespace ModuleCoin {
+              namespace Structs {
                   
-          export interface AggregatableCoin {
+          interface AggregatableCoin {
               value: any;
           }
 
 
-          export interface BurnCapability {
+          interface BurnCapability {
               dummy_field: MovePrimitiveBool;
           }
 
 
-          export interface Coin {
+          interface Coin {
               value: MovePrimitiveU64;
           }
 
 
-          export interface CoinInfo {
+          interface CoinInfo {
               name: MoveString;
       symbol: MoveString;
       decimals: MovePrimitiveU8;
@@ -194,7 +96,7 @@ describe('generate all', () => {
           }
 
 
-          export interface CoinStore {
+          interface CoinStore {
               coin: any;
       frozen: MovePrimitiveBool;
       deposit_events: any;
@@ -202,104 +104,104 @@ describe('generate all', () => {
           }
 
 
-          export interface DepositEvent {
+          interface DepositEvent {
               amount: MovePrimitiveU64;
           }
 
 
-          export interface FreezeCapability {
+          interface FreezeCapability {
               dummy_field: MovePrimitiveBool;
           }
 
 
-          export interface MintCapability {
+          interface MintCapability {
               dummy_field: MovePrimitiveBool;
           }
 
 
-          export interface SupplyConfig {
+          interface SupplyConfig {
               allow_upgrades: MovePrimitiveBool;
           }
 
 
-          export interface WithdrawEvent {
+          interface WithdrawEvent {
               amount: MovePrimitiveU64;
           }
               }
 
-              export namespace Functions {
+              namespace Functions {
                   
-          export type Balance = {
+          type Balance = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveU64];
           };
 
 
-          export type Decimals = {
+          type Decimals = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveU8];
           };
 
 
-          export type Freeze_coin_store = {
+          type Freeze_coin_store = {
               types: [MoveStruct];
               args: [any];
               return: [];
           };
 
 
-          export type Is_account_registered = {
+          type Is_account_registered = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveBool];
           };
 
 
-          export type Is_coin_initialized = {
+          type Is_coin_initialized = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveBool];
           };
 
 
-          export type Name = {
+          type Name = {
               types: [MoveStruct];
               args: [];
               return: [MoveString];
           };
 
 
-          export type Supply = {
+          type Supply = {
               types: [MoveStruct];
               args: [];
               return: [any];
           };
 
 
-          export type Symbol = {
+          type Symbol = {
               types: [MoveStruct];
               args: [];
               return: [MoveString];
           };
 
 
-          export type Transfer = {
+          type Transfer = {
               types: [MoveStruct];
               args: [MovePrimitiveAddress,MovePrimitiveU64];
               return: [];
           };
 
 
-          export type Unfreeze_coin_store = {
+          type Unfreeze_coin_store = {
               types: [MoveStruct];
               args: [any];
               return: [];
           };
 
 
-          export type Upgrade_supply = {
+          type Upgrade_supply = {
               types: [MoveStruct];
               args: [];
               return: [];

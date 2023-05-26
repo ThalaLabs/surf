@@ -27,7 +27,7 @@ describe('generate struct', () => {
 
     expect(result).toMatchInlineSnapshot(`
       "
-          export interface BurnCapability {
+          interface BurnCapability {
               dummy_field: MovePrimitiveBool;
           }"
     `);
@@ -53,7 +53,7 @@ describe('generate struct', () => {
 
     expect(result).toMatchInlineSnapshot(`
       "
-          export interface AggregatableCoin {
+          interface AggregatableCoin {
               value: any;
           }"
     `);

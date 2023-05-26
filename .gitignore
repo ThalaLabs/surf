@@ -1,6 +1,8 @@
 # generated files
 bindings/
 
+example/
+
 # Logs
 logs
 *.log

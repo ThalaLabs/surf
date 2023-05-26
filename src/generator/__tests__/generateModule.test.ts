@@ -1,5 +1,4 @@
 import { generateModule } from '../generateModule.js';
-import type { ABIRoot } from '../../abi.js';
 const fs = require('fs/promises');
 
 describe('generate module', () => {
@@ -16,25 +15,25 @@ describe('generate module', () => {
     const result = generateModule(abi);
     expect(result).toMatchInlineSnapshot(`
       "
-          namespace ModuleCoin {
-              export namespace Structs {
+          declare namespace ModuleCoin {
+              namespace Structs {
                   
-          export interface AggregatableCoin {
+          interface AggregatableCoin {
               value: any;
           }
 
 
-          export interface BurnCapability {
+          interface BurnCapability {
               dummy_field: MovePrimitiveBool;
           }
 
 
-          export interface Coin {
+          interface Coin {
               value: MovePrimitiveU64;
           }
 
 
-          export interface CoinInfo {
+          interface CoinInfo {
               name: MoveString;
       symbol: MoveString;
       decimals: MovePrimitiveU8;
@@ -42,7 +41,7 @@ describe('generate module', () => {
           }
 
 
-          export interface CoinStore {
+          interface CoinStore {
               coin: any;
       frozen: MovePrimitiveBool;
       deposit_events: any;
@@ -50,104 +49,104 @@ describe('generate module', () => {
           }
 
 
-          export interface DepositEvent {
+          interface DepositEvent {
               amount: MovePrimitiveU64;
           }
 
 
-          export interface FreezeCapability {
+          interface FreezeCapability {
               dummy_field: MovePrimitiveBool;
           }
 
 
-          export interface MintCapability {
+          interface MintCapability {
               dummy_field: MovePrimitiveBool;
           }
 
 
-          export interface SupplyConfig {
+          interface SupplyConfig {
               allow_upgrades: MovePrimitiveBool;
           }
 
 
-          export interface WithdrawEvent {
+          interface WithdrawEvent {
               amount: MovePrimitiveU64;
           }
               }
 
-              export namespace Functions {
+              namespace Functions {
                   
-          export type Balance = {
+          type Balance = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveU64];
           };
 
 
-          export type Decimals = {
+          type Decimals = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveU8];
           };
 
 
-          export type Freeze_coin_store = {
+          type Freeze_coin_store = {
               types: [MoveStruct];
               args: [any];
               return: [];
           };
 
 
-          export type Is_account_registered = {
+          type Is_account_registered = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveBool];
           };
 
 
-          export type Is_coin_initialized = {
+          type Is_coin_initialized = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveBool];
           };
 
 
-          export type Name = {
+          type Name = {
               types: [MoveStruct];
               args: [];
               return: [MoveString];
           };
 
 
-          export type Supply = {
+          type Supply = {
               types: [MoveStruct];
               args: [];
               return: [any];
           };
 
 
-          export type Symbol = {
+          type Symbol = {
               types: [MoveStruct];
               args: [];
               return: [MoveString];
           };
 
 
-          export type Transfer = {
+          type Transfer = {
               types: [MoveStruct];
               args: [MovePrimitiveAddress,MovePrimitiveU64];
               return: [];
           };
 
 
-          export type Unfreeze_coin_store = {
+          type Unfreeze_coin_store = {
               types: [MoveStruct];
               args: [any];
               return: [];
           };
 
 
-          export type Upgrade_supply = {
+          type Upgrade_supply = {
               types: [MoveStruct];
               args: [];
               return: [];

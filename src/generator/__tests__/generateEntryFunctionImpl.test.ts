@@ -1,4 +1,3 @@
-import { ABIRoot } from '../../abi.js';
 import { generateEntryFunctionImpl } from '../generateEntryFunctionImpl.js';
 
 describe('generate entry function impl', () => {

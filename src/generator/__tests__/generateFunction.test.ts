@@ -24,7 +24,7 @@ describe('generate function', () => {
 
     expect(result).toMatchInlineSnapshot(`
       "
-          export type Transfer = {
+          type Transfer = {
               types: [MoveStruct];
               args: [MovePrimitiveAddress,MovePrimitiveU64];
               return: [];
@@ -49,7 +49,7 @@ describe('generate function', () => {
 
     expect(result).toMatchInlineSnapshot(`
       "
-          export type Decimals = {
+          type Decimals = {
               types: [MoveStruct];
               args: [];
               return: [MovePrimitiveU8];

@@ -1,4 +1,4 @@
-export interface ABIRoot {
+interface ABIRoot {
     address:           string;
     name:              string;
     friends:           string[];
@@ -6,7 +6,7 @@ export interface ABIRoot {
     structs:           ABIStruct[];
 }
 
-export interface ABIFunction {
+interface ABIFunction {
     name:                string;
     visibility:          "friend" | "public";
     is_entry:            boolean;
@@ -16,11 +16,11 @@ export interface ABIFunction {
     return:              string[];
 }
 
-export interface ABIFunctionGenericTypeParam {
+interface ABIFunctionGenericTypeParam {
     constraints: any[];
 }
 
-export interface ABIStruct {
+interface ABIStruct {
     name:                string;
     is_native:           boolean;
     abilities:           string[];
@@ -28,7 +28,7 @@ export interface ABIStruct {
     fields:              ABIStructField[];
 }
 
-export interface ABIStructField {
+interface ABIStructField {
     name: string;
     type: string;
 }

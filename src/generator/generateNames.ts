@@ -1,4 +1,3 @@
-import { ABIRoot } from "../abi.js";
 import { capitalizeFirstLetter } from "./utils.js";
 
 export function generateModuleName(abi: ABIRoot): string {
