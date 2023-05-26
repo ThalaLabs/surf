@@ -88,6 +88,36 @@ describe('generate all', () => {
               // }
           }
           
+          export async function submitEntryFunctionImpl(
+              account: AptosAccount,
+              entryFunction: TxnBuilderTypes.EntryFunction
+          ) {
+              const entryFunctionPayload =
+                  new TxnBuilderTypes.TransactionPayloadEntryFunction(entryFunction);
+          
+              // Create a raw transaction out of the transaction payload
+              const rawTxn = await this.serverClient.generateRawTransaction(
+                  account.address(),
+                  entryFunctionPayload
+              );
+          
+              // Sign the raw transaction with account's private key
+              const bcsTxn = Client.generateBCSTransaction(account, rawTxn);
+          
+              // Submit the transaction
+              const transactionRes = await this.serverClient.submitSignedBCSTransaction(
+                  bcsTxn
+              );
+          
+              // Wait for the transaction to finish
+              // throws an error if the tx fails or not confirmed after timeout
+              await this.serverClient.waitForTransaction(transactionRes.hash, {
+                  timeoutSecs: 120,
+                  checkSuccess: true,
+              });
+              return transactionRes.hash;
+          }
+
           type MovePrimitiveU8 = number;
           type MovePrimitiveU16 = number;
           type MovePrimitiveU32 = number;
