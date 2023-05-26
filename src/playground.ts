@@ -21,8 +21,7 @@ async () => {
     result2[0];
 
     const account = new AptosAccount(Buffer.from("", "hex"));
-    client.submit(account, {
-        function: '0x1::coin::transfer',
+    submitCoinTransfer(account, {
         type_arguments: ['0x1::coin::Coin'],
         arguments: ['0x1', BigInt(1)]
     });
@@ -143,56 +142,5 @@ export class AptosClient {
     >(request: ViewRequest<T0, T1, T2>): Promise<T3> {
         // TODO: serialization for input, and deserialization for output
         return this.client.view(request) as Promise<T3>;
-    }
-
-    async submit<T0 extends MoveEntryFunction,
-        T1 extends AllEntryFunctions[T0]['types'],
-        T2 extends AllEntryFunctions[T0]['args'],
-    >(
-        account: AptosAccount,
-        request: SubmitRequest<T0, T1, T2>
-    ): Promise<string> {
-        const entryFunction = TxnBuilderTypes.EntryFunction.natural(
-            // TODO: get module from function
-            `0x1::simple_oracle`,
-            // TODO: get function name from function
-            "update_price",
-            [
-                // TODO: get type tag from type args
-                new TxnBuilderTypes.TypeTagStruct(
-                    TxnBuilderTypes.StructTag.fromString(coin.address)
-                ),
-            ],
-            [
-                // TODO: parse arguments based on metadata
-                BCS.bcsSerializeUint64(numerator),
-                BCS.bcsSerializeUint64(scale),
-                BCS.bcsSerializeUint64(timestampSeconds),
-            ]
-        )
-        const entryFunctionPayload =
-            new TxnBuilderTypes.TransactionPayloadEntryFunction(entryFunction);
-
-        // Create a raw transaction out of the transaction payload
-        const rawTxn = await this.serverClient.generateRawTransaction(
-            account.address(),
-            entryFunctionPayload
-        );
-
-        // Sign the raw transaction with account's private key
-        const bcsTxn = Client.generateBCSTransaction(account, rawTxn);
-
-        // Submit the transaction
-        const transactionRes = await this.serverClient.submitSignedBCSTransaction(
-            bcsTxn
-        );
-
-        // Wait for the transaction to finish
-        // throws an error if the tx fails or not confirmed after timeout
-        await this.serverClient.waitForTransaction(transactionRes.hash, {
-            timeoutSecs: 120,
-            checkSuccess: true,
-        });
-        return transactionRes.hash;
     }
 }
