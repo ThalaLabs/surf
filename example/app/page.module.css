@@ -78,6 +78,7 @@
   align-items: center;
   position: relative;
   padding: 4rem 0;
+  flex-direction: column;
 }
 
 .center::before {

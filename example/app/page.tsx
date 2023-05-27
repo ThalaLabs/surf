@@ -1,32 +1,36 @@
 "use client"
-import Image from 'next/image'
-import styles from './page.module.css'
-import { view } from '../bindings'
 import { AptosClient } from 'aptos';
-import { useState } from 'react';
+import { useQueryViewFunction, useSubmitTransaction } from '../bindings/hooks'
+import styles from './page.module.css'
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
 
 export default function Home() {
-  const [balance, setBalance] = useState<bigint>();
-  const [coinName, setCoinName] = useState<string>();
-  view(
-    new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
+  const wallet = useWallet();
+
+  if (!wallet.connected) {
+    wallet.connect(wallet.wallets[0].name);
+  }
+
+  const { result, isLoading } = useQueryViewFunction(new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
     {
       function: '0x1::coin::balance',
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
       arguments: ['0x1']
-    }).then((result) => {
-      setBalance(result[0]);
     });
 
-  view(
-    new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
-    {
-      function: '0x1::coin::name',
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
-      arguments: []
-    }).then((result) => {
-      setCoinName(result[0]);
-    });
+  const { isLoading: submitIsLoading, submitTransaction, result: submitResult } = useSubmitTransaction();
+  const onClick = async () => {
+    try {
+      await submitTransaction({
+        function: '0x1::coin::transfer',
+        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        arguments: ['0x1', BigInt(1)]
+      });
+    }
+    catch (e) {
+      console.error('qzq', e);
+    }
+  }
 
   return (
     <main className={styles.main}>
@@ -37,10 +41,26 @@ export default function Home() {
         </p>
       </div>
 
-      {!!balance && !!coinName && <div className={styles.center}>
-        0x1 has {balance + " " + coinName}
+      {<div style={{
+        fontSize: "20px",
+      }} className={styles.center}>
+        Balance of 0x1 {!isLoading && result ? result[0].toString() : "loading"}
+        <div>
+          {`Wallet status: ${wallet.connected ? "connected" : "disconnected"}`}
+        </div>
+        <button style={{
+            padding: "10px",
+            margin: "50px",
+            fontSize: "20px"
+          }}
+            onClick={onClick}>
+            Submit transaction: transfer 1 coin to 0x1 on testnet
+          </button>
+          {submitIsLoading && "loading"}
+          {submitResult && `Result: ${submitResult.hash}`}
       </div>
       }
+
 
       <div className={styles.grid}>
         <a

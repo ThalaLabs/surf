@@ -7,6 +7,7 @@ import { generateIndex } from './generator/generateIndex.js';
 import { generateCommon } from './generator/generateCommon.js';
 import { generateTable } from './generator/generateTable.js';
 import { generateAllEntryFunctionImpl } from './generator/generateEntryFunctionImpl.js';
+import { generateReactHooks } from './generator/generateReactHooks.js';
 
 type Options = {
     sourceDir: string, targetDir: string
@@ -36,8 +37,15 @@ export async function main(options: Options) {
     createPrimitivesTypeFile(options);
     createCommonFile(options);
     createIndexFile(options);
+    createHooksFile(options);
     createTableFile(options, allAbis);
     createEntryFunctionImplFile(options, allAbis);
+    
+}
+
+async function createHooksFile(options: Options) {
+    const generated = generateReactHooks();
+    createFile(options, "hooks.ts", generated);
 }
 
 async function createPrimitivesFile(options: Options) {
