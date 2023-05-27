@@ -6,6 +6,7 @@ import { generatePrimitives } from './generator/generatePrimitive.js';
 import { generateIndex } from './generator/generateIndex.js';
 import { generateCommon } from './generator/generateCommon.js';
 import { generateTable } from './generator/generateTable.js';
+import { generateAllEntryFunctionImpl } from './generator/generateEntryFunctionImpl.js';
 
 type Options = {
     sourceDir: string, targetDir: string
@@ -16,6 +17,7 @@ export async function main(options: Options) {
     console.log('targetDir', options.targetDir);
 
     await fs.mkdir(path.join(options.targetDir, FOLDER_MODULES), { recursive: true });
+    await fs.mkdir(path.join(options.targetDir, FOLDER_ENTRIES), { recursive: true });
 
     // load all abi files
     const allAbis: ABIRoot[] = [];
@@ -35,6 +37,7 @@ export async function main(options: Options) {
     createCommonFile(options);
     createIndexFile(options);
     createTableFile(options, allAbis);
+    createEntryFunctionImplFile(options, allAbis);
 }
 
 async function createPrimitivesFile(options: Options) {
@@ -63,6 +66,13 @@ async function createTableFile(options: Options, allAbis: ABIRoot[]) {
     createFile(options, path.join(FOLDER_TYPES, "moduleTable.d.ts"), generated);
 }
 
+async function createEntryFunctionImplFile(options: Options, allAbis: ABIRoot[]) {
+    allAbis.forEach(async (abi) => {
+        const generated = generateAllEntryFunctionImpl(abi);
+        createFile(options, path.join(FOLDER_ENTRIES, `${abi.name}.ts`), generated);
+    })
+}
+
 async function createIndexFile(options: Options) {
     const generated = generateIndex();
     createFile(options, "index.ts", generated);
@@ -76,3 +86,4 @@ async function createFile(options: Options, targetPath: string, code: string) {
 
 const FOLDER_TYPES = 'types';
 const FOLDER_MODULES = path.join("types", "modules");
+const FOLDER_ENTRIES = "entries";

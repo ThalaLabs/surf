@@ -17,10 +17,10 @@ export function generateBCSArgument(type:string): (val:string)=>string {
         case 'u128':
             return (val: string) => `BCS.bcsSerializeU128(${val})`;
         case 'u256':
-            return (_: string) => `throw new Error('u256 not supported')`; // BCS API not support u256
+            return (_: string) => `(() => {throw new Error('u256 not supported');})()`; // BCS API not support u256
         case '0x1::string::String':
             return (val: string) => `BCS.bcsSerializeStr(${val})`;
         default:
-            return (_: string) => `trow new Error('type '${type}' not supported')`; // TODO: support complex type
+            return (_: string) => `(() => {throw new Error('type \\'${type}\\' not supported');})()`; // TODO: support complex type
     }
 }

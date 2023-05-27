@@ -31,3 +31,15 @@ export function generateEntryFunctionImpl(func: ABIFunction, abi: ABIRoot): stri
     }    
     `;
 }
+
+export function generateAllEntryFunctionImpl(abi: ABIRoot): string {
+    return `
+    import { AptosAccount, BCS, TxnBuilderTypes } from "aptos";
+    import {submitEntryFunctionImpl} from "../index";
+
+    ${abi.exposed_functions
+            .filter(func => func.is_entry)
+            .map(func => generateEntryFunctionImpl(func, abi))
+            .join('\n')}
+    `;
+}
