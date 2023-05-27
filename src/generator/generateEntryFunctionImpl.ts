@@ -11,6 +11,7 @@ import { capitalizeFirstLetter } from "./utils.js";
 export function generateEntryFunctionImpl(func: ABIFunction, abi: ABIRoot): string {
     return `
     export async function submit${capitalizeFirstLetter(abi.name)}${capitalizeFirstLetter(func.name)}(
+        client: AptosClient,
         account: AptosAccount,
         request: {
             type_arguments: [${func.generic_type_params.map(() => 'MoveStruct').join(', ')}],
@@ -27,14 +28,14 @@ export function generateEntryFunctionImpl(func: ABIFunction, abi: ABIRoot): stri
                 ${func.params.slice(1).map((argType, i) => generateBCSArgument(argType)(`request.arguments[${i}]`)).join(',\n')}
             ]
         );
-        return submitEntryFunctionImpl(account, entryFunction);
+        return submitEntryFunctionImpl(client, account, entryFunction);
     }    
     `;
 }
 
 export function generateAllEntryFunctionImpl(abi: ABIRoot): string {
     return `
-    import { AptosAccount, BCS, TxnBuilderTypes } from "aptos";
+    import { AptosAccount, AptosClient, BCS, TxnBuilderTypes } from "aptos";
     import {submitEntryFunctionImpl} from "../index";
 
     ${abi.exposed_functions

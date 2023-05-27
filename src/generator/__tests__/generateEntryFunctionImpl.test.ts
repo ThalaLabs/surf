@@ -31,6 +31,7 @@ describe('generate entry function impl', () => {
     expect(result).toMatchInlineSnapshot(`
       "
           export async function submitCoinTransfer(
+              client: AptosClient,
               account: AptosAccount,
               request: {
                   type_arguments: [MoveStruct],
@@ -50,7 +51,7 @@ describe('generate entry function impl', () => {
       BCS.bcsSerializeUint64(request.arguments[1])
                   ]
               );
-              return submitEntryFunctionImpl(account, entryFunction);
+              return submitEntryFunctionImpl(client, account, entryFunction);
           }    
           "
     `);
