@@ -16,6 +16,7 @@ export function generateIndex() {
     }
 
     export async function submitEntryFunctionImpl(
+        client: AptosClient,
         account: AptosAccount,
         entryFunction: TxnBuilderTypes.EntryFunction
     ) {
@@ -23,7 +24,7 @@ export function generateIndex() {
             new TxnBuilderTypes.TransactionPayloadEntryFunction(entryFunction);
     
         // Create a raw transaction out of the transaction payload
-        const rawTxn = await this.serverClient.generateRawTransaction(
+        const rawTxn = await client.generateRawTransaction(
             account.address(),
             entryFunctionPayload
         );
@@ -32,13 +33,13 @@ export function generateIndex() {
         const bcsTxn = AptosClient.generateBCSTransaction(account, rawTxn);
     
         // Submit the transaction
-        const transactionRes = await this.serverClient.submitSignedBCSTransaction(
+        const transactionRes = await client.submitSignedBCSTransaction(
             bcsTxn
         );
     
         // Wait for the transaction to finish
         // throws an error if the tx fails or not confirmed after timeout
-        await this.serverClient.waitForTransaction(transactionRes.hash, {
+        await client.waitForTransaction(transactionRes.hash, {
             timeoutSecs: 120,
             checkSuccess: true,
         });
@@ -90,7 +91,7 @@ export function generateIndex() {
     setIsLoading(true);
     view(client, request)
         .then((result) => {
-        setResult(result);
+        setResult(result as any); // TODO: try to fix this
         })
         .finally(() => setIsLoading(false));
 

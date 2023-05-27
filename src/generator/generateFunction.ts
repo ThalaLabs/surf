@@ -7,7 +7,8 @@ export function generateFunction(abi: ABIFunction): string {
     return `
     type ${generateFunctionName(abi.name)} = {
         types: [${abi.generic_type_params.map(() => 'MoveStruct').join(',')}];
-        args: [${abi.params.slice(1).map(param => generateArgumentType(param)).join(',')}];
+        args: [${(abi.is_entry ? abi.params.slice(1) : abi.params)
+            .map(param => generateArgumentType(param)).join(',')}];
         return: [${abi.return.map(param => generateArgumentType(param)).join(',')}];
     };`;
 }

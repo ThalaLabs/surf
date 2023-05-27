@@ -78,7 +78,7 @@ describe('generate module', () => {
                   
           type Balance = {
               types: [MoveStruct];
-              args: [];
+              args: [MovePrimitiveAddress];
               return: [MovePrimitiveU64];
           };
 
@@ -99,7 +99,7 @@ describe('generate module', () => {
 
           type Is_account_registered = {
               types: [MoveStruct];
-              args: [];
+              args: [MovePrimitiveAddress];
               return: [MovePrimitiveBool];
           };
 

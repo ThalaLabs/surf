@@ -149,7 +149,7 @@ describe('generate all', () => {
                   
           type Balance = {
               types: [MoveStruct];
-              args: [];
+              args: [MovePrimitiveAddress];
               return: [MovePrimitiveU64];
           };
 
@@ -170,7 +170,7 @@ describe('generate all', () => {
 
           type Is_account_registered = {
               types: [MoveStruct];
-              args: [];
+              args: [MovePrimitiveAddress];
               return: [MovePrimitiveBool];
           };
 
