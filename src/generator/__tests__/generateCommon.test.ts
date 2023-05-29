@@ -11,6 +11,8 @@ describe('generate function', () => {
     const result = generateCommon();
     expect(result).toMatchInlineSnapshot(`
       "
+          import { AllViewFunctions, AllEntryFunctions, MoveEntryFunction, MoveViewFunction } from "./moduleTable";
+
           type ViewRequest<T0 extends MoveViewFunction> = {
               function: T0;
               /**

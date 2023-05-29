@@ -1,23 +1,23 @@
 export function generateArgumentType(raw: string): string {
     switch (raw) {
         case 'bool':
-            return 'MovePrimitiveBool';
+            return 'MoveType.Bool';
         case 'address':
-            return 'MovePrimitiveAddress';
+            return 'MoveType.Address';
         case 'u8':
-            return 'MovePrimitiveU8';
+            return 'MoveType.U8';
         case 'u16':
-            return 'MovePrimitiveU16';
+            return 'MoveType.U16';
         case 'u32':
-            return 'MovePrimitiveU32';
+            return 'MoveType.U32';
         case 'u64':
-            return 'MovePrimitiveU64';
+            return 'MoveType.U64';
         case 'u128':
-            return 'MovePrimitiveU128';
+            return 'MoveType.U128';
         case 'u256':
-            return 'MovePrimitiveU256';
+            return 'MoveType.U256';
         case '0x1::string::String':
-            return 'MoveString';
+            return 'MoveType.String';
         default:
             return 'any'; // TODO: fix complex type
     }
@@ -25,14 +25,14 @@ export function generateArgumentType(raw: string): string {
 
 export function generatePrimitives(): string {
     return `
-    type MovePrimitiveU8 = number;
-    type MovePrimitiveU16 = number;
-    type MovePrimitiveU32 = number;
-    type MovePrimitiveU64 = bigint;
-    type MovePrimitiveU128 = bigint;
-    type MovePrimitiveU256 = bigint;
-    type MovePrimitiveAddress = \`0x\${string}\`;
-    type MovePrimitiveBool = boolean;
-    type MoveString = string;
+    export type U8 = number;
+    export type U16 = number;
+    export type U32 = number;
+    export type U64 = bigint;
+    export type U128 = bigint;
+    export type U256 = bigint;
+    export type Address = \`0x\${string}\`;
+    export type Bool = boolean;
+    export type String = string;    
     `;
 }

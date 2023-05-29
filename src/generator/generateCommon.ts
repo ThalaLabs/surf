@@ -1,5 +1,7 @@
 export function generateCommon(): string {
     return `
+    import { AllViewFunctions, AllEntryFunctions, MoveEntryFunction, MoveViewFunction } from "./moduleTable";
+
     type ViewRequest<T0 extends MoveViewFunction> = {
         function: T0;
         /**

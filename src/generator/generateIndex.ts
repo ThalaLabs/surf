@@ -1,7 +1,9 @@
 export function generateIndex() {
   return `
     import { AptosAccount, AptosClient, TxnBuilderTypes } from "aptos";
-
+    import { AllViewFunctions, MoveViewFunction } from "./types/moduleTable";
+    import { ViewRequest } from "./types/common";
+    
     export async function view<T0 extends MoveViewFunction>(
       client: AptosClient, request: ViewRequest<T0>): Promise<AllViewFunctions[T0]["return"]> {
       // TODO: serialization for input, and deserialization for output

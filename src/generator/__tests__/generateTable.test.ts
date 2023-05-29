@@ -15,6 +15,8 @@ describe('generate module', () => {
     const result = generateTable([abi]);
     expect(result).toMatchInlineSnapshot(`
       "
+              import * as ModuleCoin from './modules/coin';
+
               type AllEntryFunctions = {
                   '0x1::coin::freeze_coin_store' : ModuleCoin.Functions.Freeze_coin_store;
       '0x1::coin::transfer' : ModuleCoin.Functions.Transfer;

@@ -15,78 +15,80 @@ describe('generate module', () => {
     const result = generateModule(abi);
     expect(result).toMatchInlineSnapshot(`
       "
-          declare namespace ModuleCoin {
-              namespace Structs {
-                  
+          import * as MoveType from '../primitives';
+          import { MoveStruct } from "../moduleTable";
+
+          export namespace Structs {
+              
           interface AggregatableCoin {
               value: any;
           }
 
 
           interface BurnCapability {
-              dummy_field: MovePrimitiveBool;
+              dummy_field: MoveType.Bool;
           }
 
 
           interface Coin {
-              value: MovePrimitiveU64;
+              value: MoveType.U64;
           }
 
 
           interface CoinInfo {
-              name: MoveString;
-      symbol: MoveString;
-      decimals: MovePrimitiveU8;
+              name: MoveType.String;
+      symbol: MoveType.String;
+      decimals: MoveType.U8;
       supply: any;
           }
 
 
           interface CoinStore {
               coin: any;
-      frozen: MovePrimitiveBool;
+      frozen: MoveType.Bool;
       deposit_events: any;
       withdraw_events: any;
           }
 
 
           interface DepositEvent {
-              amount: MovePrimitiveU64;
+              amount: MoveType.U64;
           }
 
 
           interface FreezeCapability {
-              dummy_field: MovePrimitiveBool;
+              dummy_field: MoveType.Bool;
           }
 
 
           interface MintCapability {
-              dummy_field: MovePrimitiveBool;
+              dummy_field: MoveType.Bool;
           }
 
 
           interface SupplyConfig {
-              allow_upgrades: MovePrimitiveBool;
+              allow_upgrades: MoveType.Bool;
           }
 
 
           interface WithdrawEvent {
-              amount: MovePrimitiveU64;
+              amount: MoveType.U64;
           }
-              }
+          }
 
-              namespace Functions {
-                  
+          export namespace Functions {
+              
           type Balance = {
               types: [MoveStruct];
-              args: [MovePrimitiveAddress];
-              return: [MovePrimitiveU64];
+              args: [MoveType.Address];
+              return: [MoveType.U64];
           };
 
 
           type Decimals = {
               types: [MoveStruct];
               args: [];
-              return: [MovePrimitiveU8];
+              return: [MoveType.U8];
           };
 
 
@@ -99,22 +101,22 @@ describe('generate module', () => {
 
           type Is_account_registered = {
               types: [MoveStruct];
-              args: [MovePrimitiveAddress];
-              return: [MovePrimitiveBool];
+              args: [MoveType.Address];
+              return: [MoveType.Bool];
           };
 
 
           type Is_coin_initialized = {
               types: [MoveStruct];
               args: [];
-              return: [MovePrimitiveBool];
+              return: [MoveType.Bool];
           };
 
 
           type Name = {
               types: [MoveStruct];
               args: [];
-              return: [MoveString];
+              return: [MoveType.String];
           };
 
 
@@ -128,13 +130,13 @@ describe('generate module', () => {
           type Symbol = {
               types: [MoveStruct];
               args: [];
-              return: [MoveString];
+              return: [MoveType.String];
           };
 
 
           type Transfer = {
               types: [MoveStruct];
-              args: [MovePrimitiveAddress,MovePrimitiveU64];
+              args: [MoveType.Address,MoveType.U64];
               return: [];
           };
 
@@ -151,8 +153,8 @@ describe('generate module', () => {
               args: [];
               return: [];
           };
-              }
-          }"
+          }
+          "
     `);
   });
 });

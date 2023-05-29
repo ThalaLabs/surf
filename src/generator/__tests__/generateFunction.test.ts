@@ -26,7 +26,7 @@ describe('generate function', () => {
       "
           type Transfer = {
               types: [MoveStruct];
-              args: [MovePrimitiveAddress,MovePrimitiveU64];
+              args: [MoveType.Address,MoveType.U64];
               return: [];
           };"
     `);
@@ -52,7 +52,7 @@ describe('generate function', () => {
           type Decimals = {
               types: [MoveStruct];
               args: [];
-              return: [MovePrimitiveU8];
+              return: [MoveType.U8];
           };"
     `);
   });

@@ -4,6 +4,8 @@ export function generateReactHooks(): string {
     import { useWallet } from "@aptos-labs/wallet-adapter-react";
     import { AptosClient, Types } from "aptos";
     import { view } from "./index";
+    import { AllViewFunctions, MoveEntryFunction, MoveViewFunction } from "./types/moduleTable";
+    import { SubmitRequest, ViewRequest } from "./types/common";
     
     type Error = any;
 
@@ -26,7 +28,7 @@ export function generateReactHooks(): string {
           const { hash } = await signAndSubmitTransaction({
             type: "entry_function_payload",
             ...request,
-            arguments: request.arguments.map((arg) => arg.toString()),
+            arguments: request.arguments.map((arg: any) => arg.toString()),
           });
     
           // TODO: make it configurable

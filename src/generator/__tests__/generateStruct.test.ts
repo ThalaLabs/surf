@@ -28,7 +28,7 @@ describe('generate struct', () => {
     expect(result).toMatchInlineSnapshot(`
       "
           interface BurnCapability {
-              dummy_field: MovePrimitiveBool;
+              dummy_field: MoveType.Bool;
           }"
     `);
   });

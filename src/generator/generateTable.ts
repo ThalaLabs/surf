@@ -31,6 +31,8 @@ export function generateTable(abis: ABIRoot[]): string {
             .forEach(str => structs.push(str));
     });
     return `
+        ${abis.map(abi => `import * as ${generateModuleName(abi)} from './modules/${abi.name}';`).join('\n')}
+
         type AllEntryFunctions = {
             ${entryFunctions.join('\n')}
         };

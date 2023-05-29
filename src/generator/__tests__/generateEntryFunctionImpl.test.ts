@@ -35,7 +35,7 @@ describe('generate entry function impl', () => {
               account: AptosAccount,
               request: {
                   type_arguments: [MoveStruct],
-                  arguments: [MovePrimitiveAddress, MovePrimitiveU64],
+                  arguments: [MoveType.Address, MoveType.U64],
               }
           ): Promise<string> {
               const entryFunction = TxnBuilderTypes.EntryFunction.natural(
