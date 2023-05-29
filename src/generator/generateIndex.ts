@@ -1,15 +1,11 @@
 export function generateIndex() {
-    return `
+  return `
     import { AptosAccount, AptosClient, TxnBuilderTypes } from "aptos";
 
-    export async function view<
-      T0 extends MoveViewFunction,
-      T1 extends AllViewFunctions[T0]["types"],
-      T2 extends AllViewFunctions[T0]["args"],
-      T3 extends AllViewFunctions[T0]["return"]
-    >(client: AptosClient, request: ViewRequest<T0, T1, T2>): Promise<T3> {
+    export async function view<T0 extends MoveViewFunction>(
+      client: AptosClient, request: ViewRequest<T0>): Promise<AllViewFunctions[T0]["return"]> {
       // TODO: serialization for input, and deserialization for output
-      return client.view(request) as Promise<T3>;
+      return client.view(request) as Promise<AllViewFunctions[T0]["return"]>;
     }
     
     export async function submitEntryFunctionImpl(

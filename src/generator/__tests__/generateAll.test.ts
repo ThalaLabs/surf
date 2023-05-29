@@ -15,35 +15,28 @@ describe('generate all', () => {
     expect(result).toMatchInlineSnapshot(`
       "
               
-          type ViewRequest<T0 extends MoveViewFunction,
-              T1 extends AllViewFunctions[T0]['types'],
-              T2 extends AllViewFunctions[T0]['args'],
-          > = {
+          type ViewRequest<T0 extends MoveViewFunction> = {
               function: T0;
               /**
                * Type arguments of the function
                */
-              type_arguments: T1;
+              type_arguments: AllViewFunctions[T0]['types'];
               /**
                * Arguments of the function
                */
-              arguments: T2;
+              arguments: AllViewFunctions[T0]['args'];
           }
 
-          type SubmitRequest<
-              T0 extends MoveEntryFunction,
-              T1 extends AllEntryFunctions[T0]["types"],
-              T2 extends AllEntryFunctions[T0]['args'],
-          > = {
+          type SubmitRequest<T0 extends MoveEntryFunction> = {
               function: T0;
               /**
                * Type arguments of the function
                */
-              type_arguments: T1;
+              type_arguments: AllEntryFunctions[T0]["types"];
               /**
                * Arguments of the function
                */
-              arguments: T2;
+              arguments: AllEntryFunctions[T0]['args'];
           };
           
 

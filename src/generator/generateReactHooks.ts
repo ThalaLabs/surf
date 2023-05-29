@@ -14,12 +14,8 @@ export function generateReactHooks(): string {
         const [isLoading, setIsLoading] = useState(false);
         const [result, setResult] = useState<Types.Transaction_UserTransaction>();
 
-        async function submitTransaction<
-          T0 extends MoveEntryFunction,
-          T1 extends AllEntryFunctions[T0]["types"],
-          T2 extends AllEntryFunctions[T0]["args"]
-        >(
-          request: SubmitRequest<T0, T1, T2>
+        async function submitTransaction<T0 extends MoveEntryFunction>(
+          request: SubmitRequest<T0>
         ): Promise<void> {
           setIsLoading(true);
           const { hash } = await signAndSubmitTransaction({
@@ -43,13 +39,10 @@ export function generateReactHooks(): string {
       // TODO: use React Query or SWR
       // TODO: test it
       export function useQueryViewFunction<
-        T0 extends MoveViewFunction,
-        T1 extends AllViewFunctions[T0]["types"],
-        T2 extends AllViewFunctions[T0]["args"],
-        T3 extends AllViewFunctions[T0]["return"]
-      >(client: AptosClient, request: ViewRequest<T0, T1, T2>) {
+        T0 extends MoveViewFunction
+      >(client: AptosClient, request: ViewRequest<T0>) {
         const [isLoading, setIsLoading] = useState(false);
-        const [result, setResult] = useState<T3>();
+        const [result, setResult] = useState<AllViewFunctions[T0]["return"]>();
       
         useEffect(() => {
           setIsLoading(true);

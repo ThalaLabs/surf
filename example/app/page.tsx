@@ -28,7 +28,7 @@ export default function Home() {
       });
     }
     catch (e) {
-      console.error('qzq', e);
+      console.error('error', e);
     }
   }
 
