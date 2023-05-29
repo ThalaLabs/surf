@@ -3,22 +3,25 @@ import { AptosClient } from 'aptos';
 import { useQueryViewFunction, useSubmitTransaction } from '../bindings/hooks'
 import styles from './page.module.css'
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { useEffect } from 'react';
 
 export default function Home() {
   const wallet = useWallet();
 
-  if (!wallet.connected) {
-    wallet.connect(wallet.wallets[0].name);
-  }
+  useEffect(() => {
+    if (!wallet.connected) {
+      wallet.connect(wallet.wallets[0].name);
+    }
+  }, [])
 
-  const { result, isLoading } = useQueryViewFunction(new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
+  const { data, isLoading } = useQueryViewFunction(new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
     {
       function: '0x1::coin::balance',
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
       arguments: ['0x1']
     });
 
-  const { isLoading: submitIsLoading, submitTransaction, result: submitResult } = useSubmitTransaction();
+  const { isLoading: submitIsLoading, error: submitError, submitTransaction, data: submitResult } = useSubmitTransaction();
   const onClick = async () => {
     try {
       await submitTransaction({
@@ -44,20 +47,21 @@ export default function Home() {
       {<div style={{
         fontSize: "20px",
       }} className={styles.center}>
-        Balance of 0x1 {!isLoading && result ? result[0].toString() : "loading"}
+        Balance of 0x1 {!isLoading && data ? data[0].toString() : "loading"}
         <div>
           {`Wallet status: ${wallet.connected ? "connected" : "disconnected"}`}
         </div>
         <button style={{
-            padding: "10px",
-            margin: "50px",
-            fontSize: "20px"
-          }}
-            onClick={onClick}>
-            Submit transaction: transfer 1 coin to 0x1 on testnet
-          </button>
-          {submitIsLoading && "loading"}
-          {submitResult && `Result: ${submitResult.hash}`}
+          padding: "10px",
+          margin: "50px",
+          fontSize: "20px"
+        }}
+          onClick={onClick}>
+          Submit transaction: transfer 1 coin to 0x1 on testnet
+        </button>
+        {submitIsLoading && "loading"}
+        {submitResult && `Success: ${submitResult.hash}`}
+        {submitError && `Failed: ${submitError}`}
       </div>
       }
 
