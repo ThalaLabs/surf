@@ -1,4 +1,6 @@
+import { accountTable } from "../accountTable.js";
 import { generateFunctionName, generateModuleName, generateStructName } from "./generateNames.js";
+import { capitalizeFirstLetter } from "./utils.js";
 
 function generateFunctionTableItem(func: ABIFunction, abi: ABIRoot): string {
     return `'${abi.address}::${abi.name}::${func.name}' : ${generateModuleName(abi)}.Functions.${generateFunctionName(func.name)};`;
@@ -31,8 +33,8 @@ export function generateTable(abis: ABIRoot[]): string {
             .forEach(str => structs.push(str));
     });
     return `
-        ${abis.map(abi => `import * as ${generateModuleName(abi)} from './modules/${abi.name}';`).join('\n')}
-
+        ${abis.map(abi => `import * as ${generateModuleName(abi)} from './modules/${accountTable[abi.address] ?? ""}${capitalizeFirstLetter(abi.name)}';`).join('\n')}
+        
         type AllEntryFunctions = {
             ${entryFunctions.join('\n')}
         };

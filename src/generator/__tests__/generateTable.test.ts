@@ -15,40 +15,40 @@ describe('generate module', () => {
     const result = generateTable([abi]);
     expect(result).toMatchInlineSnapshot(`
       "
-              import * as ModuleCoin from './modules/coin';
-
+              import * as Coin from './modules/Coin';
+              
               type AllEntryFunctions = {
-                  '0x1::coin::freeze_coin_store' : ModuleCoin.Functions.Freeze_coin_store;
-      '0x1::coin::transfer' : ModuleCoin.Functions.Transfer;
-      '0x1::coin::unfreeze_coin_store' : ModuleCoin.Functions.Unfreeze_coin_store;
-      '0x1::coin::upgrade_supply' : ModuleCoin.Functions.Upgrade_supply;
+                  '0x1::coin::freeze_coin_store' : Coin.Functions.Freeze_coin_store;
+      '0x1::coin::transfer' : Coin.Functions.Transfer;
+      '0x1::coin::unfreeze_coin_store' : Coin.Functions.Unfreeze_coin_store;
+      '0x1::coin::upgrade_supply' : Coin.Functions.Upgrade_supply;
               };
 
               type MoveEntryFunction = keyof AllEntryFunctions;
 
               type AllViewFunctions = {
-                  '0x1::coin::balance' : ModuleCoin.Functions.Balance;
-      '0x1::coin::decimals' : ModuleCoin.Functions.Decimals;
-      '0x1::coin::is_account_registered' : ModuleCoin.Functions.Is_account_registered;
-      '0x1::coin::is_coin_initialized' : ModuleCoin.Functions.Is_coin_initialized;
-      '0x1::coin::name' : ModuleCoin.Functions.Name;
-      '0x1::coin::supply' : ModuleCoin.Functions.Supply;
-      '0x1::coin::symbol' : ModuleCoin.Functions.Symbol;
+                  '0x1::coin::balance' : Coin.Functions.Balance;
+      '0x1::coin::decimals' : Coin.Functions.Decimals;
+      '0x1::coin::is_account_registered' : Coin.Functions.Is_account_registered;
+      '0x1::coin::is_coin_initialized' : Coin.Functions.Is_coin_initialized;
+      '0x1::coin::name' : Coin.Functions.Name;
+      '0x1::coin::supply' : Coin.Functions.Supply;
+      '0x1::coin::symbol' : Coin.Functions.Symbol;
               };
               
               type MoveViewFunction = keyof AllViewFunctions;
 
               type AllStructs = {
-                  '0x1::coin::AggregatableCoin' : ModuleCoin.Structs.AggregatableCoin;
-      '0x1::coin::BurnCapability' : ModuleCoin.Structs.BurnCapability;
-      '0x1::coin::Coin' : ModuleCoin.Structs.Coin;
-      '0x1::coin::CoinInfo' : ModuleCoin.Structs.CoinInfo;
-      '0x1::coin::CoinStore' : ModuleCoin.Structs.CoinStore;
-      '0x1::coin::DepositEvent' : ModuleCoin.Structs.DepositEvent;
-      '0x1::coin::FreezeCapability' : ModuleCoin.Structs.FreezeCapability;
-      '0x1::coin::MintCapability' : ModuleCoin.Structs.MintCapability;
-      '0x1::coin::SupplyConfig' : ModuleCoin.Structs.SupplyConfig;
-      '0x1::coin::WithdrawEvent' : ModuleCoin.Structs.WithdrawEvent;
+                  '0x1::coin::AggregatableCoin' : Coin.Structs.AggregatableCoin;
+      '0x1::coin::BurnCapability' : Coin.Structs.BurnCapability;
+      '0x1::coin::Coin' : Coin.Structs.Coin;
+      '0x1::coin::CoinInfo' : Coin.Structs.CoinInfo;
+      '0x1::coin::CoinStore' : Coin.Structs.CoinStore;
+      '0x1::coin::DepositEvent' : Coin.Structs.DepositEvent;
+      '0x1::coin::FreezeCapability' : Coin.Structs.FreezeCapability;
+      '0x1::coin::MintCapability' : Coin.Structs.MintCapability;
+      '0x1::coin::SupplyConfig' : Coin.Structs.SupplyConfig;
+      '0x1::coin::WithdrawEvent' : Coin.Structs.WithdrawEvent;
               };
               
               type MoveStruct = keyof AllStructs;

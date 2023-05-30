@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { submitCoinTransfer } from '../../bindings/entries/coin';
 import { AptosAccount, AptosClient } from 'aptos';
+import { submitCoinTransfer } from '../../bindings/entries/stdCoin';
 
 export async function GET(request: Request) {
     let account;

@@ -19,5 +19,5 @@
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": ["src/**/*", "__tests__/**/*", "example_legacy/**/*"],
+  "include": ["src/**/*", "__tests__/**/*"],
 }

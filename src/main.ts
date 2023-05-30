@@ -9,6 +9,8 @@ import { generateCommon } from './generator/generateCommon.js';
 import { generateTable } from './generator/generateTable.js';
 import { generateAllEntryFunctionImpl } from './generator/generateEntryFunctionImpl.js';
 import { generateReactHooks } from './generator/generateReactHooks.js';
+import { accountTable } from './accountTable.js';
+import { capitalizeFirstLetter } from './generator/utils.js';
 
 type Options = {
     sourceDir: string, targetDir: string, config: string
@@ -22,6 +24,7 @@ export async function main(options: Options) {
     // TODO: make the config file better
     const config: {
         address: string,
+        name: string,
     }[] = (await import(path.join(process.cwd(), options.config))).default;
 
     await fs.mkdir(path.join(options.targetDir, FOLDER_MODULES), { recursive: true });
@@ -38,6 +41,8 @@ export async function main(options: Options) {
         generateFiles(allAbis, options);
     }
     else {
+        config.forEach(item => accountTable[item.address] = item.name ?? "");
+
         for (const item of config) {
             // TODO: make the network configurable
             https.get(`https://fullnode.mainnet.aptoslabs.com/v1/accounts/${item.address}/modules`, (response) => {
@@ -89,7 +94,9 @@ async function createPrimitivesTypeFile(options: Options) {
 
 async function createModuleFile(options: Options, abi: ABIRoot) {
     const generated = generateModule(abi);
-    const filePath = path.join(FOLDER_MODULES, `${abi.name}.d.ts`);
+    const filePath = path.join(
+        FOLDER_MODULES,
+        `${accountTable[abi.address]}${capitalizeFirstLetter(abi.name)}.d.ts`);
     createFile(options, filePath, generated);
 }
 
@@ -106,7 +113,7 @@ async function createTableFile(options: Options, allAbis: ABIRoot[]) {
 async function createEntryFunctionImplFile(options: Options, allAbis: ABIRoot[]) {
     allAbis.forEach(async (abi) => {
         const generated = generateAllEntryFunctionImpl(abi);
-        createFile(options, path.join(FOLDER_ENTRIES, `${abi.name}.ts`), generated);
+        createFile(options, path.join(FOLDER_ENTRIES, `${accountTable[abi.address]}${capitalizeFirstLetter(abi.name)}.ts`), generated);
     })
 }
 
