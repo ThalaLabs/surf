@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import https from 'https';
 import { format } from 'prettier'
 import { generateModule } from './generator/generateModule.js';
 import { generatePrimitives } from './generator/generatePrimitive.js';
@@ -10,25 +11,54 @@ import { generateAllEntryFunctionImpl } from './generator/generateEntryFunctionI
 import { generateReactHooks } from './generator/generateReactHooks.js';
 
 type Options = {
-    sourceDir: string, targetDir: string
+    sourceDir: string, targetDir: string, config: string
 };
 
 export async function main(options: Options) {
     console.log('sourceDir', options.sourceDir);
     console.log('targetDir', options.targetDir);
+    console.log('config', options.config);
+
+    // TODO: make the config file better
+    const config: {
+        address: string,
+    }[] = (await import(path.join(process.cwd(), options.config))).default;
 
     await fs.mkdir(path.join(options.targetDir, FOLDER_MODULES), { recursive: true });
     await fs.mkdir(path.join(options.targetDir, FOLDER_ENTRIES), { recursive: true });
 
     // load all abi files
     const allAbis: ABIRoot[] = [];
-    const files = await fs.readdir(options.sourceDir);
-    for (const file of files) {
-        const filepath = path.join(options.sourceDir, file);
-        allAbis.push(JSON.parse(await fs.readFile(filepath, 'utf-8')));
-    };
+    if (!config) {
+        const files = await fs.readdir(options.sourceDir);
+        for (const file of files) {
+            const filepath = path.join(options.sourceDir, file);
+            allAbis.push(JSON.parse(await fs.readFile(filepath, 'utf-8')));
+        };
+        generateFiles(allAbis, options);
+    }
+    else {
+        for (const item of config) {
+            // TODO: make the network configurable
+            https.get(`https://fullnode.mainnet.aptoslabs.com/v1/accounts/${item.address}/modules`, (response) => {
+                let data = '';
+                response.on('data', (chunk) => data += chunk);
+                response.on('end', () => {
+                    const rawResponse: {
+                        bytecode: string,
+                        abi: ABIRoot
+                    }[] = JSON.parse(data);
+                    rawResponse.forEach(item => allAbis.push(item.abi));
+                    generateFiles(allAbis, options);
+                });
+            }).on('error', (error) => {
+                throw error;
+            });
+        }
+    }
+}
 
-    // generate all modules
+function generateFiles(allAbis: ABIRoot[], options: Options) {
     allAbis.forEach(async (abi) => {
         await createModuleFile(options, abi);
     });
@@ -40,7 +70,6 @@ export async function main(options: Options) {
     createHooksFile(options);
     createTableFile(options, allAbis);
     createEntryFunctionImplFile(options, allAbis);
-    
 }
 
 async function createHooksFile(options: Options) {
