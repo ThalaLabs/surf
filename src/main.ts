@@ -11,6 +11,7 @@ import { generateAllEntryFunctionImpl } from './generator/generateEntryFunctionI
 import { generateReactHooks } from './generator/generateReactHooks.js';
 import { accountTable } from './accountTable.js';
 import { capitalizeFirstLetter } from './generator/utils.js';
+import { abiPreProcessor, normalizeAddress } from './abiPreprocessor.js';
 
 type Options = {
     sourceDir: string, targetDir: string, config: string
@@ -41,34 +42,41 @@ export async function main(options: Options) {
         generateFiles(allAbis, options);
     }
     else {
-        config.forEach(item => accountTable[item.address] = item.name ?? "");
+        // setup account table, which would be used by generator.
+        config.forEach(item => accountTable[normalizeAddress(item.address)] = item.name ?? "");
 
-        for (const item of config) {
-            // TODO: make the network configurable
-            https.get(`https://fullnode.mainnet.aptoslabs.com/v1/accounts/${item.address}/modules`, (response) => {
-                let data = '';
-                response.on('data', (chunk) => data += chunk);
-                response.on('end', () => {
-                    const rawResponse: {
-                        bytecode: string,
-                        abi: ABIRoot
-                    }[] = JSON.parse(data);
-                    rawResponse.forEach(item => allAbis.push(item.abi));
-                    generateFiles(allAbis, options);
+        // fetch all modules data from all accounts
+        await Promise.all(
+            config.map(item => new Promise<void>((resolve, reject) => {
+                https.get(`https://fullnode.mainnet.aptoslabs.com/v1/accounts/${item.address}/modules`, (response) => {
+                    let data = '';
+                    response.on('data', (chunk) => data += chunk);
+                    response.on('end', () => {
+                        const rawResponse: {
+                            bytecode: string,
+                            abi: ABIRoot
+                        }[] = JSON.parse(data);
+                        rawResponse.forEach(item =>
+                            allAbis.push(abiPreProcessor(item.abi)));
+                        console.log('fetched', item.address);
+
+                        resolve();
+                    });
+                }).on('error', (error) => {
+                    reject(error);
                 });
-            }).on('error', (error) => {
-                throw error;
-            });
-        }
+            })));
+
+        generateFiles(allAbis, options);
     }
 }
 
 function generateFiles(allAbis: ABIRoot[], options: Options) {
+    console.log('start generating');
     allAbis.forEach(async (abi) => {
         await createModuleFile(options, abi);
     });
 
-    createPrimitivesFile(options);
     createPrimitivesTypeFile(options);
     createCommonFile(options);
     createIndexFile(options);
@@ -80,11 +88,6 @@ function generateFiles(allAbis: ABIRoot[], options: Options) {
 async function createHooksFile(options: Options) {
     const generated = generateReactHooks();
     createFile(options, "hooks.ts", generated);
-}
-
-async function createPrimitivesFile(options: Options) {
-    const generated = generatePrimitives();
-    createFile(options, path.join(FOLDER_TYPES, "primitives.d.ts"), generated);
 }
 
 async function createPrimitivesTypeFile(options: Options) {
@@ -113,7 +116,7 @@ async function createTableFile(options: Options, allAbis: ABIRoot[]) {
 async function createEntryFunctionImplFile(options: Options, allAbis: ABIRoot[]) {
     allAbis.forEach(async (abi) => {
         const generated = generateAllEntryFunctionImpl(abi);
-        createFile(options, path.join(FOLDER_ENTRIES, `${accountTable[abi.address]}${capitalizeFirstLetter(abi.name)}.ts`), generated);
+        createFile(options, path.join(FOLDER_ENTRIES, `${accountTable[abi.address] ?? ""}${capitalizeFirstLetter(abi.name)}.ts`), generated);
     })
 }
 
