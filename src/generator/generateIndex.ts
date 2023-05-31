@@ -6,7 +6,7 @@ export function generateIndex() {
     
     export async function view<T0 extends MoveViewFunction>(
       client: AptosClient, request: ViewRequest<T0>): Promise<AllViewFunctions[T0]["return"]> {
-      // TODO: serialization for input, and deserialization for output
+      // TODO: serialization for input, and deserialization for output, maybe use zod
       return client.view(request) as Promise<AllViewFunctions[T0]["return"]>;
     }
     

@@ -1,4 +1,4 @@
-export default [
+module.exports = [
     {
         address: '0x1',
         

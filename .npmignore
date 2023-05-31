@@ -1,0 +1,40 @@
+example
+tsconfig.json
+tsconfig.release.json
+move-ts.config.example.js
+jest.config.js
+abi
+.vscode
+.editorconfig 
+.eslintignore
+.eslintrc.json
+.github/workflows/nodejs.yml
+.prettierrc
+src
+
+# generated files
+bindings/
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+
+# Coverage
+coverage
+
+# JetBrains IDEs
+.idea/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Misc
+.DS_Store

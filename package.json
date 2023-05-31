@@ -1,13 +1,13 @@
 {
-  "name": "move-sdk",
-  "version": "0.0.0",
+  "name": "move-ts-binding",
+  "version": "0.0.3",
   "description": "generate TypeScript bindings for Move smart contracts",
   "type": "module",
   "bin": {
-    "generate-sdk": "./build/src/cli.js"
+    "generate-move-ts-binding": "./build/src/cli.js"
   },
   "engines": {
-    "node": ">= 18.12 <19"
+    "node": ">= 16 <19"
   },
   "devDependencies": {
     "@types/jest": "~29.5",
@@ -22,7 +22,11 @@
     "rimraf": "~5.0",
     "ts-api-utils": "~0.0.44",
     "ts-jest": "~29.1",
-    "typescript": "~5.0"
+    "typescript": "~5.0",
+    "@aptos-labs/wallet-adapter-react": "^1.1.0",
+    "aptos": "^1.9.0",
+    "react": "^18.2.0",
+    "tslib": "~2.5"
   },
   "scripts": {
     "start": "node build/src/main.js",
@@ -38,11 +42,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@aptos-labs/wallet-adapter-react": "^1.1.0",
-    "aptos": "^1.9.0",
-    "command-line-args": "^5.2.1",
-    "react": "^18.2.0",
-    "tslib": "~2.5"
+    "command-line-args": "^5.2.1"
   },
   "volta": {
     "node": "18.12.1"
