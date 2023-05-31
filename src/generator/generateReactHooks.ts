@@ -28,7 +28,18 @@ export function generateReactHooks(): string {
           const { hash } = await signAndSubmitTransaction({
             type: "entry_function_payload",
             ...request,
-            arguments: request.arguments.map((arg: any) => arg.toString()),
+            arguments: request.arguments.map((arg: any) => {
+              if (Array.isArray(arg)) {
+                // TODO: support nested array, or use the BCS API instead
+                return arg.map((item: any) => item.toString());
+              }
+              else if (typeof arg === 'object') {
+                throw new Error(\`a value of struct type: \${arg} is not supported\`);
+              }
+              else {
+                return arg.toString();
+              }
+            }),
           });
     
           // TODO: make it configurable

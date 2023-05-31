@@ -1,4 +1,10 @@
 export function generateArgumentType(raw: string): string {
+    const vectorRegex = /vector<([^]+)>/;
+    const match = raw.match(vectorRegex);
+    if(match) {
+        return `MoveType.Vector<${generateArgumentType(match[1])}>`;
+    }
+
     switch (raw) {
         case 'bool':
             return 'MoveType.Bool';
@@ -33,6 +39,7 @@ export function generatePrimitives(): string {
     export type U256 = bigint;
     export type Address = \`0x\${string}\`;
     export type Bool = boolean;
-    export type String = string;    
+    export type String = string;
+    export type Vector<T> = T[];
     `;
 }
