@@ -1,12 +1,9 @@
 {
   "name": "@thalalabs/move-ts",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "generate TypeScript bindings for Move smart contracts",
   "bin": {
-    "generate-move-ts-binding": "./build/src/cli.js"
-  },
-  "engines": {
-    "node": ">= 16 <19"
+    "move-ts": "./build/src/cli.js"
   },
   "devDependencies": {
     "@types/jest": "~29.5",
@@ -30,20 +27,18 @@
   "scripts": {
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "npm run lint",
+    "prebuild": "yarn lint",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "npm run clean && tsc -p tsconfig.release.json",
+    "build:release": "yarn clean && tsc -p tsconfig.release.json",
     "lint": "eslint . --ext .ts --ext .mts",
     "test": "jest --coverage",
     "prettier": "prettier --config .prettierrc --write .",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "prepublishOnly": "yarn build:release"
   },
   "license": "MIT",
   "dependencies": {
     "command-line-args": "^5.2.1"
-  },
-  "volta": {
-    "node": "18.12.1"
   }
 }

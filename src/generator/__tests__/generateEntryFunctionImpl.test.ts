@@ -38,6 +38,9 @@ describe('generate entry function impl', () => {
                   arguments: [MoveType.Address, MoveType.U64],
               }
           ): Promise<string> {
+              const a0 = request.arguments[0]
+      const a1 = typeof request.arguments[1] === 'string' ? BigInt(request.arguments[1]) : request.arguments[1]
+
               const entryFunction = TxnBuilderTypes.EntryFunction.natural(
                   "0x1::coin",
                   "transfer",
@@ -46,9 +49,9 @@ describe('generate entry function impl', () => {
                   )),
                   [
                       BCS.bcsToBytes(
-                      TxnBuilderTypes.AccountAddress.fromHex(request.arguments[0])
+                      TxnBuilderTypes.AccountAddress.fromHex(a0)
                   ),
-      BCS.bcsSerializeUint64(request.arguments[1])
+      BCS.bcsSerializeUint64(a1)
                   ]
               );
               return submitEntryFunctionImpl(client, account, entryFunction);

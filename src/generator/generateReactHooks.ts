@@ -9,7 +9,6 @@ export function generateReactHooks(): string {
     
     type Error = any;
 
-    // TODO: use React Query or SWR
     export const useSubmitTransaction = () => {
       const { signAndSubmitTransaction } = useWallet();
     
@@ -60,33 +59,32 @@ export function generateReactHooks(): string {
     
       return { submitTransaction, isLoading, data, error };
     };
-      
-      
-      // TODO: use React Query or SWR
-      export function useQueryViewFunction<T0 extends MoveViewFunction>(
-        client: AptosClient,
-        request: ViewRequest<T0>
-      ) {
-        const [isLoading, setIsLoading] = useState(false);
-        const [data, setResult] = useState<AllViewFunctions[T0]["return"]>();
-        const [error, setError] = useState<Error>();
+    
+    // TODO: use React Query or SWR
+    export function useQueryViewFunction<T0 extends MoveViewFunction>(
+      client: AptosClient,
+      request: ViewRequest<T0>
+    ) {
+      const [isLoading, setIsLoading] = useState(false);
+      const [data, setResult] = useState<AllViewFunctions[T0]["return"]>();
+      const [error, setError] = useState<Error>();
 
-        useEffect(() => {
-          setIsLoading(true);
-          setResult(undefined);
-          setError(undefined);
+      useEffect(() => {
+        setIsLoading(true);
+        setResult(undefined);
+        setError(undefined);
 
-          view(client, request)
-            .then((result) => {
-              setResult(result as AllViewFunctions[T0]["return"]);
-            })
-            .catch((e) => {
-              setError(e ? e : new Error("unknown error"));
-            })
-            .finally(() => setIsLoading(false));
-        }, []); // TODO: re-validate when request changes, what should be used as key?
+        view(client, request)
+          .then((result) => {
+            setResult(result as AllViewFunctions[T0]["return"]);
+          })
+          .catch((e) => {
+            setError(e ? e : new Error("unknown error"));
+          })
+          .finally(() => setIsLoading(false));
+      }, []); // TODO: re-validate when request changes, what should be used as key?
 
-        return { data, error, isLoading };
-      }
+      return { data, error, isLoading };
+    }
     `;
 }

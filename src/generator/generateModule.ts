@@ -1,7 +1,6 @@
 import { generateFunction } from "./generateFunction.js";
 import { generateStruct } from "./generateStruct.js";
 
-// TODO: how to resolve same name module from difference address
 export function generateModule(abi: ABIRoot): string {
     return `
     import * as MoveType from '../primitives';

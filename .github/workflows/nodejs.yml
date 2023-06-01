@@ -8,7 +8,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
       - run: yarn install --frozen-lockfile
       - run: yarn lint --if-present
       - run: yarn test

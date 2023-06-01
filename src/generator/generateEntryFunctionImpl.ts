@@ -9,15 +9,31 @@ import { capitalizeFirstLetter } from "./utils.js";
 
 // TODO: use generic type to verify the relationship between type_arguments and arguments.
 export function generateEntryFunctionImpl(func: ABIFunction, abi: ABIRoot): string {
+    const params = func.params.slice(1);
     return `
     export async function submit${capitalizeFirstLetter(abi.name)}${capitalizeFirstLetter(func.name)}(
         client: AptosClient,
         account: AptosAccount,
         request: {
             type_arguments: [${func.generic_type_params.map(() => 'MoveStruct').join(', ')}],
-            arguments: [${func.params.slice(1).map(t => generateArgumentType(t)).join(', ')}],
+            arguments: [${params.map(t => generateArgumentType(t)).join(', ')}],
         }
     ): Promise<string> {
+        ${params.map((argType, i) => {
+            if(['u8', 'u16', 'u32'].includes(argType))
+            {
+                return `const a${i} = typeof request.arguments[${i}] === 'string' ? Number(request.arguments[${i}]) : request.arguments[${i}]`;
+            }
+
+            if(['u64', 'u128', 'u256'].includes(argType))
+            {
+                return `const a${i} = typeof request.arguments[${i}] === 'string' ? BigInt(request.arguments[${i}]) : request.arguments[${i}]`;
+            }
+
+            return `const a${i} = request.arguments[${i}]`;
+        })
+        .join('\n')}
+
         const entryFunction = TxnBuilderTypes.EntryFunction.natural(
             "${abi.address}::${abi.name}",
             "${func.name}",
@@ -25,7 +41,7 @@ export function generateEntryFunctionImpl(func: ABIFunction, abi: ABIRoot): stri
                 TxnBuilderTypes.StructTag.fromString(type)
             )),
             [
-                ${func.params.slice(1).map((argType, i) => generateBCSArgument(argType)(`request.arguments[${i}]`)).join(',\n')}
+                ${params.map((argType, i) => generateBCSArgument(argType)(`a${i}`)).join(',\n')}
             ]
         );
         return submitEntryFunctionImpl(client, account, entryFunction);

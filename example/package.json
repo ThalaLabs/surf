@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node ../build/src/cli.js --config=./move-ts.config.js --targetDir=./bindings",
+    "prebuild": "rimraf ./bindings && node ../build/src/cli.js --config=./move-ts.config.js --targetDir=./bindings",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
