@@ -52,7 +52,7 @@ describe('generate function', () => {
           type Decimals = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.U8];
+              return: [MoveType.U8Return];
           };"
     `);
   });

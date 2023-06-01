@@ -1,7 +1,6 @@
 import { AptosClient } from "aptos";
-import { view } from "../../bindings";
+import { view, ViewRequest } from "../../bindings";
 import { NextResponse } from "next/server";
-import { ViewRequest } from "../../bindings/types/common";
 
 export async function GET(request: Request) {
     try {

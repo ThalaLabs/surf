@@ -34,14 +34,17 @@ export function generateEntryFunctionImpl(func: ABIFunction, abi: ABIRoot): stri
 }
 
 export function generateAllEntryFunctionImpl(abi: ABIRoot): string {
+    const entries = abi.exposed_functions
+        .filter(func => func.is_entry);
+    if (entries.length === 0) return '';
+
     return `
     import { AptosAccount, AptosClient, BCS, TxnBuilderTypes } from "aptos";
     import {submitEntryFunctionImpl} from "../index";
     import { MoveStruct } from "../types/moduleTable";
     import * as MoveType from '../types/primitives';
 
-    ${abi.exposed_functions
-            .filter(func => func.is_entry)
+    ${entries
             .map(func => generateEntryFunctionImpl(func, abi))
             .join('\n')}
     `;

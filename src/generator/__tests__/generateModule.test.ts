@@ -81,14 +81,14 @@ describe('generate module', () => {
           type Balance = {
               types: [MoveStruct];
               args: [MoveType.Address];
-              return: [MoveType.U64];
+              return: [MoveType.U64Return];
           };
 
 
           type Decimals = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.U8];
+              return: [MoveType.U8Return];
           };
 
 
@@ -102,21 +102,21 @@ describe('generate module', () => {
           type Is_account_registered = {
               types: [MoveStruct];
               args: [MoveType.Address];
-              return: [MoveType.Bool];
+              return: [MoveType.BoolReturn];
           };
 
 
           type Is_coin_initialized = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.Bool];
+              return: [MoveType.BoolReturn];
           };
 
 
           type Name = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.String];
+              return: [MoveType.StringReturn];
           };
 
 
@@ -130,7 +130,7 @@ describe('generate module', () => {
           type Symbol = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.String];
+              return: [MoveType.StringReturn];
           };
 
 

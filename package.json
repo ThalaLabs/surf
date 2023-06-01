@@ -1,8 +1,7 @@
 {
-  "name": "move-ts-binding",
-  "version": "0.0.3",
+  "name": "@thalalabs/move-ts",
+  "version": "0.0.2",
   "description": "generate TypeScript bindings for Move smart contracts",
-  "type": "module",
   "bin": {
     "generate-move-ts-binding": "./build/src/cli.js"
   },

@@ -29,6 +29,37 @@ export function generateArgumentType(raw: string): string {
     }
 }
 
+export function generateReturnType(raw: string): string {
+    const vectorRegex = /vector<([^]+)>/;
+    const match = raw.match(vectorRegex);
+    if(match) {
+        return `MoveType.VectorReturn<${generateArgumentType(match[1])}>`;
+    }
+
+    switch (raw) {
+        case 'bool':
+            return 'MoveType.BoolReturn';
+        case 'address':
+            return 'MoveType.AddressReturn';
+        case 'u8':
+            return 'MoveType.U8Return';
+        case 'u16':
+            return 'MoveType.U16Return';
+        case 'u32':
+            return 'MoveType.U32Return';
+        case 'u64':
+            return 'MoveType.U64Return';
+        case 'u128':
+            return 'MoveType.U128Return';
+        case 'u256':
+            return 'MoveType.U256Return';
+        case '0x1::string::String':
+            return 'MoveType.StringReturn';
+        default:
+            return 'any'; // TODO: fix complex type
+    }
+}
+
 export function generatePrimitives(): string {
     return `
     export type U8 = number;
@@ -41,5 +72,17 @@ export function generatePrimitives(): string {
     export type Bool = boolean;
     export type String = string;
     export type Vector<T> = T[];
+
+    export type U8Return = number;
+    export type U16Return = number;
+    export type U32Return = number;
+    export type U64Return = string;
+    export type U128Return = string;
+    export type U256Return = string;
+    export type AddressReturn = \`0x\${string}\`;
+    export type BoolReturn = boolean;
+    export type StringReturn = string;
+    export type VectorReturn<T> = T[];
     `;
 }
+

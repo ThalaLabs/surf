@@ -159,14 +159,14 @@ describe('generate all', () => {
           type Balance = {
               types: [MoveStruct];
               args: [MoveType.Address];
-              return: [MoveType.U64];
+              return: [MoveType.U64Return];
           };
 
 
           type Decimals = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.U8];
+              return: [MoveType.U8Return];
           };
 
 
@@ -180,21 +180,21 @@ describe('generate all', () => {
           type Is_account_registered = {
               types: [MoveStruct];
               args: [MoveType.Address];
-              return: [MoveType.Bool];
+              return: [MoveType.BoolReturn];
           };
 
 
           type Is_coin_initialized = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.Bool];
+              return: [MoveType.BoolReturn];
           };
 
 
           type Name = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.String];
+              return: [MoveType.StringReturn];
           };
 
 
@@ -208,7 +208,7 @@ describe('generate all', () => {
           type Symbol = {
               types: [MoveStruct];
               args: [];
-              return: [MoveType.String];
+              return: [MoveType.StringReturn];
           };
 
 
