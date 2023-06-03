@@ -6,7 +6,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "tsconfig.json",
+    "project": "tsconfig.cli.json", // TODO: fix this, we should lint for both projects
     "sourceType": "module",
     "ecmaVersion": 2020
   },
@@ -23,6 +23,11 @@
     // disable it, or understand what it enforces.
     // https://typescript-eslint.io/rules/explicit-function-return-type/
     "@typescript-eslint/explicit-function-return-type": "warn",
-    "@typescript-eslint/no-namespace": "off"
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+
+    // TODO: remove these rules
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   }
 }

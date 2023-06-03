@@ -1,7 +1,11 @@
 {
   "name": "@thalalabs/move-ts",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "generate TypeScript bindings for Move smart contracts",
+  "main": "./build/cjs/index.js",
+  "module": "./build/esm/index.js",
+  "types": "./build/types/index.d.ts",
+  "typings": "./build/types/index.d.ts",
   "bin": {
     "move-ts": "./build/src/cli.js"
   },
@@ -28,15 +32,23 @@
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
     "prebuild": "yarn lint",
-    "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "yarn clean && tsc -p tsconfig.release.json",
+    "build": "yarn clean && yarn build:cli && yarn build:cjs && yarn build:esm && yarn build:types",
+    "build:cli": "tsc -p tsconfig.cli.json",
+    "build:cjs": "tsc --project tsconfig.lib.json --module commonjs --outDir ./build/cjs --removeComments --verbatimModuleSyntax false && echo > ./build/cjs/package.json '{\"type\":\"commonjs\"}'",
+    "build:esm": "tsc --project tsconfig.lib.json --module es2015 --outDir ./build/esm --removeComments && echo > ./build/esm/package.json '{\"type\":\"module\"}'",
+    "build:types": "tsc --project tsconfig.lib.json --module esnext --declarationDir ./build/types --emitDeclarationOnly --declaration --declarationMap",
     "lint": "eslint . --ext .ts --ext .mts",
     "test": "jest --coverage",
     "prettier": "prettier --config .prettierrc --write .",
     "test:watch": "jest --watch",
-    "prepublishOnly": "yarn build:release"
+    "prepublishOnly": "yarn build"
   },
+  "keywords": [
+    "move",
+    "blockchain",
+    "aptos"
+  ],
   "license": "MIT",
   "dependencies": {
     "command-line-args": "^5.2.1"
