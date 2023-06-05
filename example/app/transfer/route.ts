@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { AptosAccount, AptosClient } from 'aptos';
-import { submitCoinTransfer } from '../../bindings/entries/stdCoin';
+import { AptosAccount } from 'aptos';
+import { createClient, createEntryPayload } from '@thalalabs/move-ts';
+import { COIN_ABI } from '../../abi/coin';
 
 export async function GET(request: Request) {
     let account;
@@ -13,17 +14,18 @@ export async function GET(request: Request) {
     }
 
     try {
-        const tx = await submitCoinTransfer(
-            new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
-            account,
-            {
-                type_arguments: ['0x1::aptos_coin::AptosCoin'],
-                arguments: ['0x1', BigInt(1)]
-            }
-        )
+        const client = createClient({
+            nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1"
+        });
+        const transferPayload = createEntryPayload(COIN_ABI, {
+            function: 'transfer',
+            type_arguments: ['0x1::aptos_coin::AptosCoin'],
+            arguments: ['0x1', BigInt(1)]
+        });
+        const tx = await client.submitTransaction(account, transferPayload);
         return NextResponse.json({ tx });
     }
-    catch(e) {
+    catch (e) {
         return NextResponse.json({ error: "submit transaction failed" });
     }
 }

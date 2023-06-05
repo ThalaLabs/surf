@@ -1,28 +1,32 @@
-import { AptosClient } from "aptos";
-import { view, ViewRequest } from "../../bindings";
 import { NextResponse } from "next/server";
+import { createClient, createViewPayload } from "@thalalabs/move-ts";
+import { COIN_ABI } from "../../abi/coin";
 
 export async function GET(request: Request) {
     try {
+        const client = createClient({
+            nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1"
+        });
+
         // Call view function with type safety.
-        const balance = await view(
-            new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
+        const balancePayload = createViewPayload(
+            COIN_ABI,
             {
-                function: '0x1::coin::balance',
+                function: 'balance',
                 type_arguments: ['0x1::aptos_coin::AptosCoin'],
                 arguments: ['0x1']
             });
+        const balance = await client.view(balancePayload);
 
         // Create a request object before call view function.
-        const nameRequest: ViewRequest<'0x1::coin::name'> = {
-            function: '0x1::coin::name',
-            type_arguments: ['0x1::aptos_coin::AptosCoin'],
-            arguments: []
-        };
-        const coinName = await view(
-            new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
-            nameRequest
-        )
+        const coinNamePayload = createViewPayload(
+            COIN_ABI,
+            {
+                function: 'name',
+                type_arguments: ['0x1::aptos_coin::AptosCoin'],
+                arguments: []
+            });
+        const coinName = await client.view(coinNamePayload);
 
         return NextResponse.json({ message: `0x1 has ${balance} ${coinName}` });
     }
