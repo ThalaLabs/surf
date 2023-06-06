@@ -22,7 +22,7 @@ export async function GET(request: Request) {
             type_arguments: ['0x1::aptos_coin::AptosCoin'],
             arguments: ['0x1', BigInt(1)]
         });
-        const tx = await client.submitTransaction(account, transferPayload);
+        const tx = await client.submitTransaction(transferPayload, { account });
         return NextResponse.json({ tx });
     }
     catch (e) {

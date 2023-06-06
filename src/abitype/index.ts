@@ -61,6 +61,9 @@ export type ConvertArgsType<T extends Primitives> =
     T extends '0x1::string::String' ? string :
     never;
 
+//@ts-ignore TODO: remove this ignore
+type Struct<T extends string> = object;
+
 type AnyNumber = number | bigint;
 
 export type ConvertReturnType<T extends Primitives> =
@@ -89,12 +92,12 @@ type EntryFunctionName<T extends DeepReadonly<ABIRoot>> = MoveEntryFunction<T>['
 
 // TODO: Figure out how to return the correct array type
 type ConvertParams<T extends readonly string[]> = {
-    [P in keyof T]: T[P] extends Primitives ? ConvertArgsType<T[P]> : T[P];
+    [P in keyof T]: T[P] extends Primitives ? ConvertArgsType<T[P]> : Struct<T[P]>;
 };
 
 // TODO: Figure out how to return the correct array type
 type ConvertReturns<T extends readonly string[]> = {
-    [P in keyof T]: T[P] extends Primitives ? ConvertReturnType<T[P]> : T[P];
+    [P in keyof T]: T[P] extends Primitives ? ConvertReturnType<T[P]> : Struct<T[P]>;
 };
 
 // TODO: Figure out how to return the correct array type
@@ -123,6 +126,13 @@ type EntryRequestPayload<
         arguments: ConvertParams<RemoveSigner<TFunc['params']>>,
         type_arguments: ConvertTypeParams<TFunc['generic_type_params']>
     }
+
+type SubmitTransactionOptions = {
+    account: AptosAccount,
+}
+
+// type ViewOptions<TReturn> = {
+// }
 
 type EntryPayload = {
     entryRequest: TxnBuilderTypes.EntryFunction,
@@ -266,7 +276,8 @@ class MoveTsClient {
     }
 
     public async view<TReturn>(
-        payload: ViewPayload<TReturn>): Promise<TReturn> {
+        payload: ViewPayload<TReturn>
+    ): Promise<TReturn> {
         const result = await this.client.view(payload.viewRequest);
 
         // Decode the return value
@@ -279,8 +290,10 @@ class MoveTsClient {
     }
 
     public async submitTransaction(
-        account: AptosAccount,
-        payload: EntryPayload): Promise<string> {
+        payload: EntryPayload,
+        { account }: SubmitTransactionOptions
+    ): Promise<string> {
+
         const entryFunctionPayload =
             new TxnBuilderTypes.TransactionPayloadEntryFunction(payload.entryRequest);
 

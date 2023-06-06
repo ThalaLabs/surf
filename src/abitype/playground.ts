@@ -27,11 +27,13 @@ async function main() {
         type_arguments: ['0x1::aptos_coin::AptosCoin'],
     });
     const tx = await client.submitTransaction(
-        new AptosAccount(Buffer.from(
-            process.env.TEST_ACCOUNT_PRIVATE_KEY as string,
-            "hex"
-        ))
-        , entryPayload);
+        entryPayload,
+        {
+            account: new AptosAccount(Buffer.from(
+                process.env.TEST_ACCOUNT_PRIVATE_KEY as string,
+                "hex"
+            )),
+        });
     console.log("tx", tx);
 }
 
