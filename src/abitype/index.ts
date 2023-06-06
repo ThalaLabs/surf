@@ -1,5 +1,5 @@
 import { AptosAccount, AptosClient, BCS, TxnBuilderTypes } from "aptos";
-
+import { ensureBigInt, ensureBoolean, ensureNumber } from "./ensureTypes";
 export interface ABIRoot {
     address: string;
     name: string;
@@ -48,8 +48,18 @@ type DeepReadonlyObject<T> = {
     readonly [P in keyof T]: DeepReadonly<T[P]>;
 };
 
-export type Primitives = 'bool' | 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'u256' | 'address' | '0x1::string::String';
-export type ConvertArgsType<T extends Primitives> =
+// TODO: rename this variable, not only primitive, but also struct and vector
+export type Primitive =
+    'bool' | 'u8' | 'u16' | 'u32' |
+    'u64' | 'u128' | 'u256' | 'address' |
+    '0x1::string::String';
+
+type Vector = `vector<${Primitive}>`;
+type VectorOfVector = `vector<vector<${Primitive}>>`;
+
+// TODO: support struct, vector<struct>, and vector<vector<vector>>
+export type AllTypes = Primitive | Vector | VectorOfVector;
+type ConvertPrimitiveArgsType<T extends Primitive> =
     T extends 'bool' ? boolean :
     T extends 'u8' ? number :
     T extends 'u16' ? number :
@@ -61,12 +71,26 @@ export type ConvertArgsType<T extends Primitives> =
     T extends '0x1::string::String' ? string :
     never;
 
+type ConvertVectorArgsType<TInner> = TInner extends Primitive ? ConvertPrimitiveArgsType<TInner>[] :
+    (
+        TInner extends `vector<${infer TInnerInner}>` ? (
+            TInnerInner extends Primitive ? ConvertPrimitiveArgsType<TInnerInner>[][] :
+            any[][]) : (
+            object[]
+        )
+    );
+
+export type ConvertArgsType<T extends AllTypes> =
+    T extends Primitive ? ConvertPrimitiveArgsType<T> :
+    T extends `vector<${infer TInner}>` ? ConvertVectorArgsType<TInner> :
+    Struct<T>;
+
 //@ts-ignore TODO: remove this ignore
 type Struct<T extends string> = object;
 
 type AnyNumber = number | bigint;
 
-export type ConvertReturnType<T extends Primitives> =
+export type ConvertPrimitiveReturnType<T extends Primitive> =
     T extends 'bool' ? boolean :
     T extends 'u8' ? number :
     T extends 'u16' ? number :
@@ -77,6 +101,20 @@ export type ConvertReturnType<T extends Primitives> =
     T extends 'address' ? `0x${string}` :
     T extends '0x1::string::String' ? string :
     never;
+
+type ConvertVectorReturnType<TInner> = TInner extends Primitive ? ConvertPrimitiveReturnType<TInner>[] :
+    (
+        TInner extends `vector<${infer TInnerInner}>` ? (
+            TInnerInner extends Primitive ? ConvertPrimitiveReturnType<TInnerInner>[][] :
+            any[][]) : (
+            object[]
+        )
+    );
+
+export type ConvertReturnType<T extends AllTypes> =
+    T extends Primitive ? ConvertPrimitiveReturnType<T> :
+    T extends `vector<${infer TInner}>` ? ConvertVectorReturnType<TInner> :
+    Struct<T>;
 
 type Functions<T extends DeepReadonly<ABIRoot>> = T['exposed_functions'];
 type MoveFunction<T extends DeepReadonly<ABIRoot>> = Functions<T>[number];
@@ -92,12 +130,12 @@ type EntryFunctionName<T extends DeepReadonly<ABIRoot>> = MoveEntryFunction<T>['
 
 // TODO: Figure out how to return the correct array type
 type ConvertParams<T extends readonly string[]> = {
-    [P in keyof T]: T[P] extends Primitives ? ConvertArgsType<T[P]> : Struct<T[P]>;
+    [P in keyof T]: T[P] extends AllTypes ? ConvertArgsType<T[P]> : Struct<T[P]>;
 };
 
 // TODO: Figure out how to return the correct array type
 type ConvertReturns<T extends readonly string[]> = {
-    [P in keyof T]: T[P] extends Primitives ? ConvertReturnType<T[P]> : Struct<T[P]>;
+    [P in keyof T]: T[P] extends AllTypes ? ConvertReturnType<T[P]> : Struct<T[P]>;
 };
 
 // TODO: Figure out how to return the correct array type
@@ -114,7 +152,9 @@ type ViewRequestPayload<
         type_arguments: ConvertTypeParams<TFunc['generic_type_params']>
     }
 
-type RemoveSigner<T extends readonly string[]> = T extends readonly ['&signer', ...infer Rest]
+// Remove all `signer` and `&signer` from argument list because the Move VM injects those arguments. Clients do not
+// need to care about those args. `signer` and `&signer` are required be in the front of the argument list.
+type RemoveSigner<T extends readonly string[]> = T extends readonly ['&signer' | 'signer', ...infer Rest]
     ? Rest
     : T;
 
@@ -134,7 +174,7 @@ type SubmitTransactionOptions = {
 // type ViewOptions<TReturn> = {
 // }
 
-type EntryPayload = {
+export type EntryPayload = {
     entryRequest: TxnBuilderTypes.EntryFunction,
     // readonly abi: any,
 };
@@ -212,12 +252,13 @@ export function createEntryPayload<
     abi: T,
     payload: EntryRequestPayload<T, TFuncName, TFunc>
 ): EntryPayload {
+    // TODO: remove unused variables
     const fnAbi = abi.exposed_functions.filter(f => f.name === payload.function)[0];
     const typeArguments: string[] = payload.type_arguments as any[];
     const valArguments: any[] = payload.arguments as any[];
     const abiArgs = fnAbi.params[0] === '&signer'
-        ? (fnAbi.params as any[]).slice(1)
-        : fnAbi.params as any[];
+        ? (fnAbi.params as string[]).slice(1)
+        : fnAbi.params as string[];
 
     // Validations
     if (fnAbi === undefined) throw new Error(`Function ${payload.function} not found in ABI`);
@@ -233,33 +274,76 @@ export function createEntryPayload<
             valArguments.map( // arguments
                 (arg, i) => {
                     const type = abiArgs[i];
-                    switch (type) {
-                        case 'bool':
-                            return BCS.bcsSerializeBool(arg);
-                        case 'address':
-                            return BCS.bcsToBytes(
-                                TxnBuilderTypes.AccountAddress.fromHex(arg));
-                        case 'u8':
-                            return BCS.bcsSerializeU8(arg);
-                        case 'u16':
-                            return BCS.bcsSerializeU16(arg);
-                        case 'u32':
-                            return BCS.bcsSerializeU32(arg);
-                        case 'u64':
-                            return BCS.bcsSerializeUint64(arg);
-                        case 'u128':
-                            return BCS.bcsSerializeU128(arg);
-                        case 'u256':
-                            throw new Error('u256 not supported'); // TODO: BCS API not support u256, why?
-                        case '0x1::string::String':
-                            return BCS.bcsSerializeStr(arg);
-                        default:
-                            throw new Error(`type "${type}" not supported`); // TODO: support complex type
-                    }
+                    const serializer = new BCS.Serializer();
+                    argToBCS(type, arg, serializer);
+                    return serializer.getBytes();
                 }
             )
         )
     };
+}
+
+function argToBCS(type: string, arg: any, serializer: BCS.Serializer) {
+
+    const regex = /vector<([^]+)>/;
+    const match = type.match(regex);
+    if (match) { // It's vector
+        const innerType = match[1];
+        if (innerType === 'u8') {
+            if (arg instanceof Uint8Array) { // TODO: add type support for Uint8Array
+                serializer.serializeBytes(arg);
+                return;
+            }
+
+            if (typeof arg === "string") { // TODO: add type support for string
+                serializer.serializeStr(arg);
+                return;
+            }
+        }
+
+        if (!Array.isArray(arg)) {
+            throw new Error("Invalid vector args.");
+        }
+
+        serializer.serializeU32AsUleb128(arg.length);
+
+        arg.forEach((arg) => argToBCS(innerType, arg, serializer));
+        return;
+    }
+
+    // TODO: it's struct
+
+    switch (type) { // It's primitive
+        case 'bool':
+            serializer.serializeBool(ensureBoolean(arg));
+            break;
+        case 'address':
+            TxnBuilderTypes.AccountAddress.fromHex(arg as string).serialize(serializer);
+            break;
+        case 'u8':
+            serializer.serializeU8(ensureNumber(arg));
+            break;
+        case 'u16':
+            serializer.serializeU16(ensureNumber(arg));
+            break;
+        case 'u32':
+            serializer.serializeU32(ensureNumber(arg));
+            break;
+        case 'u64':
+            serializer.serializeU64(ensureBigInt(arg));
+            break;
+        case 'u128':
+            serializer.serializeU128(ensureBigInt(arg));
+            break;
+        case 'u256':
+            serializer.serializeU256(ensureBigInt(arg));
+            break;
+        case '0x1::string::String':
+            serializer.serializeStr(arg as string);
+            break;
+        default:
+            throw new Error(`type "${type}" not supported`);
+    }
 }
 
 export function createClient(options: { nodeUrl: string }): MoveTsClient {
@@ -320,4 +404,3 @@ class MoveTsClient {
         return transactionRes.hash;
     }
 }
-

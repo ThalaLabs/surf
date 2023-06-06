@@ -1,4 +1,5 @@
-import { coin_abi } from "./abi/coin";
+import { COIN_ABI } from "./abi/coin";
+import { PYTH_ABI } from "./abi/pyth";
 import { createClient, createEntryPayload, createViewPayload } from ".";
 import { AptosAccount } from "aptos";
 
@@ -10,7 +11,7 @@ async function main() {
     });
 
     console.log("call view");
-    const viewPayload = createViewPayload(coin_abi, {
+    const viewPayload = createViewPayload(COIN_ABI, {
         function: 'balance',
         arguments: ['0x1'],
         type_arguments: ['0x1::aptos_coin::AptosCoin'],
@@ -21,7 +22,7 @@ async function main() {
     console.log("view result:", a);
 
     console.log("call submit");
-    const entryPayload = createEntryPayload(coin_abi, {
+    const entryPayload = createEntryPayload(COIN_ABI, {
         function: 'transfer',
         arguments: ['0x1', 1],
         type_arguments: ['0x1::aptos_coin::AptosCoin'],
@@ -35,6 +36,14 @@ async function main() {
             )),
         });
     console.log("tx", tx);
+
+
+    // Input vector of vector
+    createEntryPayload(PYTH_ABI, {
+        function: "update_price_feeds_with_funder",
+        type_arguments: [],
+        arguments: [[[1, 2, 3], [4, 5, 6]]],
+    });
 }
 
 main().then(() => console.log("done")).catch(console.error);

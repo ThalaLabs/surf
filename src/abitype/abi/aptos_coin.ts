@@ -1,4 +1,4 @@
-export const aptos_coin_abi = {
+export const APTOS_COIN_ABI = {
     "address": "0x1",
     "name": "aptos_coin",
     "friends": [
