@@ -1,6 +1,6 @@
 {
   "name": "@thalalabs/move-ts",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "generate TypeScript bindings for Move smart contracts",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
