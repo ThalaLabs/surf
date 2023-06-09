@@ -1,6 +1,6 @@
 {
   "name": "@thalalabs/move-ts",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "generate TypeScript bindings for Move smart contracts",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
@@ -10,23 +10,29 @@
     "move-ts": "./build/src/cli.js"
   },
   "devDependencies": {
-    "@aptos-labs/wallet-adapter-react": "^1.1.0",
     "@types/jest": "~29.5",
     "@types/node": "~18",
+    "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "~5.59",
     "@typescript-eslint/parser": "~5.59",
-    "aptos": "^1.9.0",
     "eslint": "~8.38",
     "eslint-config-prettier": "~8.8",
     "eslint-plugin-jest": "~27.2",
     "jest": "~29.5",
     "prettier": "~2.8",
-    "react": "^18.2.0",
     "rimraf": "~5.0",
     "ts-api-utils": "~0.0.44",
     "ts-jest": "~29.1",
     "tslib": "~2.5",
-    "typescript": "~5.0"
+    "typescript": "~5.0",
+    "@aptos-labs/wallet-adapter-react": "^1.1.0",
+    "aptos": "^1.9.0",
+    "react": "^18.2.0"
+  },
+  "peerDependencies": {
+    "@aptos-labs/wallet-adapter-react": "^1.1.0",
+    "aptos": "^1.9.0",
+    "react": "^18.2.0"
   },
   "scripts": {
     "start": "node build/src/main.js",

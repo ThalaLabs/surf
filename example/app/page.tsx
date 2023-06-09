@@ -1,9 +1,9 @@
 "use client"
-import { AptosClient } from 'aptos';
-import { useQueryViewFunction, useSubmitTransaction } from '../bindings/hooks'
 import styles from './page.module.css'
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { createEntryPayload, useSubmitTransaction, useWalletClient } from '@thalalabs/move-ts';
+import { COIN_ABI } from '../abi/coin';
 
 export default function Home() {
   const wallet = useWallet();
@@ -14,21 +14,38 @@ export default function Home() {
     }
   }, [])
 
-  const { data, isLoading } = useQueryViewFunction(new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
-    {
-      function: '0x1::coin::balance',
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
-      arguments: ['0x1']
-    });
+  // const { data, isLoading } = useQueryViewFunction(new AptosClient("https://fullnode.testnet.aptoslabs.com/v1"),
+  //   {
+  //     function: '0x1::coin::balance',
+  //     type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  //     arguments: ['0x1']
+  //   });
 
   const { isLoading: submitIsLoading, error: submitError, submitTransaction, data: submitResult } = useSubmitTransaction();
+  const { client } = useWalletClient({ nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1" });
+
+  const [result2, setResult2] = useState("");
+  const onClick2 = async () => {
+    try {
+      const result = await client.useABI(COIN_ABI).entryTransfer({
+        arguments: ["0x1", BigInt(1)],
+        type_arguments: ["0x1::aptos_coin::AptosCoin"]
+      });
+      setResult2(result.hash);
+    }
+    catch (e) {
+      console.error('error', e);
+    }
+  }
+
   const onClick = async () => {
     try {
-      await submitTransaction({
-        function: '0x1::coin::transfer',
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
-        arguments: ['0x1', BigInt(1)]
+      const payload = createEntryPayload(COIN_ABI, {
+        function: "transfer",
+        type_arguments: ["0x1::aptos_coin::AptosCoin"],
+        arguments: ["0x1", BigInt(1)]
       });
+      await submitTransaction(payload, { nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1" });
     }
     catch (e) {
       console.error('error', e);
@@ -47,7 +64,7 @@ export default function Home() {
       {<div style={{
         fontSize: "20px",
       }} className={styles.center}>
-        Balance of 0x1 {!isLoading && data ? data[0].toString() : "loading"}
+        {/* Balance of 0x1 {!isLoading && data ? data[0].toString() : "loading"} */}
         <div>
           {`Wallet status: ${wallet.connected ? "connected" : "disconnected"}`}
         </div>
@@ -59,9 +76,18 @@ export default function Home() {
           onClick={onClick}>
           Submit transaction: transfer 1 coin to 0x1 on testnet
         </button>
+        <button style={{
+          padding: "10px",
+          margin: "50px",
+          fontSize: "20px"
+        }}
+          onClick={onClick2}>
+          Submit transaction: transfer 1 coin to 0x1 on testnet
+        </button>
         {submitIsLoading && "loading"}
         {submitResult && `Success: ${submitResult.hash}`}
         {submitError && `Failed: ${submitError}`}
+        {result2 && `Submission with useWalletClient Success: ${result2}`}
       </div>
       }
 

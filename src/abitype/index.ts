@@ -1,5 +1,9 @@
-import { AptosAccount, AptosClient, BCS, TxnBuilderTypes } from "aptos";
+import { AptosAccount, AptosClient, BCS, TxnBuilderTypes, Types } from "aptos";
 import { ensureBigInt, ensureBoolean, ensureNumber } from "./ensureTypes";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+
+export { useSubmitTransaction } from "./hooks";
+
 export interface ABIRoot {
     address: string;
     name: string;
@@ -88,7 +92,7 @@ export type ConvertArgsType<T extends AllTypes> =
 //@ts-ignore TODO: remove this ignore
 type Struct<T extends string> = object;
 
-type AnyNumber = number | bigint;
+type AnyNumber = number | bigint | string;
 
 export type ConvertPrimitiveReturnType<T extends Primitive> =
     T extends 'bool' ? boolean :
@@ -123,6 +127,10 @@ type FunctionMap<T extends DeepReadonly<ABIRoot>> = {
     [P in FunctionName<T>]: Extract<MoveFunction<T>, { name: P }>
 };
 
+// TODO: replace FunctionMap with this:
+type ExtractFunction<T extends DeepReadonly<ABIRoot>, TFuncName extends FunctionName<T>> =
+    Extract<MoveFunction<T>, { name: TFuncName }>;
+
 type MoveViewFunction<T extends DeepReadonly<ABIRoot>> = Extract<Functions<T>[number], { is_view: true }>;
 type ViewFunctionName<T extends DeepReadonly<ABIRoot>> = MoveViewFunction<T>['name'];
 type MoveEntryFunction<T extends DeepReadonly<ABIRoot>> = Extract<Functions<T>[number], { is_entry: true }>;
@@ -132,6 +140,8 @@ type EntryFunctionName<T extends DeepReadonly<ABIRoot>> = MoveEntryFunction<T>['
 type ConvertParams<T extends readonly string[]> = {
     [P in keyof T]: T[P] extends AllTypes ? ConvertArgsType<T[P]> : Struct<T[P]>;
 };
+
+type ConvertEntryParams<T extends readonly string[]> = ConvertParams<RemoveSigner<T>>;
 
 // TODO: Figure out how to return the correct array type
 type ConvertReturns<T extends readonly string[]> = {
@@ -163,7 +173,7 @@ type EntryRequestPayload<
     TFuncName extends EntryFunctionName<T>,
     TFunc extends FunctionMap<T>[TFuncName]> = {
         function: TFuncName,
-        arguments: ConvertParams<RemoveSigner<TFunc['params']>>,
+        arguments: ConvertEntryParams<TFunc['params']>,
         type_arguments: ConvertTypeParams<TFunc['generic_type_params']>
     }
 
@@ -175,6 +185,11 @@ type SubmitTransactionOptions = {
 // }
 
 export type EntryPayload = {
+    rawPayload: {
+        function: string;
+        type_arguments: string[];
+        arguments: any[];
+    },
     entryRequest: TxnBuilderTypes.EntryFunction,
     // readonly abi: any,
 };
@@ -225,7 +240,7 @@ export function createViewPayload<
     });
 
     // used to decode the return value in response
-    const decoders = fnAbi.params.map((type) => {
+    const decoders = fnAbi.return.map((type) => {
         if (['u64', 'u128', 'u256'].includes(type)) {
             return decodeBigint;
         }
@@ -265,7 +280,12 @@ export function createEntryPayload<
     if (abiArgs.length !== valArguments.length) throw new Error(`Function ${payload.function} expects ${fnAbi.params.length} arguments, but ${payload.arguments.length} were provided`);
     if (fnAbi.generic_type_params.length !== typeArguments.length) throw new Error(`Function ${payload.function} expects ${fnAbi.generic_type_params.length} type arguments, but ${payload.type_arguments.length} were provided`);
 
+    // TODO: make entryRequest lazy
     return {
+        rawPayload: {
+            ...payload,
+            function: `${abi.address}::${abi.name}::${payload.function}`,
+        } as any,
         entryRequest: TxnBuilderTypes.EntryFunction.natural(
             `${abi.address}::${abi.name}`, // module id
             payload.function, // function name
@@ -403,4 +423,148 @@ class MoveTsClient {
         });
         return transactionRes.hash;
     }
+
+    //@ts-ignore TODO: remove this ignore
+    public useABI<T extends DeepReadonly<ABIRoot>>(abi: T) {
+        return new Proxy({} as ABIClient<T>, {
+            get: (_, prop) => {
+                const functionName = prop.toString();
+                if (functionName.startsWith("view")) {
+                    const realFunctionName = camelToSnake(functionName.slice("view".length));
+                    return (...args) => {
+                        const payload = createViewPayload(abi, {
+                            function: realFunctionName,
+                            type_arguments: args[0].type_arguments,
+                            arguments: args[0].arguments,
+                        });
+                        return this.view(payload);
+                    };
+                }
+                else if (functionName.startsWith("entry")) {
+                    const realFunctionName = camelToSnake(functionName.slice("entry".length));
+
+                    return (...args) => {
+                        const payload = createEntryPayload(abi, {
+                            function: realFunctionName,
+                            type_arguments: args[0].type_arguments,
+                            arguments: args[0].arguments,
+                        });
+                        return this.submitTransaction(payload, { account: args[0].account });
+                    };
+                }
+
+                throw new Error(`Function "${functionName}" not found`);
+            }
+        });
+    }
+}
+
+function camelToSnake(camelCaseString: string) {
+    if (camelCaseString.length === 0) return camelCaseString;
+    const adjust = camelCaseString[0].toLowerCase() + camelCaseString.slice(1);
+    return adjust.replace(/[A-Z]/g, (match) => "_" + match.toLowerCase());
+}
+
+type CamelCase<S extends string> = S extends `${infer P1}_${infer P2}${infer P3}`
+    ? `${Lowercase<P1>}${Uppercase<P2>}${CamelCase<P3>}`
+    : Lowercase<S>;
+
+type ABIClient<TABI extends DeepReadonly<ABIRoot>> = {
+    [TFuncName in ViewFunctionName<TABI> | EntryFunctionName<TABI> as
+    (TFuncName extends ViewFunctionName<TABI> ? CamelCase<`view_${TFuncName}`> : CamelCase<`entry_${TFuncName}`>)]:
+    TFuncName extends ViewFunctionName<TABI> ? (
+        (payload: {
+            type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
+            arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
+        }) => Promise<ConvertReturns<ExtractFunction<TABI, TFuncName>['return']>>
+    ) : (
+        (payload: {
+            type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
+            arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
+            account: AptosAccount
+        }) => Promise<{ hash: string }>  // TODO: use {hash: string} instead. Also for submit function
+    )
+};
+
+type ABIWalletClient<TABI extends DeepReadonly<ABIRoot>> = {
+    [TFuncName in EntryFunctionName<TABI> as CamelCase<`entry_${TFuncName}`>]:
+    (payload: {
+        type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
+        arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
+    }) => Promise<{ hash: string }>  // TODO: use {hash: string} instead. Also for submit function
+
+};
+
+type Wallet = ReturnType<typeof useWallet>;
+
+class MoveTsWalletClient {
+    private wallet: Wallet;
+    private client: AptosClient;
+
+    constructor({ wallet, nodeUrl }: {
+        wallet: Wallet,
+        nodeUrl: string
+    }) {
+        this.wallet = wallet;
+        this.client = new AptosClient(nodeUrl);
+    }
+
+    public async submitTransaction(
+        payload: EntryPayload,
+        _: SubmitTransactionOptions | undefined = undefined
+    ): Promise<{ hash: string }> { // TODO: make { hash: string } a individual type.
+        const request = payload.rawPayload;
+
+        // TODO: use the BCS API instead
+        const { hash } = await this.wallet.signAndSubmitTransaction({
+            type: "entry_function_payload",
+            ...request,
+            arguments: request.arguments.map((arg: any) => {
+                if (Array.isArray(arg)) {
+                    // TODO: support nested array, or use the BCS API instead
+                    return arg.map((item: any) => item.toString());
+                } else if (typeof arg === "object") {
+                    throw new Error(`a value of struct type: ${arg} is not supported`);
+                } else {
+                    return arg.toString();
+                }
+            }),
+        });
+
+        const result = (await this.client.waitForTransactionWithResult(hash, {
+            checkSuccess: true,
+        })) as Types.Transaction_UserTransaction;
+
+        return result;
+    }
+
+    //@ts-ignore TODO: remove this ignore
+    public useABI<T extends DeepReadonly<ABIRoot>>(abi: T) {
+        return new Proxy({} as ABIWalletClient<T>, {
+            get: (_, prop) => {
+                const functionName = prop.toString();
+                if (functionName.startsWith("entry")) {
+                    const realFunctionName = camelToSnake(functionName.slice("entry".length));
+                    return (...args) => {
+                        const payload = createEntryPayload(abi, {
+                            function: realFunctionName,
+                            type_arguments: args[0].type_arguments,
+                            arguments: args[0].arguments,
+                        });
+                        return this.submitTransaction(payload);
+                    };
+                }
+
+                throw new Error(`Function "${functionName}" not found`);
+            }
+        });
+    }
+}
+
+export const useWalletClient = ({ nodeUrl }: { nodeUrl: string }) => {
+    const wallet = useWallet();
+    return {
+        connected: wallet.connected,
+        client: wallet.connected ? new MoveTsWalletClient({ wallet, nodeUrl }) : undefined
+    };
 }

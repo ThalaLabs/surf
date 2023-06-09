@@ -10,6 +10,24 @@ async function main() {
         nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1"
     });
 
+    const result1 = await client.useABI(COIN_ABI).viewBalance({
+        arguments: ['0x1'],
+        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    });
+    console.log(typeof result1[0]);
+    console.log(result1);
+
+    console.log("entry start");
+    const result2 = await client.useABI(COIN_ABI).entryTransfer({
+        arguments: ['0x1', 1],
+        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        account: new AptosAccount(Buffer.from(
+            "da00cd868b59c22a1cb3cbfcb4bf0f8c8829662c504019c729825483fb85f9b2",
+            "hex"
+        )),
+    });
+    console.log(result2);
+
     console.log("call view");
     const viewPayload = createViewPayload(COIN_ABI, {
         function: 'balance',
