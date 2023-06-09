@@ -1,4 +1,4 @@
-import { AptosAccount, AptosClient, BCS, TxnBuilderTypes, Types } from "aptos";
+import { AptosAccount, AptosClient, BCS, TxnBuilderTypes, TypeTagParser, Types } from "aptos";
 import { ensureBigInt, ensureBoolean, ensureNumber } from "./ensureTypes";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
@@ -290,7 +290,24 @@ export function createEntryPayload<
             `${abi.address}::${abi.name}`, // module id
             payload.function, // function name
             typeArguments // type arguments
-                .map((arg) => new TxnBuilderTypes.TypeTagStruct(TxnBuilderTypes.StructTag.fromString(arg))),
+                .map((arg) => {
+                    // The StructTag.fromString not support nested struct tag before aptos@1.8.4.
+                    // So we use the TypeTagParser to parse the string literal into a TypeTagStruct
+                    // For better compatibility.
+                    // The next line of code is simpler, but not compatible with aptos below 1.8.3.
+                    // return new TxnBuilderTypes.TypeTagStruct(TxnBuilderTypes.StructTag.fromString(arg));
+
+                    // Use the TypeTagParser to parse the string literal into a TypeTagStruct
+                    const typeTagStruct = new TypeTagParser(arg).parseTypeTag() as TxnBuilderTypes.TypeTagStruct;
+
+                    // Convert and return as a StructTag
+                    return new TxnBuilderTypes.StructTag(
+                        typeTagStruct.value.address,
+                        typeTagStruct.value.module_name,
+                        typeTagStruct.value.name,
+                        typeTagStruct.value.type_args,
+                    );
+                }),
             valArguments.map( // arguments
                 (arg, i) => {
                     const type = abiArgs[i];
