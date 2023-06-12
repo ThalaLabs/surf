@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient, Types } from "aptos";
-import { EntryPayload } from ".";
+import { EntryPayload } from "../types";
 
 export type submitTransactionOptions = {
     nodeUrl: string,

@@ -1,7 +1,7 @@
 import { COIN_ABI } from "./abi/coin";
 import { PYTH_ABI } from "./abi/pyth";
-import { createClient, createEntryPayload, createViewPayload } from ".";
 import { AptosAccount } from "aptos";
+import { createClient, createEntryPayload, createViewPayload } from "./core";
 
 async function main() {
     console.log("start");
@@ -22,7 +22,7 @@ async function main() {
         arguments: ['0x1', 1],
         type_arguments: ['0x1::aptos_coin::AptosCoin'],
         account: new AptosAccount(Buffer.from(
-            "da00cd868b59c22a1cb3cbfcb4bf0f8c8829662c504019c729825483fb85f9b2",
+            process.env.TEST_ACCOUNT_PRIVATE_KEY as string,
             "hex"
         )),
     });
