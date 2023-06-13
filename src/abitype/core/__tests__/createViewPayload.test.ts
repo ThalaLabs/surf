@@ -4,16 +4,23 @@ import { createViewPayload } from '../createViewPayload';
 // TODO: add struct, vector of vector
 describe('createViewPayload', () => {
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('basic type checking', async () => {
     try {
       createViewPayload(COIN_ABI, {
         // @ts-expect-error abc is not a function
         function: 'abc',
+        arguments: ['0x1'],
+        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      });
+
+      createViewPayload(COIN_ABI, {
+        // @ts-expect-error transfer is not a view function
+        function: 'transfer',
         arguments: ['0x1'],
         type_arguments: ['0x1::aptos_coin::AptosCoin'],
       });
@@ -237,61 +244,61 @@ const TEST_ABI = {
   "name": "test",
   "friends": [],
   "exposed_functions": [
-      {
-          "name": "bool_as_input",
-          "visibility": "public",
-          "is_entry": false,
-          "is_view": true,
-          "generic_type_params": [],
-          "params": [
-              "bool",
-              "bool",
-          ],
-          "return": []
-      },
-      {
-          "name": "number_as_input",
-          "visibility": "public",
-          "is_entry": false,
-          "is_view": true,
-          "generic_type_params": [],
-          "params": [
-              "u8",
-              "u16",
-              "u32",
-              "u64",
-              "u128",
-              "u256",
-          ],
-          "return": []
-      },
-      {
-          "name": "address_as_input",
-          "visibility": "public",
-          "is_entry": false,
-          "is_view": true,
-          "generic_type_params": [],
-          "params": [
-              "address",
-              "address",
-          ],
-          "return": []
-      },
-      {
-          "name": "vector_as_input",
-          "visibility": "public",
-          "is_entry": false,
-          "is_view": true,
-          "generic_type_params": [],
-          "params": [
-              "vector<u8>",
-              "vector<u16>",
-              "vector<u64>",
-              "vector<bool>",
-              "vector<address>",
-          ],
-          "return": []
-      },
+    {
+      "name": "bool_as_input",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "bool",
+        "bool",
+      ],
+      "return": []
+    },
+    {
+      "name": "number_as_input",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u8",
+        "u16",
+        "u32",
+        "u64",
+        "u128",
+        "u256",
+      ],
+      "return": []
+    },
+    {
+      "name": "address_as_input",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address",
+        "address",
+      ],
+      "return": []
+    },
+    {
+      "name": "vector_as_input",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "vector<u8>",
+        "vector<u16>",
+        "vector<u64>",
+        "vector<bool>",
+        "vector<address>",
+      ],
+      "return": []
+    },
 
   ],
   "structs": []
