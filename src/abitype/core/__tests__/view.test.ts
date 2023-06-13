@@ -1,3 +1,7 @@
+/**
+ * These test cases depends on network, it call the real contract.
+ */
+
 import { COIN_ABI } from '../../abi/coin';
 import { createClient } from '../Client';
 import { createViewPayload } from '../createViewPayload';

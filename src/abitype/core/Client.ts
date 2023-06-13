@@ -10,6 +10,10 @@ export function createClient(options: { nodeUrl: string }): Client {
     );
 }
 
+interface TransactionResponse {
+    hash: string;
+}
+
 export class Client {
     private client: AptosClient;
 
@@ -38,19 +42,11 @@ export class Client {
     public async submitTransaction(
         payload: EntryPayload,
         options: EntryOptions
-    ): Promise<string> {
-        const { account } = options;
-        const entryFunctionPayload =
-            new TxnBuilderTypes.TransactionPayloadEntryFunction(payload.entryRequest);
-
-        // Create a raw transaction out of the transaction payload
-        const rawTxn = await this.client.generateRawTransaction(
-            account.address(),
-            entryFunctionPayload
-        );
+    ): Promise<TransactionResponse> {
+        const rawTxn = await this.generateRawTxn(payload, options);
 
         // Sign the raw transaction with account's private key
-        const bcsTxn = AptosClient.generateBCSTransaction(account, rawTxn);
+        const bcsTxn = AptosClient.generateBCSTransaction(options.account, rawTxn);
 
         // Submit the transaction
         const transactionRes = await this.client.submitSignedBCSTransaction(
@@ -63,10 +59,23 @@ export class Client {
             timeoutSecs: 120,
             checkSuccess: true,
         });
-        return transactionRes.hash;
+        return transactionRes;
     }
 
-    //@ts-ignore TODO: remove this ignore
+    public async simulateTransaction(
+        payload: EntryPayload,
+        options: EntryOptions
+    ): Promise<TransactionResponse> {
+        const rawTxn = await this.generateRawTxn(payload, options);
+
+        const transactionRes = (await this.client.simulateTransaction(options.account, rawTxn))[0];
+        if (!transactionRes) {
+            throw new Error("Failed to simulate transaction");
+        }
+
+        return transactionRes;
+    }
+
     public useABI<T extends DeepReadonly<ABIRoot>>(abi: T) {
         return new Proxy({} as ABIClient<T>, {
             get: (_, prop) => {
@@ -98,5 +107,17 @@ export class Client {
                 throw new Error(`Function "${functionName}" not found`);
             }
         });
+    }
+
+    private async generateRawTxn(payload: EntryPayload, options: EntryOptions, ) {
+        const { account } = options;
+        const entryFunctionPayload = new TxnBuilderTypes.TransactionPayloadEntryFunction(payload.entryRequest);
+
+        // Create a raw transaction out of the transaction payload
+        const rawTxn = await this.client.generateRawTransaction(
+            account.address(),
+            entryFunctionPayload
+        );
+        return rawTxn;
     }
 }
