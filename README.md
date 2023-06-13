@@ -1,19 +1,41 @@
-# Move-TS
+# Surf
 
-Generate TypeScript bindings & React Hooks for Move smart contracts based on ABI.
+**Surf** provides TypeScript Interfaces & React Hooks for seamlessly interacting with Aptos Smart Contracts with full type safety.
 
-## Highlights
+## Features
 
-- Small bundle size: You won't pay for what you are not using. Even if tons of entry functions has been generated, if you are not using in your our code, it would be striped out by tree shaking.
-- Low runtime cost: We put as much as verification at build time to reduce the runtime cost.
+- **No code-generation**: provide fully typed APIs based on static type inference.
+- **Get rid of encoding/decoding**: We handle the complex within the APIs, so you don't have to.
+- **Linting and Auto-Completion**: Better development experience because of type safety.
+- **Both TypeScript Interfaces & React Hooks**: easy to use, whether working with wallets or private keys.
 
-## Available Scripts
+## Overview
 
-- `clean` - remove coverage data, Jest cache and transpiled files,
-- `prebuild` - lint source files and tests before building,
-- `build` - transpile TypeScript to ES6,
-- `build:watch` - interactive watch mode to automatically transpile source files,
-- `lint` - lint source files and tests,
-- `prettier` - reformat files,
-- `test` - run tests,
-- `test:watch` - interactive watch mode to automatically re-run tests
+```TypeScript
+const client = createClient({
+    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
+});
+
+await client.useABI(COIN_ABI).entry.transfer({
+    arguments: ['0x1', 1],
+    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    account,
+});
+
+const [balance] = await client.useABI(COIN_ABI).view.balance({
+    arguments: ['0x1'],
+    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+});
+```
+
+## Motivation
+
+WIP
+
+## Quick Start
+
+WIP
+
+## Contributing
+
+WIP
