@@ -20,4 +20,7 @@
     "strictNullChecks": false
   },
   "include": ["src/abitype/**/*"],
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
 }

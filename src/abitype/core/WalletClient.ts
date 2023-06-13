@@ -2,7 +2,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient, Types } from "aptos";
 import { camelToSnake } from "../utils";
 import { createEntryPayload } from "./createEntryPayload";
-import { ABIRoot, ABIWalletClient, DeepReadonly, EntryOptions, EntryPayload } from "../types";
+import { ABIRoot, ABIWalletClient, EntryOptions, EntryPayload } from "../types";
 
 type Wallet = ReturnType<typeof useWallet>;
 
@@ -47,7 +47,7 @@ export class WalletClient {
         return result;
     }
 
-    public useABI<T extends DeepReadonly<ABIRoot>>(abi: T) {
+    public useABI<T extends ABIRoot>(abi: T) {
         return new Proxy({} as ABIWalletClient<T>, {
             get: (_, prop) => {
                 const functionName = prop.toString();

@@ -1,10 +1,10 @@
 import { BCS, TxnBuilderTypes, TypeTagParser } from "aptos";
 import { ensureBigInt, ensureBoolean, ensureNumber } from "../ensureTypes";
-import { ABIRoot, DeepReadonly } from "../types";
+import { ABIRoot } from "../types";
 import { EntryFunctionName, EntryPayload, EntryRequestPayload, FunctionMap } from "../types/common";
 
 export function createEntryPayload<
-    T extends DeepReadonly<ABIRoot>,
+    T extends ABIRoot,
     TFuncName extends EntryFunctionName<T>,
     TFunc extends FunctionMap<T>[TFuncName]
 >(

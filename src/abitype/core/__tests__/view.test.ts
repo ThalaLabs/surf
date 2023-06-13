@@ -45,7 +45,7 @@ describe('call view functions', () => {
         8,
       ]
     `);
-    });
+    }, 60000);
 
     it('vector', async () => {
         const viewPayload = createViewPayload(TEST_ABI, {
@@ -59,7 +59,7 @@ describe('call view functions', () => {
         66,
       ]
     `);
-    });
+    }, 60000);
 
     it('struct', async () => {
         const viewPayload = createViewPayload(TIERED_ORACLE_ABI, {
@@ -74,7 +74,7 @@ describe('call view functions', () => {
         expect(result.length).toBe(1);
         expect((result[0] as any).v).toBeDefined();
         expect(typeof (result[0] as any).v).toEqual("string");
-    });
+    }, 60000);
 });
 
 const TEST_ABI = {

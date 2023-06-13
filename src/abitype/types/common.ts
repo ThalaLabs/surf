@@ -1,19 +1,6 @@
 import { AptosAccount, TxnBuilderTypes } from "aptos";
 import { ABIRoot } from "./abi";
 
-// TODO: remove this
-export type DeepReadonly<T> =
-    T extends (infer R)[] ? DeepReadonlyArray<R> :
-    T extends Function ? T :
-    T extends object ? DeepReadonlyObject<T> :
-    T;
-
-interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> { }
-
-type DeepReadonlyObject<T> = {
-    readonly [P in keyof T]: DeepReadonly<T[P]>;
-};
-
 // TODO: rename this variable, not only primitive, but also struct and vector
 export type Primitive =
     'bool' | 'u8' | 'u16' | 'u32' |
@@ -82,21 +69,21 @@ export type ConvertReturnType<T extends AllTypes> =
     T extends `vector<${infer TInner}>` ? ConvertVectorReturnType<TInner> :
     Struct<T>;
 
-type Functions<T extends DeepReadonly<ABIRoot>> = T['exposed_functions'];
-type MoveFunction<T extends DeepReadonly<ABIRoot>> = Functions<T>[number];
-type FunctionName<T extends DeepReadonly<ABIRoot>> = MoveFunction<T>['name'];
-export type FunctionMap<T extends DeepReadonly<ABIRoot>> = {
+type Functions<T extends ABIRoot> = T['exposed_functions'];
+type MoveFunction<T extends ABIRoot> = Functions<T>[number];
+type FunctionName<T extends ABIRoot> = MoveFunction<T>['name'];
+export type FunctionMap<T extends ABIRoot> = {
     [P in FunctionName<T>]: Extract<MoveFunction<T>, { name: P }>
 };
 
 // TODO: replace FunctionMap with this:
-export type ExtractFunction<T extends DeepReadonly<ABIRoot>, TFuncName extends FunctionName<T>> =
+export type ExtractFunction<T extends ABIRoot, TFuncName extends FunctionName<T>> =
     Extract<MoveFunction<T>, { name: TFuncName }>;
 
-export type MoveViewFunction<T extends DeepReadonly<ABIRoot>> = Extract<Functions<T>[number], { is_view: true }>;
-export type ViewFunctionName<T extends DeepReadonly<ABIRoot>> = MoveViewFunction<T>['name'];
-export type MoveEntryFunction<T extends DeepReadonly<ABIRoot>> = Extract<Functions<T>[number], { is_entry: true }>;
-export type EntryFunctionName<T extends DeepReadonly<ABIRoot>> = MoveEntryFunction<T>['name'];
+export type MoveViewFunction<T extends ABIRoot> = Extract<Functions<T>[number], { is_view: true }>;
+export type ViewFunctionName<T extends ABIRoot> = MoveViewFunction<T>['name'];
+export type MoveEntryFunction<T extends ABIRoot> = Extract<Functions<T>[number], { is_entry: true }>;
+export type EntryFunctionName<T extends ABIRoot> = MoveEntryFunction<T>['name'];
 
 // TODO: Figure out how to return the correct array type
 type ConvertParams<T extends readonly string[]> = {
@@ -116,7 +103,7 @@ export type ConvertTypeParams<T extends readonly any[]> = {
 };
 
 export type ViewRequestPayload<
-    T extends DeepReadonly<ABIRoot>,
+    T extends ABIRoot,
     TFuncName extends ViewFunctionName<T>,
     TFunc extends FunctionMap<T>[TFuncName]> = {
         function: TFuncName,
@@ -131,7 +118,7 @@ type RemoveSigner<T extends readonly string[]> = T extends readonly ['&signer' |
     : T;
 
 export type EntryRequestPayload<
-    T extends DeepReadonly<ABIRoot>,
+    T extends ABIRoot,
     TFuncName extends EntryFunctionName<T>,
     TFunc extends FunctionMap<T>[TFuncName]> = {
         function: TFuncName,

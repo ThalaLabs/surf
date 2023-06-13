@@ -2,7 +2,7 @@ import { AptosClient, TxnBuilderTypes } from "aptos";
 import { camelToSnake } from "../utils";
 import { createViewPayload } from "./createViewPayload";
 import { createEntryPayload } from "./createEntryPayload";
-import { ABIClient, ABIRoot, DeepReadonly, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types";
+import { ABIClient, ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types";
 
 export function createClient(options: { nodeUrl: string }): Client {
     return new Client(
@@ -76,7 +76,7 @@ export class Client {
         return transactionRes;
     }
 
-    public useABI<T extends DeepReadonly<ABIRoot>>(abi: T) {
+    public useABI<T extends ABIRoot>(abi: T) {
         return new Proxy({} as ABIClient<T>, {
             get: (_, prop) => {
                 const functionName = prop.toString();

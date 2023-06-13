@@ -5,6 +5,5 @@ export {
     EntryPayload,
     ViewOptions,
     EntryOptions,
-    DeepReadonly,
 } from "./common";
 export { ABIRoot } from "./abi";

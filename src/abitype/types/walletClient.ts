@@ -1,8 +1,8 @@
 import { ABIRoot } from "./abi";
-import { ConvertEntryParams, ConvertTypeParams, DeepReadonly, EntryFunctionName, ExtractFunction } from "./common";
+import { ConvertEntryParams, ConvertTypeParams, EntryFunctionName, ExtractFunction } from "./common";
 import { CamelCase } from "./util";
 
-export type ABIWalletClient<TABI extends DeepReadonly<ABIRoot>> = {
+export type ABIWalletClient<TABI extends ABIRoot> = {
     [TFuncName in EntryFunctionName<TABI> as CamelCase<`entry_${TFuncName}`>]:
     (payload: {
         type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,

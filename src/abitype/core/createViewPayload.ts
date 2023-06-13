@@ -1,12 +1,12 @@
 import { HexString } from "aptos";
-import { ABIRoot, DeepReadonly } from "../types";
+import { ABIRoot } from "../types";
 import { ConvertReturns, FunctionMap, ViewFunctionName, ViewPayload, ViewRequestPayload } from "../types/common";
 import { ensureNumber } from "../ensureTypes";
 
 // TODO: support vector<u8> input with Uint8Array
 // TODO: support vector<u8> input with string
 export function createViewPayload<
-    T extends DeepReadonly<ABIRoot>,
+    T extends ABIRoot,
     TFuncName extends ViewFunctionName<T>,
     TFunc extends FunctionMap<T>[TFuncName],
     TReturn extends ConvertReturns<TFunc['return']>

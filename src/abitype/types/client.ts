@@ -1,9 +1,9 @@
 import { AptosAccount } from "aptos";
 import { ABIRoot } from "./abi";
-import { ConvertEntryParams, ConvertReturns, ConvertTypeParams, DeepReadonly, EntryFunctionName, ExtractFunction, ViewFunctionName } from "./common";
+import { ConvertEntryParams, ConvertReturns, ConvertTypeParams, EntryFunctionName, ExtractFunction, ViewFunctionName } from "./common";
 import { CamelCase } from "./util";
 
-export type ABIClient<TABI extends DeepReadonly<ABIRoot>> = {
+export type ABIClient<TABI extends ABIRoot> = {
     [TFuncName in ViewFunctionName<TABI> | EntryFunctionName<TABI> as
     (TFuncName extends ViewFunctionName<TABI> ? CamelCase<`view_${TFuncName}`> : CamelCase<`entry_${TFuncName}`>)]:
     TFuncName extends ViewFunctionName<TABI> ? (

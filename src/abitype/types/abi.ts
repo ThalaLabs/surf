@@ -2,9 +2,9 @@
 export interface ABIRoot {
     address: string;
     name: string;
-    friends: string[];
-    exposed_functions: ABIFunction[];
-    structs: ABIStruct[];
+    friends: readonly string[];
+    exposed_functions: readonly ABIFunction[];
+    structs: readonly ABIStruct[];
 }
 
 export interface ABIFunction {
@@ -12,21 +12,21 @@ export interface ABIFunction {
     visibility: "friend" | "public";
     is_entry: boolean;
     is_view: boolean;
-    generic_type_params: ABIFunctionGenericTypeParam[];
-    params: string[];
-    return: string[];
+    generic_type_params: readonly ABIFunctionGenericTypeParam[];
+    params: readonly string[];
+    return: readonly string[];
 }
 
 export interface ABIFunctionGenericTypeParam {
-    constraints: any[];
+    constraints: readonly any[];
 }
 
 export interface ABIStruct {
     name: string;
     is_native: boolean;
-    abilities: string[];
-    generic_type_params: ABIFunctionGenericTypeParam[];
-    fields: ABIStructField[];
+    abilities: readonly string[];
+    generic_type_params: readonly ABIFunctionGenericTypeParam[];
+    fields: readonly ABIStructField[];
 }
 
 export interface ABIStructField {

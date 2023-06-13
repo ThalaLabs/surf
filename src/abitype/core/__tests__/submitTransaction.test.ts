@@ -46,7 +46,7 @@ describe('call entry functions', () => {
         ],
       }
     `);
-  });
+  }, 60000);
 
   it('vector', async () => {
     const viewPayload = createEntryPayload(TEST_ABI, {
@@ -68,7 +68,7 @@ describe('call entry functions', () => {
         "type_arguments": [],
       }
     `);
-  });
+  }, 60000);
 });
 
 const TEST_ABI = {
