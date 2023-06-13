@@ -24,13 +24,13 @@ describe('call entry functions', () => {
   afterAll(() => {});
 
   it('basic', async () => {
-    const viewPayload = createEntryPayload(COIN_ABI, {
+    const entryPayload = createEntryPayload(COIN_ABI, {
       function: 'transfer',
       arguments: ['0x1', 1],
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
     });
 
-    const result = await client.simulateTransaction(viewPayload, { account });
+    const result = await client.simulateTransaction(entryPayload, { account });
 
     expect(result.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
@@ -49,13 +49,13 @@ describe('call entry functions', () => {
   }, 60000);
 
   it('vector', async () => {
-    const viewPayload = createEntryPayload(TEST_ABI, {
+    const entryPayload = createEntryPayload(TEST_ABI, {
       function: 'test_run_function',
       arguments: [[1, 2, 3, 10, 20, 30]],
       type_arguments: [],
     });
 
-    const result = await client.simulateTransaction(viewPayload, { account });
+    const result = await client.simulateTransaction(entryPayload, { account });
 
     expect(result.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
