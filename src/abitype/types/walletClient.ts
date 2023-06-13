@@ -1,10 +1,10 @@
 import { ABIRoot } from "./abi";
-import { ConvertEntryParams, ConvertTypeParams, EntryFunctionName, ExtractFunction, TransactionResponse } from "./common";
+import { EntryFunctionName, ExtractGenericParamsType, ExtractParamsTypeOmitSigner, TransactionResponse } from "./common";
 
-export type ABIWalletClient<TABI extends ABIRoot> = {
-    [TFuncName in EntryFunctionName<TABI>]:
+export type ABIWalletClient<T extends ABIRoot> = {
+    [TFuncName in EntryFunctionName<T>]:
     (payload: {
-        type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
-        arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
-    }) => Promise<TransactionResponse>  // TODO: use {hash: string} instead. Also for submit function
+        type_arguments: ExtractGenericParamsType<T, TFuncName>,
+        arguments: ExtractParamsTypeOmitSigner<T, TFuncName>,
+    }) => Promise<TransactionResponse>
 };

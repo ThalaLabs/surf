@@ -1,37 +1,32 @@
-import { AptosAccount } from "aptos";
-import { ABIRoot } from "./abi";
-import { ConvertEntryParams, ConvertReturns, ConvertTypeParams, EntryFunctionName, ExtractFunction, TransactionResponse, ViewFunctionName } from "./common";
-import { CamelCase } from "./util";
+import { AptosAccount, TxnBuilderTypes } from "aptos";
 
-export type ABIClient<TABI extends ABIRoot> = {
-    [TFuncName in ViewFunctionName<TABI> | EntryFunctionName<TABI> as
-    (TFuncName extends ViewFunctionName<TABI> ? CamelCase<`view_${TFuncName}`> : CamelCase<`entry_${TFuncName}`>)]:
-    TFuncName extends ViewFunctionName<TABI> ? (
-        (payload: {
-            type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
-            arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
-        }) => Promise<ConvertReturns<ExtractFunction<TABI, TFuncName>['return']>>
-    ) : (
-        (payload: {
-            type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
-            arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
-            account: AptosAccount
-        }) => Promise<{ hash: string }>  // TODO: use {hash: string} instead. Also for submit function
-    )
+export type EntryOptions = {
+    account: AptosAccount,
+}
+
+export type ViewOptions = {
+    ledger_version?: string;
+}
+
+export type EntryPayload = {
+    rawPayload: {
+        function: string;
+        type_arguments: string[];
+        arguments: any[];
+    },
+    entryRequest: TxnBuilderTypes.EntryFunction,
+    // readonly abi: any,
 };
 
-export type ABIViewClient<TABI extends ABIRoot> = {
-    [TFuncName in ViewFunctionName<TABI>]: (payload: {
-        type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
-        arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
-    }) => Promise<ConvertReturns<ExtractFunction<TABI, TFuncName>['return']>>
+//@ts-ignore TODO: remove this ignore
+export type ViewPayload<TReturn> = {
+    viewRequest: {
+        function: string;
+        type_arguments: string[];
+        arguments: any[];
+    };
+    decoders: (((value: any) => any) | null)[],
+    // readonly abi: any,
+    // readonly return: TReturn,
 };
 
-export type ABIEntryClient<TABI extends ABIRoot> = {
-    [TFuncName in EntryFunctionName<TABI>]: (payload: {
-        type_arguments: ConvertTypeParams<ExtractFunction<TABI, TFuncName>['generic_type_params']>,
-        arguments: ConvertEntryParams<ExtractFunction<TABI, TFuncName>['params']>,
-        account: AptosAccount,
-        isSimulation?: boolean
-    }) => Promise<TransactionResponse>
-};

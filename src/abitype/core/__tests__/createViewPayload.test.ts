@@ -10,7 +10,8 @@ describe('createViewPayload', () => {
   afterAll(() => { });
 
   it('basic type checking', async () => {
-    try {
+    // no need to run, type check only.
+    () => {
       createViewPayload(COIN_ABI, {
         // @ts-expect-error abc is not a function
         function: 'abc',
@@ -45,9 +46,6 @@ describe('createViewPayload', () => {
         // @ts-expect-error require a type_argument
         type_arguments: [],
       });
-    } catch (e) {
-      // no runtime check for this test.
-      // only for static type checking
     }
   });
 
@@ -77,7 +75,8 @@ describe('createViewPayload', () => {
   });
 
   it('bool', async () => {
-    try {
+    // no need to run, type check only.
+    () => {
       createViewPayload(TEST_ABI, {
         function: 'bool_as_input',
         arguments: [
@@ -88,9 +87,6 @@ describe('createViewPayload', () => {
         ],
         type_arguments: [],
       });
-    } catch {
-      // no runtime check for this.
-      // only for static type checking
     }
 
     const payload = createViewPayload(TEST_ABI, {
@@ -115,7 +111,8 @@ describe('createViewPayload', () => {
   });
 
   it('address', async () => {
-    try {
+    // no need to run, type check only.
+    () => {
       createViewPayload(TEST_ABI, {
         function: 'address_as_input',
         arguments: [
@@ -126,9 +123,6 @@ describe('createViewPayload', () => {
         ],
         type_arguments: [],
       });
-    } catch {
-      // no runtime check for this.
-      // only for static type checking
     }
 
     const payload = createViewPayload(TEST_ABI, {
@@ -153,7 +147,8 @@ describe('createViewPayload', () => {
   });
 
   it('number', async () => {
-    try {
+    // no need to run, type check only.
+    () => {
       createViewPayload(TEST_ABI, {
         function: 'number_as_input',
         arguments: [
@@ -164,9 +159,6 @@ describe('createViewPayload', () => {
         ],
         type_arguments: [],
       });
-    } catch {
-      // no runtime check for this.
-      // only for static type checking
     }
 
     const payload = createViewPayload(TEST_ABI, {

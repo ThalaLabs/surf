@@ -3,7 +3,7 @@ import { createViewPayload } from "./createViewPayload";
 import { createEntryPayload } from "./createEntryPayload";
 import { ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types";
 import { TransactionResponse } from "../types/common";
-import { ABIEntryClient, ABIViewClient } from "../types/client";
+import { ABIEntryClient, ABIViewClient } from "../types";
 
 export function createClient(options: { nodeUrl: string }): Client {
     return new Client(

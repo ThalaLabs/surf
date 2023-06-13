@@ -10,7 +10,8 @@ describe('createEntryPayload', () => {
     afterAll(() => { });
 
     it('basic type checking', async () => {
-        try {
+        // no need to run, type check only.
+        () => {
             createEntryPayload(COIN_ABI, {
                 // @ts-expect-error abc is not a function
                 function: 'abc',
@@ -51,20 +52,18 @@ describe('createEntryPayload', () => {
                 arguments: ['0x1', 1],
                 type_arguments: ['0x1::aptos_coin::AptosCoin'],
             });
-        } catch (e) {
-            // no runtime check for this test.
-            // only for static type checking
         }
     });
 
     it('number', async () => {
-        try {
-            createEntryPayload(TEST_ABI, {
-                function: 'number_as_input',
-                arguments: [1, 2, 3, BigInt(4), BigInt(5), BigInt(6)],
-                type_arguments: [],
-            });
+        createEntryPayload(TEST_ABI, {
+            function: 'number_as_input',
+            arguments: [1, 2, 3, BigInt(4), BigInt(5), BigInt(6)],
+            type_arguments: [],
+        });
 
+        // no need to run, type check only.
+        () => {
             createEntryPayload(TEST_ABI, {
                 function: 'number_as_input',
                 arguments: [
@@ -77,21 +76,18 @@ describe('createEntryPayload', () => {
                     BigInt(4), BigInt(5), BigInt(6)],
                 type_arguments: [],
             });
-
-        } catch (e) {
-            // no runtime check for this test.
-            // only for static type checking
         }
     });
 
     it('bool', async () => {
-        try {
-            createEntryPayload(TEST_ABI, {
-                function: 'bool_as_input',
-                arguments: [true, false],
-                type_arguments: [],
-            });
+        createEntryPayload(TEST_ABI, {
+            function: 'bool_as_input',
+            arguments: [true, false],
+            type_arguments: [],
+        });
 
+        // no need to run, type check only.
+        () => {
             createEntryPayload(TEST_ABI, {
                 function: 'bool_as_input',
                 arguments: [
@@ -103,20 +99,18 @@ describe('createEntryPayload', () => {
                 type_arguments: [],
             });
 
-        } catch (e) {
-            // no runtime check for this test.
-            // only for static type checking
         }
     });
 
     it('address', async () => {
-        try {
-            createEntryPayload(TEST_ABI, {
-                function: 'address_as_input',
-                arguments: ['0x1', '0x2'],
-                type_arguments: [],
-            });
+        createEntryPayload(TEST_ABI, {
+            function: 'address_as_input',
+            arguments: ['0x1', '0x2'],
+            type_arguments: [],
+        });
 
+        // no need to run, type check only.
+        () => {
             createEntryPayload(TEST_ABI, {
                 function: 'address_as_input',
                 arguments: [
@@ -127,27 +121,24 @@ describe('createEntryPayload', () => {
                 ],
                 type_arguments: [],
             });
-
-        } catch (e) {
-            // no runtime check for this test.
-            // only for static type checking
         }
     });
 
     it('vector', async () => {
-        try {
-            createEntryPayload(TEST_ABI, {
-                function: 'vector_as_input',
-                arguments: [
-                    [],
-                    [1, 2, 3],
-                    [BigInt(1), BigInt(2), BigInt(3)],
-                    [true, false, true],
-                    ['0x1', '0x2', '0x3']
-                ],
-                type_arguments: [],
-            });
+        createEntryPayload(TEST_ABI, {
+            function: 'vector_as_input',
+            arguments: [
+                [],
+                [1, 2, 3],
+                [BigInt(1), BigInt(2), BigInt(3)],
+                [true, false, true],
+                ['0x1', '0x2', '0x3']
+            ],
+            type_arguments: [],
+        });
 
+        // no need to run, type check only.
+        () => {
             createEntryPayload(TEST_ABI, {
                 function: 'vector_as_input',
                 arguments: [
@@ -164,24 +155,21 @@ describe('createEntryPayload', () => {
                 ],
                 type_arguments: [],
             });
-
-        } catch (e) {
-            // no runtime check for this test.
-            // only for static type checking
         }
     });
 
     it('vector of vector', async () => {
-        try {
-            createEntryPayload(TEST_ABI, {
-                function: 'vector_of_vector_as_input',
-                arguments: [
-                    [[1,2], [3,4], [5,6]],
-                    [['0x1', '0x2'], ['0x3', '0x4'], ['0x5', '0x6']]
-                ],
-                type_arguments: [],
-            });
+        createEntryPayload(TEST_ABI, {
+            function: 'vector_of_vector_as_input',
+            arguments: [
+                [[1, 2], [3, 4], [5, 6]],
+                [['0x1', '0x2'], ['0x3', '0x4'], ['0x5', '0x6']]
+            ],
+            type_arguments: [],
+        });
 
+        // no need to run, type check only.
+        () => {
             createEntryPayload(TEST_ABI, {
                 function: 'vector_of_vector_as_input',
                 arguments: [
@@ -192,10 +180,6 @@ describe('createEntryPayload', () => {
                 ],
                 type_arguments: [],
             });
-
-        } catch (e) {
-            // no runtime check for this test.
-            // only for static type checking
         }
     });
 });

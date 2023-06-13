@@ -23,7 +23,8 @@ describe('useABI', () => {
   afterAll(() => {});
 
   it('basic type checking', async () => {
-    try {
+    // no need to run, type check only
+    () => {
         // @ts-expect-error cannot call a function not exist
         client.useABI(COIN_ABI).view.not_exist_func({
             arguments: ['0x1'],
@@ -66,9 +67,6 @@ describe('useABI', () => {
             arguments: ['0x1', 1],
             type_arguments: ['0x1::aptos_coin::AptosCoin'],
         });
-      } catch (e) {
-        // no runtime check for this test.
-        // only for static type checking
       }
   });
 

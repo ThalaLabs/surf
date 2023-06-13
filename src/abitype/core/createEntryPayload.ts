@@ -1,15 +1,14 @@
 import { BCS, TxnBuilderTypes, TypeTagParser } from "aptos";
 import { ensureBigInt, ensureBoolean, ensureNumber } from "../ensureTypes";
-import { ABIRoot } from "../types";
-import { EntryFunctionName, EntryPayload, EntryRequestPayload, FunctionMap } from "../types/common";
+import { ABIRoot, EntryPayload } from "../types";
+import { EntryFunctionName, EntryRequestPayload } from "../types/common";
 
 export function createEntryPayload<
     T extends ABIRoot,
-    TFuncName extends EntryFunctionName<T>,
-    TFunc extends FunctionMap<T>[TFuncName]
+    TFuncName extends EntryFunctionName<T>
 >(
     abi: T,
-    payload: EntryRequestPayload<T, TFuncName, TFunc>
+    payload: EntryRequestPayload<T, TFuncName>
 ): EntryPayload {
     // TODO: remove unused variables
     const fnAbi = abi.exposed_functions.filter(f => f.name === payload.function)[0];

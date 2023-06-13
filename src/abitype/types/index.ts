@@ -1,9 +1,9 @@
 export { ABIWalletClient } from "./walletClient";
-export { ABIClient } from "./client";
+export { ABIViewClient, ABIEntryClient } from "./abiClient";
 export {
     ViewPayload,
     EntryPayload,
     ViewOptions,
     EntryOptions,
-} from "./common";
+} from "./client";
 export { ABIRoot } from "./abi";

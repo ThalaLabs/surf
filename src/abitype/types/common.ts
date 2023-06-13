@@ -1,4 +1,3 @@
-import { AptosAccount, TxnBuilderTypes } from "aptos";
 import { ABIRoot } from "./abi";
 
 // TODO: rename this variable, not only primitive, but also struct and vector
@@ -72,11 +71,7 @@ export type ConvertReturnType<T extends AllTypes> =
 type Functions<T extends ABIRoot> = T['exposed_functions'];
 type MoveFunction<T extends ABIRoot> = Functions<T>[number];
 type FunctionName<T extends ABIRoot> = MoveFunction<T>['name'];
-export type FunctionMap<T extends ABIRoot> = {
-    [P in FunctionName<T>]: Extract<MoveFunction<T>, { name: P }>
-};
 
-// TODO: replace FunctionMap with this:
 export type ExtractFunction<T extends ABIRoot, TFuncName extends FunctionName<T>> =
     Extract<MoveFunction<T>, { name: TFuncName }>;
 
@@ -90,71 +85,72 @@ type ConvertParams<T extends readonly string[]> = {
     [P in keyof T]: T[P] extends AllTypes ? ConvertArgsType<T[P]> : Struct<T[P]>;
 };
 
-export type ConvertEntryParams<T extends readonly string[]> = ConvertParams<RemoveSigner<T>>;
+export type ConvertEntryParams<T extends readonly string[]> = ConvertParams<OmitSigner<T>>;
 
 // TODO: Figure out how to return the correct array type
 export type ConvertReturns<T extends readonly string[]> = {
     [P in keyof T]: T[P] extends AllTypes ? ConvertReturnType<T[P]> : Struct<T[P]>;
 };
 
+export type ExtractReturnType<
+    T extends ABIRoot,
+    TFuncName extends FunctionName<T>> =
+    ConvertReturns<ExtractRawReturnType<T, TFuncName>>;
+
+export type ExtractRawReturnType<
+    T extends ABIRoot,
+    TFuncName extends FunctionName<T>> =
+    ExtractFunction<T, TFuncName>['return'];
+
+export type ExtractParamsType<
+    T extends ABIRoot,
+    TFuncName extends FunctionName<T>> =
+    ConvertParams<ExtractRawParamsType<T, TFuncName>>;
+
+export type ExtractParamsTypeOmitSigner<
+    T extends ABIRoot,
+    TFuncName extends FunctionName<T>> =
+    ConvertParams<OmitSigner<ExtractRawParamsType<T, TFuncName>>>;
+
+export type ExtractRawParamsType<
+    T extends ABIRoot,
+    TFuncName extends FunctionName<T>> =
+    ExtractFunction<T, TFuncName>['params'];
+
+export type ExtractGenericParamsType<
+    T extends ABIRoot,
+    TFuncName extends FunctionName<T>> =
+    ConvertTypeParams<ExtractRawGenericParamsType<T, TFuncName>>;
+
+export type ExtractRawGenericParamsType<
+    T extends ABIRoot,
+    TFuncName extends FunctionName<T>> =
+    ExtractFunction<T, TFuncName>['generic_type_params'];
+
 // TODO: Figure out how to return the correct array type
 export type ConvertTypeParams<T extends readonly any[]> = {
     [P in keyof T]: string;
 };
 
-export type ViewRequestPayload<
-    T extends ABIRoot,
-    TFuncName extends ViewFunctionName<T>,
-    TFunc extends FunctionMap<T>[TFuncName]> = {
-        function: TFuncName,
-        arguments: ConvertParams<TFunc['params']>,
-        type_arguments: ConvertTypeParams<TFunc['generic_type_params']>
-    }
+export type ViewRequestPayload<T extends ABIRoot, TFuncName extends ViewFunctionName<T>> = {
+    function: TFuncName,
+    arguments: ExtractParamsType<T, TFuncName>,
+    type_arguments: ExtractGenericParamsType<T, TFuncName>
+}
 
 // Remove all `signer` and `&signer` from argument list because the Move VM injects those arguments. Clients do not
 // need to care about those args. `signer` and `&signer` are required be in the front of the argument list.
-type RemoveSigner<T extends readonly string[]> = T extends readonly ['&signer' | 'signer', ...infer Rest]
+type OmitSigner<T extends readonly string[]> = T extends readonly ['&signer' | 'signer', ...infer Rest]
     ? Rest
     : T;
 
 export type EntryRequestPayload<
     T extends ABIRoot,
-    TFuncName extends EntryFunctionName<T>,
-    TFunc extends FunctionMap<T>[TFuncName]> = {
+    TFuncName extends EntryFunctionName<T>> = {
         function: TFuncName,
-        arguments: ConvertEntryParams<TFunc['params']>,
-        type_arguments: ConvertTypeParams<TFunc['generic_type_params']>
+        arguments: ExtractParamsTypeOmitSigner<T, TFuncName>,
+        type_arguments: ExtractGenericParamsType<T, TFuncName>
     }
-
-export type EntryOptions = {
-    account: AptosAccount,
-}
-
-export type ViewOptions = {
-    ledger_version?: string;
-}
-
-export type EntryPayload = {
-    rawPayload: {
-        function: string;
-        type_arguments: string[];
-        arguments: any[];
-    },
-    entryRequest: TxnBuilderTypes.EntryFunction,
-    // readonly abi: any,
-};
-
-//@ts-ignore TODO: remove this ignore
-export type ViewPayload<TReturn> = {
-    viewRequest: {
-        function: string;
-        type_arguments: string[];
-        arguments: any[];
-    };
-    decoders: (((value: any) => any) | null)[],
-    // readonly abi: any,
-    // readonly return: TReturn,
-};
 
 export type TransactionResponse = {
     hash: string;

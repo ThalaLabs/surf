@@ -1,20 +1,18 @@
 import { HexString } from "aptos";
-import { ABIRoot } from "../types";
-import { ConvertReturns, FunctionMap, ViewFunctionName, ViewPayload, ViewRequestPayload } from "../types/common";
+import { ABIRoot, ViewPayload } from "../types";
+import { ExtractReturnType, ViewFunctionName, ViewRequestPayload } from "../types/common";
 import { ensureNumber } from "../ensureTypes";
 
 // TODO: support vector<u8> input with Uint8Array
 // TODO: support vector<u8> input with string
 export function createViewPayload<
     T extends ABIRoot,
-    TFuncName extends ViewFunctionName<T>,
-    TFunc extends FunctionMap<T>[TFuncName],
-    TReturn extends ConvertReturns<TFunc['return']>
+    TFuncName extends ViewFunctionName<T>
 >(
     abi: T,
-    payload: ViewRequestPayload<T, TFuncName, TFunc>
+    payload: ViewRequestPayload<T, TFuncName>
 ):
-    ViewPayload<TReturn> {
+    ViewPayload<ExtractReturnType<T, TFuncName>> {
     const fnAbi = abi.exposed_functions.filter(f => f.name === payload.function)[0];
     const type_arguments: string[] = payload.type_arguments as any[];
     const val_arguments: any[] = payload.arguments as any[];
