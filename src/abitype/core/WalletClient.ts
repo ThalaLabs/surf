@@ -1,6 +1,5 @@
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient, Types } from "aptos";
-import { camelToSnake } from "../utils";
 import { createEntryPayload } from "./createEntryPayload";
 import { ABIRoot, ABIWalletClient, EntryOptions, EntryPayload } from "../types";
 
@@ -51,19 +50,14 @@ export class WalletClient {
         return new Proxy({} as ABIWalletClient<T>, {
             get: (_, prop) => {
                 const functionName = prop.toString();
-                if (functionName.startsWith("entry")) {
-                    const realFunctionName = camelToSnake(functionName.slice("entry".length));
-                    return (...args) => {
-                        const payload = createEntryPayload(abi, {
-                            function: realFunctionName,
-                            type_arguments: args[0].type_arguments,
-                            arguments: args[0].arguments,
-                        });
-                        return this.submitTransaction(payload);
-                    };
-                }
-
-                throw new Error(`Function "${functionName}" not found`);
+                return (...args) => {
+                    const payload = createEntryPayload(abi, {
+                        function: functionName,
+                        type_arguments: args[0].type_arguments,
+                        arguments: args[0].arguments,
+                    });
+                    return this.submitTransaction(payload);
+                };
             }
         });
     }

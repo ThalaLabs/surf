@@ -1,17 +1,14 @@
 import { AptosClient, TxnBuilderTypes } from "aptos";
-import { camelToSnake } from "../utils";
 import { createViewPayload } from "./createViewPayload";
 import { createEntryPayload } from "./createEntryPayload";
-import { ABIClient, ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types";
+import { ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types";
+import { TransactionResponse } from "../types/common";
+import { ABIEntryClient, ABIViewClient } from "../types/client";
 
 export function createClient(options: { nodeUrl: string }): Client {
     return new Client(
         new AptosClient(options.nodeUrl)
     );
-}
-
-interface TransactionResponse {
-    hash: string;
 }
 
 export class Client {
@@ -77,39 +74,39 @@ export class Client {
     }
 
     public useABI<T extends ABIRoot>(abi: T) {
-        return new Proxy({} as ABIClient<T>, {
-            get: (_, prop) => {
-                const functionName = prop.toString();
-                if (functionName.startsWith("view")) {
-                    const realFunctionName = camelToSnake(functionName.slice("view".length));
+        return {
+            view: new Proxy({} as ABIViewClient<T>, {
+                get: (_, prop) => {
+                    const functionName = prop.toString();
                     return (...args) => {
                         const payload = createViewPayload(abi, {
-                            function: realFunctionName,
+                            function: functionName,
                             type_arguments: args[0].type_arguments,
                             arguments: args[0].arguments,
                         });
                         return this.view(payload);
                     };
                 }
-                else if (functionName.startsWith("entry")) {
-                    const realFunctionName = camelToSnake(functionName.slice("entry".length));
-
+            }),
+            entry: new Proxy({} as ABIEntryClient<T>, {
+                get: (_, prop) => {
+                    const functionName = prop.toString();
                     return (...args) => {
                         const payload = createEntryPayload(abi, {
-                            function: realFunctionName,
+                            function: functionName,
                             type_arguments: args[0].type_arguments,
                             arguments: args[0].arguments,
                         });
-                        return this.submitTransaction(payload, { account: args[0].account });
+                        return args[0].isSimulation ?
+                            this.simulateTransaction(payload, { account: args[0].account }) :
+                            this.submitTransaction(payload, { account: args[0].account });
                     };
                 }
-
-                throw new Error(`Function "${functionName}" not found`);
-            }
-        });
+            })
+        };
     }
 
-    private async generateRawTxn(payload: EntryPayload, options: EntryOptions, ) {
+    private async generateRawTxn(payload: EntryPayload, options: EntryOptions,) {
         const { account } = options;
         const entryFunctionPayload = new TxnBuilderTypes.TransactionPayloadEntryFunction(payload.entryRequest);
 

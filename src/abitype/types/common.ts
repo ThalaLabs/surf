@@ -156,4 +156,6 @@ export type ViewPayload<TReturn> = {
     // readonly return: TReturn,
 };
 
-
+export type TransactionResponse = {
+    hash: string;
+}
