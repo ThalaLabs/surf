@@ -4,7 +4,7 @@
     "module": "node16",
     "lib": ["ES2022"],
     "moduleResolution": "node16",
-    "rootDir": "./src/abitype",
+    "rootDir": "./src/",
     "outDir": "build",
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
@@ -19,7 +19,7 @@
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": ["src/abitype/**/*"],
+  "include": ["src/**/*"],
   "exclude": [
     "src/**/*.test.ts"
   ]

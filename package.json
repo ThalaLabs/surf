@@ -1,49 +1,75 @@
 {
-  "name": "@thalalabs/move-ts",
-  "version": "0.0.14",
-  "description": "generate TypeScript bindings for Move smart contracts",
+  "name": "@thalalabs/surf",
+  "version": "0.0.2",
+  "description": "TypeScript Interfaces & React Hooks for interacting with Aptos Smart Contracts with type safety.",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
   "types": "./build/types/index.d.ts",
   "typings": "./build/types/index.d.ts",
-  "bin": {
-    "move-ts": "./build/src/cli.js"
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/types/index.d.ts",
+        "default": "./build/esm/index.js"
+      },
+      "require": {
+        "types": "./build/types/index.d.ts",
+        "default": "./build/cjs/index.js"
+      }
+    },
+    "./hooks": {
+      "types": "./build/types/hooks/index.d.ts",
+      "import": "./build/esm/hooks/index.js",
+      "default": "./build/cjs/hooks/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "hooks": ["./build/types/hooks/index.d.ts"]
+    }
   },
   "devDependencies": {
+    "@aptos-labs/wallet-adapter-react": "^1.1.0",
     "@types/jest": "~29.5",
     "@types/node": "~18",
     "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "~5.59",
     "@typescript-eslint/parser": "~5.59",
+    "aptos": "^1.9.0",
     "eslint": "~8.38",
     "eslint-config-prettier": "~8.8",
     "eslint-plugin-jest": "~27.2",
     "jest": "~29.5",
     "prettier": "~2.8",
+    "react": "^18.2.0",
     "rimraf": "~5.0",
     "ts-api-utils": "~0.0.44",
     "ts-jest": "~29.1",
     "tslib": "~2.5",
-    "typescript": "~5.0",
-    "@aptos-labs/wallet-adapter-react": "^1.1.0",
-    "aptos": "^1.9.0",
-    "react": "^18.2.0"
+    "typescript": "~5.0"
   },
   "peerDependencies": {
-    "@aptos-labs/wallet-adapter-react": "^1.1.0",
-    "aptos": "^1.9.0",
+    "@aptos-labs/wallet-adapter-react": "^1.0.0",
+    "aptos": "^1.6.0",
     "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "@aptos-labs/wallet-adapter-react": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   },
   "scripts": {
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
     "prebuild": "yarn lint",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build": "yarn clean && yarn build:cli && yarn build:cjs && yarn build:esm && yarn build:types",
-    "build:cli": "tsc -p tsconfig.cli.json",
-    "build:cjs": "tsc --project tsconfig.lib.json --module commonjs --outDir ./build/cjs --removeComments --verbatimModuleSyntax false && echo > ./build/cjs/package.json '{\"type\":\"commonjs\"}'",
-    "build:esm": "tsc --project tsconfig.lib.json --module es2015 --outDir ./build/esm --removeComments && echo > ./build/esm/package.json '{\"type\":\"module\"}'",
-    "build:types": "tsc --project tsconfig.lib.json --module esnext --declarationDir ./build/types --emitDeclarationOnly --declaration --declarationMap",
+    "build": "yarn clean && yarn build:cjs && yarn build:esm && yarn build:types",
+    "build:cjs": "tsc --project tsconfig.json --module commonjs --outDir ./build/cjs --removeComments --verbatimModuleSyntax false && echo > ./build/cjs/package.json '{\"type\":\"commonjs\"}'",
+    "build:esm": "tsc --project tsconfig.json --module es2015 --outDir ./build/esm --removeComments && echo > ./build/esm/package.json '{\"type\":\"module\"}'",
+    "build:types": "tsc --project tsconfig.json --module esnext --declarationDir ./build/types --emitDeclarationOnly --declaration --declarationMap",
     "lint": "eslint . --ext .ts --ext .mts",
     "test": "jest --coverage",
     "prettier": "prettier --config .prettierrc --write .",
@@ -56,7 +82,5 @@
     "aptos"
   ],
   "license": "MIT",
-  "dependencies": {
-    "command-line-args": "^5.2.1"
-  }
+  "dependencies": {}
 }

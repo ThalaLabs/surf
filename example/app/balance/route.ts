@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient, createViewPayload } from "@thalalabs/move-ts";
+import { createClient, createViewPayload } from "@thalalabs/surf";
 import { COIN_ABI } from "../../abi/coin";
 
 export async function GET(request: Request) {
@@ -8,7 +8,6 @@ export async function GET(request: Request) {
             nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1"
         });
 
-        // Call view function with type safety.
         const balancePayload = createViewPayload(
             COIN_ABI,
             {
@@ -18,7 +17,6 @@ export async function GET(request: Request) {
             });
         const balance = await client.view(balancePayload);
 
-        // Create a request object before call view function.
         const coinNamePayload = createViewPayload(
             COIN_ABI,
             {

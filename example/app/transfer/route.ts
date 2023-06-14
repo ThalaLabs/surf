@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { AptosAccount } from 'aptos';
-import { createClient, createEntryPayload } from '@thalalabs/move-ts';
+import { createClient, createEntryPayload } from '@thalalabs/surf';
 import { COIN_ABI } from '../../abi/coin';
 
 export async function GET(request: Request) {

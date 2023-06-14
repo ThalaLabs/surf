@@ -8,9 +8,3 @@ export {
     EntryPayload,
     ViewPayload,
 } from "./types";
-
-export {
-    submitTransactionOptions,
-    useSubmitTransaction,
-    useWalletClient
-} from "./hooks";

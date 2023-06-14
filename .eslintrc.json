@@ -6,7 +6,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "tsconfig.cli.json", // TODO: fix this, we should lint for both projects
+    "project": "tsconfig.json",
     "sourceType": "module",
     "ecmaVersion": 2020
   },

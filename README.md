@@ -1,13 +1,40 @@
-# Surf
+<br/>
 
-**Surf** provides TypeScript Interfaces & React Hooks for seamlessly interacting with Aptos Smart Contracts with full type safety.
+<h1 align="center">
+  Surf
+</h1>
+
+<p align="center">
+  <strong>Surf</strong> provides TypeScript Interfaces & React Hooks for seamlessly interacting with Aptos Smart Contracts with full type-safety.
+<p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@thalalabs/surf">
+    <picture>
+      <img src="https://img.shields.io/npm/v/@thalalabs/surf?colorA=2c8af7&colorB=2c8af7&style=flat" alt="Version">
+    </picture>
+  </a>
+  <a href="https://github.com/ThalaLabs/surf/blob/main/LICENSE">
+    <picture>
+      <img src="https://img.shields.io/npm/l/@thalalabs/surf?colorA=2c8af7&colorB=2c8af7&style=flat" alt="MIT License">
+    </picture>
+  </a>
+  <a href="https://bundlephobia.com/package/@thalalabs/surf">
+    <picture>
+      <img src="https://img.shields.io/bundlephobia/minzip/@thalalabs/surf?colorA=2c8af7&colorB=2c8af7&style=flat" alt="MIT License">
+    </picture>
+  </a>
+</p>
+
+<br>
 
 ## Features
 
-- **No code-generation**: Provide fully typed APIs based on static type inference.
-- **Get rid of encoding/decoding**: We handle the complex within the APIs, so you don't have to.
+- **No code-generation**: Interact with smart contracts using fully typed APIs based on static type inference. Inspired by [Viem](https://viem.sh/).
+- **Get rid of encoding/decoding**: Surf takes care of the complexities within the APIs, so you don't have to.
 - **Linting and Auto-Completion**: Enjoy a better development experience with type safety. No more guesswork for input and output.
 - **Both TypeScript Interfaces & React Hooks**: Easy to use, whether working with wallets or private keys.
+- **Low runtime cost & small bundle size**: [minzipped size: 1.77 kB](https://bundlephobia.com/package/@thalalabs/surf).
 
 ## Overview
 
@@ -28,7 +55,7 @@ const [balance] = await client.useABI(COIN_ABI).view.balance({
 });
 ```
 
-When I input `client.useABI(COIN_ABI).view.` into my IDE, the auto-completion showed as below. I could also see the input and output types for the function, all of which were statically inferred from the ABI.
+When you input `client.useABI(COIN_ABI).view.` into your IDE, the auto-completion show as below. You could also see the input and output types for the function, all of which are statically inferred from the ABI.
 ![surf-useABI.png](./images/surf-useABI.png)
 
 ## Quick Start
@@ -39,7 +66,7 @@ When I input `client.useABI(COIN_ABI).view.` into my IDE, the auto-completion sh
 npm i @thalalabs/surf aptos
 ```
 
-If you want to use the React hooks, install the `@aptos-labs/wallet-adapter-react` additionally.
+If you want to use the React Hooks, install the `@aptos-labs/wallet-adapter-react` additionally. Those React Hooks will be moved to a separate package in near future.
 
 ### Start
 
@@ -66,13 +93,13 @@ If type inference isn't working, it's likely you forgot to add the const asserti
 There are two ways to call a view function with the client:
 
 ```typescript
-// Use the `useABI` interface
+// Option 1. Use the `useABI` interface
 const [balance] = await client.useABI(COIN_ABI).view.balance({
     arguments: ['0x1'],
     type_arguments: ['0x1::aptos_coin::AptosCoin'],
 });
 
-// Create payload and use the `view` interface
+// Option 2. Create payload and use the `view` interface
 import { createViewPayload } from "@thalalabs/surf";
 const viewPayload = createViewPayload(COIN_ABI, {
     function: 'balance',
@@ -84,7 +111,9 @@ const [balance] = await client.view(viewPayload);
 
 Both of the interfaces can provide type safety.
 
-### Submit transaction
+Calling `useABI` returns an object without any ABI parsing, so that the runtime cost is low.
+
+### Submit Transaction
 
 Similar to the `view` function, there are also two ways to submit transactions.
 
@@ -92,14 +121,14 @@ Similar to the `view` function, there are also two ways to submit transactions.
 // prepare your AptosAccount
 const account = /* your AptosAccount */;
 
-// Use the `useABI` interface
+// Option 1. Use the `useABI` interface
 const { hash } = await client.useABI(COIN_ABI).entry.transfer({
     arguments: ['0x1', 1],
     type_arguments: ['0x1::aptos_coin::AptosCoin'],
     account,
 });
 
-// Create payload and use the `submitTransaction` interface
+// Option 2. Create payload and use the `submitTransaction` interface
 import { createEntryPayload } from "@thalalabs/surf";
 const entryPayload = createEntryPayload(COIN_ABI, {
     function: 'transfer',
@@ -119,7 +148,7 @@ You can also simulate a transaction:
 // prepare your AptosAccount
 const account = /* your AptosAccount */;
 
-// Use the `useABI` interface
+// Option 1. Use the `useABI` interface
 const { hash } = await client.useABI(COIN_ABI).entry.transfer({
     arguments: ['0x1', 1],
     type_arguments: ['0x1::aptos_coin::AptosCoin'],
@@ -127,7 +156,7 @@ const { hash } = await client.useABI(COIN_ABI).entry.transfer({
     isSimulation: true,
 });
 
-// Create payload and use the `simulateTransaction` interface
+// Option 2. Create payload and use the `simulateTransaction` interface
 import { createEntryPayload } from "@thalalabs/surf";
 const entryPayload = createEntryPayload(COIN_ABI, {
     function: 'transfer',
@@ -143,12 +172,7 @@ const { hash } = await client.simulateTransaction(
 
 ### Hooks
 
-- Submit Hooks
-- Wallet Hooks
-
-## Example project
-
-WIP
+Surf currently offers two React Hooks: `useWalletClient` and `useSubmitTransaction`. Both require the `@aptos-labs/wallet-adapter-react`. Check out our [example NextJS package](https://github.com/ThalaLabs/surf/blob/main/example/app/page.tsx) for more information.
 
 ## Motivation
 
@@ -157,3 +181,7 @@ WIP
 ## Contributing
 
 WIP
+
+## License
+
+Released under [MIT](/LICENSE) by [@ThalaLabs](https://github.com/ThalaLabs).

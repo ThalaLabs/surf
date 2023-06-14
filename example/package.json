@@ -4,16 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "rimraf ./bindings && node ../build/src/cli.js --config=./move-ts.config.js --targetDir=./bindings",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@thalalabs/move-ts": "../",
+    "@aptos-labs/wallet-adapter-react": "^1.1.0",
+    "@thalalabs/surf": "^0.0.2",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
+    "aptos": "^1.9.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "next": "13.4.4",
