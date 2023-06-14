@@ -95,6 +95,7 @@ function encodeVector(type: string, value: any[]) {
     } else {
         // 1. Address type no need to encode
         // 2. TODO: Figure out how to encode Struct type
+        // 3. TODO: Figure out how to encode Vector of vector, vector of struct
         return value;
     }
 }

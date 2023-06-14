@@ -2,6 +2,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient, Types } from "aptos";
 import { createEntryPayload } from "./createEntryPayload";
 import { ABIRoot, ABIWalletClient, EntryOptions, EntryPayload } from "../types";
+import { TransactionResponse } from "../types/common";
 
 type Wallet = ReturnType<typeof useWallet>;
 
@@ -20,7 +21,7 @@ export class WalletClient {
     public async submitTransaction(
         payload: EntryPayload,
         _: EntryOptions | undefined = undefined
-    ): Promise<{ hash: string }> { // TODO: make { hash: string } a individual type.
+    ): Promise<TransactionResponse> {
         const request = payload.rawPayload;
 
         // TODO: use the BCS API instead
