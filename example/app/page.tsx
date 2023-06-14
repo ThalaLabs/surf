@@ -38,9 +38,9 @@ export default function Home() {
     data: submitResult } = useSubmitTransaction();
   const { client } = useWalletClient({ nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1" });
 
-  const [result2, setResult2] = useState("");
+  const [result, setResult] = useState("");
 
-  const onSubmit = async () => {
+  const onSubmitForUseSubmitTransaction = async () => {
     try {
       const payload = createEntryPayload(COIN_ABI, {
         function: "transfer",
@@ -55,13 +55,13 @@ export default function Home() {
     }
   }
 
-  const onSubmit2 = async () => {
+  const onSubmitForUseWalletClient = async () => {
     try {
       const result = await client.useABI(COIN_ABI).transfer({
         arguments: ["0x1", BigInt(1)],
         type_arguments: ["0x1::aptos_coin::AptosCoin"]
       });
-      setResult2(result.hash);
+      setResult(result.hash);
       onRefresh();
     }
     catch (e) {
@@ -92,7 +92,7 @@ export default function Home() {
           margin: "50px",
           fontSize: "20px"
         }}
-          onClick={onSubmit}>
+          onClick={onSubmitForUseSubmitTransaction}>
           Submit transaction: transfer 1 coin to 0x1 on testnet <br /> (useSubmitTransaction)
         </button>}
         {!isIdle && <button style={{
@@ -108,13 +108,13 @@ export default function Home() {
           margin: "50px",
           fontSize: "20px"
         }}
-          onClick={onSubmit2}>
+          onClick={onSubmitForUseWalletClient}>
           Submit transaction: transfer 1 coin to 0x1 on testnet <br /> (useWalletClient)
         </button>
         {submitIsLoading && <div>running</div>}
         {submitResult && <div>{`Success: ${submitResult.hash}`}</div>}
         {submitError && <div>{`Failed: ${submitError}`}</div>}
-        {result2 && <div>{`Submission with useWalletClient Success: ${result2}`}</div>}
+        {result && <div>{`Submission with useWalletClient Success: ${result}`}</div>}
       </div>
       }
     </main>

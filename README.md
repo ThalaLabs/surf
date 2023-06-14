@@ -10,19 +10,13 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@thalalabs/surf">
-    <picture>
       <img src="https://img.shields.io/npm/v/@thalalabs/surf?colorA=2c8af7&colorB=2c8af7&style=flat" alt="Version">
-    </picture>
   </a>
   <a href="https://github.com/ThalaLabs/surf/blob/main/LICENSE">
-    <picture>
       <img src="https://img.shields.io/npm/l/@thalalabs/surf?colorA=2c8af7&colorB=2c8af7&style=flat" alt="MIT License">
-    </picture>
   </a>
   <a href="https://bundlephobia.com/package/@thalalabs/surf">
-    <picture>
       <img src="https://img.shields.io/bundlephobia/minzip/@thalalabs/surf?colorA=2c8af7&colorB=2c8af7&style=flat" alt="MIT License">
-    </picture>
   </a>
 </p>
 
@@ -170,9 +164,9 @@ const { hash } = await client.simulateTransaction(
 );
 ```
 
-### Hooks
+### React Hooks
 
-Surf currently offers two React Hooks: `useWalletClient` and `useSubmitTransaction`. Both require the `@aptos-labs/wallet-adapter-react`. Check out our [example NextJS package](https://github.com/ThalaLabs/surf/blob/main/example/app/page.tsx) for more information.
+Surf currently offers two React Hooks: `useWalletClient` and `useSubmitTransaction`. Both require the `@aptos-labs/wallet-adapter-react`. Check out the [example NextJS package](https://github.com/ThalaLabs/surf/blob/main/example/app/page.tsx) for more information.
 
 ## Motivation
 
