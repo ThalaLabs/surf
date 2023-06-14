@@ -5,7 +5,7 @@
 </h1>
 
 <p align="center">
-  <strong>Surf</strong> provides TypeScript Interfaces & React Hooks for seamlessly interacting with Aptos Smart Contracts with full type-safety.
+  Type-Safe TypeScript Interfaces & React Hooks for Aptos.
 <p>
 
 <p align="center">
@@ -50,7 +50,8 @@ const [balance] = await client.useABI(COIN_ABI).view.balance({
 ```
 
 When you input `client.useABI(COIN_ABI).view.` into your IDE, the auto-completion show as below. You could also see the input and output types for the function, all of which are statically inferred from the ABI.
-![surf-useABI.png](./images/surf-useABI.png)
+
+![demo image](./images/surf-hero.gif)
 
 ## Quick Start
 
