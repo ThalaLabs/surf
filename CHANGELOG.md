@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- ab1d8a5: fix a problem when decode vector<u64>, vector<u128>, vector<u256>
+- ab1d8a5: fix a problem when decode vector\<u64\>, vector\<u128\>, vector\<u256\>
 
 ## 0.0.4
 
