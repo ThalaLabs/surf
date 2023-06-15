@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.4
+
+### Patch Changes
+
+- 2fb3cfc: Enforce the import syntax to include the file extension. So that Surf could be more compatible with some NodeJS settings.
+
 ## 0.0.3
 
 ### Patch Changes
