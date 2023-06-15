@@ -177,7 +177,7 @@ Compared to [Viem](https://viem.sh/), Surf is still in its infancy. Any contribu
   - [ ] For `view` function, Surf currently doesn't check the input type for `struct`.
   - [ ] For `submitTransaction` function, Surf currently cannot encode for `struct` types. 
 - [ ] Support vector of vector, vector of struct.
-- [ ] Accept `Uint8Array` and `string` for `vector<u8>` input. Currently users can pass these values to `createEntryPayload`, and Surf will correctly encode it. But the type system will complain. So users need to use `as any` to pass `Uint8Array` or `string`. The type system only accept `number[]` for `vector<u8>` now.
+- [ ] Accept `Uint8Array` and `string` for `vector<u8>` input. Currently users can pass these values to `createEntryPayload`, and Surf will correctly encode it. But the type system will complain. So users need to use `as any` to pass `Uint8Array` or `string` for `vector<u8>`. The type system only accept `number[]` for `vector<u8>` now.
 - [ ] Add the functionality available in AptosClient to Surf, such as `estimateGasPrice` and `getAccountResources`.
 
 ## License

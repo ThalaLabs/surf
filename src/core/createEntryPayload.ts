@@ -1,7 +1,7 @@
 import { BCS, TxnBuilderTypes, TypeTagParser } from "aptos";
-import { ensureBigInt, ensureBoolean, ensureNumber } from "../ensureTypes";
-import { ABIRoot, EntryPayload } from "../types";
-import { EntryFunctionName, EntryRequestPayload } from "../types/common";
+import { ensureBigInt, ensureBoolean, ensureNumber } from "../ensureTypes.js";
+import type { ABIRoot, EntryPayload } from "../types/index.js";
+import type { EntryFunctionName, EntryRequestPayload } from "../types/common.js";
 
 export function createEntryPayload<
     T extends ABIRoot,
@@ -11,7 +11,7 @@ export function createEntryPayload<
     payload: EntryRequestPayload<T, TFuncName>
 ): EntryPayload {
     // TODO: remove unused variables
-    const fnAbi = abi.exposed_functions.filter(f => f.name === payload.function)[0];
+    const fnAbi = abi.exposed_functions.filter(f => f.name === payload.function)[0]!;
     const typeArguments: string[] = payload.type_arguments as any[];
     const valArguments: any[] = payload.arguments as any[];
     const abiArgs = fnAbi.params[0] === '&signer'
@@ -53,7 +53,7 @@ export function createEntryPayload<
                 }),
             valArguments.map( // arguments
                 (arg, i) => {
-                    const type = abiArgs[i];
+                    const type = abiArgs[i]!;
                     const serializer = new BCS.Serializer();
                     argToBCS(type, arg, serializer);
                     return serializer.getBytes();
@@ -69,7 +69,7 @@ function argToBCS(type: string, arg: any, serializer: BCS.Serializer) {
     const regex = /vector<([^]+)>/;
     const match = type.match(regex);
     if (match) { // It's vector
-        const innerType = match[1];
+        const innerType = match[1]!;
         if (innerType === 'u8') {
             if (arg instanceof Uint8Array) { // TODO: add type support for Uint8Array
                 serializer.serializeBytes(arg);

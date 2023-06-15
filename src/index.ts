@@ -2,9 +2,9 @@ export {
     createViewPayload,
     createEntryPayload,
     createClient
-} from "./core";
+} from "./core/index.js";
 
-export {
+export type {
     EntryPayload,
     ViewPayload,
-} from "./types";
+} from "./types/index.js";

@@ -1,9 +1,8 @@
 import { AptosClient, TxnBuilderTypes } from "aptos";
-import { createViewPayload } from "./createViewPayload";
-import { createEntryPayload } from "./createEntryPayload";
-import { ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types";
-import { TransactionResponse } from "../types/common";
-import { ABIEntryClient, ABIViewClient } from "../types";
+import { createViewPayload } from "./createViewPayload.js";
+import { createEntryPayload } from "./createEntryPayload.js";
+import type { ABIEntryClient, ABIViewClient, ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types/index.js";
+import type { TransactionResponse } from "../types/common.js";
 
 export function createClient(options: { nodeUrl: string }): Client {
     return new Client(

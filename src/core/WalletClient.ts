@@ -1,8 +1,8 @@
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient, Types } from "aptos";
-import { createEntryPayload } from "./createEntryPayload";
-import { ABIRoot, ABIWalletClient, EntryOptions, EntryPayload } from "../types";
-import { TransactionResponse } from "../types/common";
+import { createEntryPayload } from "./createEntryPayload.js";
+import type { ABIRoot, ABIWalletClient, EntryOptions, EntryPayload } from "../types/index.js";
+import type { TransactionResponse } from "../types/common.js";
 
 type Wallet = ReturnType<typeof useWallet>;
 

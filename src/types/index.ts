@@ -1,9 +1,9 @@
-export { ABIWalletClient } from "./walletClient";
-export { ABIViewClient, ABIEntryClient } from "./abiClient";
-export {
+export type { ABIWalletClient } from "./walletClient.js";
+export type { ABIViewClient, ABIEntryClient } from "./abiClient.js";
+export type {
     ViewPayload,
     EntryPayload,
     ViewOptions,
     EntryOptions,
-} from "./client";
-export { ABIRoot } from "./abi";
+} from "./client.js";
+export type { ABIRoot } from "./abi.js";

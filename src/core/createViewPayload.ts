@@ -1,7 +1,7 @@
 import { HexString } from "aptos";
-import { ABIRoot, ViewPayload } from "../types";
-import { ExtractReturnType, ViewFunctionName, ViewRequestPayload } from "../types/common";
-import { ensureNumber } from "../ensureTypes";
+import type { ABIRoot, ViewPayload } from "../types/index.js";
+import type { ExtractReturnType, ViewFunctionName, ViewRequestPayload } from "../types/common.js";
+import { ensureNumber } from "../ensureTypes.js";
 
 // TODO: support vector<u8> input with Uint8Array
 // TODO: support vector<u8> input with string
@@ -24,17 +24,18 @@ export function createViewPayload<
 
     // TODO: do serialization here
     const args = fnAbi.params.map((type, i) => {
+        const arg = payload.arguments[i]!;
         if (['u8', 'u16', 'u32'].includes(type)) {
-            return ensureNumber(payload.arguments[i] as number);
+            return ensureNumber(arg as number);
         }
         else if (['u64', 'u128', 'u256'].includes(type)) {
-            return payload.arguments[i].toString();
+            return arg.toString();
         }
         else if (type.includes("vector")) {
-            return encodeVector(type, payload.arguments[i] as any[]);
+            return encodeVector(type, arg as any[]);
         }
         else {
-            return payload.arguments[i];
+            return arg;
         }
     });
 
@@ -69,8 +70,8 @@ function encodeVector(type: string, value: any[]) {
         // Should never happen
         throw new Error(`Unsupported type: ${type}`);
     }
-
-    if (match[1] === "u8") {
+    const innerType = match[1]!;
+    if (innerType === "u8") {
         return (
             HexString.fromUint8Array(
                 new Uint8Array(
@@ -83,13 +84,13 @@ function encodeVector(type: string, value: any[]) {
                 ),
             ) as any
         ).hexString;
-    } else if (["u16", "u32"].includes(match[1])) {
+    } else if (["u16", "u32"].includes(innerType)) {
         // TODO: Figure out how to encode
         return value;
-    } else if (["u64", "u128", "u256"].includes(match[1])) {
+    } else if (["u64", "u128", "u256"].includes(innerType)) {
         // TODO: Figure out how to encode
         return value.map((v: bigint) => v.toString());
-    } else if (match[1] === "bool") {
+    } else if (innerType === "bool") {
         // TODO: Figure out how to encode
         return value;
     } else {

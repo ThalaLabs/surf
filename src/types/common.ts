@@ -1,4 +1,4 @@
-import { ABIRoot } from "./abi";
+import type { ABIRoot } from "./abi.js";
 
 // TODO: rename this variable, not only primitive, but also struct and vector
 export type Primitive =

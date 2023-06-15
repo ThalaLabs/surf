@@ -1,6 +1,14 @@
-import { AptosAccount } from "aptos";
-import { ABIRoot } from "./abi";
-import { EntryFunctionName, ExtractGenericParamsType, ExtractParamsType, ExtractParamsTypeOmitSigner, ExtractReturnType, TransactionResponse, ViewFunctionName } from "./common";
+import type { AptosAccount } from "aptos";
+import type { ABIRoot } from "./abi.js";
+import type {
+    EntryFunctionName,
+    ExtractGenericParamsType,
+    ExtractParamsType,
+    ExtractParamsTypeOmitSigner,
+    ExtractReturnType,
+    TransactionResponse,
+    ViewFunctionName
+} from "./common.js";
 
 export type ABIViewClient<T extends ABIRoot> = {
     [TFuncName in ViewFunctionName<T>]: (payload: {

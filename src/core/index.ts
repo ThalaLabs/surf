@@ -1,4 +1,4 @@
-export { WalletClient as MoveTsWalletClient } from "./WalletClient";
-export { Client as MoveTsClient, createClient } from "./Client";
-export { createViewPayload } from "./createViewPayload";
-export { createEntryPayload } from "./createEntryPayload";
+export { WalletClient as MoveTsWalletClient } from "./WalletClient.js";
+export { Client as MoveTsClient, createClient } from "./Client.js";
+export { createViewPayload } from "./createViewPayload.js";
+export { createEntryPayload } from "./createEntryPayload.js";

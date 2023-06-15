@@ -8,16 +8,25 @@ import { useSubmitTransaction, useWalletClient } from '@thalalabs/surf/hooks';
 import { COIN_ABI } from '../abi/coin';
 
 export default function Home() {
+  const {
+    isIdle,
+    reset,
+    isLoading: submitIsLoading,
+    error: submitError,
+    submitTransaction,
+    data: submitResult
+  } = useSubmitTransaction();
+
+  const { client } = useWalletClient({ nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1" });
+
   const wallet = useWallet();
-
-  const [balanceMessage, setBalanceMessage] = useState();
-
   useEffect(() => {
     if (!wallet.connected) {
       wallet.connect(wallet.wallets[0].name);
     }
   }, []);
 
+  const [balanceMessage, setBalanceMessage] = useState();
   const onRefresh = () => {
     setBalanceMessage(undefined);
     fetch("/balance").then(async (response) => {
@@ -29,14 +38,6 @@ export default function Home() {
   useEffect(() => {
     onRefresh();
   }, []);
-
-  const {
-    isIdle,
-    reset,
-    isLoading: submitIsLoading,
-    error: submitError, submitTransaction,
-    data: submitResult } = useSubmitTransaction();
-  const { client } = useWalletClient({ nodeUrl: "https://fullnode.testnet.aptoslabs.com/v1" });
 
   const [result, setResult] = useState("");
 
@@ -57,6 +58,7 @@ export default function Home() {
 
   const onSubmitForUseWalletClient = async () => {
     try {
+      if(!client) return;
       const result = await client.useABI(COIN_ABI).transfer({
         arguments: ["0x1", BigInt(1)],
         type_arguments: ["0x1::aptos_coin::AptosCoin"]

@@ -1,5 +1,5 @@
-import { ABIRoot } from "./abi";
-import { EntryFunctionName, ExtractGenericParamsType, ExtractParamsTypeOmitSigner, TransactionResponse } from "./common";
+import type { ABIRoot } from "./abi.js";
+import { EntryFunctionName, ExtractGenericParamsType, ExtractParamsTypeOmitSigner, TransactionResponse } from "./common.js";
 
 export type ABIWalletClient<T extends ABIRoot> = {
     [TFuncName in EntryFunctionName<T>]:
