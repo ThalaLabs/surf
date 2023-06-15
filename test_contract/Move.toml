@@ -1,0 +1,9 @@
+[package]
+name = 'test_for_surf'
+version = '1.0.0'
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'main'
+subdir = 'aptos-move/framework/aptos-framework'
+[addresses]
+surf_addr='f1ab5cd814ef1480b8c36466310d9c21d7758b54f6121872d1fb43887a40e7d8'

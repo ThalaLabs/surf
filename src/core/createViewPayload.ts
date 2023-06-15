@@ -44,6 +44,9 @@ export function createViewPayload<
         if (['u64', 'u128', 'u256'].includes(type)) {
             return decodeBigint;
         }
+        else if (type.includes("vector")) {
+            return (value: any[]) => decodeVector(type, value)
+        }
         else {
             return null;
         }
@@ -61,6 +64,27 @@ export function createViewPayload<
 
 function decodeBigint(value: string): bigint {
     return BigInt(value);
+}
+
+function decodeVector(type: string, value: any[]) {
+    const regex = /vector<([^]+)>/;
+    const match = type.match(regex);
+    if (!match) {
+        // Should never happen
+        throw new Error(`Unsupported type: ${type}`);
+    }
+    const innerType = match[1]!;
+
+    if(["address", "bool", "u8", "u16", "u32"].includes(innerType)) {
+        return value;
+    }
+    else if (["u64", "u128", "u256"].includes(innerType)) {
+        return value.map((v: string) => BigInt(v));
+    } else {
+        // 1. TODO: Figure out how to decode Struct type
+        // 2. TODO: Figure out how to decode Vector of vector, vector of struct
+        return value;
+    }
 }
 
 function encodeVector(type: string, value: any[]) {
@@ -84,15 +108,10 @@ function encodeVector(type: string, value: any[]) {
                 ),
             ) as any
         ).hexString;
-    } else if (["u16", "u32"].includes(innerType)) {
-        // TODO: Figure out how to encode
+    } else if (["bool", "u16", "u32"].includes(innerType)) {
         return value;
     } else if (["u64", "u128", "u256"].includes(innerType)) {
-        // TODO: Figure out how to encode
         return value.map((v: bigint) => v.toString());
-    } else if (innerType === "bool") {
-        // TODO: Figure out how to encode
-        return value;
     } else {
         // 1. Address type no need to encode
         // 2. TODO: Figure out how to encode Struct type

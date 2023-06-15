@@ -1,5 +1,5 @@
-# generated files
-bindings/
+# smart contract account config for test
+test_contract/.aptos
 
 # Logs
 logs
