@@ -8,7 +8,7 @@ import { createViewPayload } from '../createViewPayload';
 // TODO: add vector<address>, vector<struct>
 describe('call view functions for vector type', () => {
   const client = createClient({
-    nodeUrl: 'https://fullnode.devnet.aptoslabs.com/v1',
+    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
   });
 
   // Act before assertions
