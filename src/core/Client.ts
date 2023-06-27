@@ -3,6 +3,7 @@ import { createViewPayload } from "./createViewPayload.js";
 import { createEntryPayload } from "./createEntryPayload.js";
 import type { ABIEntryClient, ABIViewClient, ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types/index.js";
 import type { TransactionResponse } from "../types/common.js";
+import { ABIResourceClient } from "../types/abiClient.js";
 
 export function createClient(options: { nodeUrl: string }): Client {
     return new Client(
@@ -27,7 +28,7 @@ export class Client {
         );
 
         // Decode the return value
-        // TODO: for vectors, struct
+        // TODO: for struct
         return result.map((value, i) =>
             payload.decoders[i] ?
                 payload.decoders[i]!(value) :
@@ -101,7 +102,23 @@ export class Client {
                             this.submitTransaction(payload, { account: args[0].account });
                     };
                 }
-            })
+            }),
+            resource: new Proxy({} as ABIResourceClient<T>, {
+                get: (_, prop) => {
+                    let structName = prop.toString();
+                    return (...args) => {
+                        if(args[0].type_arguments.length !== 0) {
+                            structName += `<${args[0].type_arguments.join(",")}>`;
+                        }
+                        return this.client.getAccountResource(
+                            args[0].account,
+                            `${abi.address}::${abi.name}::${structName}`,
+                        );
+
+                        // TODO: decode the u64, u128, u256 to bigint
+                    };
+                }
+            }),
         };
     }
 

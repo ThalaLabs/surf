@@ -1,5 +1,6 @@
 # smart contract account config for test
 test_contract/.aptos
+test_contract/build
 
 # Logs
 logs

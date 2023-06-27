@@ -9,7 +9,7 @@ export type Primitive =
 type Vector = `vector<${Primitive}>`;
 type VectorOfVector = `vector<vector<${Primitive}>>`;
 
-// TODO: support struct, vector<struct>, and vector<vector<vector>>
+// TODO: support vector<vector<vector>>
 export type AllTypes = Primitive | Vector | VectorOfVector;
 type ConvertPrimitiveArgsType<T extends Primitive> =
     T extends 'bool' ? boolean :
@@ -74,11 +74,16 @@ type FunctionName<T extends ABIRoot> = MoveFunction<T>['name'];
 
 export type ExtractFunction<T extends ABIRoot, TFuncName extends FunctionName<T>> =
     Extract<MoveFunction<T>, { name: TFuncName }>;
+export type ExtractStruct<T extends ABIRoot, TResourceName extends ResourceStructName<T>> =
+    Extract<MoveStruct<T>, { name: TResourceName }>;
 
 export type MoveViewFunction<T extends ABIRoot> = Extract<Functions<T>[number], { is_view: true }>;
 export type ViewFunctionName<T extends ABIRoot> = MoveViewFunction<T>['name'];
 export type MoveEntryFunction<T extends ABIRoot> = Extract<Functions<T>[number], { is_entry: true }>;
 export type EntryFunctionName<T extends ABIRoot> = MoveEntryFunction<T>['name'];
+
+export type MoveStruct<T extends ABIRoot> = T['structs'][number];
+export type ResourceStructName<T extends ABIRoot> = MoveStruct<T>['name'];
 
 // TODO: Figure out how to return the correct array type
 type ConvertParams<T extends readonly string[]> = {
@@ -126,6 +131,33 @@ export type ExtractRawGenericParamsType<
     T extends ABIRoot,
     TFuncName extends FunctionName<T>> =
     ExtractFunction<T, TFuncName>['generic_type_params'];
+
+export type ExtractStructRawGenericParamsType<
+    T extends ABIRoot,
+    TStructName extends ResourceStructName<T>> =
+    ExtractStruct<T, TStructName>['generic_type_params'];
+
+export type ExtractStructGenericParamsType<
+    T extends ABIRoot,
+    TStructName extends ResourceStructName<T>> =
+    ConvertTypeParams<ExtractStructRawGenericParamsType<T, TStructName>>;
+
+type ExtractStructFieldsName<
+    T extends ABIRoot,
+    TStructName extends ResourceStructName<T>> = ExtractStruct<T, TStructName>['fields'][number]['name'];
+
+type ExtractStructFieldType<
+    T extends ABIRoot,
+    TStructName extends ResourceStructName<T>,
+    TFieldName extends string> = Extract<ExtractStruct<T, TStructName>['fields'][number], { name: TFieldName }>['type'];
+
+export type ExtractStructType<
+    T extends ABIRoot,
+    TStructName extends ResourceStructName<T>> = {
+        [P in ExtractStructFieldsName<T, TStructName>]:
+        ExtractStructFieldType<T, TStructName, P> extends AllTypes ?
+        ConvertReturnType<ExtractStructFieldType<T, TStructName, P>> : Struct<ExtractStructFieldType<T, TStructName, P>>;
+    };
 
 // TODO: Figure out how to return the correct array type
 export type ConvertTypeParams<T extends readonly any[]> = {

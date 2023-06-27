@@ -6,6 +6,9 @@ import type {
     ExtractParamsType,
     ExtractParamsTypeOmitSigner,
     ExtractReturnType,
+    ExtractStructGenericParamsType,
+    ExtractStructType,
+    ResourceStructName,
     TransactionResponse,
     ViewFunctionName
 } from "./common.js";
@@ -24,4 +27,14 @@ export type ABIEntryClient<T extends ABIRoot> = {
         account: AptosAccount,
         isSimulation?: boolean
     }) => Promise<TransactionResponse>
+};
+
+export type ABIResourceClient<T extends ABIRoot> = {
+    [TStructName in ResourceStructName<T>]: (payload: {
+        type_arguments: ExtractStructGenericParamsType<T, TStructName>,
+        account: `0x${string}`,
+    }) => Promise<{
+        data: ExtractStructType<T, TStructName>,
+        type: string
+    }>
 };

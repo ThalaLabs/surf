@@ -14,6 +14,7 @@ function isRawPayload(payload: EntryPayload | Types.TransactionPayload_EntryFunc
     return (<EntryPayload>payload).rawPayload !== undefined;
 }
 
+// TODO: add test for this
 export const useSubmitTransaction = () => {
     const { signAndSubmitTransaction } = useWallet();
 

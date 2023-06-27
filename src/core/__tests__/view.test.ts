@@ -47,7 +47,7 @@ describe('call view functions', () => {
     `);
     }, 60000);
 
-    it('struct', async () => {
+    it('return struct', async () => {
         const viewPayload = createViewPayload(TIERED_ORACLE_ABI, {
             function: 'get_last_price',
             arguments: [],

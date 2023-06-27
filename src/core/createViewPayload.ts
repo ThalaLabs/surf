@@ -34,7 +34,7 @@ export function createViewPayload<
         else if (type.includes("vector")) {
             return encodeVector(type, arg as any[]);
         }
-        else {
+        else { // string or address
             return arg;
         }
     });
@@ -81,8 +81,7 @@ function decodeVector(type: string, value: any[]) {
     else if (["u64", "u128", "u256"].includes(innerType)) {
         return value.map((v: string) => BigInt(v));
     } else {
-        // 1. TODO: Figure out how to decode Struct type
-        // 2. TODO: Figure out how to decode Vector of vector, vector of struct
+        // TODO: Figure out how to decode Vector of vector
         return value;
     }
 }
@@ -112,10 +111,8 @@ function encodeVector(type: string, value: any[]) {
         return value;
     } else if (["u64", "u128", "u256"].includes(innerType)) {
         return value.map((v: bigint) => v.toString());
-    } else {
-        // 1. Address type no need to encode
-        // 2. TODO: Figure out how to encode Struct type
-        // 3. TODO: Figure out how to encode Vector of vector, vector of struct
+    } else { // string or address
+        // TODO: encode for Vector of vector
         return value;
     }
 }

@@ -92,8 +92,6 @@ function argToBCS(type: string, arg: any, serializer: BCS.Serializer) {
         return;
     }
 
-    // TODO: it's struct
-
     switch (type) { // It's primitive
         case 'bool':
             serializer.serializeBool(ensureBoolean(arg));

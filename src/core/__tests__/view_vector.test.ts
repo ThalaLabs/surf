@@ -5,7 +5,7 @@
 import { createClient } from '../Client';
 import { createViewPayload } from '../createViewPayload';
 
-// TODO: add vector<address>, vector<struct>
+// TODO: add vector<address>, vector<vector>
 describe('call view functions for vector type', () => {
   const client = createClient({
     nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',

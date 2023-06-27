@@ -1,7 +1,7 @@
 import { COIN_ABI } from "../../abi/coin";
 import { createEntryPayload } from "../createEntryPayload";
 
-// TODO: add struct, vector of vector, vector
+// TODO: add vector of vector, vector
 describe('createEntryPayload', () => {
     // Act before assertions
     beforeAll(async () => { });

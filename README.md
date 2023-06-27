@@ -75,7 +75,7 @@ const client = createClient({
 });
 ```
 
-Surf infers types from ABI to give you the end-to-end type-safety from your Move contract to your frontend. So firstly, you need to prepare the ABI json object of your contract in TypeScript:
+Surf infers types from ABI to give you the end-to-end type-safety from your Move contract to your frontend. So firstly, you need to prepare the ABI json object of your contract in TypeScript (You can get ABI from Aptos Explorer, for example: [0x1::coin](https://explorer.aptoslabs.com/account/0x1/modules/code/coin?network=testnet)):
 
 ```TypeScript
 const abi = {…} as const;
@@ -173,10 +173,8 @@ Surf currently offers two React Hooks: `useWalletClient` and `useSubmitTransacti
 Compared to [Viem](https://viem.sh/), Surf is still in its infancy. Any contribution is welcome and appreciated. Here are some TODOs:
 
 - [ ] Deploy a dedicated smart contract on the testnet for Surf to run tests that cover all data types. Currently, Surf has some tests running in CI, but they do not cover all types.
-- [ ] Support `struct` types for input arguments or return values.
-  - [ ] For `view` function, Surf currently doesn't check the input type for `struct`.
-  - [ ] For `submitTransaction` function, Surf currently cannot encode for `struct` types. 
-- [ ] Support vector of vector, vector of struct.
+- [ ] Support `struct` types for return values for `view` function.
+- [ ] Support vector of vector.
 - [ ] Accept `Uint8Array` and `string` for `vector<u8>` input. Currently users can pass these values to `createEntryPayload`, and Surf will correctly encode it. But the type system will complain. So users need to use `as any` to pass `Uint8Array` or `string` for `vector<u8>`. The type system only accept `number[]` for `vector<u8>` now.
 - [ ] Add the functionality available in AptosClient to Surf, such as `estimateGasPrice` and `getAccountResources`.
 
