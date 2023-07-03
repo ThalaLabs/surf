@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.7
+
+### Patch Changes
+
+- 5d6d75b: Bug fix: abi files are missing in the package
+
 ## 0.0.6
 
 ### Patch Changes
