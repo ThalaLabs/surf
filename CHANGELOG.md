@@ -1,5 +1,12 @@
 # @thalalabs/surf
 
+## 0.0.6
+
+### Patch Changes
+
+- 2618838: Add a getAccountResource API in useABI client
+- 4609afb: Add some builtin 0x1 types for getting account resource
+
 ## 0.0.5
 
 ### Patch Changes
