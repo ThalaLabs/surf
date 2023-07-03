@@ -28,7 +28,7 @@
 - **Get rid of encoding/decoding**: Surf takes care of the complexities within the APIs, so you don't have to.
 - **Linting and Auto-Completion**: Enjoy a better development experience with type safety. No more guesswork for input and output.
 - **Both TypeScript Interfaces & React Hooks**: Easy to use, whether working with wallets or private keys.
-- **Low runtime cost & small bundle size**: [minzipped size: 1.77 kB](https://bundlephobia.com/package/@thalalabs/surf).
+- **Low runtime cost & small bundle size**: [minzipped size: < 2 kB](https://bundlephobia.com/package/@thalalabs/surf).
 
 ## Overview
 

@@ -6,12 +6,10 @@ import type {
     ExtractParamsType,
     ExtractParamsTypeOmitSigner,
     ExtractReturnType,
-    ExtractStructGenericParamsType,
-    ExtractStructType,
-    ResourceStructName,
     TransactionResponse,
     ViewFunctionName
 } from "./common.js";
+import { ExtractStructGenericParamsType, ExtractStructType, ResourceStructName } from "./struct.js";
 
 export type ABIViewClient<T extends ABIRoot> = {
     [TFuncName in ViewFunctionName<T>]: (payload: {

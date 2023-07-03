@@ -27,6 +27,12 @@ describe('get account resource', () => {
     expect(result.data.deposit_events).toBeDefined();
     expect(result.data.withdraw_events).toBeDefined();
 
+    // can inference nested struct
+    expect(result.data.deposit_events.guid.id.creation_num).toBeDefined();
+
+    // @ts-expect-error field not exist
+    expect(result.data.deposit_events.guid.id.abc).toBeUndefined();
+
     // @ts-expect-error field not exist
     expect(result.abc).toBeUndefined();
   }, 60000);
