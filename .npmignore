@@ -5,7 +5,6 @@ tsconfig.json
 tsconfig.release.json
 move-ts.config.example.js
 jest.config.js
-abi
 .vscode
 .editorconfig 
 .eslintignore
