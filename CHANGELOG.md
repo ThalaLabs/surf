@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.8
+
+### Patch Changes
+
+- b15264f: Support customize ABITable
+
 ## 0.0.7
 
 ### Patch Changes
