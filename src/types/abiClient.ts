@@ -9,7 +9,7 @@ import type {
     TransactionResponse,
     ViewFunctionName
 } from "./common.js";
-import { ExtractStructGenericParamsType, ExtractStructType, ResourceStructName } from "./struct.js";
+import { ABITable, ExtractStructGenericParamsType, ExtractStructType, ResourceStructName } from "./struct.js";
 
 export type ABIViewClient<T extends ABIRoot> = {
     [TFuncName in ViewFunctionName<T>]: (payload: {
@@ -27,12 +27,12 @@ export type ABIEntryClient<T extends ABIRoot> = {
     }) => Promise<TransactionResponse>
 };
 
-export type ABIResourceClient<T extends ABIRoot> = {
+export type ABIResourceClient<TABITable extends ABITable, T extends ABIRoot> = {
     [TStructName in ResourceStructName<T>]: (payload: {
         type_arguments: ExtractStructGenericParamsType<T, TStructName>,
         account: `0x${string}`,
     }) => Promise<{
-        data: ExtractStructType<T, TStructName>,
+        data: ExtractStructType<TABITable, T, TStructName>,
         type: string
     }>
 };

@@ -1,6 +1,5 @@
 import { ABIRoot } from "./abi.js";
 import { AllTypes, ConvertTypeParams, Primitive } from "./common.js";
-import { GlobalABITable } from "./globalABI.js";
 
 type Struct<_T extends string> = object;
 
@@ -47,6 +46,7 @@ export type ConvertStructField<T extends AllTypes> =
     Struct<T>;
 
 export type ExtractStructType<
+    TABITable extends ABITable,
     T extends ABIRoot,
     TStructName extends ResourceStructName<T>> = {
         [TField in ExtractStructFieldsName<T, TStructName>]:
@@ -54,7 +54,7 @@ export type ExtractStructType<
         // it's a non-struct type
         ConvertStructField<ExtractStructFieldType<T, TStructName, TField>> :
         // it's a struct type
-        ExtractStructTypeGlobal<ExtractStructFieldType<T, TStructName, TField>>;
+        ExtractStructTypeGlobal<TABITable, ExtractStructFieldType<T, TStructName, TField>>;
     };
 
 export type ExtractStructRawGenericParamsType<
@@ -67,12 +67,16 @@ export type ExtractStructGenericParamsType<
     TStructName extends ResourceStructName<T>> =
     ConvertTypeParams<ExtractStructRawGenericParamsType<T, TStructName>>;
 
-type ExtractStructTypeGlobal<TAddress extends string> =
+type ExtractStructTypeGlobal<TABITable extends ABITable, TAddress extends string> =
     TAddress extends `${infer TAccountAddress}::${infer TModuleName}::${infer TStructName}${'' | `<${infer _TInnerType}>`}`
-    ? `${TAccountAddress}::${TModuleName}` extends keyof GlobalABITable ?
-    OmitInner<TStructName> extends ResourceStructName<GlobalABITable[`${TAccountAddress}::${TModuleName}`]> ?
-    ExtractStructType<GlobalABITable[`${TAccountAddress}::${TModuleName}`], OmitInner<TStructName>>
+    ? `${TAccountAddress}::${TModuleName}` extends keyof TABITable ?
+    OmitInner<TStructName> extends ResourceStructName<TABITable[`${TAccountAddress}::${TModuleName}`]> ?
+    ExtractStructType<TABITable, TABITable[`${TAccountAddress}::${TModuleName}`], OmitInner<TStructName>>
     // Unknown struct, use the default struct type
     : Struct<TAddress> : Struct<TAddress> : Struct<TAddress>;
 
 type OmitInner<T extends string> = T extends `${infer TOuter}<${infer _TInner}>` ? `${TOuter}` : T;
+
+export type ABITable = {
+    [TAddress in string]: ABIRoot;
+};

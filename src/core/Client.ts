@@ -1,17 +1,19 @@
 import { AptosClient, TxnBuilderTypes } from "aptos";
 import { createViewPayload } from "./createViewPayload.js";
 import { createEntryPayload } from "./createEntryPayload.js";
-import type { ABIEntryClient, ABIViewClient, ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload } from "../types/index.js";
+import type { ABIEntryClient, ABIViewClient, ABIRoot, EntryOptions, EntryPayload, ViewOptions, ViewPayload, DefaultABITable } from "../types/index.js";
 import type { TransactionResponse } from "../types/common.js";
 import { ABIResourceClient } from "../types/abiClient.js";
+import { ABITable } from "../types/struct.js";
 
-export function createClient(options: { nodeUrl: string }): Client {
-    return new Client(
+export function createClient<TABITable extends ABITable = DefaultABITable>
+    (options: { nodeUrl: string }): Client<TABITable> {
+    return new Client<TABITable>(
         new AptosClient(options.nodeUrl)
     );
 }
 
-export class Client {
+export class Client<TABITable extends ABITable> {
     private client: AptosClient;
 
     constructor(client: AptosClient) {
@@ -103,11 +105,11 @@ export class Client {
                     };
                 }
             }),
-            resource: new Proxy({} as ABIResourceClient<T>, {
+            resource: new Proxy({} as ABIResourceClient<TABITable, T>, {
                 get: (_, prop) => {
                     let structName = prop.toString();
                     return (...args) => {
-                        if(args[0].type_arguments.length !== 0) {
+                        if (args[0].type_arguments.length !== 0) {
                             structName += `<${args[0].type_arguments.join(",")}>`;
                         }
                         return this.client.getAccountResource(

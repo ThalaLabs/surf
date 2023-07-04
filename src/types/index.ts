@@ -7,3 +7,4 @@ export type {
     EntryOptions,
 } from "./client.js";
 export type { ABIRoot } from "./abi.js";
+export type { DefaultABITable } from "./defaultABITable.js";
