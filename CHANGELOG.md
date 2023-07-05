@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.9
+
+### Patch Changes
+
+- 030d907: Support vector of struct in get account resource
+
 ## 0.0.8
 
 ### Patch Changes
