@@ -25,7 +25,7 @@ describe('get account resource', () => {
     });
 
     expect(result.data.frozen).toBeFalsy();
-    expect(result.data.coin).toBeDefined();
+    expect(result.data.coin.value).toBeDefined();
     expect(result.data.deposit_events).toBeDefined();
     expect(result.data.withdraw_events).toBeDefined();
 
@@ -54,11 +54,23 @@ describe('get account resource', () => {
         account: '0x1',
       });
 
+      // `value` and `v` are string type
       result.data.coin.value.startsWith;
-      result.data.ratio.v;
+      result.data.ratio.v.startsWith;
 
       // @ts-expect-error field not exist
       result.data.ratio.abc;
+    }
+  }, 60000);
+  
+  it('vector struct type', async () => {
+    async () => {
+      const result = await client.useABI(TEST_ABI).resource.TestVectorStruct({
+        type_arguments: [],
+        account: '0x1',
+      });
+
+      result.data.coins[0]?.value.startsWith;
     }
   }, 60000);
 });
@@ -82,6 +94,18 @@ const TEST_ABI = {
         {
           "name": "coin",
           "type": "0x1::coin::Coin<T0>"
+        },
+      ],
+    },
+    {
+      name: 'TestVectorStruct',
+      is_native: false,
+      abilities: ['key'],
+      generic_type_params: [],
+      fields: [
+        {
+          "name": "coins",
+          "type": "vector<0x1::coin::Coin<T0>>"
         },
       ],
     },

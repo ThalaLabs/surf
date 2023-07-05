@@ -165,6 +165,40 @@ const { hash } = await client.simulateTransaction(
 );
 ```
 
+### Get account resource
+
+To get account resource with type safety:
+
+```typescript
+const { data } = await client.useABI(COIN_ABI).resource.CoinStore({
+    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    account: '0x1',
+});
+
+// Get property in the struct with type safety
+console.log(data.frozen);
+
+// It also works for nested struct type.
+// The `coin` property's type is 0x1::coin::Coin<T0>
+console.log(data.coin.value);
+```
+
+Some fields of a stuct may reference external modules.To inference the type of a nested struct, it needs the ABI of the external module. Surf currently only built-in some of the ABIs from 0x1, so that it can inference types like "0x1::coin::Coin". The type of an unidentifiable field would be `object`. Developer can provide additional modules to Surf like this:
+```TypeScript
+import { DefaultABITable } from "@thalalabs/surf";
+type ABITAble = DefaultABITable & {
+    '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI,
+};
+
+const client = createClient<ABITAble>({
+nodeUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
+});
+```
+
+With this customized `ABITAble`, Surf can inference the struct from `0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64`.
+
+Considering the `ABITable` is only been used as a type, it would be stripped out after compiling. So it won't increase the bundle size. You can put the `ABITable` in a separate file and `import type { ABITable } from "./ABITable.ts"` to ensure that.
+
 ### React Hooks
 
 Surf currently offers two React Hooks: `useWalletClient` and `useSubmitTransaction`. Both require the `@aptos-labs/wallet-adapter-react`. Check out the [example NextJS package](https://github.com/ThalaLabs/surf/blob/main/example/app/page.tsx) for more information.

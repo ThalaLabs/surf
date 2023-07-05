@@ -6,8 +6,8 @@ export type Primitive =
     'u64' | 'u128' | 'u256' | 'address' |
     '0x1::string::String';
 
-type Vector = `vector<${Primitive}>`;
-type VectorOfVector = `vector<vector<${Primitive}>>`;
+type Vector = `vector<${string}>`;
+type VectorOfVector = `vector<vector<${string}>>`;
 
 // TODO: support vector<vector<vector>>
 export type AllTypes = Primitive | Vector | VectorOfVector;

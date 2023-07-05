@@ -7,4 +7,5 @@ export {
 export type {
     EntryPayload,
     ViewPayload,
+    DefaultABITable
 } from "./types/index.js";
