@@ -183,7 +183,7 @@ console.log(data.frozen);
 console.log(data.coin.value);
 ```
 
-Some fields of a stuct may reference external modules.To inference the type of a nested struct, it needs the ABI of the external module. Surf currently only built-in some of the ABIs from 0x1, so that it can inference types like "0x1::coin::Coin". The type of an unidentifiable field would be `object`. Developer can provide additional modules to Surf like this:
+Some fields of a stuct may reference external modules.To inference the type of a nested struct, it needs the ABI of the external module. Surf currently only built-in some of the ABIs from 0x1, so that it can inference types like `0x1::coin::Coin`. The type of an unidentifiable field would be `object`. Developer can provide additional modules to Surf like this:
 ```TypeScript
 import { DefaultABITable } from "@thalalabs/surf";
 type ABITAble = DefaultABITable & {
