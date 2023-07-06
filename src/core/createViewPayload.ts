@@ -5,6 +5,22 @@ import { ensureNumber } from "../ensureTypes.js";
 
 // TODO: support vector<u8> input with Uint8Array
 // TODO: support vector<u8> input with string
+/**
+ * Create a payload for calling a view function.
+ * 
+ * @param abi The ABI JSON contains the view function. For type inference and encoding/decoding purpose.
+ * @param payload.function The function name.
+ * @param payload.arguments The input arguments for function.
+ * @param payload.type_arguments The generic type arguments for function.
+ * @returns The payload object to be used in `view` method.
+ * @example
+ * const viewPayload = createViewPayload(COIN_ABI, {
+ *   function: 'balance',
+ *   arguments: ['0x1'],
+ *   type_arguments: ['0x1::aptos_coin::AptosCoin'],
+ * });
+ * const [balance] = await client.view(viewPayload);
+ */
 export function createViewPayload<
     T extends ABIRoot,
     TFuncName extends ViewFunctionName<T>
