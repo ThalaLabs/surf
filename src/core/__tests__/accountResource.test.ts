@@ -62,7 +62,7 @@ describe('get account resource', () => {
       result.data.ratio.abc;
     }
   }, 60000);
-  
+
   it('vector struct type', async () => {
     async () => {
       const result = await client.useABI(TEST_ABI).resource.TestVectorStruct({
@@ -72,6 +72,19 @@ describe('get account resource', () => {
 
       result.data.coins[0]?.value.startsWith;
     }
+  }, 60000);
+
+  it('option type', async () => {
+    const { data } = await client.useABI(COIN_ABI).resource.CoinInfo({
+      type_arguments: ["0x1::aptos_coin::AptosCoin"],
+      account: '0x1',
+    });
+
+    expect(data.supply.vec[0]?.aggregator.vec).toBeDefined();
+    expect(data.supply.vec[0]?.integer.vec).toBeDefined();
+
+    // @ts-expect-error out of index, option only has 0 or 1 item
+    expect(data.supply.vec[1]).toBeUndefined();    
   }, 60000);
 });
 

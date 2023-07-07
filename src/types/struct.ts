@@ -36,6 +36,9 @@ type ConvertStructFieldType<TABITable extends ABITable, TMoveType extends string
     TMoveType extends AllTypes ?
     // it's a non-struct type
     ConvertStructFieldNonStructType<TABITable, TMoveType> :
+    TMoveType extends `0x1::option::Option<${infer TInner}>` ?
+    // it's 0x1::option::Option
+    ConvertStructFieldOptionType<TABITable, TInner> :
     // it's a struct type
     ConvertStructFieldStructType<TABITable, TMoveType>;
 
@@ -44,6 +47,10 @@ export type ConvertStructFieldNonStructType<TABITable extends ABITable, TMoveTyp
     TMoveType extends Primitive ? ConvertPrimitiveStructField<TMoveType> :
     TMoveType extends `vector<${infer TInner}>` ? ConvertStructFieldType<TABITable, TInner>[] :
     Struct<TMoveType>;
+
+type ConvertStructFieldOptionType<TABITable extends ABITable, TMoveType extends string> = {
+    vec: [ConvertStructFieldType<TABITable, TMoveType>] | [];
+};
 
 // Convert a struct field struct Move type to a TypeScript type
 type ConvertStructFieldStructType<TABITable extends ABITable, TMoveType extends string> =
