@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.10
+
+### Patch Changes
+
+- d4d702d: Support `0x1::option::Option<T>` type.
+
 ## 0.0.9
 
 ### Patch Changes
