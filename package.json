@@ -38,7 +38,7 @@
     "@types/node": "~18",
     "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "~5.61",
-    "@typescript-eslint/parser": "~5.59",
+    "@typescript-eslint/parser": "~5.61",
     "aptos": "^1.9.0",
     "eslint": "~8.44",
     "eslint-config-prettier": "~8.8",
