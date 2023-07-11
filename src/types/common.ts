@@ -8,9 +8,10 @@ export type Primitive =
 
 type Vector = `vector<${string}>`;
 type VectorOfVector = `vector<vector<${string}>>`;
+type MoveObject = `0x1::object::Object<${string}>`
 
 // TODO: support vector<vector<vector>>
-export type AllTypes = Primitive | Vector | VectorOfVector;
+export type AllTypes = Primitive | Vector | VectorOfVector | MoveObject;
 type ConvertPrimitiveArgsType<T extends Primitive> =
     T extends 'bool' ? boolean :
     T extends 'u8' ? number :
@@ -35,6 +36,7 @@ type ConvertVectorArgsType<TInner> = TInner extends Primitive ? ConvertPrimitive
 export type ConvertArgsType<T extends AllTypes> =
     T extends Primitive ? ConvertPrimitiveArgsType<T> :
     T extends `vector<${infer TInner}>` ? ConvertVectorArgsType<TInner> :
+    T extends `0x1::object::Object<${string}>` ? `0x${string}` :
     Struct<T>;
 
 //@ts-ignore TODO: remove this ignore

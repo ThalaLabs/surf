@@ -182,6 +182,14 @@ describe('createEntryPayload', () => {
             });
         }
     });
+
+    it('0x1::object::Object', async () => {
+        createEntryPayload(TEST_ABI, {
+            function: 'object_as_input',
+            arguments: ["0x123456"],
+            type_arguments: [],
+        });
+    });
 });
 
 const TEST_ABI = {
@@ -253,6 +261,17 @@ const TEST_ABI = {
             "params": [
                 "vector<vector<u8>>",
                 "vector<vector<address>>",
+            ],
+            "return": []
+        },
+        {
+            "name": "object_as_input",
+            "visibility": "public",
+            "is_entry": true,
+            "is_view": false,
+            "generic_type_params": [],
+            "params": [
+                "0x1::object::Object<0xb8a4015d231899eaf1de8eb6dc6547f296f215b7ca46ea01b22b3d1ba24b6eb1::overflow::Overflow<T0, T1>>",
             ],
             "return": []
         },

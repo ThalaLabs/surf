@@ -86,10 +86,10 @@ export function createEntryPayload<
 
 function argToBCS(type: string, arg: any, serializer: BCS.Serializer) {
 
-    const regex = /vector<([^]+)>/;
-    const match = type.match(regex);
-    if (match) { // It's vector
-        const innerType = match[1]!;
+    const vectorRegex = /vector<([^]+)>/;
+    const vectorMatch = type.match(vectorRegex);
+    if (vectorMatch) { // It's vector
+        const innerType = vectorMatch[1]!;
         if (innerType === 'u8') {
             if (arg instanceof Uint8Array) { // TODO: add type support for Uint8Array
                 serializer.serializeBytes(arg);
@@ -109,6 +109,13 @@ function argToBCS(type: string, arg: any, serializer: BCS.Serializer) {
         serializer.serializeU32AsUleb128(arg.length);
 
         arg.forEach((arg) => argToBCS(innerType, arg, serializer));
+        return;
+    }
+
+    const objectRegex = /0x1::object::Object<([^]+)>/;
+    const objectMatch = type.match(objectRegex);
+    if (objectMatch) { // It's 0x1::object::Object
+        TxnBuilderTypes.AccountAddress.fromHex(arg as string).serialize(serializer);
         return;
     }
 
