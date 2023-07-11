@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.11
+
+### Patch Changes
+
+- 64ea383: Support 0x1::object::Object
+
 ## 0.0.10
 
 ### Patch Changes
