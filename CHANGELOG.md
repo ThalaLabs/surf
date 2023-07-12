@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.12
+
+### Patch Changes
+
+- a0b7dc2: Support 0x1::option::Option as function inputs, and add some tests
+
 ## 0.0.11
 
 ### Patch Changes
