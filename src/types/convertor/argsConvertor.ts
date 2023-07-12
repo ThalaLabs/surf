@@ -54,4 +54,6 @@ type ConvertNonStructArgType<TMoveType extends MoveNonStructTypes> =
     ? ConvertArgType<TInner>[]
     : TMoveType extends `0x1::object::Object<${string}>`
     ? `0x${string}`
+    : TMoveType extends `0x1::option::Option<${infer TInner}>`
+    ? ([ConvertArgType<TInner>] | [])
     : UnknownStruct<TMoveType>;

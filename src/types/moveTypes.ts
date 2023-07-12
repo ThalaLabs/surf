@@ -2,7 +2,7 @@
  * Types from Move language
  */
 
-export type MoveNonStructTypes = MovePrimitive | MoveVector | MoveObject;
+export type MoveNonStructTypes = MovePrimitive | MoveVector | MoveObject | MoveOption;
 
 export type MovePrimitive =
   | 'bool'
@@ -18,3 +18,5 @@ export type MovePrimitive =
 export type MoveVector = `vector<${string}>`;
 
 export type MoveObject = `0x1::object::Object<${string}>`;
+
+export type MoveOption = `0x1::option::Option<${string}>`;
