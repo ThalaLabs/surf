@@ -207,6 +207,10 @@ Surf currently offers two React Hooks: `useWalletClient` and `useSubmitTransacti
 
 Surf support some special types like `0x1::object::Object`, `0x1::option::Option`. Aptos has specific rule for these types. For example, Aptos accepts hex strings as input for `0x1::object::Object` argument type.
 
+## Design details
+
+Learning more backgrounds and design details from this [blog post](https://thalalabs.medium.com/introducing-surf-type-safe-typescript-interfaces-react-hooks-for-aptos-39527f41bc39).
+
 ## TODOs
 Compared to [Viem](https://viem.sh/), Surf is still in its infancy. Any contribution is welcome and appreciated. Here are some TODOs:
 
