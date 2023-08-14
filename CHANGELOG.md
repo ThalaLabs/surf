@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.13
+
+### Patch Changes
+
+- 75d0420: make aptos wallet library optional, resolve a build error when the wallet library is missing.
+
 ## 0.0.12
 
 ### Patch Changes
