@@ -40,7 +40,7 @@
     "@typescript-eslint/eslint-plugin": "~5.61",
     "@typescript-eslint/parser": "~5.61",
     "aptos": "^1.9.0",
-    "eslint": "~8.44",
+    "eslint": "~8.47",
     "eslint-config-prettier": "~8.8",
     "eslint-plugin-jest": "~27.2",
     "jest": "~29.6",
