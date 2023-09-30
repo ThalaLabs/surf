@@ -139,11 +139,12 @@ function argToBCS(type: string, arg: any, serializer: BCS.Serializer) {
 
   const optionRegex = /0x1::option::Option<([^]+)>/;
   const optionMatch = type.match(optionRegex);
-  if (optionMatch) { // It's 0x1::option::Option
+  if (optionMatch) {
+    // It's 0x1::option::Option
     const innerType = optionMatch[1]!;
     serializer.serializeU32AsUleb128(arg.length);
-    if(!(arg instanceof Array) || arg.length > 1) {
-        throw new Error('Invalid input value for 0x1::option::Option.');
+    if (!(arg instanceof Array) || arg.length > 1) {
+      throw new Error('Invalid input value for 0x1::option::Option.');
     }
     arg.forEach((arg) => argToBCS(innerType, arg, serializer));
     return;

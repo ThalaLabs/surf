@@ -2,9 +2,7 @@
   "compilerOptions": {
     "target": "ES2021",
     "module": "NodeNext",
-    "lib": [
-      "ES2022"
-    ],
+    "lib": ["ES2022"],
     "moduleResolution": "nodenext",
     "rootDir": "./src/",
     "outDir": "build",
@@ -27,12 +25,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "exactOptionalPropertyTypes": true,
-    "noUncheckedIndexedAccess": true,
+    "noUncheckedIndexedAccess": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/**/*.test.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"]
 }

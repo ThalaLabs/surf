@@ -168,7 +168,9 @@ export class Client<TABITable extends ABITable> {
               type_arguments: args[0].type_arguments,
               arguments: args[0].arguments,
             });
-            return this.view(payload, { ledger_version: args[0].ledger_version });
+            return this.view(payload, {
+              ledger_version: args[0].ledger_version,
+            });
           };
         },
       }),
@@ -220,7 +222,7 @@ export class Client<TABITable extends ABITable> {
               `${abi.address}::${abi.name}::${structName}`,
               {
                 ledgerVersion: args[0].ledger_version,
-              }
+              },
             );
 
             // TODO: decode the u64, u128, u256 to bigint

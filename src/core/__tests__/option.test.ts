@@ -112,7 +112,7 @@ describe('option type', () => {
         arguments: [[1, 2]],
         type_arguments: [],
       });
-    }
+    };
   }, 60000);
 });
 

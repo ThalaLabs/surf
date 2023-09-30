@@ -1,11 +1,11 @@
 export {
-    createViewPayload,
-    createEntryPayload,
-    createClient
-} from "./core/index.js";
+  createViewPayload,
+  createEntryPayload,
+  createClient,
+} from './core/index.js';
 
 export type {
-    EntryPayload,
-    ViewPayload,
-    DefaultABITable
-} from "./types/index.js";
+  EntryPayload,
+  ViewPayload,
+  DefaultABITable,
+} from './types/index.js';

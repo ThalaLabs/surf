@@ -2,7 +2,11 @@
  * Types from Move language
  */
 
-export type MoveNonStructTypes = MovePrimitive | MoveVector | MoveObject | MoveOption;
+export type MoveNonStructTypes =
+  | MovePrimitive
+  | MoveVector
+  | MoveObject
+  | MoveOption;
 
 export type MovePrimitive =
   | 'bool'
