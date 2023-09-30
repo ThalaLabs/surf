@@ -40,6 +40,7 @@ export type ABIResourceClient<TABITable extends ABITable, T extends ABIRoot> = {
   [TStructName in ResourceStructName<T>]: (payload: {
     type_arguments: ExtractStructGenericArgsType<T, TStructName>;
     account: `0x${string}`;
+    ledger_version?: string;
   }) => Promise<{
     data: ExtractStructType<TABITable, T, TStructName>;
     type: string;

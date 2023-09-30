@@ -218,6 +218,9 @@ export class Client<TABITable extends ABITable> {
             return this.client.getAccountResource(
               args[0].account,
               `${abi.address}::${abi.name}::${structName}`,
+              {
+                ledgerVersion: args[0].ledger_version,
+              }
             );
 
             // TODO: decode the u64, u128, u256 to bigint
