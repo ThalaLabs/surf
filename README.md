@@ -90,18 +90,22 @@ There are two ways to call a view function with the client:
 ```typescript
 // Option 1. Use the `useABI` interface
 const [balance] = await client.useABI(COIN_ABI).view.balance({
-    arguments: ['0x1'],
-    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  arguments: ['0x1'],
+  type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  ledger_version: '562606728', // ledger_version is optional
 });
 
 // Option 2. Create payload and use the `view` interface
-import { createViewPayload } from "@thalalabs/surf";
+import { createViewPayload } from '@thalalabs/surf';
 const viewPayload = createViewPayload(COIN_ABI, {
-    function: 'balance',
-    arguments: ['0x1'],
-    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  function: 'balance',
+  arguments: ['0x1'],
+  type_arguments: ['0x1::aptos_coin::AptosCoin'],
 });
-const [balance] = await client.view(viewPayload);
+const [balance] = await client.view(
+  viewPayload,
+  { ledger_version: '562606728' }, // ledger_version is optional
+);
 ```
 
 Both of the interfaces can provide type safety.
@@ -132,7 +136,7 @@ const entryPayload = createEntryPayload(COIN_ABI, {
 });
 
 const { hash } = await client.submitTransaction(
-    entryPayload, 
+    entryPayload,
     { account },
 );
 ```
@@ -160,7 +164,7 @@ const entryPayload = createEntryPayload(COIN_ABI, {
 });
 
 const { hash } = await client.simulateTransaction(
-    entryPayload, 
+    entryPayload,
     { account }
 );
 ```
@@ -171,8 +175,9 @@ To get account resource with type safety:
 
 ```typescript
 const { data } = await client.useABI(COIN_ABI).resource.CoinStore({
-    type_arguments: ['0x1::aptos_coin::AptosCoin'],
-    account: '0x1',
+  type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  account: '0x1',
+  ledger_version: '562606728', // ledger_version is optional
 });
 
 // Get property in the struct with type safety
@@ -184,6 +189,7 @@ console.log(data.coin.value);
 ```
 
 Some fields of a stuct may reference external modules.To inference the type of a nested struct, it needs the ABI of the external module. Surf currently only built-in some of the ABIs from 0x1, so that it can inference types like `0x1::coin::Coin`. The type of an unidentifiable field would be `object`. Developer can provide additional modules to Surf like this:
+
 ```TypeScript
 import { DefaultABITable } from "@thalalabs/surf";
 type ABITAble = DefaultABITable & {
@@ -212,6 +218,7 @@ Surf support some special types like `0x1::object::Object`, `0x1::option::Option
 Learning more backgrounds and design details from this [blog post](https://thalalabs.medium.com/introducing-surf-type-safe-typescript-interfaces-react-hooks-for-aptos-39527f41bc39).
 
 ## TODOs
+
 Compared to [Viem](https://viem.sh/), Surf is still in its infancy. Any contribution is welcome and appreciated. Here are some TODOs:
 
 - [ ] Deploy a dedicated smart contract on the testnet for Surf to run tests that cover all data types. Currently, Surf has some tests running in CI, but they do not cover all types.

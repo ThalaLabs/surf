@@ -4,10 +4,10 @@ import { createViewPayload } from '../createViewPayload';
 // TODO: add struct, vector of vector
 describe('createViewPayload', () => {
   // Act before assertions
-  beforeAll(async () => { });
+  beforeAll(async () => {});
 
   // Teardown (cleanup) after assertions
-  afterAll(() => { });
+  afterAll(() => {});
 
   it('basic type checking', async () => {
     // no need to run, type check only.
@@ -46,7 +46,7 @@ describe('createViewPayload', () => {
         // @ts-expect-error require a type_argument
         type_arguments: [],
       });
-    }
+    };
   });
 
   it('basic', async () => {
@@ -87,7 +87,7 @@ describe('createViewPayload', () => {
         ],
         type_arguments: [],
       });
-    }
+    };
 
     const payload = createViewPayload(TEST_ABI, {
       function: 'bool_as_input',
@@ -123,7 +123,7 @@ describe('createViewPayload', () => {
         ],
         type_arguments: [],
       });
-    }
+    };
 
     const payload = createViewPayload(TEST_ABI, {
       function: 'address_as_input',
@@ -159,7 +159,7 @@ describe('createViewPayload', () => {
         ],
         type_arguments: [],
       });
-    }
+    };
 
     const payload = createViewPayload(TEST_ABI, {
       function: 'number_as_input',
@@ -232,66 +232,52 @@ describe('createViewPayload', () => {
 });
 
 const TEST_ABI = {
-  "address": "0x123",
-  "name": "test",
-  "friends": [],
-  "exposed_functions": [
+  address: '0x123',
+  name: 'test',
+  friends: [],
+  exposed_functions: [
     {
-      "name": "bool_as_input",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "bool",
-        "bool",
-      ],
-      "return": []
+      name: 'bool_as_input',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [],
+      params: ['bool', 'bool'],
+      return: [],
     },
     {
-      "name": "number_as_input",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "u8",
-        "u16",
-        "u32",
-        "u64",
-        "u128",
-        "u256",
-      ],
-      "return": []
+      name: 'number_as_input',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [],
+      params: ['u8', 'u16', 'u32', 'u64', 'u128', 'u256'],
+      return: [],
     },
     {
-      "name": "address_as_input",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address",
-        "address",
-      ],
-      "return": []
+      name: 'address_as_input',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [],
+      params: ['address', 'address'],
+      return: [],
     },
     {
-      "name": "vector_as_input",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "vector<u8>",
-        "vector<u16>",
-        "vector<u64>",
-        "vector<bool>",
-        "vector<address>",
+      name: 'vector_as_input',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [],
+      params: [
+        'vector<u8>',
+        'vector<u16>',
+        'vector<u64>',
+        'vector<bool>',
+        'vector<address>',
       ],
-      "return": []
+      return: [],
     },
-
   ],
-  "structs": []
+  structs: [],
 } as const;

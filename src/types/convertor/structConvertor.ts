@@ -15,9 +15,9 @@ export type ConvertStructFieldType<
   TMoveType extends string,
 > = TMoveType extends MoveNonStructTypes
   ? // it's a non-struct type
-  ConvertStructFieldNonStructType<TABITable, TMoveType>
+    ConvertStructFieldNonStructType<TABITable, TMoveType>
   : // it's a struct type
-  ConvertStructFieldStructType<TABITable, TMoveType>;
+    ConvertStructFieldStructType<TABITable, TMoveType>;
 
 /**
  * Internal
@@ -65,18 +65,19 @@ type ConvertStructFieldOptionType<
 type ConvertStructFieldStructType<
   TABITable extends ABITable,
   TMoveType extends string,
-> = TMoveType extends `${infer TAccountAddress}::${infer TModuleName}::${infer TStructName}${| ''
-| `<${infer _TInnerType}>`}`
+> = TMoveType extends `${infer TAccountAddress}::${infer TModuleName}::${infer TStructName}${
+  | ''
+  | `<${infer _TInnerType}>`}`
   ? `${TAccountAddress}::${TModuleName}` extends keyof TABITable
-  ? OmitInner<TStructName> extends ResourceStructName<
-    TABITable[`${TAccountAddress}::${TModuleName}`]
-  >
-  ? ExtractStructType<
-    TABITable,
-    TABITable[`${TAccountAddress}::${TModuleName}`],
-    OmitInner<TStructName>
-  >
-  : // Unknown struct, use the default struct type
-  UnknownStruct<TMoveType>
-  : UnknownStruct<TMoveType>
+    ? OmitInner<TStructName> extends ResourceStructName<
+        TABITable[`${TAccountAddress}::${TModuleName}`]
+      >
+      ? ExtractStructType<
+          TABITable,
+          TABITable[`${TAccountAddress}::${TModuleName}`],
+          OmitInner<TStructName>
+        >
+      : // Unknown struct, use the default struct type
+        UnknownStruct<TMoveType>
+    : UnknownStruct<TMoveType>
   : UnknownStruct<TMoveType>;

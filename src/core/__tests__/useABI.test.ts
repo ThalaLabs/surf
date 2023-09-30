@@ -104,7 +104,7 @@ describe('useABI', () => {
       ]
     `);
   }, 60000);
-  
+
   it('entry', async () => {
     const result = await client.useABI(COIN_ABI).entry.transfer({
       arguments: ['0x1', 1],
