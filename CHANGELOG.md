@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.14
+
+### Patch Changes
+
+- 661f925: Add ledger version arguments for view and resource functions
+
 ## 0.0.13
 
 ### Patch Changes
