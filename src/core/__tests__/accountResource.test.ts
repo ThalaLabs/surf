@@ -13,10 +13,10 @@ describe('get account resource', () => {
   });
 
   // Act before assertions
-  beforeAll(async () => { });
+  beforeAll(async () => {});
 
   // Teardown (cleanup) after assertions
-  afterAll(() => { });
+  afterAll(() => {});
 
   it('get CoinStore', async () => {
     const result = await client.useABI(COIN_ABI).resource.CoinStore({
@@ -30,7 +30,9 @@ describe('get account resource', () => {
     expect(result.data.withdraw_events).toBeDefined();
 
     // can inference nested struct
-    expect(result.data.deposit_events.guid.id.creation_num.startsWith).toBeDefined();
+    expect(
+      result.data.deposit_events.guid.id.creation_num.startsWith,
+    ).toBeDefined();
 
     // @ts-expect-error field not exist
     expect(result.data.deposit_events.guid.id.abc).toBeUndefined();
@@ -39,10 +41,48 @@ describe('get account resource', () => {
     expect(result.abc).toBeUndefined();
   }, 60000);
 
+  it('get CoinStore with ledger version', async () => {
+    const result = await client.useABI(COIN_ABI).resource.CoinStore({
+      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      account: '0x1',
+      ledger_version: '562606728',
+    });
+
+    expect(result).toMatchInlineSnapshot(`
+      {
+        "data": {
+          "coin": {
+            "value": "50000358",
+          },
+          "deposit_events": {
+            "counter": "61",
+            "guid": {
+              "id": {
+                "addr": "0x1",
+                "creation_num": "12",
+              },
+            },
+          },
+          "frozen": false,
+          "withdraw_events": {
+            "counter": "0",
+            "guid": {
+              "id": {
+                "addr": "0x1",
+                "creation_num": "13",
+              },
+            },
+          },
+        },
+        "type": "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>",
+      }
+    `);
+  }, 60000);
+
   it('use customized ABITable', async () => {
     async () => {
       type ABITAble = DefaultABITable & {
-        '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI,
+        '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI;
       };
 
       const client = createClient<ABITAble>({
@@ -60,7 +100,7 @@ describe('get account resource', () => {
 
       // @ts-expect-error field not exist
       result.data.ratio.abc;
-    }
+    };
   }, 60000);
 
   it('vector struct type', async () => {
@@ -71,12 +111,12 @@ describe('get account resource', () => {
       });
 
       result.data.coins[0]?.value.startsWith;
-    }
+    };
   }, 60000);
 
   it('option type', async () => {
     const { data } = await client.useABI(COIN_ABI).resource.CoinInfo({
-      type_arguments: ["0x1::aptos_coin::AptosCoin"],
+      type_arguments: ['0x1::aptos_coin::AptosCoin'],
       account: '0x1',
     });
 
@@ -84,7 +124,7 @@ describe('get account resource', () => {
     expect(data.supply.vec[0]?.integer.vec).toBeDefined();
 
     // @ts-expect-error out of index, option only has 0 or 1 item
-    expect(data.supply.vec[1]).toBeUndefined();    
+    expect(data.supply.vec[1]).toBeUndefined();
   }, 60000);
 });
 
@@ -101,12 +141,12 @@ const TEST_ABI = {
       generic_type_params: [],
       fields: [
         {
-          "name": "ratio",
-          "type": "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
+          name: 'ratio',
+          type: '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64',
         },
         {
-          "name": "coin",
-          "type": "0x1::coin::Coin<T0>"
+          name: 'coin',
+          type: '0x1::coin::Coin<T0>',
         },
       ],
     },
@@ -117,8 +157,8 @@ const TEST_ABI = {
       generic_type_params: [],
       fields: [
         {
-          "name": "coins",
-          "type": "vector<0x1::coin::Coin<T0>>"
+          name: 'coins',
+          type: 'vector<0x1::coin::Coin<T0>>',
         },
       ],
     },

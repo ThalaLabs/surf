@@ -7,84 +7,100 @@ import { createClient } from '../Client';
 import { createViewPayload } from '../createViewPayload';
 
 describe('call view functions', () => {
-    const client = createClient({
-        nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
+  const client = createClient({
+    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
+  });
+
+  const clientMain = createClient({
+    nodeUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
+  });
+
+  // Act before assertions
+  beforeAll(async () => {});
+
+  // Teardown (cleanup) after assertions
+  afterAll(() => {});
+
+  it('basic', async () => {
+    const viewPayload = createViewPayload(COIN_ABI, {
+      function: 'name',
+      arguments: [],
+      type_arguments: ['0x1::aptos_coin::AptosCoin'],
     });
-
-    const clientMain = createClient({
-        nodeUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
-    });
-
-    // Act before assertions
-    beforeAll(async () => { });
-
-    // Teardown (cleanup) after assertions
-    afterAll(() => { });
-
-    it('basic', async () => {
-        const viewPayload = createViewPayload(COIN_ABI, {
-            function: 'name',
-            arguments: [],
-            type_arguments: ['0x1::aptos_coin::AptosCoin'],
-        });
-        const result = await client.view(viewPayload);
-        expect(result).toMatchInlineSnapshot(`
+    const result = await client.view(viewPayload);
+    expect(result).toMatchInlineSnapshot(`
       [
         "Aptos Coin",
       ]
     `);
 
-        const viewPayload2 = createViewPayload(COIN_ABI, {
-            function: 'decimals',
-            arguments: [],
-            type_arguments: ['0x1::aptos_coin::AptosCoin'],
-        });
-        const result2 = await client.view(viewPayload2);
-        expect(result2).toMatchInlineSnapshot(`
+    const viewPayload2 = createViewPayload(COIN_ABI, {
+      function: 'decimals',
+      arguments: [],
+      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    });
+    const result2 = await client.view(viewPayload2);
+    expect(result2).toMatchInlineSnapshot(`
       [
         8,
       ]
     `);
-    }, 60000);
+  }, 60000);
 
-    it('return struct', async () => {
-        const viewPayload = createViewPayload(TIERED_ORACLE_ABI, {
-            function: 'get_last_price',
-            arguments: [],
-            type_arguments: ['0x1::aptos_coin::AptosCoin'],
-        });
+  it('ledger version', async () => {
+    const viewPayload = createViewPayload(COIN_ABI, {
+      function: 'balance',
+      arguments: ['0x1'],
+      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    });
+    const result = await client.view(viewPayload, {
+      ledger_version: '562606728',
+    });
+    expect(result).toMatchInlineSnapshot(`
+      [
+        50000358n,
+      ]
+    `);
+  }, 60000);
 
-        // The declaration in Move:
-        // struct FixedPoint64 has copy, drop, store { value: u128 }
-        const result = await clientMain.view(viewPayload);
-        expect(result.length).toBe(1);
-        expect((result[0] as any).v).toBeDefined();
-        expect(typeof (result[0] as any).v).toEqual('string');
-    }, 60000);
+  it('return struct', async () => {
+    const viewPayload = createViewPayload(TIERED_ORACLE_ABI, {
+      function: 'get_last_price',
+      arguments: [],
+      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    });
+
+    // The declaration in Move:
+    // struct FixedPoint64 has copy, drop, store { value: u128 }
+    const result = await clientMain.view(viewPayload);
+    expect(result.length).toBe(1);
+    expect((result[0] as any).v).toBeDefined();
+    expect(typeof (result[0] as any).v).toEqual('string');
+  }, 60000);
 });
 
 const TIERED_ORACLE_ABI = {
-    address: '0x92e95ed77b5ac815d3fbc2227e76db238339e9ca43ace45031ec2589bea5b8c',
-    name: 'tiered_oracle',
-    friends: [
-        '0x92e95ed77b5ac815d3fbc2227e76db238339e9ca43ace45031ec2589bea5b8c::oracle',
-    ],
-    exposed_functions: [
+  address: '0x92e95ed77b5ac815d3fbc2227e76db238339e9ca43ace45031ec2589bea5b8c',
+  name: 'tiered_oracle',
+  friends: [
+    '0x92e95ed77b5ac815d3fbc2227e76db238339e9ca43ace45031ec2589bea5b8c::oracle',
+  ],
+  exposed_functions: [
+    {
+      name: 'get_last_price',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [
         {
-            name: 'get_last_price',
-            visibility: 'public',
-            is_entry: false,
-            is_view: true,
-            generic_type_params: [
-                {
-                    constraints: [],
-                },
-            ],
-            params: [],
-            return: [
-                '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64',
-            ],
+          constraints: [],
         },
-    ],
-    structs: [],
+      ],
+      params: [],
+      return: [
+        '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64',
+      ],
+    },
+  ],
+  structs: [],
 } as const;

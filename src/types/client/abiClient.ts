@@ -24,6 +24,7 @@ export type ABIViewClient<T extends ABIRoot> = {
   [TFuncName in ViewFunctionName<T>]: (payload: {
     type_arguments: ExtractGenericArgsType<T, TFuncName>;
     arguments: ExtractArgsType<T, TFuncName>;
+    ledger_version?: string;
   }) => Promise<ExtractReturnType<T, TFuncName>>;
 };
 
@@ -40,6 +41,7 @@ export type ABIResourceClient<TABITable extends ABITable, T extends ABIRoot> = {
   [TStructName in ResourceStructName<T>]: (payload: {
     type_arguments: ExtractStructGenericArgsType<T, TStructName>;
     account: `0x${string}`;
+    ledger_version?: string;
   }) => Promise<{
     data: ExtractStructType<TABITable, T, TStructName>;
     type: string;
