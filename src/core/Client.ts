@@ -168,7 +168,7 @@ export class Client<TABITable extends ABITable> {
               type_arguments: args[0].type_arguments,
               arguments: args[0].arguments,
             });
-            return this.view(payload);
+            return this.view(payload, { ledger_version: args[0].ledger_version });
           };
         },
       }),
