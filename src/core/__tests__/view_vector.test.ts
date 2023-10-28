@@ -45,6 +45,20 @@ describe('call view functions for vector type', () => {
     `);
   }, 60000);
 
+  it('vector_u8', async () => {
+    const viewPayload = createViewPayload(TEST_ABI, {
+      function: 'test_view_function_u8',
+      arguments: ["ab"],
+      type_arguments: [],
+    });
+    const result = await client.view(viewPayload);
+    expect(result).toMatchInlineSnapshot(`
+    [
+      195,
+    ]
+  `);
+  }, 60000);
+
   it('vector_u16', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u16',

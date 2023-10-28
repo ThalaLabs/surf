@@ -107,13 +107,11 @@ function argToBCS(type: string, arg: any, serializer: BCS.Serializer) {
     const innerType = vectorMatch[1]!;
     if (innerType === 'u8') {
       if (arg instanceof Uint8Array) {
-        // TODO: add type support for Uint8Array
         serializer.serializeBytes(arg);
         return;
       }
 
       if (typeof arg === 'string') {
-        // TODO: add type support for string
         serializer.serializeStr(arg);
         return;
       }

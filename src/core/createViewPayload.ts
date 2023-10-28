@@ -124,14 +124,18 @@ function encodeVector(type: string, value: any[]) {
   if (innerType === 'u8') {
     return (
       HexString.fromUint8Array(
-        new Uint8Array(
-          value.map((v: number) => {
-            const result = ensureNumber(v);
-            if (result < 0 || result > 255)
-              throw new Error(`Invalid u8 value: ${result}`);
-            return result;
-          }),
-        ),
+        typeof value === 'string' ?
+          new TextEncoder().encode(value) :
+          value instanceof Uint8Array ?
+            value :
+            new Uint8Array(
+              value.map((v: number) => {
+                const result = ensureNumber(v);
+                if (result < 0 || result > 255)
+                  throw new Error(`Invalid u8 value: ${result}`);
+                return result;
+              }),
+            ),
       ) as any
     ).hexString;
   } else if (['bool', 'u16', 'u32'].includes(innerType)) {

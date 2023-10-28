@@ -50,6 +50,8 @@ type ConvertPrimitiveArgType<TMoveType extends MovePrimitive> =
 type ConvertNonStructArgType<TMoveType extends MoveNonStructTypes> =
   TMoveType extends MovePrimitive
     ? ConvertPrimitiveArgType<TMoveType>
+    : TMoveType extends `vector<u8>`
+    ? string | number[] | Uint8Array
     : TMoveType extends `vector<${infer TInner}>`
     ? ConvertArgType<TInner>[]
     : TMoveType extends `0x1::object::Object<${string}>`

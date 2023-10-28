@@ -69,6 +69,20 @@ describe('call entry functions', () => {
       }
     `);
   }, 60000);
+
+  it('vector<u8>', async () => {
+    const inputString = "a test string";
+    const entryPayload = createEntryPayload(TEST_ABI, {
+      function: 'test_run_function',
+      arguments: [inputString],
+      type_arguments: [],
+    });
+
+    const result = await client.simulateTransaction(entryPayload, { account });
+
+    expect(result.hash).toBeDefined();
+    expect((result as any).payload.arguments[0]).toEqual("0x61207465737420737472696e67");
+  }, 60000);
 });
 
 const TEST_ABI = {
