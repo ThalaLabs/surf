@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.15
+
+### Patch Changes
+
+- ccfd874: add string and Uint8Array support for vector<u8> as input type
+
 ## 0.0.14
 
 ### Patch Changes
