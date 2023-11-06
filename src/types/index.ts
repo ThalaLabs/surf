@@ -19,3 +19,6 @@ export {
   ExtractReturnType,
   ViewFunctionName,
 } from './extractor/functionExtractor.js';
+export {
+  ExtractStructType
+} from './extractor/structExtractor.js';
