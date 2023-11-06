@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 0.0.16
+
+### Patch Changes
+
+- ade995a: export a util type function to declare types of struct
+
 ## 0.0.15
 
 ### Patch Changes
