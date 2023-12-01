@@ -4,12 +4,15 @@
 
 import { AptosAccount } from 'aptos';
 import { COIN_ABI } from '../../abi/coin';
-import { createClient } from '../Client';
+import { createSurfClient } from '../Client';
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 
 describe('useABI', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
+  );
 
   const account = new AptosAccount(
     undefined,
@@ -17,10 +20,10 @@ describe('useABI', () => {
   );
 
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('basic type checking', async () => {
     // no need to run, type check only

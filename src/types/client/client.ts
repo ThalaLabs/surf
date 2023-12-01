@@ -11,6 +11,7 @@ import {
   ViewFunctionName,
   ExtractArgsType,
 } from '../extractor/functionExtractor.js';
+import { MoveFunctionId, MoveStructId, MoveValue } from '@aptos-labs/ts-sdk';
 
 export type TransactionResponse = {
   hash: string;
@@ -18,10 +19,6 @@ export type TransactionResponse = {
 
 export type EntryOptions = {
   account: AptosAccount;
-};
-
-export type ViewOptions = {
-  ledger_version?: string;
 };
 
 /**
@@ -64,10 +61,7 @@ export type ViewRequestPayload<
  * The return payload type of `createViewPayload`
  */
 export type ViewPayload<_TReturn> = {
-  viewRequest: {
-    function: string;
-    type_arguments: string[];
-    arguments: any[];
-  };
-  decoders: (((value: any) => any) | null)[];
+  function: MoveFunctionId;
+  typeArguments?: Array<MoveStructId>;
+  functionArguments?: Array<MoveValue>;
 };

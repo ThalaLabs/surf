@@ -2,20 +2,22 @@
  * These test cases depends on network, it call the real contract.
  */
 
-import { createClient } from '../Client';
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
+import { createSurfClient } from '../Client';
 import { createViewPayload } from '../createViewPayload';
 
 // TODO: add vector<address>, vector<vector>
 describe('call view functions for vector type', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
-
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
+  );
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('vector_bool', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
@@ -23,7 +25,7 @@ describe('call view functions for vector type', () => {
       arguments: [[true, false, false, true, true]],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
       [
         3,
@@ -37,7 +39,7 @@ describe('call view functions for vector type', () => {
       arguments: [[1, 2, 3, 10, 50]],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
       [
         66,
@@ -51,7 +53,7 @@ describe('call view functions for vector type', () => {
       arguments: ["ab"],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
     [
       195,
@@ -65,7 +67,7 @@ describe('call view functions for vector type', () => {
       arguments: [[256, 100]],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
       [
         356,
@@ -79,7 +81,7 @@ describe('call view functions for vector type', () => {
       arguments: [[70000, 100]],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
       [
         70100,
@@ -93,12 +95,12 @@ describe('call view functions for vector type', () => {
       arguments: [[BigInt('4294967296'), 100]],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
-      [
-        4294967396n,
-      ]
-    `);
+[
+  "4294967396",
+]
+`);
   }, 60000);
 
   it('vector_u256', async () => {
@@ -107,12 +109,12 @@ describe('call view functions for vector type', () => {
       arguments: [[BigInt('4294967296'), 100]],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
-      [
-        4294967396n,
-      ]
-    `);
+[
+  "4294967396",
+]
+`);
   }, 60000);
 
   it('return vector', async () => {
@@ -121,15 +123,15 @@ describe('call view functions for vector type', () => {
       arguments: [[BigInt('4294967296'), 100]],
       type_arguments: [],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
-      [
-        [
-          4294967296n,
-          100n,
-        ],
-      ]
-    `);
+[
+  [
+    "4294967296",
+    "100",
+  ],
+]
+`);
   }, 60000);
 });
 

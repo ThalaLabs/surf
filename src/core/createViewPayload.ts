@@ -7,9 +7,8 @@ import {
   ViewRequestPayload,
 } from '../types/index.js';
 import { ensureNumber } from '../ensureTypes.js';
+import { MoveStructId } from '@aptos-labs/ts-sdk';
 
-// TODO: support vector<u8> input with Uint8Array
-// TODO: support vector<u8> input with string
 /**
  * Create a payload for calling a view function.
  *
@@ -69,48 +68,11 @@ export function createViewPayload<
     }
   });
 
-  // used to decode the return value in response
-  const decoders = fnAbi.return.map((type) => {
-    if (['u64', 'u128', 'u256'].includes(type)) {
-      return decodeBigint;
-    } else if (type.includes('vector')) {
-      return (value: any[]) => decodeVector(type, value);
-    } else {
-      return null;
-    }
-  });
-
   return {
-    viewRequest: {
-      function: `${abi.address}::${abi.name}::${payload.function}`,
-      arguments: args,
-      type_arguments: payload.type_arguments as string[],
-    },
-    decoders,
+    function: `${abi.address}::${abi.name}::${payload.function}`,
+    functionArguments: args,
+    typeArguments: payload.type_arguments as Array<MoveStructId>,
   };
-}
-
-function decodeBigint(value: string): bigint {
-  return BigInt(value);
-}
-
-function decodeVector(type: string, value: any[]) {
-  const regex = /vector<([^]+)>/;
-  const match = type.match(regex);
-  if (!match) {
-    // Should never happen
-    throw new Error(`Unsupported type: ${type}`);
-  }
-  const innerType = match[1]!;
-
-  if (['address', 'bool', 'u8', 'u16', 'u32'].includes(innerType)) {
-    return value;
-  } else if (['u64', 'u128', 'u256'].includes(innerType)) {
-    return value.map((v: string) => BigInt(v));
-  } else {
-    // TODO: Figure out how to decode Vector of vector
-    return value;
-  }
 }
 
 function encodeVector(type: string, value: any[]) {

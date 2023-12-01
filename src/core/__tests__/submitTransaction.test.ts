@@ -4,14 +4,16 @@
 
 import { AptosAccount } from 'aptos';
 import { COIN_ABI } from '../../abi/coin';
-import { createClient } from '../Client';
+import { createSurfClient } from '../Client';
 import { createEntryPayload } from '../createEntryPayload';
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 
 describe('call entry functions', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
-
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
+  );
   const account = new AptosAccount(
     undefined,
     '0xac914efd2367c7aa42c95d100592c099e487d2270bf0e0761e5fe93ff4016593',

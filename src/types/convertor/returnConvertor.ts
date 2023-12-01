@@ -36,11 +36,11 @@ type ConvertPrimitiveReturnType<TMoveType extends MovePrimitive> =
     : TMoveType extends 'u32'
     ? number
     : TMoveType extends 'u64'
-    ? bigint
+    ? string
     : TMoveType extends 'u128'
-    ? bigint
+    ? string
     : TMoveType extends 'u256'
-    ? bigint
+    ? string
     : TMoveType extends 'address'
     ? `0x${string}`
     : TMoveType extends '0x1::string::String'

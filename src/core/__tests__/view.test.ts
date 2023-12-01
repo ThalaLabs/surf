@@ -2,24 +2,28 @@
  * These test cases depends on network, it call the real contract.
  */
 
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 import { COIN_ABI } from '../../abi/coin';
-import { createClient } from '../Client';
+import { createSurfClient } from '../Client';
 import { createViewPayload } from '../createViewPayload';
 
 describe('call view functions', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
-
-  const clientMain = createClient({
-    nodeUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
-  });
-
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
+  );
+  
+  const clientMain = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.MAINNET })
+    )
+  );
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('basic', async () => {
     const viewPayload = createViewPayload(COIN_ABI, {
@@ -27,7 +31,7 @@ describe('call view functions', () => {
       arguments: [],
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
     });
-    const result = await client.view(viewPayload);
+    const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
       [
         "Aptos Coin",
@@ -39,7 +43,7 @@ describe('call view functions', () => {
       arguments: [],
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
     });
-    const result2 = await client.view(viewPayload2);
+    const result2 = await client.view({ payload: viewPayload2 });
     expect(result2).toMatchInlineSnapshot(`
       [
         8,
@@ -53,14 +57,16 @@ describe('call view functions', () => {
       arguments: ['0x1'],
       type_arguments: ['0x1::aptos_coin::AptosCoin'],
     });
-    const result = await client.view(viewPayload, {
-      ledger_version: '562606728',
+    const result = await client.view({
+      payload: viewPayload, options: {
+        ledgerVersion: 562606728,
+      }
     });
     expect(result).toMatchInlineSnapshot(`
-      [
-        50000358n,
-      ]
-    `);
+[
+  "50000358",
+]
+`);
   }, 60000);
 
   it('return struct', async () => {
@@ -72,7 +78,7 @@ describe('call view functions', () => {
 
     // The declaration in Move:
     // struct FixedPoint64 has copy, drop, store { value: u128 }
-    const result = await clientMain.view(viewPayload);
+    const result = await clientMain.view({ payload: viewPayload });
     expect(result.length).toBe(1);
     expect((result[0] as any).v).toBeDefined();
     expect(typeof (result[0] as any).v).toEqual('string');

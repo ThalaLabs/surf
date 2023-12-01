@@ -39,7 +39,6 @@
     "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "~5.62",
     "@typescript-eslint/parser": "~5.62",
-    "aptos": "^1.15.0",
     "eslint": "~8.47",
     "eslint-config-prettier": "~8.8",
     "eslint-plugin-jest": "~27.6",
@@ -50,11 +49,12 @@
     "ts-api-utils": "~0.0.44",
     "ts-jest": "~29.1",
     "tslib": "~2.6",
-    "typescript": "~5.1"
+    "typescript": "~5.1",
+    "@aptos-labs/ts-sdk": "^0.0.8"
   },
   "peerDependencies": {
     "@aptos-labs/wallet-adapter-react": "^1.0.0",
-    "aptos": "^1.6.0",
+    "@aptos-labs/ts-sdk": "^0.0.8",
     "react": "^18.2.0"
   },
   "peerDependenciesMeta": {
@@ -89,6 +89,5 @@
     "type": "git",
     "url": "git+https://github.com/ThalaLabs/surf"
   },
-  "license": "MIT",
-  "dependencies": {}
+  "license": "MIT"
 }

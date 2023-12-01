@@ -7,7 +7,6 @@ export type {
 export type {
   ViewPayload,
   EntryPayload,
-  ViewOptions,
   EntryOptions,
   ViewRequestPayload,
   EntryRequestPayload,

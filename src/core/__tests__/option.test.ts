@@ -3,14 +3,17 @@
  */
 
 import { AptosAccount } from 'aptos';
-import { createClient } from '../Client';
+import { createSurfClient } from '../Client';
 import { createViewPayload } from '../createViewPayload';
 import { createEntryPayload } from '../createEntryPayload';
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 
 describe('option type', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
+  );
 
   const account = new AptosAccount(
     undefined,

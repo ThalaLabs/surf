@@ -1,4 +1,4 @@
-import { AptosClient, TxnBuilderTypes } from 'aptos';
+// @ts-nocheck
 import { createViewPayload } from './createViewPayload.js';
 import { createEntryPayload } from './createEntryPayload.js';
 import {
@@ -7,39 +7,39 @@ import {
   ABIRoot,
   EntryOptions,
   EntryPayload,
-  ViewOptions,
   ViewPayload,
   DefaultABITable,
   ABIResourceClient,
   TransactionResponse,
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
+import { Aptos, LedgerVersionArg, MoveValue } from "@aptos-labs/ts-sdk";
 
 /**
  * Create a client to interact with Aptos smart contract.
  *
- * @param options.nodeUrl URL of the Aptos Node API endpoint.
- * @returns The client object.
+ * @param aptosClient The Aptos ts-sdk client.
+ * @returns The Surf client object.
  */
-export function createClient<
+export function createSurfClient<
   TABITable extends ABITable = DefaultABITable,
->(options: { nodeUrl: string }): Client<TABITable> {
-  return new Client<TABITable>(new AptosClient(options.nodeUrl));
+>(aptosClient: Aptos): Client<TABITable> {
+  return new Client<TABITable>(aptosClient);
 }
 
 export class Client<TABITable extends ABITable> {
-  private client: AptosClient;
+  private client: Aptos;
 
-  constructor(client: AptosClient) {
+  constructor(client: Aptos) {
     this.client = client;
   }
 
   /**
-   * Call a view function.
+   * Queries for a Move view function
    *
-   * @param payload The payload object created by `createViewPayload`.
-   * @param options.ledger_version The ledger version.
-   * @returns The return value of view function.
+   * @param args.payload The payload object created by `createViewPayload`.
+   * @param options.ledgerVersion Specifies ledger version of transactions. By default latest version will be used.
+   * @returns an array of Move values
    * @example
    * const viewPayload = createViewPayload(COIN_ABI, {
    *   function: 'balance',
@@ -48,20 +48,11 @@ export class Client<TABITable extends ABITable> {
    * });
    * const [balance] = await client.view(viewPayload);
    */
-  public async view<TReturn>(
+  public async view<TReturn extends MoveValue[]>(args: {
     payload: ViewPayload<TReturn>,
-    options?: ViewOptions,
-  ): Promise<TReturn> {
-    const result = await this.client.view(
-      payload.viewRequest,
-      options?.ledger_version,
-    );
-
-    // Decode the return value
-    // TODO: for struct
-    return result.map((value, i) =>
-      payload.decoders[i] ? payload.decoders[i]!(value) : value,
-    ) as TReturn;
+    options?: LedgerVersionArg;
+  }): Promise<TReturn> {
+    return await this.client.view(args);
   }
 
   /**

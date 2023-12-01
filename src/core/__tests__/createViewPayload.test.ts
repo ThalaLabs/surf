@@ -4,10 +4,10 @@ import { createViewPayload } from '../createViewPayload';
 // TODO: add struct, vector of vector
 describe('createViewPayload', () => {
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('basic type checking', async () => {
     // no need to run, type check only.
@@ -57,21 +57,16 @@ describe('createViewPayload', () => {
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [
-          [Function],
-        ],
-        "viewRequest": {
-          "arguments": [
-            "0x1",
-          ],
-          "function": "0x1::coin::balance",
-          "type_arguments": [
-            "0x1::aptos_coin::AptosCoin",
-          ],
-        },
-      }
-    `);
+{
+  "function": "0x1::coin::balance",
+  "functionArguments": [
+    "0x1",
+  ],
+  "typeArguments": [
+    "0x1::aptos_coin::AptosCoin",
+  ],
+}
+`);
   });
 
   it('bool', async () => {
@@ -96,18 +91,15 @@ describe('createViewPayload', () => {
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            true,
-            false,
-          ],
-          "function": "0x123::test::bool_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::bool_as_input",
+  "functionArguments": [
+    true,
+    false,
+  ],
+  "typeArguments": [],
+}
+`);
   });
 
   it('address', async () => {
@@ -132,18 +124,15 @@ describe('createViewPayload', () => {
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            "0x1",
-            "0x2",
-          ],
-          "function": "0x123::test::address_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::address_as_input",
+  "functionArguments": [
+    "0x1",
+    "0x2",
+  ],
+  "typeArguments": [],
+}
+`);
   });
 
   it('number', async () => {
@@ -168,22 +157,19 @@ describe('createViewPayload', () => {
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            1,
-            2,
-            3,
-            "5",
-            "6",
-            "7",
-          ],
-          "function": "0x123::test::number_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::number_as_input",
+  "functionArguments": [
+    1,
+    2,
+    3,
+    "5",
+    "6",
+    "7",
+  ],
+  "typeArguments": [],
+}
+`);
   });
 
   it('vector', async () => {
@@ -200,34 +186,31 @@ describe('createViewPayload', () => {
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            "0x010203",
-            [
-              4,
-              5,
-              6,
-            ],
-            [
-              "10000000000000000000000",
-              "10000000000000000000000",
-            ],
-            [
-              true,
-              false,
-            ],
-            [
-              "0x1",
-              "0x2",
-            ],
-          ],
-          "function": "0x123::test::vector_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::vector_as_input",
+  "functionArguments": [
+    "0x010203",
+    [
+      4,
+      5,
+      6,
+    ],
+    [
+      "10000000000000000000000",
+      "10000000000000000000000",
+    ],
+    [
+      true,
+      false,
+    ],
+    [
+      "0x1",
+      "0x2",
+    ],
+  ],
+  "typeArguments": [],
+}
+`);
   });
 });
 

@@ -2,21 +2,24 @@
  * These test cases depends on network, it call the real contract.
  */
 
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 import { COIN_ABI } from '../../abi/coin';
 import { FIXED_POINT64_ABI } from '../../abi/fixed_point64';
 import { DefaultABITable } from '../../types';
-import { createClient } from '../Client';
+import { createSurfClient } from '../Client';
 
 describe('get account resource', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
+  );
 
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('get CoinStore', async () => {
     const result = await client.useABI(COIN_ABI).resource.CoinStore({
@@ -85,9 +88,11 @@ describe('get account resource', () => {
         '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI;
       };
 
-      const client = createClient<ABITAble>({
-        nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-      });
+      const client = createSurfClient<ABITAble>(
+        new Aptos(
+          new AptosConfig({ network: Network.TESTNET })
+        )
+      );
 
       const result = await client.useABI(TEST_ABI).resource.TestStruct({
         type_arguments: [],
