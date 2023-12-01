@@ -22,9 +22,9 @@ import {
 
 export type ABIViewClient<T extends ABIRoot> = {
   [TFuncName in ViewFunctionName<T>]: (payload: {
-    type_arguments: ExtractGenericArgsType<T, TFuncName>;
-    arguments: ExtractArgsType<T, TFuncName>;
-    ledger_version?: string;
+    typeArguments: ExtractGenericArgsType<T, TFuncName>;
+    functionArguments: ExtractArgsType<T, TFuncName>;
+    ledgerVersion?: string;
   }) => Promise<ExtractReturnType<T, TFuncName>>;
 };
 

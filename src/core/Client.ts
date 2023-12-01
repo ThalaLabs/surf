@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createViewPayload } from './createViewPayload.js';
 import { createEntryPayload } from './createEntryPayload.js';
 import {
@@ -142,7 +141,7 @@ export class Client<TABITable extends ABITable> {
   public useABI<T extends ABIRoot>(abi: T) {
     return {
       /**
-       * Call an view function.
+       * Queries for a Move view function
        *
        * @example
        * const [balance] = await client.useABI(COIN_ABI).view.balance({
@@ -156,11 +155,14 @@ export class Client<TABITable extends ABITable> {
           return (...args) => {
             const payload = createViewPayload(abi, {
               function: functionName,
-              type_arguments: args[0].type_arguments,
-              arguments: args[0].arguments,
+              type_arguments: args[0].typeArguments,
+              arguments: args[0].functionArguments,
             });
-            return this.view(payload, {
-              ledger_version: args[0].ledger_version,
+            return this.view({
+              payload,
+              options: {
+                ledgerVersion: args[0].ledgerVersion,
+              }
             });
           };
         },
