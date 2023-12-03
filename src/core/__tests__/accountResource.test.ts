@@ -6,7 +6,7 @@ import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 import { COIN_ABI } from '../../abi/coin';
 import { FIXED_POINT64_ABI } from '../../abi/fixed_point64';
 import { DefaultABITable } from '../../types';
-import { createSurfClient } from '../Client';
+import { createSurfClient } from '../Client.js';
 
 describe('get account resource', () => {
   const client = createSurfClient(
@@ -23,22 +23,22 @@ describe('get account resource', () => {
 
   it('get CoinStore', async () => {
     const result = await client.useABI(COIN_ABI).resource.CoinStore({
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
       account: '0x1',
     });
 
-    expect(result.data.frozen).toBeFalsy();
-    expect(result.data.coin.value).toBeDefined();
-    expect(result.data.deposit_events).toBeDefined();
-    expect(result.data.withdraw_events).toBeDefined();
+    expect(result.frozen).toBeFalsy();
+    expect(result.coin.value).toBeDefined();
+    expect(result.deposit_events).toBeDefined();
+    expect(result.withdraw_events).toBeDefined();
 
     // can inference nested struct
     expect(
-      result.data.deposit_events.guid.id.creation_num.startsWith,
+      result.deposit_events.guid.id.creation_num.startsWith,
     ).toBeDefined();
 
     // @ts-expect-error field not exist
-    expect(result.data.deposit_events.guid.id.abc).toBeUndefined();
+    expect(result.deposit_events.guid.id.abc).toBeUndefined();
 
     // @ts-expect-error field not exist
     expect(result.abc).toBeUndefined();
@@ -46,40 +46,37 @@ describe('get account resource', () => {
 
   it('get CoinStore with ledger version', async () => {
     const result = await client.useABI(COIN_ABI).resource.CoinStore({
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
       account: '0x1',
-      ledger_version: '562606728',
+      ledgerVersion: '562606728',
     });
 
     expect(result).toMatchInlineSnapshot(`
-      {
-        "data": {
-          "coin": {
-            "value": "50000358",
-          },
-          "deposit_events": {
-            "counter": "61",
-            "guid": {
-              "id": {
-                "addr": "0x1",
-                "creation_num": "12",
-              },
-            },
-          },
-          "frozen": false,
-          "withdraw_events": {
-            "counter": "0",
-            "guid": {
-              "id": {
-                "addr": "0x1",
-                "creation_num": "13",
-              },
-            },
-          },
-        },
-        "type": "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>",
-      }
-    `);
+{
+  "coin": {
+    "value": "50000358",
+  },
+  "deposit_events": {
+    "counter": "61",
+    "guid": {
+      "id": {
+        "addr": "0x1",
+        "creation_num": "12",
+      },
+    },
+  },
+  "frozen": false,
+  "withdraw_events": {
+    "counter": "0",
+    "guid": {
+      "id": {
+        "addr": "0x1",
+        "creation_num": "13",
+      },
+    },
+  },
+}
+`);
   }, 60000);
 
   it('use customized ABITable', async () => {
@@ -95,33 +92,33 @@ describe('get account resource', () => {
       );
 
       const result = await client.useABI(TEST_ABI).resource.TestStruct({
-        type_arguments: [],
+        typeArguments: [],
         account: '0x1',
       });
 
       // `value` and `v` are string type
-      result.data.coin.value.startsWith;
-      result.data.ratio.v.startsWith;
+      result.coin.value.startsWith;
+      result.ratio.v.startsWith;
 
       // @ts-expect-error field not exist
-      result.data.ratio.abc;
+      result.ratio.abc;
     };
   }, 60000);
 
   it('vector struct type', async () => {
     async () => {
       const result = await client.useABI(TEST_ABI).resource.TestVectorStruct({
-        type_arguments: [],
+        typeArguments: [],
         account: '0x1',
       });
 
-      result.data.coins[0]?.value.startsWith;
+      result.coins[0]?.value.startsWith;
     };
   }, 60000);
 
   it('option type', async () => {
-    const { data } = await client.useABI(COIN_ABI).resource.CoinInfo({
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    const data = await client.useABI(COIN_ABI).resource.CoinInfo({
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
       account: '0x1',
     });
 

@@ -2,8 +2,6 @@
  * The types for `client.useABI` API.
  */
 
-import type { AptosAccount } from 'aptos';
-import { TransactionResponse } from './client.js';
 import { ABIRoot } from '../abi.js';
 import { ABITable } from '../defaultABITable.js';
 import {
@@ -19,6 +17,7 @@ import {
   ExtractStructGenericArgsType,
   ExtractStructType,
 } from '../extractor/structExtractor.js';
+import { Account, AccountAddressInput, CommittedTransactionResponse } from '@aptos-labs/ts-sdk';
 
 export type ABIViewClient<T extends ABIRoot> = {
   [TFuncName in ViewFunctionName<T>]: (payload: {
@@ -30,20 +29,17 @@ export type ABIViewClient<T extends ABIRoot> = {
 
 export type ABIEntryClient<T extends ABIRoot> = {
   [TFuncName in EntryFunctionName<T>]: (payload: {
-    type_arguments: ExtractGenericArgsType<T, TFuncName>;
-    arguments: ExtractArgsTypeOmitSigner<T, TFuncName>;
-    account: AptosAccount;
+    typeArguments: ExtractGenericArgsType<T, TFuncName>;
+    functionArguments: ExtractArgsTypeOmitSigner<T, TFuncName>;
+    account: Account;
     isSimulation?: boolean;
-  }) => Promise<TransactionResponse>;
+  }) => Promise<CommittedTransactionResponse>;
 };
 
 export type ABIResourceClient<TABITable extends ABITable, T extends ABIRoot> = {
   [TStructName in ResourceStructName<T>]: (payload: {
-    type_arguments: ExtractStructGenericArgsType<T, TStructName>;
-    account: `0x${string}`;
-    ledger_version?: string;
-  }) => Promise<{
-    data: ExtractStructType<TABITable, T, TStructName>;
-    type: string;
-  }>;
+    typeArguments: ExtractStructGenericArgsType<T, TStructName>;
+    account: AccountAddressInput;
+    ledgerVersion?: string;
+    }) => Promise<ExtractStructType<TABITable, T, TStructName>>;
 };

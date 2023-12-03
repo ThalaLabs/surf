@@ -1,28 +1,28 @@
 import { NextResponse } from 'next/server';
-import { AptosAccount } from 'aptos';
-import { createClient, createEntryPayload } from '@thalalabs/surf';
+import { createEntryPayload, createSurfClient } from '@thalalabs/surf';
 import { COIN_ABI } from '../../abi/coin';
+import { Account, Aptos, AptosConfig, Ed25519PrivateKey, Network } from '@aptos-labs/ts-sdk';
 
 export async function GET(request: Request) {
   let account;
   try {
-    account = new AptosAccount(
-      Buffer.from(process.env.TEST_ACCOUNT_PRIVATE_KEY as string, 'hex'),
-    );
+    account = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey(process.env.TEST_ACCOUNT_PRIVATE_KEY as string) });
   } catch (e) {
     return NextResponse.json({ error: 'Invalid private key' });
   }
 
   try {
-    const client = createClient({
-      nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-    });
+    const client = createSurfClient(new Aptos(new AptosConfig({ network: Network.TESTNET })))
+
     const transferPayload = createEntryPayload(COIN_ABI, {
       function: 'transfer',
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
-      arguments: ['0x1', BigInt(1)],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: ['0x1', BigInt(1)],
     });
-    const tx = await client.submitTransaction(transferPayload, { account });
+    const tx = await client.submitTransaction({
+      payload: transferPayload,
+      signer: account
+    });
     return NextResponse.json({ tx });
   } catch (e) {
     return NextResponse.json({ error: 'submit transaction failed' });

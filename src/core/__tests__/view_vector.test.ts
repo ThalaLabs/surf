@@ -3,8 +3,8 @@
  */
 
 import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
-import { createSurfClient } from '../Client';
-import { createViewPayload } from '../createViewPayload';
+import { createSurfClient } from '../Client.js';
+import { createViewPayload } from '../createViewPayload.js';
 
 // TODO: add vector<address>, vector<vector>
 describe('call view functions for vector type', () => {
@@ -22,8 +22,8 @@ describe('call view functions for vector type', () => {
   it('vector_bool', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_bool',
-      arguments: [[true, false, false, true, true]],
-      type_arguments: [],
+      functionArguments: [[true, false, false, true, true]],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
@@ -33,11 +33,11 @@ describe('call view functions for vector type', () => {
     `);
   }, 60000);
 
-  it('vector_u8', async () => {
+  it('vector_u8 array', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u8',
-      arguments: [[1, 2, 3, 10, 50]],
-      type_arguments: [],
+      functionArguments: [[1, 2, 3, 10, 50]],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
@@ -47,16 +47,16 @@ describe('call view functions for vector type', () => {
     `);
   }, 60000);
 
-  it('vector_u8', async () => {
+  it('vector_u8 string', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u8',
-      arguments: ["ab"],
-      type_arguments: [],
+      functionArguments: ["0x010234"],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
     [
-      195,
+      55,
     ]
   `);
   }, 60000);
@@ -64,8 +64,8 @@ describe('call view functions for vector type', () => {
   it('vector_u16', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u16',
-      arguments: [[256, 100]],
-      type_arguments: [],
+      functionArguments: [[256, 100]],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
@@ -78,8 +78,8 @@ describe('call view functions for vector type', () => {
   it('vector_u32', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u32',
-      arguments: [[70000, 100]],
-      type_arguments: [],
+      functionArguments: [[70000, 100]],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
@@ -92,8 +92,8 @@ describe('call view functions for vector type', () => {
   it('vector_u64', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u64',
-      arguments: [[BigInt('4294967296'), 100]],
-      type_arguments: [],
+      functionArguments: [[BigInt('4294967296'), 100]],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
@@ -106,8 +106,8 @@ describe('call view functions for vector type', () => {
   it('vector_u256', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u256',
-      arguments: [[BigInt('4294967296'), 100]],
-      type_arguments: [],
+      functionArguments: [[BigInt('4294967296'), 100]],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
@@ -120,8 +120,8 @@ describe('call view functions for vector type', () => {
   it('return vector', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u64_return_vector',
-      arguments: [[BigInt('4294967296'), 100]],
-      type_arguments: [],
+      functionArguments: [[BigInt('4294967296'), 100]],
+      typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`

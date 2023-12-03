@@ -1,4 +1,3 @@
-import { HexString } from 'aptos';
 import {
   ABIRoot,
   ExtractReturnType,
@@ -35,24 +34,25 @@ export function createViewPayload<
   const fnAbi = abi.exposed_functions.filter(
     (f) => f.name === payload.function,
   )[0];
-  const type_arguments: string[] = payload.type_arguments;
-  const val_arguments: any[] = payload.arguments;
+  const type_arguments: string[] = payload.typeArguments;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const val_arguments: any[] = payload.functionArguments;
 
   // Validations
   if (fnAbi === undefined)
     throw new Error(`Function ${payload.function} not found in ABI`);
   if (fnAbi.params.length !== val_arguments.length)
     throw new Error(
-      `Function ${payload.function} expects ${fnAbi.params.length} arguments, but ${payload.arguments.length} were provided`,
+      `Function ${payload.function} expects ${fnAbi.params.length} arguments, but ${payload.functionArguments.length} were provided`,
     );
   if (fnAbi.generic_type_params.length !== type_arguments.length)
     throw new Error(
-      `Function ${payload.function} expects ${fnAbi.generic_type_params.length} type arguments, but ${payload.type_arguments.length} were provided`,
+      `Function ${payload.function} expects ${fnAbi.generic_type_params.length} type arguments, but ${payload.functionArguments.length} were provided`,
     );
 
   // TODO: do serialization here
   const args = fnAbi.params.map((type, i) => {
-    const arg = payload.arguments[i] as unknown;
+    const arg = payload.functionArguments[i] as unknown;
     if (['u8', 'u16', 'u32'].includes(type)) {
       return ensureNumber(arg as number);
     } else if (['u64', 'u128', 'u256'].includes(type)) {
@@ -61,6 +61,7 @@ export function createViewPayload<
       }
       return arg.toString();
     } else if (type.includes('vector')) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return encodeVector(type, arg as any[]);
     } else {
       // string or address
@@ -71,35 +72,32 @@ export function createViewPayload<
   return {
     function: `${abi.address}::${abi.name}::${payload.function}`,
     functionArguments: args,
-    typeArguments: payload.type_arguments as Array<MoveStructId>,
+    typeArguments: payload.typeArguments as Array<MoveStructId>,
   };
 }
 
-function encodeVector(type: string, value: any[]) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function encodeVector(type: string, value: any) {
   const regex = /vector<([^]+)>/;
   const match = type.match(regex);
   if (!match) {
     // Should never happen
     throw new Error(`Unsupported type: ${type}`);
   }
-  const innerType = match[1]!;
+  const innerType = match[1];
+  if(!innerType) {
+    throw new Error(`Unsupported type: ${type}`);
+  }
+  
   if (innerType === 'u8') {
-    return (
-      HexString.fromUint8Array(
-        typeof value === 'string' ?
-          new TextEncoder().encode(value) :
-          value instanceof Uint8Array ?
-            value :
-            new Uint8Array(
-              value.map((v: number) => {
-                const result = ensureNumber(v);
-                if (result < 0 || result > 255)
-                  throw new Error(`Invalid u8 value: ${result}`);
-                return result;
-              }),
-            ),
-      ) as any
-    ).hexString;
+    if (typeof value === 'string' || value instanceof Uint8Array)
+      return value;
+    if (Array.isArray(value)) {
+      return arrayToHex(value)
+    }
+
+    throw new Error(`Invalid u8 value: ${value}`)
+
   } else if (['bool', 'u16', 'u32'].includes(innerType)) {
     return value;
   } else if (['u64', 'u128', 'u256'].includes(innerType)) {
@@ -110,3 +108,15 @@ function encodeVector(type: string, value: any[]) {
     return value;
   }
 }
+
+const arrayToHex = (array: (string | number)[]): string => {
+  let result = "0x";
+  array.forEach((item) => {
+    const n = ensureNumber(item);
+    if (n < 0 || n > 255)
+      throw new Error(`Invalid u8 value: ${n}`);
+    result += n.toString(16).padStart(2, '0');
+  })
+
+  return result;
+};

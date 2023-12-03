@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function assertType(val: any, types: string[] | string, message?: string) {
   if (!types?.includes(typeof val)) {
     throw new Error(

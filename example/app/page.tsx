@@ -47,12 +47,10 @@ export default function Home() {
     try {
       const payload = createEntryPayload(COIN_ABI, {
         function: 'transfer',
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
-        arguments: ['0x1', BigInt(1)],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', BigInt(1)],
       });
-      await submitTransaction(payload, {
-        nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-      });
+      await submitTransaction(payload);
       onRefresh();
     } catch (e) {
       console.error('error', e);
@@ -91,9 +89,8 @@ export default function Home() {
         >
           <div>{balanceMessage ?? 'loading balance of 0x1'}</div>
           <div>
-            {`Wallet status: ${
-              wallet.connected ? 'connected' : 'disconnected'
-            }`}
+            {`Wallet status: ${wallet.connected ? 'connected' : 'disconnected'
+              }`}
           </div>
           {isIdle && (
             <button

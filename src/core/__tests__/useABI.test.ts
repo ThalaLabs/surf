@@ -2,10 +2,9 @@
  * These test cases depends on network, it call the real contract.
  */
 
-import { AptosAccount } from 'aptos';
 import { COIN_ABI } from '../../abi/coin';
 import { createSurfClient } from '../Client';
-import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
+import { Account, Aptos, AptosConfig, Ed25519PrivateKey, Network } from '@aptos-labs/ts-sdk';
 
 describe('useABI', () => {
   const client = createSurfClient(
@@ -14,10 +13,7 @@ describe('useABI', () => {
     )
   );
 
-  const account = new AptosAccount(
-    undefined,
-    '0xac914efd2367c7aa42c95d100592c099e487d2270bf0e0761e5fe93ff4016593',
-  );
+  const account = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey("0x4b0a52d0b047b6868d9650fdb9b61720e361ba74f40571635fec0694a838eb98") });
 
   // Act before assertions
   beforeAll(async () => { });
@@ -59,16 +55,16 @@ describe('useABI', () => {
       });
 
       client.useABI(COIN_ABI).entry.transfer({
-        arguments: ['0x1', 1],
+        functionArguments: ['0x1', 1],
         // @ts-expect-error require a type argument
-        type_arguments: [],
+        typeArguments: [],
         account,
       });
 
       // @ts-expect-error account is required for entry function
       client.useABI(COIN_ABI).entry.transfer({
-        arguments: ['0x1', 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
     };
   });
@@ -102,20 +98,21 @@ describe('useABI', () => {
       ledgerVersion: '562606728',
     });
     expect(result).toMatchInlineSnapshot(`
-      [
-        50000358n,
-      ]
-    `);
+[
+  "50000358",
+]
+`);
   }, 60000);
 
   it('entry', async () => {
     const result = await client.useABI(COIN_ABI).entry.transfer({
-      arguments: ['0x1', 1],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: ['0x1', 1],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
       account,
       isSimulation: true,
     });
-    expect(result.hash).toBeDefined();
+    
+    expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
       {
         "arguments": [

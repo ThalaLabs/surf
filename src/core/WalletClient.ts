@@ -1,50 +1,42 @@
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import { AptosClient, Types } from 'aptos';
 import { createEntryPayload } from './createEntryPayload.js';
 import type {
   ABIRoot,
   ABIWalletClient,
-  EntryOptions,
   EntryPayload,
-  TransactionResponse,
 } from '../types/index.js';
 
 type Wallet = ReturnType<typeof useWallet>;
 
 export class WalletClient {
   private wallet: Wallet;
-  private client: AptosClient;
 
-  constructor({ wallet, nodeUrl }: { wallet: Wallet; nodeUrl: string }) {
+  constructor({ wallet }: { wallet: Wallet; }) {
     this.wallet = wallet;
-    this.client = new AptosClient(nodeUrl);
   }
 
   public async submitTransaction(
     payload: EntryPayload,
-    _: EntryOptions | undefined = undefined,
-  ): Promise<TransactionResponse> {
-    const request = payload.rawPayload;
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> {
     // TODO: use the BCS API instead
-    const { hash } = await this.wallet.signAndSubmitTransaction({
-      type: 'entry_function_payload',
-      ...request,
-      arguments: request.arguments.map((arg: any) => {
-        if (Array.isArray(arg)) {
-          // TODO: support nested array, or use the BCS API instead
-          return arg.map((item: any) => item.toString());
-        } else if (typeof arg === 'object') {
-          throw new Error(`a value of struct type: ${arg} is not supported`);
-        } else {
-          return arg.toString();
-        }
-      }),
+    const result = await this.wallet.signAndSubmitTransaction({
+      sender: this.wallet.account?.address ?? "",
+      data: {
+        ...payload,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        functionArguments: payload.functionArguments.map((arg: any) => {
+          if (Array.isArray(arg)) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            return arg.map((item: any) => item.toString());
+          } else if (typeof arg === 'object') {
+            throw new Error(`a value of struct type: ${arg} is not supported`);
+          } else {
+            return arg.toString();
+          }
+        }),
+      }
     });
-
-    const result = (await this.client.waitForTransactionWithResult(hash, {
-      checkSuccess: true,
-    })) as Types.Transaction_UserTransaction;
 
     return result;
   }
@@ -56,8 +48,8 @@ export class WalletClient {
         return (...args) => {
           const payload = createEntryPayload(abi, {
             function: functionName,
-            type_arguments: args[0].type_arguments,
-            arguments: args[0].arguments,
+            typeArguments: args[0].type_arguments,
+            functionArguments: args[0].arguments,
           });
           return this.submitTransaction(payload);
         };

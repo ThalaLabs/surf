@@ -3,9 +3,9 @@
  */
 
 import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
-import { COIN_ABI } from '../../abi/coin';
-import { createSurfClient } from '../Client';
-import { createViewPayload } from '../createViewPayload';
+import { COIN_ABI } from '../../abi/coin.js';
+import { createSurfClient } from '../Client.js';
+import { createViewPayload } from '../createViewPayload.js';
 
 describe('call view functions', () => {
   const client = createSurfClient(
@@ -28,8 +28,8 @@ describe('call view functions', () => {
   it('basic', async () => {
     const viewPayload = createViewPayload(COIN_ABI, {
       function: 'name',
-      arguments: [],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: [],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
@@ -40,8 +40,8 @@ describe('call view functions', () => {
 
     const viewPayload2 = createViewPayload(COIN_ABI, {
       function: 'decimals',
-      arguments: [],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: [],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
     const result2 = await client.view({ payload: viewPayload2 });
     expect(result2).toMatchInlineSnapshot(`
@@ -54,8 +54,8 @@ describe('call view functions', () => {
   it('ledger version', async () => {
     const viewPayload = createViewPayload(COIN_ABI, {
       function: 'balance',
-      arguments: ['0x1'],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: ['0x1'],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
     const result = await client.view({
       payload: viewPayload, options: {
@@ -72,8 +72,8 @@ describe('call view functions', () => {
   it('return struct', async () => {
     const viewPayload = createViewPayload(TIERED_ORACLE_ABI, {
       function: 'get_last_price',
-      arguments: [],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: [],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
 
     // The declaration in Move:

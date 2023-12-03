@@ -4,15 +4,13 @@ import {
   ABIEntryClient,
   ABIViewClient,
   ABIRoot,
-  EntryOptions,
   EntryPayload,
   ViewPayload,
   DefaultABITable,
   ABIResourceClient,
-  TransactionResponse,
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
-import { Aptos, LedgerVersionArg, MoveValue } from "@aptos-labs/ts-sdk";
+import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse } from "@aptos-labs/ts-sdk";
 
 /**
  * Create a client to interact with Aptos smart contract.
@@ -25,7 +23,6 @@ export function createSurfClient<
 >(aptosClient: Aptos): Client<TABITable> {
   return new Client<TABITable>(aptosClient);
 }
-
 export class Client<TABITable extends ABITable> {
   private client: Aptos;
 
@@ -57,8 +54,8 @@ export class Client<TABITable extends ABITable> {
   /**
    * Submit a transaction.
    *
-   * @param payload The payload object created by `createEntryPayload`.
-   * @param options.account AptosAccount to submit the transaction.
+   * @param args.signer The signer account to sign the transaction
+   * @param args.payload The payload object created by `createEntryPayload`.
    * @returns The transaction response.
    * @example
    * const entryPayload = createEntryPayload(COIN_ABI, {
@@ -72,32 +69,37 @@ export class Client<TABITable extends ABITable> {
    *     { account },
    * );
    */
-  public async submitTransaction(
+  public async submitTransaction(args: {
+    signer: Account,
     payload: EntryPayload,
-    options: EntryOptions,
-  ): Promise<TransactionResponse> {
-    const rawTxn = await this.generateRawTxn(payload, options);
-
-    // Sign the raw transaction with account's private key
-    const bcsTxn = AptosClient.generateBCSTransaction(options.account, rawTxn);
+  }): Promise<CommittedTransactionResponse> {
+    const transaction = await this.client.build.transaction({
+      sender: args.signer.accountAddress.toString(),
+      data: args.payload,
+    });
 
     // Submit the transaction
-    const transactionRes = await this.client.submitSignedBCSTransaction(bcsTxn);
+    const transactionRes = await this.client.signAndSubmitTransaction({
+      signer: args.signer,
+      transaction,
+    });
 
     // Wait for the transaction to finish
     // throws an error if the tx fails or not confirmed after timeout
-    await this.client.waitForTransaction(transactionRes.hash, {
-      timeoutSecs: 120,
-      checkSuccess: true,
+    return await this.client.waitForTransaction({
+      transactionHash: transactionRes.hash,
+      options: {
+        timeoutSecs: 120,
+        checkSuccess: true,
+      }
     });
-    return transactionRes;
   }
 
   /**
    * Simulate a transaction.
    *
-   * @param payload The payload object created by `createEntryPayload`.
-   * @param options.account AptosAccount to simulate the transaction.
+   * @param args.signer The signer account to sign the transaction
+   * @param args.payload The payload object created by `createEntryPayload`.
    * @returns The transaction response.
    * @example
    * const entryPayload = createEntryPayload(COIN_ABI, {
@@ -111,20 +113,20 @@ export class Client<TABITable extends ABITable> {
    *     { account },
    * );
    */
-  public async simulateTransaction(
+  public async simulateTransaction(args: {
+    publicKey: PublicKey,
+    sender: AccountAddressInput,
     payload: EntryPayload,
-    options: EntryOptions,
-  ): Promise<TransactionResponse> {
-    const rawTxn = await this.generateRawTxn(payload, options);
+  }): Promise<Array<UserTransactionResponse>> {
+    const transaction = await this.client.build.transaction({
+      sender: args.sender,
+      data: args.payload,
+    });
 
-    const transactionRes = (
-      await this.client.simulateTransaction(options.account, rawTxn)
-    )[0];
-    if (!transactionRes) {
-      throw new Error('Failed to simulate transaction');
-    }
-
-    return transactionRes;
+    return await this.client.simulate.transaction({
+      signerPublicKey: args.publicKey,
+      transaction,
+    });
   }
 
   /**
@@ -155,8 +157,8 @@ export class Client<TABITable extends ABITable> {
           return (...args) => {
             const payload = createViewPayload(abi, {
               function: functionName,
-              type_arguments: args[0].typeArguments,
-              arguments: args[0].functionArguments,
+              typeArguments: args[0].typeArguments,
+              functionArguments: args[0].functionArguments,
             });
             return this.view({
               payload,
@@ -184,12 +186,21 @@ export class Client<TABITable extends ABITable> {
           return (...args) => {
             const payload = createEntryPayload(abi, {
               function: functionName,
-              type_arguments: args[0].type_arguments,
-              arguments: args[0].arguments,
+              typeArguments: args[0].typeArguments,
+              functionArguments: args[0].functionArguments,
             });
+
+            const account: Account = args[0].account;
             return args[0].isSimulation
-              ? this.simulateTransaction(payload, { account: args[0].account })
-              : this.submitTransaction(payload, { account: args[0].account });
+              ? this.simulateTransaction({
+                publicKey: account.publicKey,
+                sender: account.accountAddress.toString(),
+                payload,
+              }).then(result => result[0])
+              : this.submitTransaction({
+                signer: args[0].account,
+                payload,
+              });
           };
         },
       }),
@@ -207,34 +218,23 @@ export class Client<TABITable extends ABITable> {
         get: (_, prop) => {
           let structName = prop.toString();
           return (...args) => {
-            if (args[0].type_arguments.length !== 0) {
-              structName += `<${args[0].type_arguments.join(',')}>`;
+            if (args[0].typeArguments.length !== 0) {
+              structName += `<${args[0].typeArguments.join(',')}>`;
             }
-            return this.client.getAccountResource(
-              args[0].account,
-              `${abi.address}::${abi.name}::${structName}`,
-              {
-                ledgerVersion: args[0].ledger_version,
-              },
-            );
 
-            // TODO: decode the u64, u128, u256 to bigint
+            const account: AccountAddressInput = args[0].account;
+            return this.client.getAccountResource(
+              {
+                accountAddress: account,
+                resourceType: `${abi.address}::${abi.name}::${structName}`,
+                options: {
+                  ledgerVersion: args[0].ledgerVersion,
+                }
+              }
+            );
           };
         },
       }),
     };
-  }
-
-  private async generateRawTxn(payload: EntryPayload, options: EntryOptions) {
-    const { account } = options;
-    const entryFunctionPayload =
-      new TxnBuilderTypes.TransactionPayloadEntryFunction(payload.entryRequest);
-
-    // Create a raw transaction out of the transaction payload
-    const rawTxn = await this.client.generateRawTransaction(
-      account.address(),
-      entryFunctionPayload,
-    );
-    return rawTxn;
   }
 }

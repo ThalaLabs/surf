@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aptos-labs/wallet-adapter-react": "^1.1.0",
-    "@thalalabs/surf": "^0.0.2",
+    "@aptos-labs/ts-sdk": "^0.0.8",
+    "@aptos-labs/wallet-adapter-react": "^2.0.0",
+    "@thalalabs/surf": "../",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
-    "aptos": "^1.9.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "next": "13.4.4",
