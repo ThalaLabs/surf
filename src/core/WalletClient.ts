@@ -20,7 +20,7 @@ export class WalletClient {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     // TODO: use the BCS API instead
-    const result = await this.wallet.signAndSubmitTransaction({
+    return await this.wallet.signAndSubmitTransaction({
       sender: this.wallet.account?.address ?? "",
       data: {
         ...payload,
@@ -37,8 +37,6 @@ export class WalletClient {
         }),
       }
     });
-
-    return result;
   }
 
   public useABI<T extends ABIRoot>(abi: T) {

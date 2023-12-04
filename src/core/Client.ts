@@ -10,7 +10,7 @@ import {
   ABIResourceClient,
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
-import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse } from "@aptos-labs/ts-sdk";
+import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse, WaitForTransactionOptions } from "@aptos-labs/ts-sdk";
 
 /**
  * Create a client to interact with Aptos smart contract.
@@ -72,6 +72,7 @@ export class Client<TABITable extends ABITable> {
   public async submitTransaction(args: {
     signer: Account,
     payload: EntryPayload,
+    options?: WaitForTransactionOptions
   }): Promise<CommittedTransactionResponse> {
     const transaction = await this.client.build.transaction({
       sender: args.signer.accountAddress.toString(),
@@ -88,10 +89,7 @@ export class Client<TABITable extends ABITable> {
     // throws an error if the tx fails or not confirmed after timeout
     return await this.client.waitForTransaction({
       transactionHash: transactionRes.hash,
-      options: {
-        timeoutSecs: 120,
-        checkSuccess: true,
-      }
+      options: args.options ?? {},
     });
   }
 
