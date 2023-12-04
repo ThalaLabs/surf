@@ -52,7 +52,7 @@ describe('option type', () => {
       typeArguments: [],
     });
 
-    const [result] = await client.simulateTransaction({
+    const result = await client.simulateTransaction({
       publicKey: account.publicKey,
       sender: account.accountAddress.toString(),
       payload,
@@ -80,7 +80,7 @@ describe('option type', () => {
       typeArguments: [],
     });
 
-    const [result] = await client.simulateTransaction({
+    const result = await client.simulateTransaction({
       publicKey: account.publicKey,
       sender: account.accountAddress.toString(),
       payload,

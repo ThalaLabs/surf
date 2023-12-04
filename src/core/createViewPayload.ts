@@ -17,12 +17,12 @@ import { MoveStructId } from '@aptos-labs/ts-sdk';
  * @param payload.type_arguments The generic type arguments for function.
  * @returns The payload object to be used in `view` method.
  * @example
- * const viewPayload = createViewPayload(COIN_ABI, {
+ * const payload = createViewPayload(COIN_ABI, {
  *   function: 'balance',
- *   arguments: ['0x1'],
- *   type_arguments: ['0x1::aptos_coin::AptosCoin'],
+ *   functionArguments: ['0x1'],
+ *   typeArguments: ['0x1::aptos_coin::AptosCoin'],
  * });
- * const [balance] = await client.view(viewPayload);
+ * const [balance] = await client.view({ payload });
  */
 export function createViewPayload<
   T extends ABIRoot,
@@ -88,7 +88,7 @@ function encodeVector(type: string, value: any) {
   if(!innerType) {
     throw new Error(`Unsupported type: ${type}`);
   }
-  
+
   if (innerType === 'u8') {
     if (typeof value === 'string' || value instanceof Uint8Array)
       return value;

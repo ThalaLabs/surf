@@ -29,7 +29,7 @@ describe('call entry functions', () => {
       typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
 
-    const [result] = await client.simulateTransaction({
+    const result = await client.simulateTransaction({
       payload: entryPayload,
       sender: account.accountAddress,
       publicKey: account.publicKey,
@@ -58,7 +58,7 @@ describe('call entry functions', () => {
       typeArguments: [],
     });
 
-    const [result] = await client.simulateTransaction({
+    const result = await client.simulateTransaction({
       payload: entryPayload,
       sender: account.accountAddress,
       publicKey: account.publicKey,
@@ -85,7 +85,7 @@ describe('call entry functions', () => {
       typeArguments: [],
     });
 
-    const [result] = await client.simulateTransaction({
+    const result = await client.simulateTransaction({
       payload: entryPayload,
       sender: account.accountAddress,
       publicKey: account.publicKey,
@@ -104,7 +104,7 @@ describe('call entry functions', () => {
       typeArguments: [],
     });
 
-    const [result] = await client.simulateTransaction({
+    const result = await client.simulateTransaction({
       payload: entryPayload,
       sender: account.accountAddress,
       publicKey: account.publicKey,

@@ -17,6 +17,8 @@ import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionRespon
  *
  * @param aptosClient The Aptos ts-sdk client.
  * @returns The Surf client object.
+ * @example
+ * const client = createSurfClient(new Aptos());
  */
 export function createSurfClient<
   TABITable extends ABITable = DefaultABITable,
@@ -37,12 +39,12 @@ export class Client<TABITable extends ABITable> {
    * @param options.ledgerVersion Specifies ledger version of transactions. By default latest version will be used.
    * @returns an array of Move values
    * @example
-   * const viewPayload = createViewPayload(COIN_ABI, {
+   * const payload = createViewPayload(COIN_ABI, {
    *   function: 'balance',
-   *   arguments: ['0x1'],
-   *   type_arguments: ['0x1::aptos_coin::AptosCoin'],
+   *   functionArguments: ['0x1'],
+   *   typeArguments: ['0x1::aptos_coin::AptosCoin'],
    * });
-   * const [balance] = await client.view(viewPayload);
+   * const [balance] = await client.view({ payload });
    */
   public async view<TReturn extends MoveValue[]>(args: {
     payload: ViewPayload<TReturn>,
@@ -56,18 +58,19 @@ export class Client<TABITable extends ABITable> {
    *
    * @param args.signer The signer account to sign the transaction
    * @param args.payload The payload object created by `createEntryPayload`.
+   * @param args.options Option properties to pass for waitForTransaction() function
    * @returns The transaction response.
    * @example
-   * const entryPayload = createEntryPayload(COIN_ABI, {
-   *     function: 'transfer',
-   *     arguments: ['0x1', 1],
-   *     type_arguments: ['0x1::aptos_coin::AptosCoin'],
+   * const payload = createEntryPayload(COIN_ABI, {
+   *   function: 'transfer',
+   *   functionArguments: ['0x1', 1],
+   *   typeArguments: ['0x1::aptos_coin::AptosCoin'],
    * });
    *
-   * const { hash } = await client.submitTransaction(
-   *     entryPayload,
-   *     { account },
-   * );
+   * const result = await client.submitTransaction({
+   *   payload,
+   *   signer: account,
+   * });
    */
   public async submitTransaction(args: {
     signer: Account,
@@ -96,35 +99,37 @@ export class Client<TABITable extends ABITable> {
   /**
    * Simulate a transaction.
    *
-   * @param args.signer The signer account to sign the transaction
+   * @param args.publicKey The sender public key
+   * @param args.sender The sender address
    * @param args.payload The payload object created by `createEntryPayload`.
    * @returns The transaction response.
    * @example
-   * const entryPayload = createEntryPayload(COIN_ABI, {
-   *     function: 'transfer',
-   *     arguments: ['0x1', 1],
-   *     type_arguments: ['0x1::aptos_coin::AptosCoin'],
+   * const payload = createEntryPayload(COIN_ABI, {
+   *   function: 'transfer',
+   *   functionArguments: ['0x1', 1],
+   *   typeArguments: ['0x1::aptos_coin::AptosCoin'],
    * });
    *
-   * const { hash } = await client.simulateTransaction(
-   *     entryPayload,
-   *     { account },
-   * );
+   * const result = await client.simulateTransaction({
+   *   payload,
+   *   sender: account.accountAddress,
+   *   publicKey: account.publicKey,
+   * });
    */
   public async simulateTransaction(args: {
     publicKey: PublicKey,
     sender: AccountAddressInput,
     payload: EntryPayload,
-  }): Promise<Array<UserTransactionResponse>> {
+  }): Promise<UserTransactionResponse> {
     const transaction = await this.client.build.transaction({
       sender: args.sender,
       data: args.payload,
     });
 
-    return await this.client.simulate.transaction({
+    return (await this.client.simulate.transaction({
       signerPublicKey: args.publicKey,
       transaction,
-    });
+    }))[0]!;
   }
 
   /**
@@ -134,8 +139,8 @@ export class Client<TABITable extends ABITable> {
    * @returns A client can call view/entry functions or get account resource.
    * @example
    * const [balance] = await client.useABI(COIN_ABI).view.balance({
-   *    arguments: ['0x1'],
-   *    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+   *    functionArguments: ['0x1'],
+   *    typeArguments: ['0x1::aptos_coin::AptosCoin'],
    * });
    */
   public useABI<T extends ABIRoot>(abi: T) {
@@ -145,8 +150,8 @@ export class Client<TABITable extends ABITable> {
        *
        * @example
        * const [balance] = await client.useABI(COIN_ABI).view.balance({
-       *     arguments: ['0x1'],
-       *     type_arguments: ['0x1::aptos_coin::AptosCoin'],
+       *     functionArguments: ['0x1'],
+       *     typeArguments: ['0x1::aptos_coin::AptosCoin'],
        * });
        */
       view: new Proxy({} as ABIViewClient<T>, {
@@ -173,8 +178,8 @@ export class Client<TABITable extends ABITable> {
        *
        * @example
        * const { hash } = await client.useABI(COIN_ABI).entry.transfer({
-       *     arguments: ['0x1', 1],
-       *     type_arguments: ['0x1::aptos_coin::AptosCoin'],
+       *     functionArguments: ['0x1', 1],
+       *     typeArguments: ['0x1::aptos_coin::AptosCoin'],
        *     account,
        * });
        */
@@ -194,7 +199,7 @@ export class Client<TABITable extends ABITable> {
                 publicKey: account.publicKey,
                 sender: account.accountAddress.toString(),
                 payload,
-              }).then(result => result[0])
+              })
               : this.submitTransaction({
                 signer: args[0].account,
                 payload,
@@ -208,7 +213,7 @@ export class Client<TABITable extends ABITable> {
        *
        * @example
        * const { data } = await client.useABI(COIN_ABI).resource.CoinStore({
-       *     type_arguments: ['0x1::aptos_coin::AptosCoin'],
+       *     typeArguments: ['0x1::aptos_coin::AptosCoin'],
        *     account: '0x1',
        * });
        */

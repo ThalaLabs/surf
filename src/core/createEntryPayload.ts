@@ -14,16 +14,16 @@ import { EntryFunctionName } from '../types/extractor/functionExtractor.js';
  * @param payload.type_arguments The generic type arguments for function.
  * @returns The payload object to be used in `simulateTransaction` or `submitTransaction` method.
  * @example
- * const entryPayload = createEntryPayload(COIN_ABI, {
- *     function: 'transfer',
- *     arguments: ['0x1', 1],
- *     type_arguments: ['0x1::aptos_coin::AptosCoin'],
+ * const payload = createEntryPayload(COIN_ABI, {
+ *   function: 'transfer',
+ *   functionArguments: ['0x1', 1],
+ *   typeArguments: ['0x1::aptos_coin::AptosCoin'],
  * });
  *
- * const { hash } = await client.submitTransaction(
- *     entryPayload,
- *     { account },
- * );
+ * const result = await client.submitTransaction({
+ *   payload,
+ *   signer: account,
+ * });
  */
 export function createEntryPayload<
   T extends ABIRoot,

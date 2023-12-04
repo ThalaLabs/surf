@@ -26,20 +26,20 @@ describe('useABI', () => {
     () => {
       // @ts-expect-error cannot call a function not exist
       client.useABI(COIN_ABI).view.not_exist_func({
-        arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       // @ts-expect-error cannot call a entry function from view
       client.useABI(COIN_ABI).view.transfer({
-        arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       // @ts-expect-error cannot call a view function from entry
       client.useABI(COIN_ABI).entry.balance({
         arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       client.useABI(TEST_ABI).view.address_as_input({
