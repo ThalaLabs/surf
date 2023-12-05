@@ -1,7 +1,7 @@
 export {
   createViewPayload,
   createEntryPayload,
-  createClient,
+  createSurfClient,
 } from './core/index.js';
 
 export type {

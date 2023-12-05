@@ -2,78 +2,77 @@
  * These test cases depends on network, it call the real contract.
  */
 
-import { AptosAccount } from 'aptos';
 import { COIN_ABI } from '../../abi/coin';
-import { createClient } from '../Client';
+import { createSurfClient } from '../Client';
+import { Account, Aptos, AptosConfig, Ed25519PrivateKey, Network } from '@aptos-labs/ts-sdk';
 
 describe('useABI', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
-
-  const account = new AptosAccount(
-    undefined,
-    '0xac914efd2367c7aa42c95d100592c099e487d2270bf0e0761e5fe93ff4016593',
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
   );
 
+  const account = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey("0x4b0a52d0b047b6868d9650fdb9b61720e361ba74f40571635fec0694a838eb98") });
+
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('basic type checking', async () => {
     // no need to run, type check only
     () => {
       // @ts-expect-error cannot call a function not exist
       client.useABI(COIN_ABI).view.not_exist_func({
-        arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       // @ts-expect-error cannot call a entry function from view
       client.useABI(COIN_ABI).view.transfer({
-        arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       // @ts-expect-error cannot call a view function from entry
       client.useABI(COIN_ABI).entry.balance({
         arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       client.useABI(TEST_ABI).view.address_as_input({
         // @ts-expect-error require two args
-        arguments: ['0x1'],
-        type_arguments: [],
+        functionArguments: ['0x1'],
+        typeArguments: [],
       });
 
       client.useABI(TEST_ABI).view.address_as_input({
         // @ts-expect-error require address
-        arguments: ['0x1', 1],
-        type_arguments: [],
+        functionArguments: ['0x1', 1],
+        typeArguments: [],
       });
 
       client.useABI(COIN_ABI).entry.transfer({
-        arguments: ['0x1', 1],
+        functionArguments: ['0x1', 1],
         // @ts-expect-error require a type argument
-        type_arguments: [],
+        typeArguments: [],
         account,
       });
 
       // @ts-expect-error account is required for entry function
       client.useABI(COIN_ABI).entry.transfer({
-        arguments: ['0x1', 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
     };
   });
 
   it('view', async () => {
     const result = await client.useABI(COIN_ABI).view.name({
-      arguments: [],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: [],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
     expect(result).toMatchInlineSnapshot(`
       [
@@ -82,8 +81,8 @@ describe('useABI', () => {
     `);
 
     const result2 = await client.useABI(COIN_ABI).view.decimals({
-      arguments: [],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: [],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
     expect(result2).toMatchInlineSnapshot(`
       [
@@ -94,25 +93,26 @@ describe('useABI', () => {
 
   it('view with ledger version', async () => {
     const result = await client.useABI(COIN_ABI).view.balance({
-      arguments: ['0x1'],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
-      ledger_version: '562606728',
+      functionArguments: ['0x1'],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
+      ledgerVersion: '562606728',
     });
     expect(result).toMatchInlineSnapshot(`
-      [
-        50000358n,
-      ]
-    `);
+[
+  "50000358",
+]
+`);
   }, 60000);
 
   it('entry', async () => {
     const result = await client.useABI(COIN_ABI).entry.transfer({
-      arguments: ['0x1', 1],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: ['0x1', 1],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
       account,
       isSimulation: true,
     });
-    expect(result.hash).toBeDefined();
+    
+    expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
       {
         "arguments": [

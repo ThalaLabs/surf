@@ -21,6 +21,7 @@ export interface ABIFunction {
 }
 
 export interface ABIFunctionGenericTypeParam {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constraints: readonly any[];
 }
 

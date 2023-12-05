@@ -4,10 +4,10 @@ import { createViewPayload } from '../createViewPayload';
 // TODO: add struct, vector of vector
 describe('createViewPayload', () => {
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('basic type checking', async () => {
     // no need to run, type check only.
@@ -15,36 +15,36 @@ describe('createViewPayload', () => {
       createViewPayload(COIN_ABI, {
         // @ts-expect-error abc is not a function
         function: 'abc',
-        arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createViewPayload(COIN_ABI, {
         // @ts-expect-error transfer is not a view function
         function: 'transfer',
-        arguments: ['0x1'],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1'],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createViewPayload(COIN_ABI, {
         function: 'balance',
         // @ts-expect-error require a address type
-        arguments: [''],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: [''],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createViewPayload(COIN_ABI, {
         function: 'balance',
         // @ts-expect-error require 1 args
-        arguments: ['0x1', 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createViewPayload(COIN_ABI, {
         function: 'balance',
-        arguments: ['0x1'],
+        functionArguments: ['0x1'],
         // @ts-expect-error require a type_argument
-        type_arguments: [],
+        typeArguments: [],
       });
     };
   });
@@ -52,26 +52,21 @@ describe('createViewPayload', () => {
   it('basic', async () => {
     const payload = createViewPayload(COIN_ABI, {
       function: 'balance',
-      arguments: ['0x1'],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: ['0x1'],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [
-          [Function],
-        ],
-        "viewRequest": {
-          "arguments": [
-            "0x1",
-          ],
-          "function": "0x1::coin::balance",
-          "type_arguments": [
-            "0x1::aptos_coin::AptosCoin",
-          ],
-        },
-      }
-    `);
+{
+  "function": "0x1::coin::balance",
+  "functionArguments": [
+    "0x1",
+  ],
+  "typeArguments": [
+    "0x1::aptos_coin::AptosCoin",
+  ],
+}
+`);
   });
 
   it('bool', async () => {
@@ -79,35 +74,32 @@ describe('createViewPayload', () => {
     () => {
       createViewPayload(TEST_ABI, {
         function: 'bool_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error not a boolean type
           1,
           // @ts-expect-error not a boolean type
           'false',
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
 
     const payload = createViewPayload(TEST_ABI, {
       function: 'bool_as_input',
-      arguments: [true, false],
-      type_arguments: [],
+      functionArguments: [true, false],
+      typeArguments: [],
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            true,
-            false,
-          ],
-          "function": "0x123::test::bool_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::bool_as_input",
+  "functionArguments": [
+    true,
+    false,
+  ],
+  "typeArguments": [],
+}
+`);
   });
 
   it('address', async () => {
@@ -115,35 +107,32 @@ describe('createViewPayload', () => {
     () => {
       createViewPayload(TEST_ABI, {
         function: 'address_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error not a address type
           1,
           // @ts-expect-error not a address type
           '1',
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
 
     const payload = createViewPayload(TEST_ABI, {
       function: 'address_as_input',
-      arguments: ['0x1', '0x2'],
-      type_arguments: [],
+      functionArguments: ['0x1', '0x2'],
+      typeArguments: [],
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            "0x1",
-            "0x2",
-          ],
-          "function": "0x123::test::address_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::address_as_input",
+  "functionArguments": [
+    "0x1",
+    "0x2",
+  ],
+  "typeArguments": [],
+}
+`);
   });
 
   it('number', async () => {
@@ -151,83 +140,77 @@ describe('createViewPayload', () => {
     () => {
       createViewPayload(TEST_ABI, {
         function: 'number_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error not a number type
           '1',
           // @ts-expect-error not a number type
           true,
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
 
     const payload = createViewPayload(TEST_ABI, {
       function: 'number_as_input',
-      arguments: [1, 2, 3, BigInt(5), BigInt(6), BigInt(7)],
-      type_arguments: [],
+      functionArguments: [1, 2, 3, BigInt(5), BigInt(6), BigInt(7)],
+      typeArguments: [],
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            1,
-            2,
-            3,
-            "5",
-            "6",
-            "7",
-          ],
-          "function": "0x123::test::number_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::number_as_input",
+  "functionArguments": [
+    1,
+    2,
+    3,
+    "5",
+    "6",
+    "7",
+  ],
+  "typeArguments": [],
+}
+`);
   });
 
   it('vector', async () => {
     const payload = createViewPayload(TEST_ABI, {
       function: 'vector_as_input',
-      arguments: [
+      functionArguments: [
         [1, 2, 3],
         [4, 5, 6],
         [BigInt(10000000000000000000001), BigInt(10000000000000000000001)],
         [true, false],
         ['0x1', '0x2'],
       ],
-      type_arguments: [],
+      typeArguments: [],
     });
 
     expect(payload).toMatchInlineSnapshot(`
-      {
-        "decoders": [],
-        "viewRequest": {
-          "arguments": [
-            "0x010203",
-            [
-              4,
-              5,
-              6,
-            ],
-            [
-              "10000000000000000000000",
-              "10000000000000000000000",
-            ],
-            [
-              true,
-              false,
-            ],
-            [
-              "0x1",
-              "0x2",
-            ],
-          ],
-          "function": "0x123::test::vector_as_input",
-          "type_arguments": [],
-        },
-      }
-    `);
+{
+  "function": "0x123::test::vector_as_input",
+  "functionArguments": [
+    "0x010203",
+    [
+      4,
+      5,
+      6,
+    ],
+    [
+      "10000000000000000000000",
+      "10000000000000000000000",
+    ],
+    [
+      true,
+      false,
+    ],
+    [
+      "0x1",
+      "0x2",
+    ],
+  ],
+  "typeArguments": [],
+}
+`);
   });
 });
 

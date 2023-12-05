@@ -1,26 +1,25 @@
 import { NextResponse } from 'next/server';
-import { createClient, createViewPayload } from '@thalalabs/surf';
+import { createSurfClient, createViewPayload } from '@thalalabs/surf';
 import { COIN_ABI } from '../../abi/coin';
+import { Aptos, AptosConfig, Network } from '@aptos-labs/ts-sdk';
 
 export async function GET(request: Request) {
   try {
-    const client = createClient({
-      nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-    });
+    const client = createSurfClient(new Aptos(new AptosConfig({ network: Network.TESTNET })))
 
     const balancePayload = createViewPayload(COIN_ABI, {
       function: 'balance',
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
-      arguments: ['0x1'],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: ['0x1'],
     });
-    const balance = await client.view(balancePayload);
+    const balance = await client.view({ payload: balancePayload });
 
     const coinNamePayload = createViewPayload(COIN_ABI, {
       function: 'name',
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
-      arguments: [],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: [],
     });
-    const coinName = await client.view(coinNamePayload);
+    const coinName = await client.view({ payload: coinNamePayload });
 
     return NextResponse.json({ message: `0x1 has ${balance} ${coinName}` });
   } catch (e) {

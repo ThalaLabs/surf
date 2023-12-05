@@ -15,42 +15,42 @@ describe('createEntryPayload', () => {
       createEntryPayload(COIN_ABI, {
         // @ts-expect-error abc is not a function
         function: 'abc',
-        arguments: ['0x1', 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createEntryPayload(COIN_ABI, {
         // @ts-expect-error balance is not a view function
         function: 'balance',
-        arguments: ['0x1', 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createEntryPayload(COIN_ABI, {
         function: 'transfer',
         // @ts-expect-error require a address type
-        arguments: [1, 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: [1, 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createEntryPayload(COIN_ABI, {
         function: 'transfer',
         // @ts-expect-error require 2 args
-        arguments: ['0x1', 1, 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', 1, 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
 
       createEntryPayload(COIN_ABI, {
         function: 'transfer',
-        arguments: ['0x1', 1],
+        functionArguments: ['0x1', 1],
         // @ts-expect-error require a type_argument
-        type_arguments: [],
+        typeArguments: [],
       });
 
       createEntryPayload(COIN_ABI, {
         function: 'transfer',
-        arguments: ['0x1', 1],
-        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+        functionArguments: ['0x1', 1],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
       });
     };
   });
@@ -58,15 +58,15 @@ describe('createEntryPayload', () => {
   it('number', async () => {
     createEntryPayload(TEST_ABI, {
       function: 'number_as_input',
-      arguments: [1, 2, 3, BigInt(4), BigInt(5), BigInt(6)],
-      type_arguments: [],
+      functionArguments: [1, 2, 3, BigInt(4), BigInt(5), BigInt(6)],
+      typeArguments: [],
     });
 
     // no need to run, type check only.
     () => {
       createEntryPayload(TEST_ABI, {
         function: 'number_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error the input type for u8 should be number, not bigint
           BigInt(1),
           // @ts-expect-error the input type for u16 should be number, not bigint
@@ -77,7 +77,7 @@ describe('createEntryPayload', () => {
           BigInt(5),
           BigInt(6),
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
   });
@@ -85,21 +85,21 @@ describe('createEntryPayload', () => {
   it('bool', async () => {
     createEntryPayload(TEST_ABI, {
       function: 'bool_as_input',
-      arguments: [true, false],
-      type_arguments: [],
+      functionArguments: [true, false],
+      typeArguments: [],
     });
 
     // no need to run, type check only.
     () => {
       createEntryPayload(TEST_ABI, {
         function: 'bool_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error invalid bool
           1,
           // @ts-expect-error invalid bool
           'true',
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
   });
@@ -107,21 +107,21 @@ describe('createEntryPayload', () => {
   it('address', async () => {
     createEntryPayload(TEST_ABI, {
       function: 'address_as_input',
-      arguments: ['0x1', '0x2'],
-      type_arguments: [],
+      functionArguments: ['0x1', '0x2'],
+      typeArguments: [],
     });
 
     // no need to run, type check only.
     () => {
       createEntryPayload(TEST_ABI, {
         function: 'address_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error invalid address
           1,
           // @ts-expect-error invalid address
           '1',
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
   });
@@ -129,21 +129,21 @@ describe('createEntryPayload', () => {
   it('vector', async () => {
     createEntryPayload(TEST_ABI, {
       function: 'vector_as_input',
-      arguments: [
+      functionArguments: [
         [],
         [1, 2, 3],
         [BigInt(1), BigInt(2), BigInt(3)],
         [true, false, true],
         ['0x1', '0x2', '0x3'],
       ],
-      type_arguments: [],
+      typeArguments: [],
     });
 
     // no need to run, type check only.
     () => {
       createEntryPayload(TEST_ABI, {
         function: 'vector_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error invalid vector<u8>
           [1, 2, '3'],
           // @ts-expect-error invalid vector<u16>
@@ -155,7 +155,7 @@ describe('createEntryPayload', () => {
           // @ts-expect-error invalid vector<address>
           ['0x1', '0x2', 1],
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
   });
@@ -163,7 +163,7 @@ describe('createEntryPayload', () => {
   it('vector of vector', async () => {
     createEntryPayload(TEST_ABI, {
       function: 'vector_of_vector_as_input',
-      arguments: [
+      functionArguments: [
         [
           [1, 2],
           [3, 4],
@@ -175,20 +175,20 @@ describe('createEntryPayload', () => {
           ['0x5', '0x6'],
         ],
       ],
-      type_arguments: [],
+      typeArguments: [],
     });
 
     // no need to run, type check only.
     () => {
       createEntryPayload(TEST_ABI, {
         function: 'vector_of_vector_as_input',
-        arguments: [
+        functionArguments: [
           // @ts-expect-error invalid vector<vector<u8>>
           [[], 1, 2, '3'],
           // @ts-expect-error invalid vector<vector<address>>
           [[], 1, 2, '3'],
         ],
-        type_arguments: [],
+        typeArguments: [],
       });
     };
   });
@@ -196,8 +196,8 @@ describe('createEntryPayload', () => {
   it('0x1::object::Object', async () => {
     createEntryPayload(TEST_ABI, {
       function: 'object_as_input',
-      arguments: ['0x123456'],
-      type_arguments: [],
+      functionArguments: ['0x123456'],
+      typeArguments: [],
     });
   });
 });

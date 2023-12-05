@@ -2,37 +2,40 @@
  * These test cases depends on network, it call the real contract.
  */
 
-import { AptosAccount } from 'aptos';
 import { COIN_ABI } from '../../abi/coin';
-import { createClient } from '../Client';
-import { createEntryPayload } from '../createEntryPayload';
+import { createSurfClient } from '../Client.js';
+import { createEntryPayload } from '../createEntryPayload.js';
+import { Account, Aptos, AptosConfig, Ed25519PrivateKey, Network } from '@aptos-labs/ts-sdk';
 
 describe('call entry functions', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
-
-  const account = new AptosAccount(
-    undefined,
-    '0xac914efd2367c7aa42c95d100592c099e487d2270bf0e0761e5fe93ff4016593',
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
   );
 
+  const account = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey("0x4b0a52d0b047b6868d9650fdb9b61720e361ba74f40571635fec0694a838eb98") });
+
   // Act before assertions
-  beforeAll(async () => {});
+  beforeAll(async () => { });
 
   // Teardown (cleanup) after assertions
-  afterAll(() => {});
+  afterAll(() => { });
 
   it('basic', async () => {
     const entryPayload = createEntryPayload(COIN_ABI, {
       function: 'transfer',
-      arguments: ['0x1', 1],
-      type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      functionArguments: ['0x1', 1],
+      typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
 
-    const result = await client.simulateTransaction(entryPayload, { account });
+    const result = await client.simulateTransaction({
+      payload: entryPayload,
+      sender: account.accountAddress,
+      publicKey: account.publicKey,
+    });
 
-    expect(result.hash).toBeDefined();
+    expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
       {
         "arguments": [
@@ -51,13 +54,17 @@ describe('call entry functions', () => {
   it('vector', async () => {
     const entryPayload = createEntryPayload(TEST_ABI, {
       function: 'test_run_function',
-      arguments: [[1, 2, 3, 10, 20, 30]],
-      type_arguments: [],
+      functionArguments: [[1, 2, 3, 10, 20, 30]],
+      typeArguments: [],
     });
 
-    const result = await client.simulateTransaction(entryPayload, { account });
+    const result = await client.simulateTransaction({
+      payload: entryPayload,
+      sender: account.accountAddress,
+      publicKey: account.publicKey,
+    });
 
-    expect(result.hash).toBeDefined();
+    expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
       {
         "arguments": [
@@ -71,19 +78,44 @@ describe('call entry functions', () => {
   }, 60000);
 
   it('vector<u8>', async () => {
-    const inputString = "a test string";
+    const inputString = [1,2,34];
     const entryPayload = createEntryPayload(TEST_ABI, {
       function: 'test_run_function',
-      arguments: [inputString],
-      type_arguments: [],
+      functionArguments: [inputString],
+      typeArguments: [],
     });
 
-    const result = await client.simulateTransaction(entryPayload, { account });
+    const result = await client.simulateTransaction({
+      payload: entryPayload,
+      sender: account.accountAddress,
+      publicKey: account.publicKey,
+    });
 
-    expect(result.hash).toBeDefined();
-    expect((result as any).payload.arguments[0]).toEqual("0x61207465737420737472696e67");
+    expect(result?.hash).toBeDefined();
+    expect((result as any).payload.arguments[0]).toEqual("0x010222");
+  }, 60000);
+
+
+  it('vector<u8> hex string', async () => {
+    const inputString = "0x1234";
+    const entryPayload = createEntryPayload(TEST_ABI, {
+      function: 'test_run_function',
+      functionArguments: [inputString],
+      typeArguments: [],
+    });
+
+    const result = await client.simulateTransaction({
+      payload: entryPayload,
+      sender: account.accountAddress,
+      publicKey: account.publicKey,
+    });
+
+    expect(result?.hash).toBeDefined();
+    expect((result as any).payload.arguments[0]).toEqual("0x1234");
   }, 60000);
 });
+
+
 
 const TEST_ABI = {
   address: '0x3d097bb505c9e5d8a96e367f371168240025877f6be8d4a88eacaafb709fe5c9',

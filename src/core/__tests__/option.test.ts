@@ -2,60 +2,63 @@
  * These test cases depends on network, it call the real contract.
  */
 
-import { AptosAccount } from 'aptos';
-import { createClient } from '../Client';
+import { createSurfClient } from '../Client';
 import { createViewPayload } from '../createViewPayload';
 import { createEntryPayload } from '../createEntryPayload';
+import { Account, Aptos, AptosConfig, Ed25519PrivateKey, Network } from '@aptos-labs/ts-sdk';
 
 describe('option type', () => {
-  const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
-
-  const account = new AptosAccount(
-    undefined,
-    '0xac914efd2367c7aa42c95d100592c099e487d2270bf0e0761e5fe93ff4016593',
+  const client = createSurfClient(
+    new Aptos(
+      new AptosConfig({ network: Network.TESTNET })
+    )
   );
+
+  const account = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey("0x4b0a52d0b047b6868d9650fdb9b61720e361ba74f40571635fec0694a838eb98") });
 
   // TODO: correctly encode option type for view function
   it('view function some value', async () => {
     const payload = createViewPayload(OPTION_ABI, {
       function: 'test_option_view',
-      arguments: [{ vec: ['50'] } as any],
-      type_arguments: [],
+      functionArguments: [{ vec: ['50'] } as any],
+      typeArguments: [],
     });
-    const result = await client.view(payload);
+    const result = await client.view({ payload });
     expect(result).toMatchInlineSnapshot(`
-      [
-        50n,
-      ]
-    `);
+[
+  "50",
+]
+`);
   }, 60000);
 
   it('view function none value', async () => {
     const payload = createViewPayload(OPTION_ABI, {
       function: 'test_option_view',
-      arguments: [{ vec: [] } as any],
-      type_arguments: [],
+      functionArguments: [{ vec: [] } as any],
+      typeArguments: [],
     });
-    const result = await client.view(payload);
+    const result = await client.view({ payload });
     expect(result).toMatchInlineSnapshot(`
-      [
-        0n,
-      ]
-    `);
+[
+  "0",
+]
+`);
   }, 60000);
 
   it('entry function none value', async () => {
     const payload = createEntryPayload(OPTION_ABI, {
       function: 'test_option_entry',
-      arguments: [[]],
-      type_arguments: [],
+      functionArguments: [null],
+      typeArguments: [],
     });
 
-    const result = await client.simulateTransaction(payload, { account });
+    const result = await client.simulateTransaction({
+      publicKey: account.publicKey,
+      sender: account.accountAddress.toString(),
+      payload,
+    })
 
-    expect(result.hash).toBeDefined();
+    expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
       {
         "arguments": [
@@ -73,13 +76,17 @@ describe('option type', () => {
   it('entry function some value', async () => {
     const payload = createEntryPayload(OPTION_ABI, {
       function: 'test_option_entry',
-      arguments: [[50]],
-      type_arguments: [],
+      functionArguments: [50],
+      typeArguments: [],
     });
 
-    const result = await client.simulateTransaction(payload, { account });
+    const result = await client.simulateTransaction({
+      publicKey: account.publicKey,
+      sender: account.accountAddress.toString(),
+      payload,
+    })
 
-    expect(result.hash).toBeDefined();
+    expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
       {
         "arguments": [

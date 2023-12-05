@@ -33,19 +33,17 @@
 ## Overview
 
 ```TypeScript
-const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-});
+const client = createSurfClient(new Aptos());
 
-await client.useABI(COIN_ABI).entry.transfer({
-    arguments: ['0x1', 1],
-    type_arguments: ['0x1::aptos_coin::AptosCoin'],
-    account,
+const result = await client.useABI(COIN_ABI).entry.transfer({
+  functionArguments: ['0x1', 1],
+  typeArguments: ['0x1::aptos_coin::AptosCoin'],
+  account: Account.fromPrivateKey(...),
 });
 
 const [balance] = await client.useABI(COIN_ABI).view.balance({
-    arguments: ['0x1'],
-    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  functionArguments: ['0x1'],
+  typeArguments: ['0x1::aptos_coin::AptosCoin'],
 });
 ```
 
@@ -58,21 +56,22 @@ When you input `client.useABI(COIN_ABI).view.` into your IDE, the auto-completio
 ### Installation
 
 ```shell
-npm i @thalalabs/surf aptos
+npm i @thalalabs/surf @aptos-labs/ts-sdk
 ```
 
-If you want to use the React Hooks, install the `@aptos-labs/wallet-adapter-react` additionally. Those React Hooks will be moved to a separate package in near future.
+If you want to use the React Hooks, install the `@aptos-labs/wallet-adapter-react@^2.0.0` additionally. Those React Hooks will be moved to a separate package in near future.
 
 ### Start
 
 Create the client:
 
 ```TypeScript
-import { createClient } from '@thalalabs/surf';
+import { createSurfClient } from '@thalalabs/surf';
+import { Aptos, Network, AptosConfig } from '@aptos-labs/ts-sdk';
 
-const client = createClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-});
+const client = createSurfClient(new Aptos(
+  new AptosConfig({ network: Network.TESTNET })
+));
 ```
 
 Surf infers types from ABI to give you the end-to-end type-safety from your Move contract to your frontend. So firstly, you need to prepare the ABI json object of your contract in TypeScript (You can get ABI from Aptos Explorer, for example: [0x1::coin](https://explorer.aptoslabs.com/account/0x1/modules/code/coin?network=testnet)):
@@ -90,22 +89,22 @@ There are two ways to call a view function with the client:
 ```typescript
 // Option 1. Use the `useABI` interface
 const [balance] = await client.useABI(COIN_ABI).view.balance({
-  arguments: ['0x1'],
-  type_arguments: ['0x1::aptos_coin::AptosCoin'],
-  ledger_version: '562606728', // ledger_version is optional
+  functionArguments: ['0x1'],
+  typeArguments: ['0x1::aptos_coin::AptosCoin'],
+  ledgerVersion: '562606728', // ledger_version is optional
 });
 
 // Option 2. Create payload and use the `view` interface
 import { createViewPayload } from '@thalalabs/surf';
-const viewPayload = createViewPayload(COIN_ABI, {
+const payload = createViewPayload(COIN_ABI, {
   function: 'balance',
-  arguments: ['0x1'],
-  type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  functionArguments: ['0x1'],
+  typeArguments: ['0x1::aptos_coin::AptosCoin'],
 });
-const [balance] = await client.view(
-  viewPayload,
-  { ledger_version: '562606728' }, // ledger_version is optional
-);
+const [balance] = await client.view({
+  payload,
+  options: { ledgerVersion: '562606728' }, // ledger_version is optional
+});
 ```
 
 Both of the interfaces can provide type safety.
@@ -122,23 +121,22 @@ const account = /* your AptosAccount */;
 
 // Option 1. Use the `useABI` interface
 const { hash } = await client.useABI(COIN_ABI).entry.transfer({
-    arguments: ['0x1', 1],
-    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+    functionArguments: ['0x1', 1],
+    typeArguments: ['0x1::aptos_coin::AptosCoin'],
     account,
 });
 
 // Option 2. Create payload and use the `submitTransaction` interface
 import { createEntryPayload } from "@thalalabs/surf";
-const entryPayload = createEntryPayload(COIN_ABI, {
-    function: 'transfer',
-    arguments: ['0x1', 1],
-    type_arguments: ['0x1::aptos_coin::AptosCoin'],
+const payload = createEntryPayload(COIN_ABI, {
+  function: 'transfer',
+  functionArguments: ['0x1', 1],
+  typeArguments: ['0x1::aptos_coin::AptosCoin'],
 });
-
-const { hash } = await client.submitTransaction(
-    entryPayload,
-    { account },
-);
+const result = await client.submitTransaction({
+  payload,
+  signer: account,
+});
 ```
 
 You can also simulate a transaction:
@@ -163,10 +161,11 @@ const entryPayload = createEntryPayload(COIN_ABI, {
     type_arguments: ['0x1::aptos_coin::AptosCoin'],
 });
 
-const { hash } = await client.simulateTransaction(
-    entryPayload,
-    { account }
-);
+const { hash } = await client.simulateTransaction({
+  payload,
+  sender: account.accountAddress,
+  publicKey: account.publicKey,
+});
 ```
 
 ### Get account resource
@@ -175,9 +174,8 @@ To get account resource with type safety:
 
 ```typescript
 const { data } = await client.useABI(COIN_ABI).resource.CoinStore({
-  type_arguments: ['0x1::aptos_coin::AptosCoin'],
+  typeArguments: ['0x1::aptos_coin::AptosCoin'],
   account: '0x1',
-  ledger_version: '562606728', // ledger_version is optional
 });
 
 // Get property in the struct with type safety
@@ -192,13 +190,14 @@ Some fields of a stuct may reference external modules.To inference the type of a
 
 ```TypeScript
 import { DefaultABITable } from "@thalalabs/surf";
+import { createSurfClient } from '@thalalabs/surf';
+import { Aptos } from '@aptos-labs/ts-sdk';
+
 type ABITAble = DefaultABITable & {
     '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI,
 };
 
-const client = createClient<ABITAble>({
-nodeUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
-});
+const client = createSurfClient<ABITAble>(new Aptos());
 ```
 
 With this customized `ABITAble`, Surf can inference the struct from `0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64`.

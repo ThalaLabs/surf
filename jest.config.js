@@ -5,7 +5,7 @@ export default {
     '^.+\\.m?[tj]s?$': ['ts-jest', { useESM: true }],
   },
   moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.(m)?js$': '$1',
+    '^(\\.{1,2}/.*)\\.(m)?[tj]s$': '$1',
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(m)?ts$',
   coverageDirectory: 'coverage',
@@ -15,4 +15,5 @@ export default {
     '!src/**/*.d.ts',
     '!src/**/*.d.mts',
   ],
+  prettierPath: null,
 };
