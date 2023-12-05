@@ -7,6 +7,7 @@
   "types": "./build/types/index.d.ts",
   "typings": "./build/types/index.d.ts",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": {
@@ -50,11 +51,11 @@
     "ts-jest": "~29.1",
     "tslib": "~2.6",
     "typescript": "~5.1",
-    "@aptos-labs/ts-sdk": "^0.0.8"
+    "@aptos-labs/ts-sdk": "^1.0.0"
   },
   "peerDependencies": {
     "@aptos-labs/wallet-adapter-react": "^2.0.0",
-    "@aptos-labs/ts-sdk": "^0.0.8",
+    "@aptos-labs/ts-sdk": "^1.0.0",
     "react": "^18.2.0"
   },
   "peerDependenciesMeta": {
