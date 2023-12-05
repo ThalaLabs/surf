@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.0.0
+
+### Major Changes
+
+- da2d29f: Use Aptos ts-sdk v2
+
 ## 0.0.16
 
 ### Patch Changes
