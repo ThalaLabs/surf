@@ -23,10 +23,10 @@
     axios "0.27.2"
     got "^11.0.0"
 
-"@aptos-labs/ts-sdk@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/ts-sdk/-/ts-sdk-0.0.8.tgz#a2a5639147bd9a7d5587dac4b39ddea9978b85c4"
-  integrity sha512-WTjFq9ITpguPci2UwNf09OS5Vj3fLVOpP6tTeT6nRQU09bNypv+LBmqPCmqsRmkOKWDa7fnJQcyRI1dZckit0A==
+"@aptos-labs/ts-sdk@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/ts-sdk/-/ts-sdk-1.0.0.tgz#7a1c32d8063d7555381dbc4202119765d6017cde"
+  integrity sha512-WE7rBlQM+rEwBUmG4zOcTaLi47frs+gOb5ZuAdJB37wqNLwbo143tgAYq63bsvmb6x41i0bq+rL7rkvcBjvIpQ==
   dependencies:
     "@aptos-labs/aptos-client" "^0.0.2"
     "@noble/curves" "^1.2.0"
