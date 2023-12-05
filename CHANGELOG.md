@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.0.1
+
+### Patch Changes
+
+- 67ab47a: Upgrade @aptos-labs/ts-sdk to 1.0.0
+
 ## 1.0.0
 
 ### Major Changes
