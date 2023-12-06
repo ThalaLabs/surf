@@ -71,14 +71,12 @@ export const useSubmitTransaction = () => {
       // Only update the status if the request is not stale.
       if (id === idRef.current) {
         setResult(result);
+        setIsLoading(false);
       }
     } catch (e) {
       setError(error);
-    } finally {
-      // Only update the status if the request is not stale.
-      if (id === idRef.current) {
-        setIsLoading(false);
-      }
+      setIsLoading(false);
+      throw e;
     }
 
     return result;
