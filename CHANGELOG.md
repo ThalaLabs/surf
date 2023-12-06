@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.0.2
+
+### Patch Changes
+
+- da4253c: re-throw exception from useSubmitTransaction
+
 ## 1.0.1
 
 ### Patch Changes
