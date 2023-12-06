@@ -17,9 +17,7 @@ export default function Home() {
     data: submitResult,
   } = useSubmitTransaction();
 
-  const { client } = useWalletClient({
-    nodeUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
-  });
+  const { client } = useWalletClient();
 
   const wallet = useWallet();
   useEffect(() => {
