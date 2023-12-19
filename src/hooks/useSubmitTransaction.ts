@@ -5,7 +5,7 @@ import { InputGenerateTransactionOptions } from '@aptos-labs/ts-sdk';
 
 // TODO: add test for this
 export const useSubmitTransaction = () => {
-  const { connected, signAndSubmitTransaction, account } = useWallet();
+  const { connected, signAndSubmitTransaction } = useWallet();
 
   const [isIdle, setIsIdle] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,6 @@ export const useSubmitTransaction = () => {
     try {
       result = await signAndSubmitTransaction(
         {
-          sender: account?.address ?? "",
           data: {
             ...payload,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,9 +62,9 @@ export const useSubmitTransaction = () => {
                 return arg.toString();
               }
             }),
-          }
+          },
+          options: options!,
         },
-        options,
       );
 
       // Only update the status if the request is not stale.

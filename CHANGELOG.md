@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.1.0
+
+### Minor Changes
+
+- 3095b48: Upgrade aptos libraries which includes some breaking change
+
 ## 1.0.2
 
 ### Patch Changes
