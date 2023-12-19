@@ -97,7 +97,7 @@ describe('call entry functions', () => {
 
 
   it('vector<u8> hex string', async () => {
-    const inputString = "0x1234";
+    const inputString = "1234ab";
     const entryPayload = createEntryPayload(TEST_ABI, {
       function: 'test_run_function',
       functionArguments: [inputString],
@@ -111,7 +111,7 @@ describe('call entry functions', () => {
     });
 
     expect(result?.hash).toBeDefined();
-    expect((result as any).payload.arguments[0]).toEqual("0x1234");
+    expect((result as any).payload.arguments[0]).toEqual("0x313233346162");
   }, 60000);
 });
 

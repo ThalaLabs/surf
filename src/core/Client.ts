@@ -77,13 +77,13 @@ export class Client<TABITable extends ABITable> {
     payload: EntryPayload,
     options?: WaitForTransactionOptions
   }): Promise<CommittedTransactionResponse> {
-    const transaction = await this.client.build.transaction({
+    const transaction = await this.client.transaction.build.simple({
       sender: args.signer.accountAddress.toString(),
       data: args.payload,
     });
 
     // Submit the transaction
-    const transactionRes = await this.client.signAndSubmitTransaction({
+    const transactionRes = await this.client.transaction.signAndSubmitTransaction({
       signer: args.signer,
       transaction,
     });
@@ -121,12 +121,12 @@ export class Client<TABITable extends ABITable> {
     sender: AccountAddressInput,
     payload: EntryPayload,
   }): Promise<UserTransactionResponse> {
-    const transaction = await this.client.build.transaction({
+    const transaction = await this.client.transaction.build.simple({
       sender: args.sender,
       data: args.payload,
     });
 
-    return (await this.client.simulate.transaction({
+    return (await this.client.transaction.simulate.simple({
       signerPublicKey: args.publicKey,
       transaction,
     }))[0]!;
