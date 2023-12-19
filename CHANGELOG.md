@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.2.0
+
+### Minor Changes
+
+- 6c51b22: upgrade @aptos-labs/ts-sdk to 1.2.0 which includes some breaking change
+
 ## 1.1.0
 
 ### Minor Changes
