@@ -114,18 +114,18 @@ describe('useABI', () => {
     
     expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
-      {
-        "arguments": [
-          "0x1",
-          "1",
-        ],
-        "function": "0x1::coin::transfer",
-        "type": "entry_function_payload",
-        "type_arguments": [
-          "0x1::aptos_coin::AptosCoin",
-        ],
-      }
-    `);
+{
+  "arguments": [
+    "0x0000000000000000000000000000000000000000000000000000000000000001",
+    "0x0100000000000000",
+  ],
+  "function": "0x1::coin::transfer",
+  "type": "entry_function_payload",
+  "type_arguments": [
+    "0x1::aptos_coin::AptosCoin",
+  ],
+}
+`);
   }, 60000);
 });
 

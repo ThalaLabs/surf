@@ -19,7 +19,6 @@ export class WalletClient {
     payload: EntryPayload,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
-    // TODO: use the BCS API instead
     return await this.wallet.signAndSubmitTransaction({
       sender: this.wallet.account?.address ?? "",
       data: {
@@ -28,11 +27,11 @@ export class WalletClient {
         functionArguments: payload.functionArguments.map((arg: any) => {
           if (Array.isArray(arg)) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return arg.map((item: any) => item.toString());
+            return arg.map((item: any) => item);
           } else if (typeof arg === 'object') {
             throw new Error(`a value of struct type: ${arg} is not supported`);
           } else {
-            return arg.toString();
+            return arg;
           }
         }),
       }

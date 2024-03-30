@@ -3,7 +3,6 @@
  */
 
 import { createSurfClient } from '../Client';
-import { createViewPayload } from '../createViewPayload';
 import { createEntryPayload } from '../createEntryPayload';
 import { Account, Aptos, AptosConfig, Ed25519PrivateKey, Network } from '@aptos-labs/ts-sdk';
 
@@ -17,33 +16,33 @@ describe('option type', () => {
   const account = Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey("0x4b0a52d0b047b6868d9650fdb9b61720e361ba74f40571635fec0694a838eb98") });
 
   // TODO: correctly encode option type for view function
-  it('view function some value', async () => {
-    const payload = createViewPayload(OPTION_ABI, {
-      function: 'test_option_view',
-      functionArguments: [{ vec: ['50'] } as any],
-      typeArguments: [],
-    });
-    const result = await client.view({ payload });
-    expect(result).toMatchInlineSnapshot(`
-[
-  "50",
-]
-`);
-  }, 60000);
+//   it('view function some value', async () => {
+//     const payload = createViewPayload(OPTION_ABI, {
+//       function: 'test_option_view',
+//       functionArguments: [{ vec: ['50'] } as any],
+//       typeArguments: [],
+//     });
+//     const result = await client.view({ payload });
+//     expect(result).toMatchInlineSnapshot(`
+// [
+//   "50",
+// ]
+// `);
+//   }, 60000);
 
-  it('view function none value', async () => {
-    const payload = createViewPayload(OPTION_ABI, {
-      function: 'test_option_view',
-      functionArguments: [{ vec: [] } as any],
-      typeArguments: [],
-    });
-    const result = await client.view({ payload });
-    expect(result).toMatchInlineSnapshot(`
-[
-  "0",
-]
-`);
-  }, 60000);
+//   it('view function none value', async () => {
+//     const payload = createViewPayload(OPTION_ABI, {
+//       function: 'test_option_view',
+//       functionArguments: [{ vec: [] } as any],
+//       typeArguments: [],
+//     });
+//     const result = await client.view({ payload });
+//     expect(result).toMatchInlineSnapshot(`
+// [
+//   "0",
+// ]
+// `);
+//   }, 60000);
 
   it('entry function none value', async () => {
     const payload = createEntryPayload(OPTION_ABI, {

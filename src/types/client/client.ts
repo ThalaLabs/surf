@@ -10,7 +10,7 @@ import {
   ViewFunctionName,
   ExtractArgsType,
 } from '../extractor/functionExtractor.js';
-import { EntryFunctionArgumentTypes, MoveFunctionId, MoveStructId, MoveValue, SimpleEntryFunctionArgumentTypes } from '@aptos-labs/ts-sdk';
+import { EntryFunctionArgumentTypes, MoveFunctionId, SimpleEntryFunctionArgumentTypes, TypeTag } from '@aptos-labs/ts-sdk';
 
 export type TransactionResponse = {
   hash: string;
@@ -54,6 +54,6 @@ export type ViewRequestPayload<
  */
 export type ViewPayload<_TReturn> = {
   function: MoveFunctionId;
-  typeArguments?: Array<MoveStructId>;
-  functionArguments?: Array<MoveValue>;
+  typeArguments?: Array<TypeTag | string>;
+  functionArguments?:Array<EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes>;
 };

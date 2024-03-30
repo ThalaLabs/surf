@@ -93,7 +93,7 @@ function encodeVector(type: string, value: any) {
     if (typeof value === 'string' || value instanceof Uint8Array)
       return value;
     if (Array.isArray(value)) {
-      return arrayToHex(value)
+      return value
     }
 
     throw new Error(`Invalid u8 value: ${value}`)
@@ -108,15 +108,3 @@ function encodeVector(type: string, value: any) {
     return value;
   }
 }
-
-const arrayToHex = (array: (string | number)[]): string => {
-  let result = "0x";
-  array.forEach((item) => {
-    const n = ensureNumber(item);
-    if (n < 0 || n > 255)
-      throw new Error(`Invalid u8 value: ${n}`);
-    result += n.toString(16).padStart(2, '0');
-  })
-
-  return result;
-};

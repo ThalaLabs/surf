@@ -37,18 +37,18 @@ describe('call entry functions', () => {
 
     expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
-      {
-        "arguments": [
-          "0x1",
-          "1",
-        ],
-        "function": "0x1::coin::transfer",
-        "type": "entry_function_payload",
-        "type_arguments": [
-          "0x1::aptos_coin::AptosCoin",
-        ],
-      }
-    `);
+{
+  "arguments": [
+    "0x0000000000000000000000000000000000000000000000000000000000000001",
+    "0x0100000000000000",
+  ],
+  "function": "0x1::coin::transfer",
+  "type": "entry_function_payload",
+  "type_arguments": [
+    "0x1::aptos_coin::AptosCoin",
+  ],
+}
+`);
   }, 60000);
 
   it('vector', async () => {
@@ -66,15 +66,15 @@ describe('call entry functions', () => {
 
     expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
-      {
-        "arguments": [
-          "0x0102030a141e",
-        ],
-        "function": "0x3d097bb505c9e5d8a96e367f371168240025877f6be8d4a88eacaafb709fe5c9::test::test_run_function",
-        "type": "entry_function_payload",
-        "type_arguments": [],
-      }
-    `);
+{
+  "arguments": [
+    "0x060102030a141e",
+  ],
+  "function": "0x3d097bb505c9e5d8a96e367f371168240025877f6be8d4a88eacaafb709fe5c9::test::test_run_function",
+  "type": "entry_function_payload",
+  "type_arguments": [],
+}
+`);
   }, 60000);
 
   it('vector<u8>', async () => {
@@ -92,7 +92,7 @@ describe('call entry functions', () => {
     });
 
     expect(result?.hash).toBeDefined();
-    expect((result as any).payload.arguments[0]).toEqual("0x010222");
+    expect((result as any).payload.arguments[0]).toEqual("0x03010222");
   }, 60000);
 
 
@@ -111,7 +111,7 @@ describe('call entry functions', () => {
     });
 
     expect(result?.hash).toBeDefined();
-    expect((result as any).payload.arguments[0]).toEqual("0x313233346162");
+    expect((result as any).payload.arguments[0]).toEqual("0x06313233346162");
   }, 60000);
 });
 

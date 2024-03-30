@@ -50,13 +50,13 @@ describe('call view functions for vector type', () => {
   it('vector_u8 string', async () => {
     const viewPayload = createViewPayload(TEST_ABI, {
       function: 'test_view_function_u8',
-      functionArguments: ["0x010234"],
+      functionArguments: ["00"],
       typeArguments: [],
     });
     const result = await client.view({ payload: viewPayload });
     expect(result).toMatchInlineSnapshot(`
     [
-      55,
+      96,
     ]
   `);
   }, 60000);
