@@ -189,7 +189,11 @@ describe('createViewPayload', () => {
 {
   "function": "0x123::test::vector_as_input",
   "functionArguments": [
-    "0x010203",
+    [
+      1,
+      2,
+      3,
+    ],
     [
       4,
       5,
