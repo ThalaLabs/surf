@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.3.0
+
+### Minor Changes
+
+- b65034e: upgrade aptos packages and fix breaking changes
+
 ## 1.2.0
 
 ### Minor Changes
