@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.3.1
+
+### Patch Changes
+
+- a0f3563: fix aptos ts-sdk breaking change in wallet hooks
+
 ## 1.3.0
 
 ### Minor Changes
