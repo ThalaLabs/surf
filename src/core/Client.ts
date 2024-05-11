@@ -7,7 +7,7 @@ import {
   EntryPayload,
   ViewPayload,
   DefaultABITable,
-  ABIResourceClient,
+  ABIResourceClient
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
 import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse, WaitForTransactionOptions } from "@aptos-labs/ts-sdk";
@@ -130,6 +130,29 @@ export class Client<TABITable extends ABITable> {
       signerPublicKey: args.publicKey,
       transaction,
     }))[0]!;
+  }
+
+  /**
+   * 
+   * @param address The module address
+   * @param moduleName The module name
+   * @param abi Builds from a provided ABI
+   * @returns The constructed ABI
+   * @example
+   * const abi = await client.buildABI(address = '0x1', moduleName = 'AptosCoin');
+   */
+  public async buildABI<T extends ABIRoot>(address: string, moduleName?: string, abi?: T): Promise<T> {
+    if (!moduleName || !abi) {
+      // Throws an error if user hasn't provided sufficient 
+      throw new Error('Provide ABI and address or address and moduleName');
+    }
+    return moduleName ?
+      // Fetches ABI fom address and module name for given client
+      // throws if inexistent module name in address for given client
+      (await this.client.getAccountModule({ accountAddress: address, moduleName: moduleName })).abi as unknown as T :
+      // Fetches ABI from address and module name for given client
+      // throws if inexistent module name in address for given client
+      (await this.client.getAccountModule({ accountAddress: address, moduleName: abi.name })).abi as unknown as T;
   }
 
   /**
