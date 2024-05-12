@@ -133,26 +133,18 @@ export class Client<TABITable extends ABITable> {
   }
 
   /**
+   * Builds ABI from a provided address and module name for given client. ABI name can be taken from abi.name
    * 
    * @param address The module address
    * @param moduleName The module name
-   * @param abi Builds from a provided ABI
    * @returns The constructed ABI
    * @example
-   * const abi = await client.buildABI(address = '0x1', moduleName = 'AptosCoin');
+   * const abi = await client.fetchABI(address = '0x1', moduleName = 'AptosCoin');
    */
-  public async buildABI<T extends ABIRoot>(address: string, moduleName?: string, abi?: T): Promise<T> {
-    if (!moduleName || !abi) {
-      // Throws an error if user hasn't provided sufficient 
-      throw new Error('Provide ABI and address or address and moduleName');
-    }
-    return moduleName ?
+  public async fetchABI<T extends ABIRoot>(address: string, moduleName: string): Promise<T> {
       // Fetches ABI fom address and module name for given client
       // throws if inexistent module name in address for given client
-      (await this.client.getAccountModule({ accountAddress: address, moduleName: moduleName })).abi as unknown as T :
-      // Fetches ABI from address and module name for given client
-      // throws if inexistent module name in address for given client
-      (await this.client.getAccountModule({ accountAddress: address, moduleName: abi.name })).abi as unknown as T;
+      return (await this.client.getAccountModule({ accountAddress: address, moduleName: moduleName })).abi as unknown as T;
   }
 
   /**
