@@ -58,6 +58,19 @@ describe('createViewPayload', () => {
 
     expect(payload).toMatchInlineSnapshot(`
 {
+  "abi": {
+    "parameters": [
+      n {},
+    ],
+    "returnTypes": [
+      n {},
+    ],
+    "typeParameters": [
+      {
+        "constraints": [],
+      },
+    ],
+  },
   "function": "0x1::coin::balance",
   "functionArguments": [
     "0x1",
@@ -92,6 +105,14 @@ describe('createViewPayload', () => {
 
     expect(payload).toMatchInlineSnapshot(`
 {
+  "abi": {
+    "parameters": [
+      n {},
+      n {},
+    ],
+    "returnTypes": [],
+    "typeParameters": [],
+  },
   "function": "0x123::test::bool_as_input",
   "functionArguments": [
     true,
@@ -125,6 +146,14 @@ describe('createViewPayload', () => {
 
     expect(payload).toMatchInlineSnapshot(`
 {
+  "abi": {
+    "parameters": [
+      n {},
+      n {},
+    ],
+    "returnTypes": [],
+    "typeParameters": [],
+  },
   "function": "0x123::test::address_as_input",
   "functionArguments": [
     "0x1",
@@ -158,6 +187,18 @@ describe('createViewPayload', () => {
 
     expect(payload).toMatchInlineSnapshot(`
 {
+  "abi": {
+    "parameters": [
+      n {},
+      n {},
+      n {},
+      n {},
+      n {},
+      n {},
+    ],
+    "returnTypes": [],
+    "typeParameters": [],
+  },
   "function": "0x123::test::number_as_input",
   "functionArguments": [
     1,
@@ -187,6 +228,27 @@ describe('createViewPayload', () => {
 
     expect(payload).toMatchInlineSnapshot(`
 {
+  "abi": {
+    "parameters": [
+      n {
+        "value": n {},
+      },
+      n {
+        "value": n {},
+      },
+      n {
+        "value": n {},
+      },
+      n {
+        "value": n {},
+      },
+      n {
+        "value": n {},
+      },
+    ],
+    "returnTypes": [],
+    "typeParameters": [],
+  },
   "function": "0x123::test::vector_as_input",
   "functionArguments": [
     [
