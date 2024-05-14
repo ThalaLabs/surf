@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.4.0
+
+### Minor Changes
+
+- 2b84c87: improve createViewPayload to includes abi object, so that aptos ts-sdk can avoid to fetch the abi again.
+
 ## 1.3.1
 
 ### Patch Changes
