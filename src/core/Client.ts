@@ -11,6 +11,7 @@ import {
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
 import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse, WaitForTransactionOptions } from "@aptos-labs/ts-sdk";
+import { PassThrough } from 'stream';
 
 /**
  * Create a client to interact with Aptos smart contract.
@@ -151,6 +152,7 @@ export class Client<TABITable extends ABITable> {
    * Create a client associated with a specific ABI.
    *
    * @param abi The ABI JSON.
+   * @param address The address of the module. If not provided, ABI address will be used.
    * @returns A client can call view/entry functions or get account resource.
    * @example
    * const [balance] = await client.useABI(COIN_ABI).view.balance({
@@ -158,7 +160,8 @@ export class Client<TABITable extends ABITable> {
    *    typeArguments: ['0x1::aptos_coin::AptosCoin'],
    * });
    */
-  public useABI<T extends ABIRoot>(abi: T) {
+  public useABI<T extends ABIRoot>(abi: T, address?: string) {
+    if (address) abi.address = address;
     return {
       /**
        * Queries for a Move view function
