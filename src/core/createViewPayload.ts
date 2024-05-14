@@ -6,7 +6,14 @@ import {
   ViewRequestPayload,
 } from '../types/index.js';
 import { ensureNumber } from '../ensureTypes.js';
-import { MoveStructId } from '@aptos-labs/ts-sdk';
+import {
+  MoveFunctionGenericTypeParam,
+  MoveStructId,
+  TypeTag,
+  ViewFunctionABI,
+  parseTypeTag,
+} from '@aptos-labs/ts-sdk';
+import { ABIFunction } from '../types/abi.js';
 
 /**
  * Create a payload for calling a view function.
@@ -73,6 +80,33 @@ export function createViewPayload<
     function: `${abi.address}::${abi.name}::${payload.function}`,
     functionArguments: args,
     typeArguments: payload.typeArguments as Array<MoveStructId>,
+    abi: constructViewAbiObj(fnAbi),
+  };
+}
+
+function constructViewAbiObj(abi: ABIFunction): ViewFunctionABI {
+  // Non-view functions can't be used
+  if (!abi.is_view) {
+    throw new Error(`not an view function`);
+  }
+
+  // Type tag parameters for the function
+  const params: TypeTag[] = [];
+  for (let i = 0; i < abi.params.length; i += 1) {
+    params.push(parseTypeTag(abi.params[i]!, { allowGenerics: true }));
+  }
+
+  // The return types of the view function
+  const returnTypes: TypeTag[] = [];
+  for (let i = 0; i < abi.return.length; i += 1) {
+    returnTypes.push(parseTypeTag(abi.return[i]!, { allowGenerics: true }));
+  }
+
+  return {
+    typeParameters:
+      abi.generic_type_params as Array<MoveFunctionGenericTypeParam>,
+    parameters: params,
+    returnTypes,
   };
 }
 

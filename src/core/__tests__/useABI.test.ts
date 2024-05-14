@@ -116,8 +116,8 @@ describe('useABI', () => {
     expect((result as any).payload).toMatchInlineSnapshot(`
 {
   "arguments": [
-    "0x0000000000000000000000000000000000000000000000000000000000000001",
-    "0x0100000000000000",
+    "0x1",
+    "1",
   ],
   "function": "0x1::coin::transfer",
   "type": "entry_function_payload",
