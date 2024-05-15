@@ -56,5 +56,5 @@ export type ViewPayload<_TReturn> = {
   function: MoveFunctionId;
   typeArguments?: Array<TypeTag | string>;
   functionArguments?:Array<EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes>;
-  abi: ViewFunctionABI
+  abi?: ViewFunctionABI
 };
