@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.4.1
+
+### Patch Changes
+
+- 4b6f32c: change abi param to optional
+
 ## 1.4.0
 
 ### Minor Changes
