@@ -7,7 +7,7 @@ import {
   EntryPayload,
   ViewPayload,
   DefaultABITable,
-  ABIResourceClient,
+  ABIResourceClient
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
 import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse, WaitForTransactionOptions } from "@aptos-labs/ts-sdk";
@@ -133,9 +133,25 @@ export class Client<TABITable extends ABITable> {
   }
 
   /**
+   * Builds ABI from a provided address and module name for given client. ABI name can be taken from abi.name
+   * 
+   * @param address The module address
+   * @param moduleName The module name
+   * @returns The constructed ABI
+   * @example
+   * const abi = await client.fetchABI(address = '0x1', moduleName = 'AptosCoin');
+   */
+  public async fetchABI<T extends ABIRoot>(address: string, moduleName: string): Promise<T> {
+      // Fetches ABI fom address and module name for given client
+      // throws if inexistent module name in address for given client
+      return (await this.client.getAccountModule({ accountAddress: address, moduleName: moduleName })).abi as unknown as T;
+  }
+
+  /**
    * Create a client associated with a specific ABI.
    *
    * @param abi The ABI JSON.
+   * @param address The address of the module. If not provided, ABI address will be used.
    * @returns A client can call view/entry functions or get account resource.
    * @example
    * const [balance] = await client.useABI(COIN_ABI).view.balance({
@@ -143,7 +159,7 @@ export class Client<TABITable extends ABITable> {
    *    typeArguments: ['0x1::aptos_coin::AptosCoin'],
    * });
    */
-  public useABI<T extends ABIRoot>(abi: T) {
+  public useABI<T extends ABIRoot>(abi: T, address?: string) {
     return {
       /**
        * Queries for a Move view function
@@ -159,6 +175,7 @@ export class Client<TABITable extends ABITable> {
           const functionName = prop.toString();
           return (...args) => {
             const payload = createViewPayload(abi, {
+              address: (address ?? abi.address) as `0x${string}`,
               function: functionName,
               typeArguments: args[0].typeArguments,
               functionArguments: args[0].functionArguments,
@@ -188,6 +205,7 @@ export class Client<TABITable extends ABITable> {
           const functionName = prop.toString();
           return (...args) => {
             const payload = createEntryPayload(abi, {
+              address: (address ?? abi.address) as `0x${string}`,
               function: functionName,
               typeArguments: args[0].typeArguments,
               functionArguments: args[0].functionArguments,

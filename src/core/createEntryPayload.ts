@@ -62,6 +62,6 @@ export function createEntryPayload<
     typeArguments: payload.typeArguments,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     functionArguments: payload.functionArguments as any,
-    function: `${abi.address}::${abi.name}::${payload.function}`,
+    function: `${payload.address}::${abi.name}::${payload.function}`,
   };
 }
