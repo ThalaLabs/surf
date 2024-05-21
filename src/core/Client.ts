@@ -11,7 +11,6 @@ import {
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
 import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse, WaitForTransactionOptions } from "@aptos-labs/ts-sdk";
-import { PassThrough } from 'stream';
 
 /**
  * Create a client to interact with Aptos smart contract.
@@ -161,7 +160,6 @@ export class Client<TABITable extends ABITable> {
    * });
    */
   public useABI<T extends ABIRoot>(abi: T, address?: string) {
-    if (address) abi.address = address;
     return {
       /**
        * Queries for a Move view function
@@ -177,6 +175,7 @@ export class Client<TABITable extends ABITable> {
           const functionName = prop.toString();
           return (...args) => {
             const payload = createViewPayload(abi, {
+              address: (address ?? abi.address) as `0x${string}`,
               function: functionName,
               typeArguments: args[0].typeArguments,
               functionArguments: args[0].functionArguments,
@@ -206,6 +205,7 @@ export class Client<TABITable extends ABITable> {
           const functionName = prop.toString();
           return (...args) => {
             const payload = createEntryPayload(abi, {
+              address: (address ?? abi.address) as `0x${string}`,
               function: functionName,
               typeArguments: args[0].typeArguments,
               functionArguments: args[0].functionArguments,

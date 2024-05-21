@@ -70,7 +70,7 @@ export function createViewPayload<
   });
 
   return {
-    function: `${abi.address}::${abi.name}::${payload.function}`,
+    function: `${payload.address}::${abi.name}::${payload.function}`,
     functionArguments: args,
     typeArguments: payload.typeArguments as Array<MoveStructId>,
   };

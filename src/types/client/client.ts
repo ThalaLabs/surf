@@ -32,6 +32,7 @@ export type EntryRequestPayload<
   T extends ABIRoot,
   TFuncName extends EntryFunctionName<T>,
 > = {
+  address: `0x${string}`;
   function: TFuncName;
   functionArguments: ExtractArgsTypeOmitSigner<T, TFuncName>;
   typeArguments: ExtractGenericArgsType<T, TFuncName>;
@@ -44,6 +45,7 @@ export type ViewRequestPayload<
   T extends ABIRoot,
   TFuncName extends ViewFunctionName<T>,
 > = {
+  address: `0x${string}`;
   function: TFuncName;
   functionArguments: ExtractArgsType<T, TFuncName>;
   typeArguments: ExtractGenericArgsType<T, TFuncName>;
