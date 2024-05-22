@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.5.0
+
+### Minor Changes
+
+- 0a16c3f: Support override address of the contract in ABI
+
 ## 1.4.1
 
 ### Patch Changes
