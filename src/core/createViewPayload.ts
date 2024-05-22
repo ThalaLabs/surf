@@ -77,7 +77,9 @@ export function createViewPayload<
   });
 
   return {
-    function: `${payload.address}::${abi.name}::${payload.function}`,
+    function: `${payload.address ?? abi.address}::${abi.name}::${
+      payload.function
+    }`,
     functionArguments: args,
     typeArguments: payload.typeArguments as Array<MoveStructId>,
     abi: constructViewAbiObj(fnAbi),
@@ -119,19 +121,17 @@ function encodeVector(type: string, value: any) {
     throw new Error(`Unsupported type: ${type}`);
   }
   const innerType = match[1];
-  if(!innerType) {
+  if (!innerType) {
     throw new Error(`Unsupported type: ${type}`);
   }
 
   if (innerType === 'u8') {
-    if (typeof value === 'string' || value instanceof Uint8Array)
-      return value;
+    if (typeof value === 'string' || value instanceof Uint8Array) return value;
     if (Array.isArray(value)) {
-      return value
+      return value;
     }
 
-    throw new Error(`Invalid u8 value: ${value}`)
-
+    throw new Error(`Invalid u8 value: ${value}`);
   } else if (['bool', 'u16', 'u32'].includes(innerType)) {
     return value;
   } else if (['u64', 'u128', 'u256'].includes(innerType)) {
