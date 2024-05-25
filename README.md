@@ -100,6 +100,8 @@ const payload = createViewPayload(COIN_ABI, {
   function: 'balance',
   functionArguments: ['0x1'],
   typeArguments: ['0x1::aptos_coin::AptosCoin'],
+  // (optional) you can also override the address in ABI
+  // address: "0x123"
 });
 const [balance] = await client.view({
   payload,
@@ -132,6 +134,8 @@ const payload = createEntryPayload(COIN_ABI, {
   function: 'transfer',
   functionArguments: ['0x1', 1],
   typeArguments: ['0x1::aptos_coin::AptosCoin'],
+  // (optional) you can also override the address in ABI
+  // address: "0x123"
 });
 const result = await client.submitTransaction({
   payload,
