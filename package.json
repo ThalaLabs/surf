@@ -58,6 +58,9 @@
 
 
 
+
+  
+
   "peerDependencies": {
     "@aptos-labs/ts-sdk": "^1.16.0",
     "@aptos-labs/wallet-adapter-react": "^2.2.0",
