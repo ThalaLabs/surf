@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.5.1
+
+### Patch Changes
+
+- 09f70fb: upgrade dependencies
+
 ## 1.5.0
 
 ### Minor Changes
