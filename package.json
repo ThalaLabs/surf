@@ -95,6 +95,10 @@
     "blockchain",
     "aptos"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ThalaLabs/surf"
