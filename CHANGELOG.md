@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.6.0
+
+### Minor Changes
+
+- d7b62ed: Change ABITable to an array type instead of a map
+
 ## 1.5.1
 
 ### Patch Changes
