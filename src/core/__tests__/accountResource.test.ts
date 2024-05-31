@@ -10,16 +10,14 @@ import { createSurfClient } from '../Client.js';
 
 describe('get account resource', () => {
   const client = createSurfClient(
-    new Aptos(
-      new AptosConfig({ network: Network.TESTNET })
-    )
+    new Aptos(new AptosConfig({ network: Network.TESTNET })),
   );
 
   // Act before assertions
-  beforeAll(async () => { });
+  beforeAll(async () => {});
 
   // Teardown (cleanup) after assertions
-  afterAll(() => { });
+  afterAll(() => {});
 
   it('get CoinStore', async () => {
     const result = await client.useABI(COIN_ABI).resource.CoinStore({
@@ -33,9 +31,7 @@ describe('get account resource', () => {
     expect(result.withdraw_events).toBeDefined();
 
     // can inference nested struct
-    expect(
-      result.deposit_events.guid.id.creation_num.startsWith,
-    ).toBeDefined();
+    expect(result.deposit_events.guid.id.creation_num.startsWith).toBeDefined();
 
     // @ts-expect-error field not exist
     expect(result.deposit_events.guid.id.abc).toBeUndefined();
@@ -81,14 +77,10 @@ describe('get account resource', () => {
 
   it('use customized ABITable', async () => {
     async () => {
-      type ABITAble = DefaultABITable & {
-        '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI;
-      };
+      type ABITAble = [...DefaultABITable, ...[typeof FIXED_POINT64_ABI]];
 
       const client = createSurfClient<ABITAble>(
-        new Aptos(
-          new AptosConfig({ network: Network.TESTNET })
-        )
+        new Aptos(new AptosConfig({ network: Network.TESTNET })),
       );
 
       const result = await client.useABI(TEST_ABI).resource.TestStruct({

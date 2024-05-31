@@ -1,4 +1,4 @@
-export type UnknownStruct<_T extends string> = object;
+export type UnknownStruct<_T extends string> = unknown;
 
 export type AnyNumber = number | bigint | string;
 

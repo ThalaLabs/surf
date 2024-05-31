@@ -55,14 +55,15 @@ When you input `client.useABI(COIN_ABI).view.` into your IDE, the auto-completio
 
 ### Installation
 
-
 Edit or add a `.npmrc` file to including following lines:
+
 ```
 //npm.pkg.github.com/:_authToken=_authToken
 @thalalabs:registry=https://npm.pkg.github.com
 ```
 
 Run command to login:
+
 ```
 $ npm login --registry=https://npm.pkg.github.com
 > Username: USERNAME
@@ -70,7 +71,6 @@ $ npm login --registry=https://npm.pkg.github.com
 ```
 
 USERNAME is you github account username. Get the token from your github settings, see ["Managing your personal access tokens."](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
-
 
 ```shell
 npm i @thalalabs/surf @aptos-labs/ts-sdk
@@ -214,9 +214,12 @@ import { DefaultABITable } from "@thalalabs/surf";
 import { createSurfClient } from '@thalalabs/surf';
 import { Aptos } from '@aptos-labs/ts-sdk';
 
-type ABITAble = DefaultABITable & {
-    '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI,
-};
+type ABITAble = [
+  ...DefaultABITable,
+  ...[
+    typeof FIXED_POINT64_ABI
+  ]
+];
 
 const client = createSurfClient<ABITAble>(new Aptos());
 ```

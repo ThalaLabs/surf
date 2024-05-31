@@ -6,15 +6,13 @@ import { OPTIONAL_AGGREGATOR_ABI } from '../abi/optional_aggregator.js';
 import { TABLE_ABI } from '../abi/table.js';
 import { ABIRoot } from './abi.js';
 
-export type ABITable = {
-  [TAddress in string]: ABIRoot;
-};
+export type ABITable = ABIRoot[];
 
-export type DefaultABITable = {
-  '0x1::coin': typeof COIN_ABI;
-  '0x1::event': typeof EVENT_ABI;
-  '0x1::guid': typeof GUID_ABI;
-  '0x1::table': typeof TABLE_ABI;
-  '0x1::optional_aggregator': typeof OPTIONAL_AGGREGATOR_ABI;
-  '0x1::aggregator': typeof AGGREGATOR_ABI;
-};
+export type DefaultABITable = [
+  typeof COIN_ABI,
+  typeof EVENT_ABI,
+  typeof GUID_ABI,
+  typeof TABLE_ABI,
+  typeof OPTIONAL_AGGREGATOR_ABI,
+  typeof AGGREGATOR_ABI,
+];
