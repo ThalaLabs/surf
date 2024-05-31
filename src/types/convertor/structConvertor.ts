@@ -25,22 +25,22 @@ export type ConvertStructFieldType<
 type ConvertPrimitiveStructField<T extends MovePrimitive> = T extends 'bool'
   ? boolean
   : T extends 'u8'
-  ? number
-  : T extends 'u16'
-  ? number
-  : T extends 'u32'
-  ? number
-  : T extends 'u64'
-  ? string
-  : T extends 'u128'
-  ? string
-  : T extends 'u256'
-  ? string
-  : T extends 'address'
-  ? `0x${string}`
-  : T extends '0x1::string::String'
-  ? string
-  : never;
+    ? number
+    : T extends 'u16'
+      ? number
+      : T extends 'u32'
+        ? number
+        : T extends 'u64'
+          ? string
+          : T extends 'u128'
+            ? string
+            : T extends 'u256'
+              ? string
+              : T extends 'address'
+                ? `0x${string}`
+                : T extends '0x1::string::String'
+                  ? string
+                  : never;
 
 // Convert a struct field non-struct Move type to a TypeScript type
 type ConvertStructFieldNonStructType<
@@ -49,10 +49,10 @@ type ConvertStructFieldNonStructType<
 > = TMoveType extends MovePrimitive
   ? ConvertPrimitiveStructField<TMoveType>
   : TMoveType extends `vector<${infer TInner}>`
-  ? ConvertStructFieldType<TABITable, TInner>[]
-  : TMoveType extends `0x1::option::Option<${infer TInner}>`
-  ? ConvertStructFieldOptionType<TABITable, TInner>
-  : UnknownStruct<TMoveType>;
+    ? ConvertStructFieldType<TABITable, TInner>[]
+    : TMoveType extends `0x1::option::Option<${infer TInner}>`
+      ? ConvertStructFieldOptionType<TABITable, TInner>
+      : UnknownStruct<TMoveType>;
 
 type ConvertStructFieldOptionType<
   TABITable extends ABITable,
@@ -68,16 +68,20 @@ type ConvertStructFieldStructType<
 > = TMoveType extends `${infer TAccountAddress}::${infer TModuleName}::${infer TStructName}${
   | ''
   | `<${infer _TInnerType}>`}`
-  ? `${TAccountAddress}::${TModuleName}` extends keyof TABITable
-    ? OmitInner<TStructName> extends ResourceStructName<
-        TABITable[`${TAccountAddress}::${TModuleName}`]
+  ? OmitInner<TStructName> extends ResourceStructName<
+      Extract<
+        TABITable[number],
+        { address: TAccountAddress; name: TModuleName }
       >
-      ? ExtractStructType<
-          TABITable,
-          TABITable[`${TAccountAddress}::${TModuleName}`],
-          OmitInner<TStructName>
-        >
-      : // Unknown struct, use the default struct type
-        UnknownStruct<TMoveType>
-    : UnknownStruct<TMoveType>
+    >
+    ? ExtractStructType<
+        TABITable,
+        Extract<
+          TABITable[number],
+          { address: TAccountAddress; name: TModuleName }
+        >,
+        OmitInner<TStructName>
+      >
+    : // Unknown struct, use the default struct type
+      UnknownStruct<TMoveType>
   : UnknownStruct<TMoveType>;
