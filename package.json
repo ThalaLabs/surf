@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@aptos-labs/ts-sdk": "^1.16.0",
-    "@aptos-labs/wallet-adapter-react": "^2.2.0",
+    "@aptos-labs/wallet-adapter-react": "^3.0.3",
     "@changesets/cli": "^2.26.1",
     "@types/jest": "~29.5",
     "@types/node": "~18",
@@ -57,7 +57,7 @@
   },
   "peerDependencies": {
     "@aptos-labs/ts-sdk": "^1.16.0",
-    "@aptos-labs/wallet-adapter-react": "^2.2.0",
+    "@aptos-labs/wallet-adapter-react": "^3.0.3",
     "react": "^18.2.0"
   },
   "peerDependenciesMeta": {
