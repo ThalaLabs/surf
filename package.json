@@ -1,6 +1,6 @@
 {
   "name": "@thalalabs/surf",
-  "version": "1.6.0",
+  "version": "1.5.1",
   "description": "TypeScript Interfaces & React Hooks for interacting with Aptos Smart Contracts with type safety.",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
@@ -95,10 +95,6 @@
     "blockchain",
     "aptos"
   ],
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ThalaLabs/surf"
