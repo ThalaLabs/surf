@@ -197,9 +197,12 @@ import { DefaultABITable } from "@thalalabs/surf";
 import { createSurfClient } from '@thalalabs/surf';
 import { Aptos } from '@aptos-labs/ts-sdk';
 
-type ABITAble = DefaultABITable & {
-    '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64': typeof FIXED_POINT64_ABI,
-};
+type ABITAble = [
+  ...DefaultABITable,
+  ...[
+    typeof FIXED_POINT64_ABI
+  ]
+];
 
 const client = createSurfClient<ABITAble>(new Aptos());
 ```
