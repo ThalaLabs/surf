@@ -22,7 +22,7 @@ export default function Home() {
   const wallet = useWallet();
   useEffect(() => {
     if (!wallet.connected) {
-      wallet.connect(wallet.wallets[0].name);
+      wallet.connect(wallet.wallets?.find((w) => w.name === 'Petra')?.name!);
     }
   }, []);
 
@@ -87,8 +87,9 @@ export default function Home() {
         >
           <div>{balanceMessage ?? 'loading balance of 0x1'}</div>
           <div>
-            {`Wallet status: ${wallet.connected ? 'connected' : 'disconnected'
-              }`}
+            {`Wallet status: ${
+              wallet.connected ? 'connected' : 'disconnected'
+            }`}
           </div>
           {isIdle && (
             <button
