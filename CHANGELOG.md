@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.6.1
+
+### Patch Changes
+
+- a6e1081: upgrade Aptos libraries
+
 ## 1.6.0
 
 ### Minor Changes
