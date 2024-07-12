@@ -1,5 +1,12 @@
 # @thalalabs/surf
 
+## 1.7.0
+
+### Minor Changes
+
+- 8fad9b9: add "private" in ABI visibility field
+- 8fad9b9: Fix Aptos Move optional type
+
 ## 1.6.1
 
 ### Patch Changes
