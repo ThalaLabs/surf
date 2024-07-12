@@ -111,7 +111,7 @@ describe('useABI', () => {
       account,
       isSimulation: true,
     });
-    
+
     expect(result?.hash).toBeDefined();
     expect((result as any).payload).toMatchInlineSnapshot(`
 {
@@ -143,6 +143,15 @@ const TEST_ABI = {
       params: ['address', 'address'],
       return: [],
     },
+    {
+      name: 'pick_a_random_number',
+      visibility: 'private',
+      is_entry: true,
+      is_view: false,
+      generic_type_params: [],
+      params: [],
+      return: [],
+    }
   ],
   structs: [],
 } as const;
