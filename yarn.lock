@@ -15,10 +15,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@aptos-connect/wallet-adapter-plugin@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-adapter-plugin/-/wallet-adapter-plugin-1.0.0.tgz#eae0e08f9abea5be47d55ea07f8a3b3ce88287ce"
-  integrity sha512-9Mii1izvp8xp5eDSUZIotSWfoUDGvngkDJ4qPspUzLEFLy44iftTpNbcM1P/J+G7lBU6XvtIgCLLmppt3Hiqhg==
+"@aptos-connect/wallet-adapter-plugin@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-adapter-plugin/-/wallet-adapter-plugin-1.0.1.tgz#c652752e9eda57202efb6cbd3fdd0901be92c27f"
+  integrity sha512-yrnzO9gWMPqhgV0hz3Qv9XP98hefX/V7Pcj911SLM3NWktc+mL/5CW6BKz4VKcqnhewotd2Tek43VDZTSHKoeQ==
   dependencies:
     "@aptos-connect/wallet-api" "^0.1.1"
     "@aptos-labs/wallet-adapter-core" "^3.5.0"
@@ -89,14 +89,14 @@
     eventemitter3 "^5.0.1"
     form-data "^4.0.0"
 
-"@aptos-labs/wallet-adapter-core@4.8.1":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-core/-/wallet-adapter-core-4.8.1.tgz#c73587ea9bcbca78b9e7492826daa151a674409f"
-  integrity sha512-ZCUpDx+Ea+DST+uTWnaN3k57Fqtw9kB8W2ew/wo7UmBmD4HlOv+EV3zGNBBFYP+6gUIawn1fU9pKhG8XZQ/0Vg==
+"@aptos-labs/wallet-adapter-core@4.10.0":
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-core/-/wallet-adapter-core-4.10.0.tgz#a85b41eae80d1f7dae8312799369f6ea29b7d775"
+  integrity sha512-iWt1n1ruEk2l8TDuWL4s/sD3QhuB0/bt3mrl0mSaBr9eqfwMdZrHJr72LfE8YHqKCzAjJy44c45nbf7NyNjLuA==
   dependencies:
-    "@aptos-connect/wallet-adapter-plugin" "^1.0.0"
+    "@aptos-connect/wallet-adapter-plugin" "^1.0.1"
     "@aptos-labs/wallet-standard" "^0.1.0"
-    "@atomrigslab/aptos-wallet-adapter" "^0.1.12"
+    "@atomrigslab/aptos-wallet-adapter" "^0.1.20"
     buffer "^6.0.3"
     eventemitter3 "^4.0.7"
     tweetnacl "^1.0.3"
@@ -113,11 +113,11 @@
     tweetnacl "^1.0.3"
 
 "@aptos-labs/wallet-adapter-react@^3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-3.4.2.tgz#d2401e40ce7547d74a5f37ba18e047a8ae9bc67f"
-  integrity sha512-Im9/dvl4/P5vFg3NJOTRHqsPylPywllXZrYF02wyd9bRg3HnFln/D7O0e9fbFao5xwTz6SXxcBKScLBk0iGrow==
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-3.5.1.tgz#32ce66ed6d3d810c1a90a9b00a481c553c4e3220"
+  integrity sha512-o+qCtIiGdDmnd6XcikOH0F6x/l/ELFUM9MTeqYjj900RXbOfP3sSVz2CfEVBVnLEkBywU8vH2yxNmF0Ln42c5g==
   dependencies:
-    "@aptos-labs/wallet-adapter-core" "4.8.1"
+    "@aptos-labs/wallet-adapter-core" "4.10.0"
     "@radix-ui/react-slot" "^1.0.2"
 
 "@aptos-labs/wallet-standard@0.0.11", "@aptos-labs/wallet-standard@^0.0.11":
@@ -133,13 +133,28 @@
   resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.1.0.tgz#ff78486866ef911f3edf1851e3e66c6486122896"
   integrity sha512-DC4cWuvgXKBVQC+seGQc/nwIZoggZmGOIoN8EtEKHBSBMijwVfgRjD6cXPx8xWaXANyr5d32BGnWvYfMyWk3Pg==
 
-"@atomrigslab/aptos-wallet-adapter@^0.1.10", "@atomrigslab/aptos-wallet-adapter@^0.1.12":
+"@atomrigslab/aptos-wallet-adapter@^0.1.10":
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/@atomrigslab/aptos-wallet-adapter/-/aptos-wallet-adapter-0.1.13.tgz#ae72aa5db7a957c981eaf8a9b9513161aa79e978"
   integrity sha512-qicPxrvFujTz3utTz+ArIJbYi89jwVoFhECZPmtNTiOPhQvZ7xqi0KNwELrulpEMhRpmS7+oju1rhx/cIoySxg==
   dependencies:
     "@aptos-labs/wallet-standard" "0.0.11"
     "@atomrigslab/dekey-web-wallet-provider" "^1.2.0"
+
+"@atomrigslab/aptos-wallet-adapter@^0.1.20":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@atomrigslab/aptos-wallet-adapter/-/aptos-wallet-adapter-0.1.21.tgz#907ca8f0fb78e977562288506596f97af7cfc258"
+  integrity sha512-LwT0OTOaGglctggMcihXLd4mzBFwRoJsR0aeFBHQRfTxZV1agNTgN/PxJl6N13+WYAvzc00j/WByxAmWgonorA==
+  dependencies:
+    "@aptos-labs/wallet-standard" "0.0.11"
+    "@atomrigslab/dekey-web-wallet-provider" "1.2.1"
+
+"@atomrigslab/dekey-web-wallet-provider@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@atomrigslab/dekey-web-wallet-provider/-/dekey-web-wallet-provider-1.2.1.tgz#8e3fe8d9f9e2a71d204748f12b7a2756ab9da2d2"
+  integrity sha512-GMEGjARgle9lIRopvxm4uis+sRr/ih26HzBgFbnLsk8+G94Z5dE87EclAIGFQUSAxYj7SmSk6xpx7//qUJDW/A==
+  dependencies:
+    "@atomrigslab/providers" "1.1.0"
 
 "@atomrigslab/dekey-web-wallet-provider@^1.2.0":
   version "1.2.0"
@@ -152,6 +167,24 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@atomrigslab/providers/-/providers-1.0.1.tgz#c2e2b9af3376d3a89c69b4a5610f4464ebbf28f2"
   integrity sha512-gaJZgbT3NlEP+RrU/38hAvmM0xmzpEV/I+g4wCqMjTkYY0S8c7khTB0WdrieIjldD5YPKfPr3dKdmPhibdY8JA==
+  dependencies:
+    "@metamask/object-multiplex" "^1.1.0"
+    "@metamask/safe-event-emitter" "^2.0.0"
+    "@types/chrome" "^0.0.136"
+    detect-browser "^5.2.0"
+    eth-rpc-errors "^4.0.2"
+    extension-port-stream "^2.0.1"
+    fast-deep-equal "^2.0.1"
+    is-stream "^2.0.0"
+    json-rpc-engine "^6.1.0"
+    json-rpc-middleware-stream "^3.0.0"
+    pump "^3.0.0"
+    webextension-polyfill-ts "^0.25.0"
+
+"@atomrigslab/providers@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@atomrigslab/providers/-/providers-1.1.0.tgz#faab96551d80404793fae2757dee6aa9a749e62f"
+  integrity sha512-QLYxSCVrxwlN1oZ7vLnZbKZxkbZ6QG77Bj4pmTEowIpTcq7qZdBtU9pn+vqJAso1nnA3+AkmPuE9Jnx7+Jo1zQ==
   dependencies:
     "@metamask/object-multiplex" "^1.1.0"
     "@metamask/safe-event-emitter" "^2.0.0"
@@ -4448,15 +4481,6 @@ which@^2.0.1:
     isexe "^2.0.0"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
-  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
-  dependencies:
-    ansi-styles "^4.0.0"
-    string-width "^4.1.0"
-    strip-ansi "^6.0.0"
-
-wrap-ansi@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
