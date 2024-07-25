@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.7.1
+
+### Patch Changes
+
+- df5280a: Fix failed to override resource abi address
+
 ## 1.7.0
 
 ### Minor Changes
