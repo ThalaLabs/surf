@@ -7,10 +7,20 @@ import {
   EntryPayload,
   ViewPayload,
   DefaultABITable,
-  ABIResourceClient
+  ABIResourceClient,
 } from '../types/index.js';
 import { ABITable } from '../types/defaultABITable.js';
-import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionResponse, PublicKey, AccountAddressInput, UserTransactionResponse, WaitForTransactionOptions } from "@aptos-labs/ts-sdk";
+import {
+  Aptos,
+  LedgerVersionArg,
+  MoveValue,
+  Account,
+  CommittedTransactionResponse,
+  PublicKey,
+  AccountAddressInput,
+  UserTransactionResponse,
+  WaitForTransactionOptions,
+} from '@aptos-labs/ts-sdk';
 
 /**
  * Create a client to interact with Aptos smart contract.
@@ -20,9 +30,9 @@ import { Aptos, LedgerVersionArg, MoveValue, Account, CommittedTransactionRespon
  * @example
  * const client = createSurfClient(new Aptos());
  */
-export function createSurfClient<
-  TABITable extends ABITable = DefaultABITable,
->(aptosClient: Aptos): Client<TABITable> {
+export function createSurfClient<TABITable extends ABITable = DefaultABITable>(
+  aptosClient: Aptos,
+): Client<TABITable> {
   return new Client<TABITable>(aptosClient);
 }
 export class Client<TABITable extends ABITable> {
@@ -47,7 +57,7 @@ export class Client<TABITable extends ABITable> {
    * const [balance] = await client.view({ payload });
    */
   public async view<TReturn extends MoveValue[]>(args: {
-    payload: ViewPayload<TReturn>,
+    payload: ViewPayload<TReturn>;
     options?: LedgerVersionArg;
   }): Promise<TReturn> {
     return await this.client.view(args);
@@ -73,9 +83,9 @@ export class Client<TABITable extends ABITable> {
    * });
    */
   public async submitTransaction(args: {
-    signer: Account,
-    payload: EntryPayload,
-    options?: WaitForTransactionOptions
+    signer: Account;
+    payload: EntryPayload;
+    options?: WaitForTransactionOptions;
   }): Promise<CommittedTransactionResponse> {
     const transaction = await this.client.transaction.build.simple({
       sender: args.signer.accountAddress.toString(),
@@ -83,10 +93,11 @@ export class Client<TABITable extends ABITable> {
     });
 
     // Submit the transaction
-    const transactionRes = await this.client.transaction.signAndSubmitTransaction({
-      signer: args.signer,
-      transaction,
-    });
+    const transactionRes =
+      await this.client.transaction.signAndSubmitTransaction({
+        signer: args.signer,
+        transaction,
+      });
 
     // Wait for the transaction to finish
     // throws an error if the tx fails or not confirmed after timeout
@@ -117,34 +128,44 @@ export class Client<TABITable extends ABITable> {
    * });
    */
   public async simulateTransaction(args: {
-    publicKey: PublicKey,
-    sender: AccountAddressInput,
-    payload: EntryPayload,
+    publicKey: PublicKey;
+    sender: AccountAddressInput;
+    payload: EntryPayload;
   }): Promise<UserTransactionResponse> {
     const transaction = await this.client.transaction.build.simple({
       sender: args.sender,
       data: args.payload,
     });
 
-    return (await this.client.transaction.simulate.simple({
-      signerPublicKey: args.publicKey,
-      transaction,
-    }))[0]!;
+    return (
+      await this.client.transaction.simulate.simple({
+        signerPublicKey: args.publicKey,
+        transaction,
+      })
+    )[0]!;
   }
 
   /**
    * Builds ABI from a provided address and module name for given client. ABI name can be taken from abi.name
-   * 
+   *
    * @param address The module address
    * @param moduleName The module name
    * @returns The constructed ABI
    * @example
    * const abi = await client.fetchABI(address = '0x1', moduleName = 'AptosCoin');
    */
-  public async fetchABI<T extends ABIRoot>(address: string, moduleName: string): Promise<T> {
-      // Fetches ABI fom address and module name for given client
-      // throws if inexistent module name in address for given client
-      return (await this.client.getAccountModule({ accountAddress: address, moduleName: moduleName })).abi as unknown as T;
+  public async fetchABI<T extends ABIRoot>(
+    address: string,
+    moduleName: string,
+  ): Promise<T> {
+    // Fetches ABI fom address and module name for given client
+    // throws if inexistent module name in address for given client
+    return (
+      await this.client.getAccountModule({
+        accountAddress: address,
+        moduleName: moduleName,
+      })
+    ).abi as unknown as T;
   }
 
   /**
@@ -184,7 +205,7 @@ export class Client<TABITable extends ABITable> {
               payload,
               options: {
                 ledgerVersion: args[0].ledgerVersion,
-              }
+              },
             });
           };
         },
@@ -214,14 +235,14 @@ export class Client<TABITable extends ABITable> {
             const account: Account = args[0].account;
             return args[0].isSimulation
               ? this.simulateTransaction({
-                publicKey: account.publicKey,
-                sender: account.accountAddress.toString(),
-                payload,
-              })
+                  publicKey: account.publicKey,
+                  sender: account.accountAddress.toString(),
+                  payload,
+                })
               : this.submitTransaction({
-                signer: args[0].account,
-                payload,
-              });
+                  signer: args[0].account,
+                  payload,
+                });
           };
         },
       }),
@@ -244,15 +265,13 @@ export class Client<TABITable extends ABITable> {
             }
 
             const account: AccountAddressInput = args[0].account;
-            return this.client.getAccountResource(
-              {
-                accountAddress: account,
-                resourceType: `${abi.address}::${abi.name}::${structName}`,
-                options: {
-                  ledgerVersion: args[0].ledgerVersion,
-                }
-              }
-            );
+            return this.client.getAccountResource({
+              accountAddress: account,
+              resourceType: `${address ?? abi.address}::${abi.name}::${structName}`,
+              options: {
+                ledgerVersion: args[0].ledgerVersion,
+              },
+            });
           };
         },
       }),
