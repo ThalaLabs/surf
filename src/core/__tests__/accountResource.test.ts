@@ -120,6 +120,17 @@ describe('get account resource', () => {
     // @ts-expect-error out of index, option only has 0 or 1 item
     expect(data.supply.vec[1]).toBeUndefined();
   }, 60000);
+
+  it('object type', async () => {
+    async () => {
+      const data = await client.useABI(TEST_ABI).resource.TestObjectStruct({
+        typeArguments: [],
+        account: '0x1',
+      });
+
+      expect(data.objects[0]!.inner).toBeDefined();
+    };
+  }, 60000);
 });
 
 const TEST_ABI = {
@@ -153,6 +164,18 @@ const TEST_ABI = {
         {
           name: 'coins',
           type: 'vector<0x1::coin::Coin<T0>>',
+        },
+      ],
+    },
+    {
+      name: 'TestObjectStruct',
+      is_native: false,
+      abilities: ['key'],
+      generic_type_params: [],
+      fields: [
+        {
+          name: 'objects',
+          type: 'vector<0x1::object::Object<0x123::abc::Abc>>',
         },
       ],
     },

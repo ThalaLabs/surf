@@ -50,9 +50,11 @@ type ConvertStructFieldNonStructType<
   ? ConvertPrimitiveStructField<TMoveType>
   : TMoveType extends `vector<${infer TInner}>`
     ? ConvertStructFieldType<TABITable, TInner>[]
-    : TMoveType extends `0x1::option::Option<${infer TInner}>`
-      ? ConvertStructFieldOptionType<TABITable, TInner>
-      : UnknownStruct<TMoveType>;
+    : TMoveType extends `0x1::object::Object<${string}>`
+      ? { inner: `0x${string}` }
+      : TMoveType extends `0x1::option::Option<${infer TInner}>`
+        ? ConvertStructFieldOptionType<TABITable, TInner>
+        : UnknownStruct<TMoveType>;
 
 type ConvertStructFieldOptionType<
   TABITable extends ABITable,
