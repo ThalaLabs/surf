@@ -56,7 +56,7 @@ type ConvertStructFieldNonStructType<
         ? ConvertStructFieldOptionType<TABITable, TInner>
         : UnknownStruct<TMoveType>;
 
-type ConvertStructFieldOptionType<
+export type ConvertStructFieldOptionType<
   TABITable extends ABITable,
   TMoveType extends string,
 > = {

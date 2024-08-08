@@ -9,21 +9,17 @@ import { createViewPayload } from '../createViewPayload.js';
 
 describe('call view functions', () => {
   const client = createSurfClient(
-    new Aptos(
-      new AptosConfig({ network: Network.TESTNET })
-    )
+    new Aptos(new AptosConfig({ network: Network.TESTNET })),
   );
-  
+
   const clientMain = createSurfClient(
-    new Aptos(
-      new AptosConfig({ network: Network.MAINNET })
-    )
+    new Aptos(new AptosConfig({ network: Network.MAINNET })),
   );
   // Act before assertions
-  beforeAll(async () => { });
+  beforeAll(async () => {});
 
   // Teardown (cleanup) after assertions
-  afterAll(() => { });
+  afterAll(() => {});
 
   it('basic', async () => {
     const viewPayload = createViewPayload(COIN_ABI, {
@@ -58,9 +54,10 @@ describe('call view functions', () => {
       typeArguments: ['0x1::aptos_coin::AptosCoin'],
     });
     const result = await client.view({
-      payload: viewPayload, options: {
+      payload: viewPayload,
+      options: {
         ledgerVersion: 562606728,
-      }
+      },
     });
     expect(result).toMatchInlineSnapshot(`
 [
@@ -82,6 +79,49 @@ describe('call view functions', () => {
     expect(result.length).toBe(1);
     expect((result[0] as any).v).toBeDefined();
     expect(typeof (result[0] as any).v).toEqual('string');
+  }, 60000);
+
+  it('return objects', async () => {
+    // no need to run, type check only.
+    async () => {
+      const viewPayload = createViewPayload(TIERED_ORACLE_ABI, {
+        function: 'get_objects',
+        functionArguments: [],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
+      });
+
+      // The declaration in Move:
+      // struct FixedPoint64 has copy, drop, store { value: u128 }
+      const result = await clientMain.view({ payload: viewPayload });
+
+      result[0][0]!.inner;
+
+      // @ts-expect-error
+      result[0][0].abc;
+    };
+  }, 60000);
+
+  it('return options', async () => {
+    // no need to run, type check only.
+    async () => {
+      const viewPayload = createViewPayload(TIERED_ORACLE_ABI, {
+        function: 'get_options',
+        functionArguments: [],
+        typeArguments: ['0x1::aptos_coin::AptosCoin'],
+      });
+
+      // The declaration in Move:
+      // struct FixedPoint64 has copy, drop, store { value: u128 }
+      const result = await clientMain.view({ payload: viewPayload });
+
+      result[0][0]!.vec[0];
+
+      // @ts-expect-error out of range, option only has 0 or 1 item
+      result[0][0]!.vec[1];
+
+      // @ts-expect-error
+      result[0][0].abc;
+    };
   }, 60000);
 });
 
@@ -106,6 +146,32 @@ const TIERED_ORACLE_ABI = {
       return: [
         '0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64',
       ],
+    },
+    {
+      name: 'get_objects',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [
+        {
+          constraints: [],
+        },
+      ],
+      params: [],
+      return: ['vector<0x1::object::Object<0x123::abc::Abc>>'],
+    },
+    {
+      name: 'get_options',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [
+        {
+          constraints: [],
+        },
+      ],
+      params: [],
+      return: ['vector<0x1::option::Option<0x123::abc::Abc>>'],
     },
   ],
   structs: [],
