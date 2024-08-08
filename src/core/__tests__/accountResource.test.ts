@@ -122,12 +122,14 @@ describe('get account resource', () => {
   }, 60000);
 
   it('object type', async () => {
-    const data = await client.useABI(TEST_ABI).resource.TestObjectStruct({
-      typeArguments: [],
-      account: '0x1',
-    });
+    async () => {
+      const data = await client.useABI(TEST_ABI).resource.TestObjectStruct({
+        typeArguments: [],
+        account: '0x1',
+      });
 
-    expect(data.objects[0].inner).toBeDefined();
+      expect(data.objects[0]!.inner).toBeDefined();
+    };
   }, 60000);
 });
 
