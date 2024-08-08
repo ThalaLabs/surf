@@ -1,5 +1,12 @@
 # @thalalabs/surf
 
+## 1.7.2
+
+### Patch Changes
+
+- fa03792: support 0x1::object::Object and 0x1::option::Option for view function returns
+- 6113067: support 0x1::object::Object type in struct
+
 ## 1.7.1
 
 ### Patch Changes
