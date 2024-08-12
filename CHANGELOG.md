@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.7.3
+
+### Patch Changes
+
+- 00e316b: bump ts-sdk packages
+
 ## 1.7.2
 
 ### Patch Changes
