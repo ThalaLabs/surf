@@ -15,29 +15,35 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@aptos-connect/wallet-adapter-plugin@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-adapter-plugin/-/wallet-adapter-plugin-1.0.1.tgz#c652752e9eda57202efb6cbd3fdd0901be92c27f"
-  integrity sha512-yrnzO9gWMPqhgV0hz3Qv9XP98hefX/V7Pcj911SLM3NWktc+mL/5CW6BKz4VKcqnhewotd2Tek43VDZTSHKoeQ==
+"@aptos-connect/wallet-adapter-plugin@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-adapter-plugin/-/wallet-adapter-plugin-2.1.1.tgz#87e5529c5b561916b51ab88a7ae1aa4add4598e6"
+  integrity sha512-nPWEQSUs/pk0d/MtJs4fYcxGFUryKxFsp6xrEd0IbzT/HBCDMvPnGlME7h34ybwlL0h6DuY0zL1LijsqJCsSrA==
   dependencies:
-    "@aptos-connect/wallet-api" "^0.1.1"
-    "@aptos-labs/wallet-adapter-core" "^3.5.0"
+    "@aptos-connect/wallet-api" "^0.1.4"
     "@identity-connect/crypto" "^0.2.3"
-    "@identity-connect/dapp-sdk" "^0.9.0"
+    "@identity-connect/dapp-sdk" "^0.9.6"
 
-"@aptos-connect/wallet-api@^0.1.0", "@aptos-connect/wallet-api@^0.1.1":
+"@aptos-connect/wallet-api@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-api/-/wallet-api-0.1.1.tgz#b8605b6ac7b5b621917d452cb4251f219530b2a9"
   integrity sha512-If666Wz7m+ZK/RzDhm5Wy3oDkhnv14wKHW0jEVtXtHwTzYEgaOdC92RhZHqzPAqysipKSatBJJNVk58PzJLAUQ==
   dependencies:
     "@identity-connect/api" "^0.6.1"
 
-"@aptos-connect/web-transport@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@aptos-connect/web-transport/-/web-transport-0.0.7.tgz#69c4aefc04ca181459706720ff12e471229c4390"
-  integrity sha512-4dYv/696bEZc75041ewKsWxg48/dTEDqP0TpIfK3KndGepKWDM9q3Lj8iZo+8Z9nhzxwulEqiAO7c0nvzXxVFA==
+"@aptos-connect/wallet-api@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-api/-/wallet-api-0.1.4.tgz#4d5e28e5695814d63d683eb74188aea535bac647"
+  integrity sha512-cQXGj/Irb6Bl/w9J7LZCCbtyo0I0rhOWvh5DgvDq/ew9vk+Vgebl4ZHPetjdmEJWbmj2IpxSoi6UBYqxZIEn8Q==
   dependencies:
-    "@aptos-connect/wallet-api" "^0.1.1"
+    "@identity-connect/api" "^0.7.0"
+
+"@aptos-connect/web-transport@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@aptos-connect/web-transport/-/web-transport-0.0.8.tgz#4b5126b478589f52da233f44f5d14d55be6a6cc2"
+  integrity sha512-AN/YhZPrChBXwxJAmynQaj5i0A+Cf3aLTUYjIEcVHdIffMAcs1FR3haGG0qIEDPCA/imcmJ2BqUd39kTUmmZkA==
+  dependencies:
+    "@aptos-connect/wallet-api" "^0.1.4"
     uuid "^9.0.1"
 
 "@aptos-labs/aptos-cli@^0.1.2":
@@ -89,39 +95,28 @@
     eventemitter3 "^5.0.1"
     form-data "^4.0.0"
 
-"@aptos-labs/wallet-adapter-core@4.13.2":
-  version "4.13.2"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-core/-/wallet-adapter-core-4.13.2.tgz#7e461ff339ed4c11e35b710c5367c0b5e851986b"
-  integrity sha512-bRMreHAUem1TPzR9VpbXfBGFZA6tEu9ADFTwjQW8DIA30urWakj8sz3DJIgwuBIYqurjFH1AhhO+1Rqeftl/CQ==
+"@aptos-labs/wallet-adapter-core@4.18.1":
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-core/-/wallet-adapter-core-4.18.1.tgz#d5ffb0eaa6b9e6dd1faff865b4cf485c480405b1"
+  integrity sha512-6IAdb1RHKBFiSrTo5H0YH2A7W1U5cf/8EA4x9yH6xviWsXhlsAUuIeSXZM4BGpk3GG3Y2YsKtouuMB5LRh1iZw==
   dependencies:
-    "@aptos-connect/wallet-adapter-plugin" "^1.0.1"
-    "@aptos-labs/wallet-standard" "^0.1.0"
+    "@aptos-connect/wallet-adapter-plugin" "^2.1.1"
+    "@aptos-labs/wallet-standard" "^0.2.0"
     "@atomrigslab/aptos-wallet-adapter" "^0.1.20"
-    "@mizuwallet-sdk/aptos-wallet-adapter" "^0.1.3"
-    buffer "^6.0.3"
-    eventemitter3 "^4.0.7"
-    tweetnacl "^1.0.3"
-
-"@aptos-labs/wallet-adapter-core@^3.5.0":
-  version "3.16.0"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-core/-/wallet-adapter-core-3.16.0.tgz#1f36e41fdab249b09f25342cc52a3a7e6840762d"
-  integrity sha512-4pBNoDLzuIOxdNwJEO770bkxROuEIQis0H0lFOVVCL33jK8/MWLlQo8hFgc71ovN1vWfdERDEgPLbAtVChploQ==
-  dependencies:
-    "@aptos-labs/wallet-standard" "^0.0.11"
-    "@atomrigslab/aptos-wallet-adapter" "^0.1.10"
+    "@mizuwallet-sdk/aptos-wallet-adapter" "^0.3.1"
     buffer "^6.0.3"
     eventemitter3 "^4.0.7"
     tweetnacl "^1.0.3"
 
 "@aptos-labs/wallet-adapter-react@^3.5.9":
-  version "3.5.9"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-3.5.9.tgz#6d63687d467abe5d9c046525edcd030dfe8f57a3"
-  integrity sha512-IYhWhu3bl7EvOxJXjOE8lwSgcapr8dgJ37MCEtV1drwKfHDuCKQHQBfZ0UKTwO2NhUMX/9k4ZAztJIXElpw6Zg==
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-3.7.2.tgz#98c18bdbed57d02c2b9de58844d140ee356ed6ea"
+  integrity sha512-VtEqgm9CBq1cQnXHSYRAdw3EFSnQw4JpYEJcOWPKVzvih9I33MDVNWUWMk2TXb7LD/SXJef4YWbZVz2vMAMNHQ==
   dependencies:
-    "@aptos-labs/wallet-adapter-core" "4.13.2"
+    "@aptos-labs/wallet-adapter-core" "4.18.1"
     "@radix-ui/react-slot" "^1.0.2"
 
-"@aptos-labs/wallet-standard@0.0.11", "@aptos-labs/wallet-standard@^0.0.11":
+"@aptos-labs/wallet-standard@0.0.11":
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.0.11.tgz#97e3950b7699657e391004db15efa718eb7fd50d"
   integrity sha512-8dygyPBby7TaMJjUSyeVP4R1WC9D/FPpX9gVMMLaqTKCXrSbkzhGDxcuwbMZ3ziEwRmx3zz+d6BIJbDhd0hm5g==
@@ -134,18 +129,10 @@
   resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.1.0-ms.1.tgz#3b6e218c22ceb463862fa6133fac0f424bf26389"
   integrity sha512-3aWEmdqMcll8D2lzhBZuYUW1o49TDpqw4QRAkHk00tSC3SwAkuukoW8g/M9lB5nHFxaX7UzuxeaYv8l6/mhJVQ==
 
-"@aptos-labs/wallet-standard@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.1.0.tgz#ff78486866ef911f3edf1851e3e66c6486122896"
-  integrity sha512-DC4cWuvgXKBVQC+seGQc/nwIZoggZmGOIoN8EtEKHBSBMijwVfgRjD6cXPx8xWaXANyr5d32BGnWvYfMyWk3Pg==
-
-"@atomrigslab/aptos-wallet-adapter@^0.1.10":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@atomrigslab/aptos-wallet-adapter/-/aptos-wallet-adapter-0.1.13.tgz#ae72aa5db7a957c981eaf8a9b9513161aa79e978"
-  integrity sha512-qicPxrvFujTz3utTz+ArIJbYi89jwVoFhECZPmtNTiOPhQvZ7xqi0KNwELrulpEMhRpmS7+oju1rhx/cIoySxg==
-  dependencies:
-    "@aptos-labs/wallet-standard" "0.0.11"
-    "@atomrigslab/dekey-web-wallet-provider" "^1.2.0"
+"@aptos-labs/wallet-standard@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.2.0.tgz#d0f9d422d63ac93a02c2eb3157090434ded77379"
+  integrity sha512-4aoO4MlqzrW+CtO83MwbHMMtu91DL5B7YKRvhJbRnVB4R+QCOwBI/aQTkNZbKBDfOplLlqWTTl6Li0l6e02YLQ==
 
 "@atomrigslab/aptos-wallet-adapter@^0.1.20":
   version "0.1.21"
@@ -161,31 +148,6 @@
   integrity sha512-GMEGjARgle9lIRopvxm4uis+sRr/ih26HzBgFbnLsk8+G94Z5dE87EclAIGFQUSAxYj7SmSk6xpx7//qUJDW/A==
   dependencies:
     "@atomrigslab/providers" "1.1.0"
-
-"@atomrigslab/dekey-web-wallet-provider@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@atomrigslab/dekey-web-wallet-provider/-/dekey-web-wallet-provider-1.2.0.tgz#24fe997ce6a8b1e1c1b9c54f9c5bd851e06079fc"
-  integrity sha512-y9Jd/fzcEaZTXj/hAvt4eKuAHD9AEMeeeVL5fgEFoJKkAyevoxPmsH2CwCgc6AZbgXNw6YUTk8KyDIjWL/XBEA==
-  dependencies:
-    "@atomrigslab/providers" "1.0.1"
-
-"@atomrigslab/providers@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@atomrigslab/providers/-/providers-1.0.1.tgz#c2e2b9af3376d3a89c69b4a5610f4464ebbf28f2"
-  integrity sha512-gaJZgbT3NlEP+RrU/38hAvmM0xmzpEV/I+g4wCqMjTkYY0S8c7khTB0WdrieIjldD5YPKfPr3dKdmPhibdY8JA==
-  dependencies:
-    "@metamask/object-multiplex" "^1.1.0"
-    "@metamask/safe-event-emitter" "^2.0.0"
-    "@types/chrome" "^0.0.136"
-    detect-browser "^5.2.0"
-    eth-rpc-errors "^4.0.2"
-    extension-port-stream "^2.0.1"
-    fast-deep-equal "^2.0.1"
-    is-stream "^2.0.0"
-    json-rpc-engine "^6.1.0"
-    json-rpc-middleware-stream "^3.0.0"
-    pump "^3.0.0"
-    webextension-polyfill-ts "^0.25.0"
 
 "@atomrigslab/providers@1.1.0":
   version "1.1.0"
@@ -501,15 +463,6 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@blocto/sdk@^0.10.3":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/@blocto/sdk/-/sdk-0.10.3.tgz#b651a0e39425557f5cbf27530e48c5621162c9cf"
-  integrity sha512-9Ot5R3YULaX8IIRGyVYXhoGC01H+kaXCqwfLWzUSKciNYT2GxiF547LEAnT1a7e5HMrJdqjQ+94OsS32fHmq9A==
-  dependencies:
-    buffer "^6.0.3"
-    eip1193-provider "^1.0.1"
-    js-sha3 "^0.8.0"
-
 "@changesets/apply-release-plan@^7.0.4":
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/@changesets/apply-release-plan/-/apply-release-plan-7.0.4.tgz#f963e11848efa24c53abd10713662f2012b6082b"
@@ -776,6 +729,11 @@
   resolved "https://registry.yarnpkg.com/@identity-connect/api/-/api-0.6.1.tgz#1d1390d9ec0d63e3811411c73e11c59230edfdb3"
   integrity sha512-CBeff9UZtQWhJBPEuwFCOcies2rFkn14BTLyyYLpI+Tlxv1XTCWSZKRx/Ewvexb4U/5OWWMY1s263gZBaOAiPQ==
 
+"@identity-connect/api@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@identity-connect/api/-/api-0.7.0.tgz#cb0820eb274efd7ffe8c91b8d021f620613ff55f"
+  integrity sha512-mn/LZGeb3xgBD644p67tYOjvYSSdZpwxiO4/ZjwjsJZ8eYvGha5FiZg+pqVH73lg1S36qikwbkA3HUQOAE5GKA==
+
 "@identity-connect/crypto@^0.2.3":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@identity-connect/crypto/-/crypto-0.2.4.tgz#8bb351ef064cd3d0226f6d8a43d72273eaf117d5"
@@ -786,14 +744,14 @@
     ed2curve "^0.3.0"
     tweetnacl "^1.0.3"
 
-"@identity-connect/dapp-sdk@^0.9.0":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@identity-connect/dapp-sdk/-/dapp-sdk-0.9.2.tgz#80a46eb168e4800b6ed78a1ae12740586b557084"
-  integrity sha512-jeS8P75G6OprcxzOjZK3xY7x5rSIzQCLSQgR+e1GVhyOYdJ7BLCHnUv3X5uAqZs9owZ4DmkqhkhjQ/tCuzxnlw==
+"@identity-connect/dapp-sdk@^0.9.6":
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/@identity-connect/dapp-sdk/-/dapp-sdk-0.9.6.tgz#9f181829898d13aca8c022fa33ef03fe7c4b051d"
+  integrity sha512-lrwBUD0xKT7sbTFbc+veUWqf1CPn1ESZuSsLciBo3szWt3MjlfW6hFWimBibPWas58ZohKDu6vZBA8da/T9VWw==
   dependencies:
-    "@aptos-connect/wallet-api" "^0.1.1"
-    "@aptos-connect/web-transport" "^0.0.7"
-    "@identity-connect/api" "^0.6.1"
+    "@aptos-connect/wallet-api" "^0.1.4"
+    "@aptos-connect/web-transport" "^0.0.8"
+    "@identity-connect/api" "^0.7.0"
     "@identity-connect/crypto" "^0.2.3"
     "@identity-connect/wallet-api" "^0.1.1"
     axios "^1.6.0"
@@ -1061,31 +1019,6 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@json-rpc-tools/provider@^1.5.5":
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/@json-rpc-tools/provider/-/provider-1.7.6.tgz#8a17c34c493fa892632e278fd9331104e8491ec6"
-  integrity sha512-z7D3xvJ33UfCGv77n40lbzOYjZKVM3k2+5cV7xS8G6SCvKTzMkhkUYuD/qzQUNT4cG/lv0e9mRToweEEVLVVmA==
-  dependencies:
-    "@json-rpc-tools/utils" "^1.7.6"
-    axios "^0.21.0"
-    safe-json-utils "^1.1.1"
-    ws "^7.4.0"
-
-"@json-rpc-tools/types@^1.7.6":
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/@json-rpc-tools/types/-/types-1.7.6.tgz#5abd5fde01364a130c46093b501715bcce5bdc0e"
-  integrity sha512-nDSqmyRNEqEK9TZHtM15uNnDljczhCUdBmRhpNZ95bIPKEDQ+nTDmGMFd2lLin3upc5h2VVVd9tkTDdbXUhDIQ==
-  dependencies:
-    keyvaluestorage-interface "^1.0.0"
-
-"@json-rpc-tools/utils@^1.7.6":
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/@json-rpc-tools/utils/-/utils-1.7.6.tgz#67f04987dbaa2e7adb6adff1575367b75a9a9ba1"
-  integrity sha512-HjA8x/U/Q78HRRe19yh8HVKoZ+Iaoo3YZjakJYxR+rw52NHo6jM+VE9b8+7ygkCFXl/EHID5wh/MkXaE/jGyYw==
-  dependencies:
-    "@json-rpc-tools/types" "^1.7.6"
-    "@pedrouid/environment" "^1.0.1"
-
 "@manypkg/find-root@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@manypkg/find-root/-/find-root-1.1.0.tgz#a62d8ed1cd7e7d4c11d9d52a8397460b5d4ad29f"
@@ -1122,25 +1055,14 @@
   resolved "https://registry.yarnpkg.com/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz#af577b477c683fad17c619a78208cede06f9605c"
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
 
-"@mizuwallet-sdk/aptos-wallet-adapter@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@mizuwallet-sdk/aptos-wallet-adapter/-/aptos-wallet-adapter-0.1.3.tgz#81566b0a8f2570884b3574018fa2c51506623d27"
-  integrity sha512-npN2DvEURXlhgaUJBswVfSUQPDDDWZ87yXpxDkufunBnXjQ/JENo7Lhk5RYLcBJN0Y5pT1iDhHrn001CoWl/JA==
+"@mizuwallet-sdk/aptos-wallet-adapter@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@mizuwallet-sdk/aptos-wallet-adapter/-/aptos-wallet-adapter-0.3.1.tgz#68d7eeba472fd531c38ca549cdde34373445a632"
+  integrity sha512-gWqU446xZHiRoChXhoNqGLtjgRFfI2TLtDuCsaqcZlIhGfMm/9S8frrjVFaoiqIaEJKz6TZqqlHxUD3pk3mr/Q==
   dependencies:
     "@aptos-labs/ts-sdk" "^1.26.0"
     "@aptos-labs/wallet-standard" "0.1.0-ms.1"
-    "@blocto/sdk" "^0.10.3"
-    "@msafe/aptos-wallet" "^6.1.1"
     buffer "^6.0.3"
-    postmate "^1.5.2"
-
-"@msafe/aptos-wallet@^6.1.1":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@msafe/aptos-wallet/-/aptos-wallet-6.1.1.tgz#c239b49aaf665c7de5469382ade1d83f07f6ed32"
-  integrity sha512-g/2TPRqyChciaw/S69EBr7CgzYJBT1LJulU0nMNnkehJc+ZX/fNN+5JXEuea+a0rXsk/flcbCSfvT2JtS0+/mQ==
-  dependencies:
-    buffer "^6.0.3"
-    json-rpc-protocol "^0.13.2"
 
 "@noble/curves@^1.4.0", "@noble/curves@~1.4.0":
   version "1.4.0"
@@ -1174,11 +1096,6 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
-
-"@pedrouid/environment@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
-  integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
@@ -1706,13 +1623,6 @@ axios@1.6.2:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
-axios@^0.21.0:
-  version "0.21.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
-  dependencies:
-    follow-redirects "^1.14.0"
-
 axios@^1.6.0:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.2.tgz#b625db8a7051fbea61c35a3cbb3a1daa7b9c7621"
@@ -2161,13 +2071,6 @@ ed2curve@^0.3.0:
   dependencies:
     tweetnacl "1.x.x"
 
-eip1193-provider@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/eip1193-provider/-/eip1193-provider-1.0.1.tgz#420d29cf4f6c443e3f32e718fb16fafb250637c3"
-  integrity sha512-kSuqwQ26d7CzuS/t3yRXo2Su2cVH0QfvyKbr2H7Be7O5YDyIq4hQGCNTo5wRdP07bt+E2R/8nPCzey4ojBHf7g==
-  dependencies:
-    "@json-rpc-tools/provider" "^1.5.5"
-
 electron-to-chromium@^1.4.411:
   version "1.4.423"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.423.tgz#99567f3a0563fe0d1d0931e9ce851bca239f6658"
@@ -2539,15 +2442,15 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-follow-redirects@^1.14.0, follow-redirects@^1.15.6:
-  version "1.15.6"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
-  integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
-
 follow-redirects@^1.15.0:
   version "1.15.3"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.3.tgz#fe2f3ef2690afce7e82ed0b44db08165b207123a"
   integrity sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==
+
+follow-redirects@^1.15.6:
+  version "1.15.6"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
+  integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
 
 foreground-child@^3.1.0:
   version "3.1.1"
@@ -3343,11 +3246,6 @@ js-base64@^3.7.7:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.7.tgz#e51b84bf78fbf5702b9541e2cb7bfcb893b43e79"
   integrity sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==
 
-js-sha3@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/js-sha3/-/js-sha3-0.8.0.tgz#b9b7a5da73afad7dedd0f8c463954cbde6818840"
-  integrity sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==
-
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -3399,13 +3297,6 @@ json-rpc-middleware-stream@^3.0.0:
     "@metamask/safe-event-emitter" "^2.0.0"
     readable-stream "^2.3.3"
 
-json-rpc-protocol@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/json-rpc-protocol/-/json-rpc-protocol-0.13.2.tgz#0338cdf9a12b457af256682f003f451031af0814"
-  integrity sha512-2InSi+c7wGESmvYcEVS0clctpJCodV7gLqLN1BIIPNK07wokXIwhOL8RQWU4O7oX5adChn6HJGtIU6JaUQ1P/A==
-  dependencies:
-    make-error "^1.3.0"
-
 json-schema-traverse@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
@@ -3439,11 +3330,6 @@ keyv@^4.0.0:
   integrity sha512-QCiSav9WaX1PgETJ+SpNnx2PRRapJ/oRSXM4VO5OGYGSjrxbKPVFVhB3l2OCbLCk329N8qyAtsJjSjvVBWzEug==
   dependencies:
     json-buffer "3.0.1"
-
-keyvaluestorage-interface@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/keyvaluestorage-interface/-/keyvaluestorage-interface-1.0.0.tgz#13ebdf71f5284ad54be94bd1ad9ed79adad515ff"
-  integrity sha512-8t6Q3TclQ4uZynJY9IGr2+SsIGwK9JHcO6ootkHCGA0CrQCRy+VkouYNO2xicET6b9al7QKzpebNow+gkpCL8g==
 
 kleur@^3.0.3:
   version "3.0.3"
@@ -3590,7 +3476,7 @@ make-dir@^3.0.0:
   dependencies:
     semver "^6.0.0"
 
-make-error@1.x, make-error@^1.3.0:
+make-error@1.x:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/make-error/-/make-error-1.3.6.tgz#2eb2e37ea9b67c4891f684a1394799af484cf7a2"
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
@@ -3917,11 +3803,6 @@ poseidon-lite@^0.2.0:
   resolved "https://registry.yarnpkg.com/poseidon-lite/-/poseidon-lite-0.2.0.tgz#dbc242ebd9c10c32d507a533fa497231d168fd72"
   integrity sha512-vivDZnGmz8W4G/GzVA72PXkfYStjilu83rjjUfpL4PueKcC8nfX6hCPh2XhoC5FBgC6y0TA3YuUeUo5YCcNoig==
 
-postmate@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/postmate/-/postmate-1.5.2.tgz#d59a78b3780023c5d32225fd40633b364958bdb3"
-  integrity sha512-EHLlEmrUA/hALls49oBrtE7BzDXXjB9EiO4MZpsoO3R/jRuBmD+2WKQuYAbeuVEpTzrPpUTT79z2cz4qaFgPRg==
-
 preferred-pm@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/preferred-pm/-/preferred-pm-3.0.3.tgz#1b6338000371e3edbce52ef2e4f65eb2e73586d6"
@@ -4138,11 +4019,6 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
-
-safe-json-utils@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/safe-json-utils/-/safe-json-utils-1.1.1.tgz#0e883874467d95ab914c3f511096b89bfb3e63b1"
-  integrity sha512-SAJWGKDs50tAbiDXLf89PDwt9XYkWyANFWVzn4dTXl5QyI8t2o/bW5/OJl3lvc2WVU4MEpTo9Yz5NVFNsp+OJQ==
 
 "safer-buffer@>= 2.1.2 < 3":
   version "2.1.2"
@@ -4634,11 +4510,6 @@ write-file-atomic@^4.0.2:
   dependencies:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.7"
-
-ws@^7.4.0:
-  version "7.5.10"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.10.tgz#58b5c20dc281633f6c19113f39b349bd8bd558d9"
-  integrity sha512-+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ==
 
 y18n@^5.0.5:
   version "5.0.8"
