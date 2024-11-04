@@ -52,7 +52,7 @@
     "rimraf": "~5.0",
     "ts-api-utils": "~0.0.44",
     "ts-jest": "~29.1",
-    "tslib": "~2.6",
+    "tslib": "~2.8",
     "typescript": "~5.1"
   },
   "peerDependencies": {
