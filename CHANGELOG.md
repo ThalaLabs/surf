@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.7.4
+
+### Patch Changes
+
+- 598f09f: Remove all leading signer of a entry function
+
 ## 1.7.3
 
 ### Patch Changes
