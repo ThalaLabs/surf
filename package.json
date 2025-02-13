@@ -50,7 +50,7 @@
     "prettier": "~3.3",
     "react": "^18.2.0",
     "rimraf": "~5.0",
-    "ts-api-utils": "~0.0.44",
+    "ts-api-utils": "~1.4.0",
     "ts-jest": "~29.1",
     "tslib": "~2.6",
     "typescript": "~5.1"
