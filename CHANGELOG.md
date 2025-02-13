@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.8.0
+
+### Minor Changes
+
+- 0c730c8: bump aptos ts-sdk
+
 ## 1.7.4
 
 ### Patch Changes
