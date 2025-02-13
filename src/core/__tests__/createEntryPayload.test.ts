@@ -200,6 +200,20 @@ describe('createEntryPayload', () => {
       typeArguments: [],
     });
   });
+
+  it('signer', async () => {
+    createEntryPayload(TEST_ABI, {
+      function: 'signer_as_input',
+      functionArguments: [true],
+      typeArguments: [],
+    });
+
+    createEntryPayload(TEST_ABI, {
+      function: 'two_signer_as_input',
+      functionArguments: [true],
+      typeArguments: [],
+    });
+  });
 });
 
 const TEST_ABI = {
@@ -214,6 +228,24 @@ const TEST_ABI = {
       is_view: false,
       generic_type_params: [],
       params: ['address', 'address'],
+      return: [],
+    },
+    {
+      name: 'signer_as_input',
+      visibility: 'public',
+      is_entry: true,
+      is_view: false,
+      generic_type_params: [],
+      params: ['&signer', 'bool'],
+      return: [],
+    },
+    {
+      name: 'two_signer_as_input',
+      visibility: 'public',
+      is_entry: true,
+      is_view: false,
+      generic_type_params: [],
+      params: ['&signer', '&signer', 'bool'],
       return: [],
     },
     {

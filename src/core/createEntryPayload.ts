@@ -41,10 +41,9 @@ export function createEntryPayload<
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const valArguments: any[] = payload.functionArguments as any[];
-  const abiArgs =
-    fnAbi.params[0] === '&signer'
-      ? (fnAbi.params as string[]).slice(1)
-      : (fnAbi.params as string[]);
+  const abiArgs = (fnAbi.params as string[]).slice(
+    fnAbi.params.findIndex((param) => param !== '&signer'),
+  );
 
   // Validations
   if (fnAbi === undefined)

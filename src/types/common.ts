@@ -6,9 +6,9 @@ export type AnyNumber = number | bigint | string;
 // need to care about those args. `signer` and `&signer` are required be in the front of the argument list.
 export type OmitSigner<T extends readonly string[]> = T extends readonly [
   '&signer' | 'signer',
-  ...infer Rest,
+  ...infer Rest extends readonly string[],
 ]
-  ? Rest
+  ? OmitSigner<Rest>
   : T;
 
 // Remove the inner type of a string.
