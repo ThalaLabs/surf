@@ -213,6 +213,12 @@ describe('createEntryPayload', () => {
       functionArguments: [true],
       typeArguments: [],
     });
+
+    createEntryPayload(TEST_ABI, {
+      function: 'only_signer_as_input',
+      functionArguments: [],
+      typeArguments: [],
+    });
   });
 });
 
@@ -228,6 +234,15 @@ const TEST_ABI = {
       is_view: false,
       generic_type_params: [],
       params: ['address', 'address'],
+      return: [],
+    },
+    {
+      name: 'only_signer_as_input',
+      visibility: 'public',
+      is_entry: true,
+      is_view: false,
+      generic_type_params: [],
+      params: ['&signer'],
       return: [],
     },
     {
