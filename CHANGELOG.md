@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.8.1
+
+### Patch Changes
+
+- 3d6e4dc: Fix a bug that makes the function unusable when there are zero input arguments.
+
 ## 1.8.0
 
 ### Minor Changes
