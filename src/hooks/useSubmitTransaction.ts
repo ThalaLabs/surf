@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import type { EntryPayload } from '../types/index.js';
 import { InputGenerateTransactionOptions } from '@aptos-labs/ts-sdk';
+// @ts-ignore
 import { useWallet as useInitiaWallet } from '@initia/react-wallet-widget';
 import { MsgExecute } from '@initia/initia.js';
 import { bcsEncoding } from '../utils/bcs.js';
