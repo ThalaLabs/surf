@@ -1,17 +1,13 @@
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { createEntryPayload } from './createEntryPayload.js';
-import type {
-  ABIRoot,
-  ABIWalletClient,
-  EntryPayload,
-} from '../types/index.js';
+import type { ABIRoot, ABIWalletClient, EntryPayload } from '../types/index.js';
 
 type Wallet = ReturnType<typeof useWallet>;
 
 export class WalletClient {
   private wallet: Wallet;
 
-  constructor({ wallet }: { wallet: Wallet; }) {
+  constructor({ wallet }: { wallet: Wallet }) {
     this.wallet = wallet;
   }
 
@@ -20,9 +16,10 @@ export class WalletClient {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     return await this.wallet.signAndSubmitTransaction({
-      sender: this.wallet.account?.address ?? "",
+      sender: this.wallet.account?.address ?? '',
       data: {
-        ...payload,
+        function: payload.function,
+        typeArguments: payload.typeArguments,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         functionArguments: payload.functionArguments.map((arg: any) => {
           if (Array.isArray(arg)) {
@@ -34,7 +31,7 @@ export class WalletClient {
             return arg;
           }
         }),
-      }
+      },
     });
   }
 
