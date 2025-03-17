@@ -21,6 +21,8 @@ import {
   UserTransactionResponse,
   WaitForTransactionOptions,
 } from '@aptos-labs/ts-sdk';
+import { RESTClient } from '@initia/initia.js';
+import { bcsEncoding } from '../utils/bcs.js';
 
 /**
  * Create a client to interact with Aptos smart contract.
@@ -31,15 +33,21 @@ import {
  * const client = createSurfClient(new Aptos());
  */
 export function createSurfClient<TABITable extends ABITable = DefaultABITable>(
-  aptosClient: Aptos,
+  aptosClient: Aptos | RESTClient,
 ): Client<TABITable> {
   return new Client<TABITable>(aptosClient);
 }
-export class Client<TABITable extends ABITable> {
-  private client: Aptos;
 
-  constructor(client: Aptos) {
-    this.client = client;
+export class Client<TABITable extends ABITable> {
+  private client?: Aptos;
+  private initiaClient?: RESTClient;
+
+  constructor(client: Aptos | RESTClient) {
+    if ('bank' in client && 'evm' in client) {
+      this.initiaClient = client as RESTClient;
+    } else {
+      this.client = client as Aptos;
+    }
   }
 
   /**
@@ -60,7 +68,56 @@ export class Client<TABITable extends ABITable> {
     payload: ViewPayload<TReturn>;
     options?: LedgerVersionArg;
   }): Promise<TReturn> {
-    return await this.client.view(args);
+    if (this.client) {
+      return await this.client.view(args);
+    } else if (this.initiaClient) {
+      // Extract module address, name and function from the payload function string
+      // Format: "0x1::module_name::function_name"
+      const functionParts = args.payload.function.split('::');
+      if (functionParts.length !== 3) {
+        throw new Error(`Invalid function format: ${args.payload.function}`);
+      }
+
+      if (!args.payload.functionArguments || !args.payload.typeArguments) {
+        throw new Error('No function arguments or type arguments provided');
+      }
+      if (!args.payload.abi) {
+        throw new Error('No ABI provided');
+      }
+
+      const [moduleAddress, moduleName, functionName] = functionParts;
+      if (!moduleAddress || !moduleName || !functionName) {
+        throw new Error('Invalid function format');
+      }
+
+      // Prepare BCS-encoded arguments
+      const bcsArgs: string[] = [];
+
+      // Process each argument based on its type from the ABI
+      for (let i = 0; i < args.payload.functionArguments.length; i++) {
+        const arg = args.payload.functionArguments[i];
+        const paramType = args.payload.abi.parameters[i];
+        if (!paramType) {
+          throw new Error('payload and abi mismatch');
+        }
+        const typeStr = paramType.toString();
+
+        bcsArgs.push(bcsEncoding(arg, typeStr));
+      }
+
+      // Call Initia's view function with the properly formatted parameters
+      const result = await this.initiaClient.move.viewFunction(
+        moduleAddress,
+        moduleName,
+        functionName,
+        args.payload.typeArguments.map((tag) => tag.toString()),
+        bcsArgs,
+      );
+
+      return [result] as TReturn;
+    } else {
+      throw new Error('No client available');
+    }
   }
 
   /**
@@ -87,24 +144,32 @@ export class Client<TABITable extends ABITable> {
     payload: EntryPayload;
     options?: WaitForTransactionOptions;
   }): Promise<CommittedTransactionResponse> {
-    const transaction = await this.client.transaction.build.simple({
-      sender: args.signer.accountAddress.toString(),
-      data: args.payload,
-    });
-
-    // Submit the transaction
-    const transactionRes =
-      await this.client.transaction.signAndSubmitTransaction({
-        signer: args.signer,
-        transaction,
+    if (this.client) {
+      const transaction = await this.client.transaction.build.simple({
+        sender: args.signer.accountAddress.toString(),
+        data: {
+          function: args.payload.function,
+          typeArguments: args.payload.typeArguments,
+          functionArguments: args.payload.functionArguments,
+        },
       });
 
-    // Wait for the transaction to finish
-    // throws an error if the tx fails or not confirmed after timeout
-    return await this.client.waitForTransaction({
-      transactionHash: transactionRes.hash,
-      options: args.options ?? {},
-    });
+      // Submit the transaction
+      const transactionRes =
+        await this.client.transaction.signAndSubmitTransaction({
+          signer: args.signer,
+          transaction,
+        });
+
+      // Wait for the transaction to finish
+      // throws an error if the tx fails or not confirmed after timeout
+      return await this.client.waitForTransaction({
+        transactionHash: transactionRes.hash,
+        options: args.options ?? {},
+      });
+    } else {
+      throw new Error('Not implemented');
+    }
   }
 
   /**
@@ -132,17 +197,25 @@ export class Client<TABITable extends ABITable> {
     sender: AccountAddressInput;
     payload: EntryPayload;
   }): Promise<UserTransactionResponse> {
-    const transaction = await this.client.transaction.build.simple({
-      sender: args.sender,
-      data: args.payload,
-    });
+    if (this.client) {
+      const transaction = await this.client.transaction.build.simple({
+        sender: args.sender,
+        data: {
+          function: args.payload.function,
+          typeArguments: args.payload.typeArguments,
+          functionArguments: args.payload.functionArguments,
+        },
+      });
 
-    return (
-      await this.client.transaction.simulate.simple({
-        signerPublicKey: args.publicKey,
-        transaction,
-      })
-    )[0]!;
+      return (
+        await this.client.transaction.simulate.simple({
+          signerPublicKey: args.publicKey,
+          transaction,
+        })
+      )[0]!;
+    } else {
+      throw new Error('Not implemented');
+    }
   }
 
   /**
@@ -158,14 +231,18 @@ export class Client<TABITable extends ABITable> {
     address: string,
     moduleName: string,
   ): Promise<T> {
-    // Fetches ABI fom address and module name for given client
-    // throws if inexistent module name in address for given client
-    return (
-      await this.client.getAccountModule({
-        accountAddress: address,
-        moduleName: moduleName,
-      })
-    ).abi as unknown as T;
+    if (this.client) {
+      // Fetches ABI fom address and module name for given client
+      // throws if inexistent module name in address for given client
+      return (
+        await this.client.getAccountModule({
+          accountAddress: address,
+          moduleName: moduleName,
+        })
+      ).abi as unknown as T;
+    } else {
+      throw new Error('Not implemented');
+    }
   }
 
   /**
@@ -265,13 +342,25 @@ export class Client<TABITable extends ABITable> {
             }
 
             const account: AccountAddressInput = args[0].account;
-            return this.client.getAccountResource({
-              accountAddress: account,
-              resourceType: `${address ?? abi.address}::${abi.name}::${structName}`,
-              options: {
-                ledgerVersion: args[0].ledgerVersion,
-              },
-            });
+            if (this.client) {
+              return this.client.getAccountResource({
+                accountAddress: account,
+                resourceType: `${address ?? abi.address}::${abi.name}::${structName}`,
+                options: {
+                  ledgerVersion: args[0].ledgerVersion,
+                },
+              });
+            } else if (this.initiaClient) {
+              return this.initiaClient.move
+                .resource(
+                  account.toString(),
+                  `${address ?? abi.address}::${abi.name}::${structName}`,
+                  {},
+                )
+                .then((res) => res.data);
+            } else {
+              throw new Error('No client available');
+            }
           };
         },
       }),

@@ -2,7 +2,7 @@
  * The types for the `Client` class.
  */
 
-import { ABIRoot } from '../abi.js';
+import { ABIFunction, ABIRoot } from '../abi.js';
 import {
   EntryFunctionName,
   ExtractArgsTypeOmitSigner,
@@ -10,7 +10,13 @@ import {
   ViewFunctionName,
   ExtractArgsType,
 } from '../extractor/functionExtractor.js';
-import { EntryFunctionArgumentTypes, MoveFunctionId, SimpleEntryFunctionArgumentTypes, TypeTag, ViewFunctionABI } from '@aptos-labs/ts-sdk';
+import {
+  EntryFunctionArgumentTypes,
+  MoveFunctionId,
+  SimpleEntryFunctionArgumentTypes,
+  TypeTag,
+  ViewFunctionABI,
+} from '@aptos-labs/ts-sdk';
 
 export type TransactionResponse = {
   hash: string;
@@ -22,7 +28,10 @@ export type TransactionResponse = {
 export type EntryPayload = {
   function: MoveFunctionId;
   typeArguments: Array<string>;
-  functionArguments: Array<EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes>;
+  functionArguments: Array<
+    EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes
+  >;
+  abi?: ABIFunction;
 };
 
 /**
@@ -57,6 +66,8 @@ export type ViewRequestPayload<
 export type ViewPayload<_TReturn> = {
   function: MoveFunctionId;
   typeArguments?: Array<TypeTag | string>;
-  functionArguments?:Array<EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes>;
-  abi?: ViewFunctionABI
+  functionArguments?: Array<
+    EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes
+  >;
+  abi?: ViewFunctionABI;
 };
