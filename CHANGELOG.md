@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.0
+
+### Minor Changes
+
+- 6a51aed: Partially support Initia
+
 ## 1.8.1
 
 ### Patch Changes
