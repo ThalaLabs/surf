@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.1
+
+### Patch Changes
+
+- e6dfbfd: Fix the inconsistency in the return type of the Initia view function.
+
 ## 1.9.0
 
 ### Minor Changes
