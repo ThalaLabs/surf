@@ -114,7 +114,9 @@ export class Client<TABITable extends ABITable> {
         bcsArgs,
       );
 
-      return [result] as TReturn;
+      return args.payload.abi.returnTypes.length === 1
+        ? ([result] as TReturn)
+        : (result as TReturn);
     } else {
       throw new Error('No client available');
     }
