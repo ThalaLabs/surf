@@ -15,14 +15,14 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@aptos-connect/wallet-adapter-plugin@^2.3.2":
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-adapter-plugin/-/wallet-adapter-plugin-2.3.4.tgz#e7e3524bdde20cddaa7e1a4291826e43a89ec39f"
-  integrity sha512-YTV7pSpzv5tx97G5suMnDplMMQYDM0VfpP1hQjEn8jLkw6I+hNDxRfINL1/k3mp+jm0TmghmNUiFYHFuVSS6wg==
+"@aptos-connect/wallet-adapter-plugin@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-adapter-plugin/-/wallet-adapter-plugin-2.4.1.tgz#1f99d10a0205f4c1b681e5418b12ad5d759e453e"
+  integrity sha512-jFuOEtnNWvi8VjvrXrNFp4iI2dci8Jv0l1FIuC5khMZKj2sDHLNF1dbZtcXNTRbD32KDrzl0Lngi42K0gReX8Q==
   dependencies:
-    "@aptos-connect/wallet-api" "^0.1.6"
+    "@aptos-connect/wallet-api" "^0.1.9"
     "@identity-connect/crypto" "^0.2.5"
-    "@identity-connect/dapp-sdk" "^0.10.2"
+    "@identity-connect/dapp-sdk" "^0.10.4"
 
 "@aptos-connect/wallet-api@^0.1.6":
   version "0.1.7"
@@ -31,12 +31,20 @@
   dependencies:
     "@identity-connect/api" "^0.7.0"
 
-"@aptos-connect/web-transport@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@aptos-connect/web-transport/-/web-transport-0.1.2.tgz#1663aed00d65e120325eb0f9493a6321e9e1fe2a"
-  integrity sha512-PPSF1fJPoFxUG/iJSLUuh6cS6TZm7A5kZNqzvPVU1n9IKBKaUua9jqwEbqwILvSHnRIAPWzbP10t3zP5Wa17EQ==
+"@aptos-connect/wallet-api@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@aptos-connect/wallet-api/-/wallet-api-0.1.9.tgz#45fd74e11186c007c3e705c429cef2d3c2d88566"
+  integrity sha512-Olxvg/Jpf426uiEIUbxFuoRluhX3dja9EUqklY29yw/wOY7QDFv0+Es71xp8R2lgaU3gPFJxUwko1Jwz0XjswQ==
   dependencies:
-    "@aptos-connect/wallet-api" "^0.1.6"
+    "@aptos-labs/wallet-standard" "^0.3.0"
+    "@identity-connect/api" "^0.7.0"
+
+"@aptos-connect/web-transport@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@aptos-connect/web-transport/-/web-transport-0.1.3.tgz#eb4176a26caf1106c577f3f7840ff07faa0c0530"
+  integrity sha512-XgQqBkXMqTdbD3+udTGpQQtLYyPBzyVGvdOdPi6Yk6/DY61caFryT28e+Ibg3BkPwF6OcfwFf5QkBTaMWFT4LA==
+  dependencies:
+    "@aptos-connect/wallet-api" "^0.1.9"
     uuid "^9.0.1"
 
 "@aptos-labs/aptos-cli@^0.1.2":
@@ -130,25 +138,25 @@
     eventemitter3 "^5.0.1"
     form-data "^4.0.0"
 
-"@aptos-labs/wallet-adapter-core@4.24.0":
-  version "4.24.0"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-core/-/wallet-adapter-core-4.24.0.tgz#4b83af405587f1e00dffbba58f192a27abf1c792"
-  integrity sha512-Ve7kcUAO8vMh2QlxJ5oXk4dfhaBKQALR5y1oKWEFNxTd3BoMaYogHpIxSXa+4uSe2M+MsK0UEGfu7nvrqKMVZw==
+"@aptos-labs/wallet-adapter-core@5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-core/-/wallet-adapter-core-5.1.3.tgz#b734e573d4fc29af8dc9997a051450d668ae562d"
+  integrity sha512-GVXECJqJQcpWYSbDJMWTQ/BSXOiezxUFS0bkI0d9DWiwDG090NXu/QaUY1oPmhlVPjZTftEhhsxH6zj6tVdhew==
   dependencies:
-    "@aptos-connect/wallet-adapter-plugin" "^2.3.2"
-    "@aptos-labs/wallet-standard" "^0.2.0"
+    "@aptos-connect/wallet-adapter-plugin" "2.4.1"
+    "@aptos-labs/wallet-standard" "^0.3.0"
     "@atomrigslab/aptos-wallet-adapter" "^0.1.20"
     "@mizuwallet-sdk/aptos-wallet-adapter" "^0.3.2"
     buffer "^6.0.3"
     eventemitter3 "^4.0.7"
     tweetnacl "^1.0.3"
 
-"@aptos-labs/wallet-adapter-react@^3.7.11":
-  version "3.7.11"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-3.7.11.tgz#675ee8acd2ba4b6008f492e4d9d21804a5254335"
-  integrity sha512-ylENqv0E3rWmkEn8lzAHzjYdO2SqhCHbTnsM8X3Nq0T4yekzHCMuwuIWs9uF2iboeI7p7dUv6PmznDZQPCBUTg==
+"@aptos-labs/wallet-adapter-react@^4.1.4":
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-adapter-react/-/wallet-adapter-react-4.1.4.tgz#6bef43598a9f9b128c01e3f40ad6ccd5f140d1a5"
+  integrity sha512-YOgvXM3bKg7W1iWgfKhdONX81PAYMoy2mjYfIlO1baN6B4tmvqeSWifFOWbRmFcnIpy6r9/f6Gcxb9DAyEHw0A==
   dependencies:
-    "@aptos-labs/wallet-adapter-core" "4.24.0"
+    "@aptos-labs/wallet-adapter-core" "5.1.3"
     "@radix-ui/react-slot" "^1.0.2"
 
 "@aptos-labs/wallet-standard@0.0.11":
@@ -164,10 +172,10 @@
   resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.1.0-ms.1.tgz#3b6e218c22ceb463862fa6133fac0f424bf26389"
   integrity sha512-3aWEmdqMcll8D2lzhBZuYUW1o49TDpqw4QRAkHk00tSC3SwAkuukoW8g/M9lB5nHFxaX7UzuxeaYv8l6/mhJVQ==
 
-"@aptos-labs/wallet-standard@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.2.0.tgz#d0f9d422d63ac93a02c2eb3157090434ded77379"
-  integrity sha512-4aoO4MlqzrW+CtO83MwbHMMtu91DL5B7YKRvhJbRnVB4R+QCOwBI/aQTkNZbKBDfOplLlqWTTl6Li0l6e02YLQ==
+"@aptos-labs/wallet-standard@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@aptos-labs/wallet-standard/-/wallet-standard-0.3.0.tgz#e3e6614fba7ac5503f4110728a1e6d0e6ebfd16a"
+  integrity sha512-M0Luh2hWW0BlSHv90YytOJmbE5VeHR/w8ddd7BO8N8jZ2WylKW6AHdkn6oUi1Ft9yb2dt3Qp+T/Sd2JFoRGyzw==
 
 "@atomrigslab/aptos-wallet-adapter@^0.1.20":
   version "0.1.21"
@@ -781,13 +789,13 @@
     ed2curve "^0.3.0"
     tweetnacl "^1.0.3"
 
-"@identity-connect/dapp-sdk@^0.10.2":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/@identity-connect/dapp-sdk/-/dapp-sdk-0.10.3.tgz#60695ccc057f476a7f8e141d5e6bfc13310e8d82"
-  integrity sha512-EunHxy8emZEOurpANL/rrB7n5iALGStpkCL01ir6VPVB/Hj6GnEn0WXvXr7ZWTTYPQ/8w4FXUUHclRNSTRcg9A==
+"@identity-connect/dapp-sdk@^0.10.4":
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/@identity-connect/dapp-sdk/-/dapp-sdk-0.10.4.tgz#3b96e091eb9143f16fd71d9a083f3cc187c844b3"
+  integrity sha512-wC1yh0K2EbmIG6oCN7+KRaVXHBUKasuBsm2z/Lq1x5zGJNtFtg6pXQl087ngHixpSCPINx5QqZXd9uXI/oqSmQ==
   dependencies:
-    "@aptos-connect/wallet-api" "^0.1.6"
-    "@aptos-connect/web-transport" "^0.1.2"
+    "@aptos-connect/wallet-api" "^0.1.9"
+    "@aptos-connect/web-transport" "^0.1.3"
     "@identity-connect/api" "^0.7.0"
     "@identity-connect/crypto" "^0.2.5"
     "@identity-connect/wallet-api" "^0.1.2"
