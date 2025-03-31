@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.2
+
+### Patch Changes
+
+- 119f0ed: fix entry function abi type
+
 ## 1.9.1
 
 ### Patch Changes
