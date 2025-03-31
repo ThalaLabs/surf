@@ -806,10 +806,10 @@
   dependencies:
     browser-headers "^0.4.1"
 
-"@initia/initia.js@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@initia/initia.js/-/initia.js-1.0.0.tgz#0043bbbd064cfb2d4cccb1ece93a0b2fb52eaf20"
-  integrity sha512-A1JYv8Vxec3COEy65HFHf8QDJYVVxIBU3MyiysfK9RJLdWcRwNTRP7V407bHUeQaQHB4oE1M9BqumPxFuOmioQ==
+"@initia/initia.js@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@initia/initia.js/-/initia.js-1.0.4.tgz#77ae30a99b069d6aa9b6b4131b7629feb44d0c1c"
+  integrity sha512-oFfj8heWUFxK/OFAAa8A9NzcBB3M7r6hG1lMLHwGbMLPRbhK4iVY/V1FxcBjspKAuLNsdsb/k+Oc/JUl0iyixQ==
   dependencies:
     "@bitcoinerlab/secp256k1" "^1.1.1"
     "@initia/initia.proto" "^0.2.6"
