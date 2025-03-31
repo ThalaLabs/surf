@@ -2,7 +2,7 @@
  * The types for the `Client` class.
  */
 
-import { ABIFunction, ABIRoot } from '../abi.js';
+import { ABIRoot } from '../abi.js';
 import {
   EntryFunctionName,
   ExtractArgsTypeOmitSigner,
@@ -11,6 +11,7 @@ import {
   ExtractArgsType,
 } from '../extractor/functionExtractor.js';
 import {
+  EntryFunctionABI,
   EntryFunctionArgumentTypes,
   MoveFunctionId,
   SimpleEntryFunctionArgumentTypes,
@@ -31,7 +32,7 @@ export type EntryPayload = {
   functionArguments: Array<
     EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes
   >;
-  abi?: ABIFunction;
+  abi?: EntryFunctionABI;
 };
 
 /**

@@ -23,6 +23,11 @@
       "types": "./build/types/hooks/index.d.ts",
       "import": "./build/esm/hooks/index.js",
       "default": "./build/cjs/hooks/index.js"
+    },
+    "./hooks/useInitiaSubmitTransaction": {
+      "types": "./build/types/hooks/useInitiaSubmitTransaction.d.ts",
+      "import": "./build/esm/hooks/useInitiaSubmitTransaction.js",
+      "default": "./build/cjs/hooks/useInitiaSubmitTransaction.js"
     }
   },
   "typesVersions": {
@@ -106,6 +111,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@initia/initia.js": "^1.0.0"
+    "@initia/initia.js": "^1.0.4"
   }
 }

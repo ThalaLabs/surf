@@ -4,6 +4,13 @@ import type {
   EntryRequestPayload,
 } from '../types/index.js';
 import { EntryFunctionName } from '../types/extractor/functionExtractor.js';
+import { ABIFunction } from '../types/abi.js';
+import {
+  EntryFunctionABI,
+  MoveFunctionGenericTypeParam,
+  TypeTag,
+  parseTypeTag,
+} from '@aptos-labs/ts-sdk';
 
 /**
  * Create a payload for calling a entry function.
@@ -63,6 +70,31 @@ export function createEntryPayload<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     functionArguments: payload.functionArguments as any,
     function: `${payload.address ?? abi.address}::${abi.name}::${payload.function}`,
-    abi: fnAbi,
+    abi: constructEntryAbiObj(fnAbi),
+  };
+}
+
+function constructEntryAbiObj(abi: ABIFunction): EntryFunctionABI {
+  // Non-view functions can't be used
+  if (!abi.is_view) {
+    throw new Error(`not an view function`);
+  }
+
+  // Type tag parameters for the function
+  const params: TypeTag[] = [];
+  for (let i = 0; i < abi.params.length; i += 1) {
+    params.push(parseTypeTag(abi.params[i]!, { allowGenerics: true }));
+  }
+
+  // The return types of the view function
+  const returnTypes: TypeTag[] = [];
+  for (let i = 0; i < abi.return.length; i += 1) {
+    returnTypes.push(parseTypeTag(abi.return[i]!, { allowGenerics: true }));
+  }
+
+  return {
+    typeParameters:
+      abi.generic_type_params as Array<MoveFunctionGenericTypeParam>,
+    parameters: params,
   };
 }
