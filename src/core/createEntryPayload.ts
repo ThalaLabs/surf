@@ -76,8 +76,8 @@ export function createEntryPayload<
 
 function constructEntryAbiObj(abi: ABIFunction): EntryFunctionABI {
   // Non-view functions can't be used
-  if (!abi.is_view) {
-    throw new Error(`not an view function`);
+  if (!abi.is_entry) {
+    throw new Error(`not an entry function`);
   }
 
   // Type tag parameters for the function
