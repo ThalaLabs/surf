@@ -28,6 +28,11 @@
       "types": "./build/types/hooks/useInitiaSubmitTransaction.d.ts",
       "import": "./build/esm/hooks/useInitiaSubmitTransaction.js",
       "default": "./build/cjs/hooks/useInitiaSubmitTransaction.js"
+    },
+    "./abi": {
+      "types": "./build/types/abi/index.d.ts",
+      "import": "./build/esm/abi/index.js",
+      "default": "./build/cjs/abi/index.js"
     }
   },
   "typesVersions": {
