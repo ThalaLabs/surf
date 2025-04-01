@@ -22,33 +22,33 @@ export type EntryFunctionName<T extends ABIRoot> = EntryFunction<T>['name'];
  * Extract the return type of a function from ABI with function name.
  */
 export type ExtractReturnType<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = ConvertReturns<ExtractMoveReturnType<T, TFuncName>>;
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = ConvertReturns<Abi, ExtractMoveReturnType<Abi, TFuncName>>;
 
 /**
  * Extract the input arguments type of a function from ABI with function name.
  */
 export type ExtractArgsType<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = ConvertArgs<ExtractMoveArgsType<T, TFuncName>>;
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = ConvertArgs<Abi, ExtractMoveArgsType<Abi, TFuncName>>;
 
 /**
  * Extract the input arguments type of a function from ABI with function name, but omit the signer.
  */
 export type ExtractArgsTypeOmitSigner<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = ConvertArgs<OmitSigner<ExtractMoveArgsType<T, TFuncName>>>;
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = ConvertArgs<Abi, OmitSigner<ExtractMoveArgsType<Abi, TFuncName>>>;
 
 /**
  * Extract the input generic arguments type of a function from ABI with function name.
  */
 export type ExtractGenericArgsType<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = ConvertGenerics<ExtractMoveGenericParamsType<T, TFuncName>>;
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = ConvertGenerics<ExtractMoveGenericParamsType<Abi, TFuncName>>;
 
 /**
  * Internal
@@ -66,21 +66,21 @@ type EntryFunction<T extends ABIRoot> = Extract<
 >;
 
 type ExtractFunction<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = Extract<Function<T>, { name: TFuncName }>;
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = Extract<Function<Abi>, { name: TFuncName }>;
 
 type ExtractMoveReturnType<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = ExtractFunction<T, TFuncName>['return'];
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = ExtractFunction<Abi, TFuncName>['return'];
 
 type ExtractMoveArgsType<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = ExtractFunction<T, TFuncName>['params'];
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = ExtractFunction<Abi, TFuncName>['params'];
 
 type ExtractMoveGenericParamsType<
-  T extends ABIRoot,
-  TFuncName extends FunctionName<T>,
-> = ExtractFunction<T, TFuncName>['generic_type_params'];
+  Abi extends ABIRoot,
+  TFuncName extends FunctionName<Abi>,
+> = ExtractFunction<Abi, TFuncName>['generic_type_params'];
