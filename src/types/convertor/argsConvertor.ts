@@ -3,8 +3,12 @@
  * for input arguments of view function or entry function.
  */
 
-import { AnyNumber, UnknownStruct } from '../common.js';
-import { MoveNonStructTypes, MovePrimitive } from '../moveTypes.js';
+import { UnknownStruct } from '../common.js';
+import {
+  MoveNonStructTypes,
+  MovePrimitive,
+  MovePrimitivesMap,
+} from '../moveTypes.js';
 
 /**
  * Convert an array of input arguments type.
@@ -27,25 +31,7 @@ type ConvertArgType<TMoveType extends string> =
       UnknownStruct<TMoveType>;
 
 type ConvertPrimitiveArgType<TMoveType extends MovePrimitive> =
-  TMoveType extends 'bool'
-    ? boolean
-    : TMoveType extends 'u8'
-      ? number
-      : TMoveType extends 'u16'
-        ? number
-        : TMoveType extends 'u32'
-          ? number
-          : TMoveType extends 'u64'
-            ? AnyNumber
-            : TMoveType extends 'u128'
-              ? AnyNumber
-              : TMoveType extends 'u256'
-                ? AnyNumber
-                : TMoveType extends 'address'
-                  ? `0x${string}`
-                  : TMoveType extends '0x1::string::String'
-                    ? string
-                    : never;
+  MovePrimitivesMap[TMoveType];
 
 type ConvertNonStructArgType<TMoveType extends MoveNonStructTypes> =
   TMoveType extends MovePrimitive
