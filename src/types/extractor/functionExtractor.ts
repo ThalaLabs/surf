@@ -32,7 +32,7 @@ export type ExtractReturnType<
 export type ExtractArgsType<
   Abi extends ABIRoot,
   TFuncName extends FunctionName<Abi>,
-> = ConvertArgs<ExtractMoveArgsType<Abi, TFuncName>>;
+> = ConvertArgs<Abi, ExtractMoveArgsType<Abi, TFuncName>>;
 
 /**
  * Extract the input arguments type of a function from ABI with function name, but omit the signer.
@@ -40,7 +40,7 @@ export type ExtractArgsType<
 export type ExtractArgsTypeOmitSigner<
   Abi extends ABIRoot,
   TFuncName extends FunctionName<Abi>,
-> = ConvertArgs<OmitSigner<ExtractMoveArgsType<Abi, TFuncName>>>;
+> = ConvertArgs<Abi, OmitSigner<ExtractMoveArgsType<Abi, TFuncName>>>;
 
 /**
  * Extract the input generic arguments type of a function from ABI with function name.

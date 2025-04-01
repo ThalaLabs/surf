@@ -22,6 +22,16 @@ export type MovePrimitivesMap = {
   u128: AnyNumber;
   u256: AnyNumber;
 
+  // Vector types
+  'vector<u8>': string | number[] | Uint8Array;
+  'vector<u16>': number[];
+  'vector<u64>': AnyNumber[];
+  'vector<u128>': AnyNumber[];
+  'vector<u256>': AnyNumber[];
+  'vector<bool>': boolean[];
+  'vector<address>': `0x${string}`[];
+  'vector<0x1::string::String>': MoveNonStructTypes[];
+
   bool: boolean;
 };
 export type MovePrimitive = keyof MovePrimitivesMap;

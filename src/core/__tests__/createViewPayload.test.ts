@@ -1,13 +1,16 @@
+import { parseTypeTag } from '@aptos-labs/ts-sdk';
 import { COIN_ABI } from '../../abi/coin';
+import { ABIRoot } from '../../types';
+import { MovePrimitive } from '../../types/moveTypes';
 import { createViewPayload } from '../createViewPayload';
 
 // TODO: add struct, vector of vector
 describe('createViewPayload', () => {
   // Act before assertions
-  beforeAll(async () => { });
+  beforeAll(async () => {});
 
   // Teardown (cleanup) after assertions
-  afterAll(() => { });
+  afterAll(() => {});
 
   it('basic type checking', async () => {
     // no need to run, type check only.
@@ -113,7 +116,7 @@ describe('createViewPayload', () => {
     "returnTypes": [],
     "typeParameters": [],
   },
-  "function": "0x123::test::bool_as_input",
+  "function": "0x1::test::bool_as_input",
   "functionArguments": [
     true,
     false,
@@ -154,7 +157,7 @@ describe('createViewPayload', () => {
     "returnTypes": [],
     "typeParameters": [],
   },
-  "function": "0x123::test::address_as_input",
+  "function": "0x1::test::address_as_input",
   "functionArguments": [
     "0x1",
     "0x2",
@@ -199,7 +202,7 @@ describe('createViewPayload', () => {
     "returnTypes": [],
     "typeParameters": [],
   },
-  "function": "0x123::test::number_as_input",
+  "function": "0x1::test::number_as_input",
   "functionArguments": [
     1,
     2,
@@ -249,7 +252,7 @@ describe('createViewPayload', () => {
     "returnTypes": [],
     "typeParameters": [],
   },
-  "function": "0x123::test::vector_as_input",
+  "function": "0x1::test::vector_as_input",
   "functionArguments": [
     [
       1,
@@ -278,10 +281,33 @@ describe('createViewPayload', () => {
 }
 `);
   });
+  it('object', async () => {
+    const payload = createViewPayload(TEST_ABI, {
+      function: 'object_as_input',
+      functionArguments: [
+        {
+          decimals: 1,
+          symbol: 'Aptos',
+        },
+      ],
+      typeArguments: [],
+    });
+
+    expect(payload.abi).toBeTruthy();
+    expect(payload.function).toBe('0x1::test::object_as_input');
+    expect(payload.functionArguments).toStrictEqual([
+      { decimals: 1, symbol: 'Aptos' },
+    ]);
+    expect(payload.abi?.parameters).toStrictEqual([
+      parseTypeTag('0x1::test::TestStruct'),
+    ]);
+    expect(payload.abi?.returnTypes).toStrictEqual([]);
+    expect(payload.abi?.typeParameters).toStrictEqual([]);
+  });
 });
 
 const TEST_ABI = {
-  address: '0x123',
+  address: '0x1',
   name: 'test',
   friends: [],
   exposed_functions: [
@@ -327,6 +353,36 @@ const TEST_ABI = {
       ],
       return: [],
     },
+    {
+      name: 'object_as_input',
+      visibility: 'public',
+      is_entry: false,
+      is_view: true,
+      generic_type_params: [],
+      params: ['0x1::test::TestStruct'],
+      return: [],
+    },
   ],
-  structs: [],
-} as const;
+  structs: [
+    {
+      abilities: ['copy', 'drop'],
+      name: 'TestStruct',
+      fields: [
+        {
+          name: 'symbol',
+          type: '0x1::string::String' satisfies MovePrimitive,
+        },
+        {
+          name: 'decimals',
+          type: 'u8' satisfies MovePrimitive,
+        },
+        // {
+        //   name: 'addressList',
+        //   type: 'vector<address>' satisfies MovePrimitive,
+        // },
+      ],
+      generic_type_params: [],
+      is_native: false,
+    },
+  ],
+} as const satisfies ABIRoot;
