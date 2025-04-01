@@ -286,8 +286,9 @@ describe('createViewPayload', () => {
       function: 'object_as_input',
       functionArguments: [
         {
-          decimals: 1,
+          decimals: 8,
           symbol: 'Aptos',
+          addressList: ['0x1', '0x2'],
         },
       ],
       typeArguments: [],
@@ -296,10 +297,10 @@ describe('createViewPayload', () => {
     expect(payload.abi).toBeTruthy();
     expect(payload.function).toBe('0x1::test::object_as_input');
     expect(payload.functionArguments).toStrictEqual([
-      { decimals: 1, symbol: 'Aptos' },
+      { decimals: 8, symbol: 'Aptos', addressList: ['0x1', '0x2'] },
     ]);
     expect(payload.abi?.parameters).toStrictEqual([
-      parseTypeTag('0x1::test::TestStruct'),
+      parseTypeTag('0x1::test::TestStruct'), //On abi the paramater its parsed as type tag for generation.
     ]);
     expect(payload.abi?.returnTypes).toStrictEqual([]);
     expect(payload.abi?.typeParameters).toStrictEqual([]);
@@ -376,10 +377,10 @@ const TEST_ABI = {
           name: 'decimals',
           type: 'u8' satisfies MovePrimitive,
         },
-        // {
-        //   name: 'addressList',
-        //   type: 'vector<address>' satisfies MovePrimitive,
-        // },
+        {
+          name: 'addressList',
+          type: 'vector<address>' satisfies MovePrimitive,
+        },
       ],
       generic_type_params: [],
       is_native: false,
