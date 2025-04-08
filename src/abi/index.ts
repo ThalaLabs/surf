@@ -7,3 +7,4 @@ export { INITIA_ACCOUNT_ABI } from './initia_account.js';
 export { INITIA_COIN_ABI } from './initia_coin.js';
 export { TABLE_ABI } from './table.js';
 export { APTOS_COIN_ABI } from './aptos_coin.js';
+export { FUNGIBLE_ASSET } from './fungible_asset.js';
