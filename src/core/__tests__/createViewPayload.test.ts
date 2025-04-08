@@ -285,6 +285,8 @@ describe('createViewPayload', () => {
     const payload = createViewPayload(TEST_ABI, {
       function: 'object_as_input',
       functionArguments: [
+        '0xAddressType',
+        [0, 1, 2],
         {
           decimals: 8,
           symbol: 'Aptos',
@@ -360,7 +362,7 @@ const TEST_ABI = {
       is_entry: false,
       is_view: true,
       generic_type_params: [],
-      params: ['0x1::test::TestStruct'],
+      params: ['address', 'vec<u8>', '0x1::test::TestStruct'],
       return: [],
     },
   ],

@@ -94,7 +94,7 @@ describe('call view functions', () => {
       // struct FixedPoint64 has copy, drop, store { value: u128 }
       const result = await clientMain.view({ payload: viewPayload });
 
-      result[0][0]!.inner;
+      result[0][0];
 
       // @ts-expect-error
       result[0][0].abc;

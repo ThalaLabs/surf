@@ -14,6 +14,7 @@ import {
   MoveNonStructTypes,
   MovePrimitive,
   MovePrimitivesMap,
+  MoveVector,
 } from '../moveTypes.js';
 
 /**
@@ -38,10 +39,12 @@ type ConvertArgType<
 > = TMoveType extends MoveNonStructTypes
   ? // it's a non-struct type
     ConvertNonStructArgType<ABI, TMoveType>
-  : // Verify if struct is a valid string, example 0x1::object_name::StructName and infer only StructName to a new type for validation
-    TMoveType extends ExtractStructName<ABI, infer StructName>
-    ? ConvertedStruct<ABI, ExtractStruct<ABI, StructName>>
-    : UnknownStruct<TMoveType>;
+  : TMoveType extends MoveVector<infer TInner>
+    ? ConvertArgType<ABI, TInner>[] // If it is a NON primitive vector, convert the inner type to argType[]
+    : // Verify if struct is a valid string, example 0x1::object_name::StructName and infer only StructName to a new type for validation
+      TMoveType extends ExtractStructName<ABI, infer StructName>
+      ? ConvertedStruct<ABI, ExtractStruct<ABI, StructName>>
+      : UnknownStruct<TMoveType>;
 
 type ConvertPrimitiveArgType<TMoveType extends MovePrimitive> =
   MovePrimitivesMap[TMoveType];

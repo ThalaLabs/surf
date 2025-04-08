@@ -6,8 +6,7 @@ import { AnyNumber } from './common.js';
 
 export type MoveNonStructTypes =
   | MovePrimitive
-  | MoveVector
-  | MoveObject
+  // | MoveObject
   | MoveOption;
 
 export type MovePrimitivesMap = {
@@ -36,7 +35,7 @@ export type MovePrimitivesMap = {
 };
 export type MovePrimitive = keyof MovePrimitivesMap;
 
-export type MoveVector = `vector<${string}>`;
+export type MoveVector<Inner extends string = string> = `vector<${Inner}>`;
 
 export type MoveObject = `0x1::object::Object<${string}>`;
 
