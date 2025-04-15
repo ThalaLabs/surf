@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.3
+
+### Patch Changes
+
+- a930aa9: refactor abi type conversion
+
 ## 1.9.2
 
 ### Patch Changes
