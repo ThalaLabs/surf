@@ -10,6 +10,7 @@ import {
   MoveOption,
   MovePrimitive,
   MovePrimitiveMap,
+  MoveVector,
 } from '../moveTypes.js';
 import { ConvertStructFieldOptionType } from './structConvertor.js';
 
@@ -29,8 +30,10 @@ export type ConvertReturns<T extends readonly string[]> = T extends readonly [
 type ConvertReturnType<TMoveType extends string> =
   TMoveType extends MovePrimitive
     ? MovePrimitiveMap<string>[TMoveType]
-    : TMoveType extends MoveObject
-      ? { inner: `0x${string}` }
-      : TMoveType extends MoveOption<infer TInner>
-        ? ConvertStructFieldOptionType<DefaultABITable, TInner>
-        : UnknownStruct<TMoveType>;
+    : TMoveType extends MoveVector<infer TInner>
+      ? ConvertReturnType<TInner>[]
+      : TMoveType extends MoveObject
+        ? { inner: `0x${string}` }
+        : TMoveType extends MoveOption<infer TInner>
+          ? ConvertStructFieldOptionType<DefaultABITable, TInner>
+          : UnknownStruct<TMoveType>;
