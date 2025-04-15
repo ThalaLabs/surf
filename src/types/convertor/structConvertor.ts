@@ -7,7 +7,11 @@ import {
   ExtractStructType,
   ResourceStructName,
 } from '../extractor/structExtractor.js';
-import { MoveNonStructTypes, MovePrimitive } from '../moveTypes.js';
+import {
+  MoveNonStructTypes,
+  MovePrimitive,
+  MovePrimitivesMap,
+} from '../moveTypes.js';
 
 // Convert a struct field Move type to a TypeScript type
 export type ConvertStructFieldType<
@@ -19,35 +23,12 @@ export type ConvertStructFieldType<
   : // it's a struct type
     ConvertStructFieldStructType<TABITable, TMoveType>;
 
-/**
- * Internal
- */
-type ConvertPrimitiveStructField<T extends MovePrimitive> = T extends 'bool'
-  ? boolean
-  : T extends 'u8'
-    ? number
-    : T extends 'u16'
-      ? number
-      : T extends 'u32'
-        ? number
-        : T extends 'u64'
-          ? string
-          : T extends 'u128'
-            ? string
-            : T extends 'u256'
-              ? string
-              : T extends 'address'
-                ? `0x${string}`
-                : T extends '0x1::string::String'
-                  ? string
-                  : never;
-
 // Convert a struct field non-struct Move type to a TypeScript type
 type ConvertStructFieldNonStructType<
   TABITable extends ABITable,
   TMoveType extends MoveNonStructTypes,
 > = TMoveType extends MovePrimitive
-  ? ConvertPrimitiveStructField<TMoveType>
+  ? MovePrimitivesMap[TMoveType]
   : TMoveType extends `vector<${infer TInner}>`
     ? ConvertStructFieldType<TABITable, TInner>[]
     : TMoveType extends `0x1::object::Object<${string}>`
