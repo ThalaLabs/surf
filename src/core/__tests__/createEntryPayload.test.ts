@@ -183,7 +183,9 @@ describe('createEntryPayload', () => {
       createEntryPayload(TEST_ABI, {
         function: 'vector_of_vector_as_input',
         functionArguments: [
+          // @ts-expect-error invalid vector<vector<u8>>
           [[], 1, 2, '3'],
+          // @ts-expect-error invalid vector<vector<address>>
           [[], 1, 2, '3'],
         ],
         typeArguments: [],

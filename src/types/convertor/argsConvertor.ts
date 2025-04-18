@@ -8,6 +8,7 @@ import {
   MoveOption,
   MovePrimitive,
   MovePrimitiveMap,
+  MoveVector,
 } from '../moveTypes.js';
 
 /**
@@ -25,6 +26,8 @@ type ConvertArgType<TMoveType extends string> = TMoveType extends MovePrimitive
   ? MovePrimitiveMap<AnyNumber>[TMoveType]
   : TMoveType extends MoveObject
     ? `0x${string}`
-    : TMoveType extends MoveOption<infer TInner>
-      ? ConvertArgType<TInner> | undefined
-      : UnknownStruct<TMoveType>;
+    : TMoveType extends MoveVector<infer TInner>
+      ? ConvertArgType<TInner>[]
+      : TMoveType extends MoveOption<infer TInner>
+        ? ConvertArgType<TInner> | undefined
+        : UnknownStruct<TMoveType>;
