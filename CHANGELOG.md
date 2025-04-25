@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.4
+
+### Patch Changes
+
+- 0a2978b: Make initia package optional
+
 ## 1.9.3
 
 ### Patch Changes
