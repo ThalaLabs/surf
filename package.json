@@ -50,7 +50,7 @@
     "@types/node": "~18",
     "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "~5.62",
-    "@initia/react-wallet-widget": "^1.1.0",
+    "@initia/react-wallet-widget": "^1.5.9",
     "@typescript-eslint/parser": "~5.62",
     "eslint": "~8.57",
     "eslint-config-prettier": "~9.1",
@@ -70,7 +70,7 @@
     "@aptos-labs/ts-sdk": "^1.35.0",
     "@aptos-labs/wallet-adapter-react": "^3.7.11",
     "react": "^18.2.0",
-    "@initia/react-wallet-widget": "^1.1.0"
+    "@initia/react-wallet-widget": "^1.5.9"
   },
   "peerDependenciesMeta": {
     "@aptos-labs/wallet-adapter-react": {
@@ -116,6 +116,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@initia/initia.js": "^1.0.4"
+    "@initia/initia.js": "^1.0.8"
   }
 }

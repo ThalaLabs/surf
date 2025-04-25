@@ -46,9 +46,9 @@ export const useInitiaSubmitTransaction = () => {
         const [moduleAddress, moduleName, functionName] =
           payload.function.split('::');
         const fnAbi = payload.abi;
-        const nonSignerIndex = fnAbi.parameters.findIndex(
-          (param) => !param.isSigner(),
-        );
+        const nonSignerIndex = fnAbi.parameters.findIndex((param) => {
+          return !param.toString().includes('signer');
+        });
         const bcsArgs: string[] = [];
         for (let i = 0; i < payload.functionArguments.length; i++) {
           const arg = payload.functionArguments[i];

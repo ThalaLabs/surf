@@ -806,10 +806,10 @@
   dependencies:
     browser-headers "^0.4.1"
 
-"@initia/initia.js@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@initia/initia.js/-/initia.js-1.0.4.tgz#77ae30a99b069d6aa9b6b4131b7629feb44d0c1c"
-  integrity sha512-oFfj8heWUFxK/OFAAa8A9NzcBB3M7r6hG1lMLHwGbMLPRbhK4iVY/V1FxcBjspKAuLNsdsb/k+Oc/JUl0iyixQ==
+"@initia/initia.js@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@initia/initia.js/-/initia.js-1.0.8.tgz#5e2652af8d46cf1f0895f8d873373bfec759e096"
+  integrity sha512-fwpmaHu7ovtOrw2d+qLpInvW/SPdtlBHSTEH0/y3yoBL4F/FUqCo0byhSTMONTkLmKxg3WxB+C0GsRNjYLIzKA==
   dependencies:
     "@bitcoinerlab/secp256k1" "^1.1.1"
     "@initia/initia.proto" "^0.2.6"
@@ -850,10 +850,10 @@
     long "^5.2.3"
     protobufjs "^7.3.2"
 
-"@initia/react-wallet-widget@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@initia/react-wallet-widget/-/react-wallet-widget-1.1.0.tgz#62c98ba726d0da4b81d9ea13cbb2e74de025a3d8"
-  integrity sha512-MlJV0zTBWH1ymk4sJVQ6cjWW/9GoYWxRnfsrqnGwZFWO/pkwMloIpwr+SSSdYX46CME4JQMjO4QYYST36xdL0w==
+"@initia/react-wallet-widget@^1.5.9":
+  version "1.5.9"
+  resolved "https://registry.yarnpkg.com/@initia/react-wallet-widget/-/react-wallet-widget-1.5.9.tgz#1a78dbebe4d36d73c389e4a5dd316e6644614faf"
+  integrity sha512-xAyJLKVRifeLR7uj7J5diJqPcLyqwXRvQbUuFLj7uKkRVUGgENNCWshzRnm9n2bM7DoX+57363uACRaTeamUeg==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
