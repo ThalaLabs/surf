@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.5
+
+### Patch Changes
+
+- dd4d276: upgrade aptos wallet adapter
+
 ## 1.9.4
 
 ### Patch Changes
