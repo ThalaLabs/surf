@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.6
+
+### Patch Changes
+
+- 2fcc1ce: Bump aptos ts-sdk peer dependency version
+
 ## 1.9.5
 
 ### Patch Changes
