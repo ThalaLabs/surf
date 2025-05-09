@@ -22,7 +22,7 @@ export default function Home() {
   const wallet = useWallet();
   useEffect(() => {
     if (!wallet.connected) {
-      wallet.connect(wallet.wallets?.find((w) => w.name === 'Petra')?.name!);
+      wallet.connect('Petra');
     }
   }, []);
 
