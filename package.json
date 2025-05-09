@@ -43,8 +43,8 @@
     }
   },
   "devDependencies": {
-    "@aptos-labs/ts-sdk": "^1.35.0",
-    "@aptos-labs/wallet-adapter-react": "^6.0.0",
+    "@aptos-labs/ts-sdk": "^2.0.0",
+    "@aptos-labs/wallet-adapter-react": "^6.0.2",
     "@changesets/cli": "^2.26.1",
     "@types/jest": "~29.5",
     "@types/node": "~18",
@@ -67,8 +67,8 @@
     "typescript": "~5.1"
   },
   "peerDependencies": {
-    "@aptos-labs/ts-sdk": "^1.35.0 || ^2.0.0",
-    "@aptos-labs/wallet-adapter-react": "^6.0.0",
+    "@aptos-labs/ts-sdk": "^2.0.0",
+    "@aptos-labs/wallet-adapter-react": "^6.0.2",
     "react": "^18.2.0",
     "@initia/react-wallet-widget": "^1.5.9"
   },
@@ -86,9 +86,9 @@
   "scripts": {
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "yarn lint",
+    "prebuild": "pnpm run lint",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build": "yarn clean && yarn build:cjs && yarn build:esm && yarn build:types",
+    "build": "pnpm run clean && pnpm run build:cjs && pnpm run build:esm && pnpm run build:types",
     "build:cjs": "tsc --project tsconfig.json --module commonjs --outDir ./build/cjs --removeComments --verbatimModuleSyntax false && echo > ./build/cjs/package.json '{\"type\":\"commonjs\"}'",
     "build:esm": "tsc --project tsconfig.json --module es2015 --outDir ./build/esm --removeComments && echo > ./build/esm/package.json '{\"type\":\"module\"}'",
     "build:types": "tsc --project tsconfig.json --module esnext --declarationDir ./build/types --emitDeclarationOnly --declaration --declarationMap",
@@ -96,7 +96,7 @@
     "test": "jest --coverage",
     "prettier": "prettier --config .prettierrc --write .",
     "test:watch": "jest --watch",
-    "release": "yarn build && changeset publish"
+    "release": "pnpm run build && changeset publish"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -117,5 +117,6 @@
   "license": "MIT",
   "dependencies": {
     "@initia/initia.js": "^1.0.8"
-  }
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
