@@ -23,7 +23,7 @@ importers:
         version: 2.29.3
       '@initia/react-wallet-widget':
         specifier: ^1.5.9
-        version: 1.6.6(29db3030079603c239ac098af89f1d24)
+        version: 1.6.7(29db3030079603c239ac098af89f1d24)
       '@types/jest':
         specifier: ~29.5
         version: 29.5.14
@@ -614,13 +614,13 @@ packages:
   '@initia/opinit.proto@1.0.0':
     resolution: {integrity: sha512-I/VG4PFLEdGyb0qAxKImbA2le1SXeDlBtGRu/0qAiEq70OxEViQm2s3/Cme2vjBxS6Kx5vanyRHcOAhzWfSRXw==}
 
-  '@initia/react-wallet-widget@1.6.6':
-    resolution: {integrity: sha512-VrOKqGYnPhU6FRS6rPsTLYs5RAFKiVkExzyFoC4OpUcmWWsPm8FBAc3mEr+LDNA+vIDrr9FQ1NLELCHkkL+ZtA==}
+  '@initia/react-wallet-widget@1.6.7':
+    resolution: {integrity: sha512-/JzQIpXniLMJqyeWyIO6aXzivM0xF8mivEWz5iTMBmptn43jhCnM47TcRN14/ygIAuE9W6IJAl+Tx4dF5ZBX7Q==}
     peerDependencies:
       '@cosmjs/proto-signing': ^0.33.1
-      '@initia/initia.js': ^1.0.4
-      '@initia/utils': ^1.6.6
-      '@initia/wallet-widget': ^1.6.6
+      '@initia/initia.js': ^1.0.8
+      '@initia/utils': ^1.6.7
+      '@initia/wallet-widget': ^1.6.7
       '@keplr-wallet/types': ^0.12.211
       cosmjs-types: ^0.9.0
       ethers: ^6.13.5
@@ -758,8 +758,8 @@ packages:
     peerDependencies:
       starknet: ^6
 
-  '@layerzerolabs/lz-v2-utilities@3.0.93':
-    resolution: {integrity: sha512-fygB/nQYZsnCshBscGi5v3h8dhXOicUE9PvMeS+o0RzX8vsuJ1HqlXrcoqPbgm923UrRKSnEb5aoBiUsXfs6Dw==}
+  '@layerzerolabs/lz-v2-utilities@3.0.94':
+    resolution: {integrity: sha512-GLfeXdb8EJ2QYN9YznQXIshswwryIAtlYUHVtDfyQPLeAkSl8YXKG4bltJxzail5Tw130wNTjD8BLVcbHGVFlg==}
 
   '@ledgerhq/devices@8.4.4':
     resolution: {integrity: sha512-sz/ryhe/R687RHtevIE9RlKaV8kkKykUV4k29e7GAVwzHX1gqG+O75cu1NCJUHLbp3eABV5FdvZejqRUlLis9A==}
@@ -1023,11 +1023,11 @@ packages:
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
 
-  '@tanstack/query-core@5.75.5':
-    resolution: {integrity: sha512-kPDOxtoMn2Ycycb76Givx2fi+2pzo98F9ifHL/NFiahEDpDwSVW6o12PRuQ0lQnBOunhRG5etatAhQij91M3MQ==}
+  '@tanstack/query-core@5.75.7':
+    resolution: {integrity: sha512-4BHu0qnxUHOSnTn3ow9fIoBKTelh0GY08yn1IO9cxjBTsGvnxz1ut42CHZqUE3Vl/8FAjcHsj8RNJMoXvjgHEA==}
 
-  '@tanstack/svelte-query@5.75.5':
-    resolution: {integrity: sha512-0mr/C+pmPeKIete0KuPCOhpnjwEfIPFMHJaN6lmj8+vSCFJEGBF8+8UGFVeThb0yTMfd4R2C9w3z7vkOEpHmmw==}
+  '@tanstack/svelte-query@5.75.7':
+    resolution: {integrity: sha512-KbAZoelJC8OJvh5fX0QRcbdBs8xu/1SJkEwaMs0rTgd0Do28ISLU+bMyb4H0E7whvnzKmh6CBCGqu2gxmfmvwA==}
     peerDependencies:
       svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
 
@@ -2112,8 +2112,8 @@ packages:
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
 
-  http-cache-semantics@4.1.1:
-    resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
+  http-cache-semantics@4.2.0:
+    resolution: {integrity: sha512-dTxcvPXqPvXBQpq5dUr6mEMJX4oIEFv6bwom3FDwKRDsuIjjJGANqhBuoAn9c1RQJIdAKav33ED65E2ys+87QQ==}
 
   http2-wrapper@1.0.3:
     resolution: {integrity: sha512-V+23sDMr12Wnz7iTcDeJr3O6AIxlnvT/bmaAAAP/Xda35C90p9599p0F1eHR/N1KILWSoWVAiOMFjBBXaXSMxg==}
@@ -3371,8 +3371,8 @@ packages:
       typescript:
         optional: true
 
-  viem@2.29.1:
-    resolution: {integrity: sha512-mhLn0vDdsxZ4taB7XYgnIVNvXASm60KyPAkvw4k8uNCQ+HLH+5jUgKvLg4AP3y6VJxsgiVPwqUt0dJANDF5DZA==}
+  viem@2.29.2:
+    resolution: {integrity: sha512-cukRxab90jvQ+TDD84sU3qB3UmejYqgCw4cX8SfWzvh7JPfZXI3kAMUaT5OSR2As1Mgvx1EJawccwPjGqkSSwA==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -3606,7 +3606,7 @@ snapshots:
       '@wallet-standard/app': 1.1.0
       ethers: 6.14.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       mipd: 0.0.7(typescript@5.1.6)
-      viem: 2.29.1(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4)
+      viem: 2.29.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4)
     transitivePeerDependencies:
       - '@wallet-standard/core'
       - bufferutil
@@ -4465,7 +4465,7 @@ snapshots:
       long: 5.3.2
       protobufjs: 7.5.1
 
-  '@initia/react-wallet-widget@1.6.6(29db3030079603c239ac098af89f1d24)':
+  '@initia/react-wallet-widget@1.6.7(29db3030079603c239ac098af89f1d24)':
     dependencies:
       '@cosmjs/proto-signing': 0.33.1
       '@initia/initia.js': 1.0.8(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
@@ -4519,9 +4519,9 @@ snapshots:
       '@initia/opinit.proto': 1.0.0
       '@initia/utils': 1.6.6(@cosmjs/amino@0.33.1)(@cosmjs/encoding@0.33.1)(@cosmjs/proto-signing@0.33.1)(@cosmjs/stargate@0.33.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@initia/initia-registry-types@1.0.5)(@initia/initia.js@1.0.8(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))(@initia/initia.proto@1.0.0)(@initia/opinit.proto@1.0.0)(@keplr-wallet/types@0.12.232(starknet@6.24.1))(@msgpack/msgpack@3.1.1)(@mysten/bcs@1.6.1)(@noble/hashes@1.8.0)(@types/ramda@0.30.2)(bech32@2.0.0)(bignumber.js@9.3.0)(change-case@5.4.4)(cosmjs-types@0.9.0)(ethers@6.14.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(ky@1.8.1)(long@5.3.2)(ramda@0.30.1)(rxjs@7.8.2)(zod@3.24.4)
       '@keplr-wallet/types': 0.12.232(starknet@6.24.1)
-      '@layerzerolabs/lz-v2-utilities': 3.0.93
+      '@layerzerolabs/lz-v2-utilities': 3.0.94
       '@noble/hashes': 1.8.0
-      '@tanstack/svelte-query': 5.75.5(svelte@4.2.19)
+      '@tanstack/svelte-query': 5.75.7(svelte@4.2.19)
       bignumber.js: 9.3.0
       cosmjs-types: 0.9.0
       date-fns: 4.1.0
@@ -4752,7 +4752,7 @@ snapshots:
       long: 4.0.0
       starknet: 6.24.1
 
-  '@layerzerolabs/lz-v2-utilities@3.0.93':
+  '@layerzerolabs/lz-v2-utilities@3.0.94':
     dependencies:
       '@ethersproject/abi': 5.8.0
       '@ethersproject/address': 5.8.0
@@ -5076,11 +5076,11 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tanstack/query-core@5.75.5': {}
+  '@tanstack/query-core@5.75.7': {}
 
-  '@tanstack/svelte-query@5.75.5(svelte@4.2.19)':
+  '@tanstack/svelte-query@5.75.7(svelte@4.2.19)':
     dependencies:
-      '@tanstack/query-core': 5.75.5
+      '@tanstack/query-core': 5.75.7
       svelte: 4.2.19
 
   '@telegram-apps/bridge@1.9.2':
@@ -5634,7 +5634,7 @@ snapshots:
     dependencies:
       clone-response: 1.0.3
       get-stream: 5.2.0
-      http-cache-semantics: 4.1.1
+      http-cache-semantics: 4.2.0
       keyv: 4.5.4
       lowercase-keys: 2.0.0
       normalize-url: 6.1.0
@@ -6303,7 +6303,7 @@ snapshots:
 
   html-escaper@2.0.2: {}
 
-  http-cache-semantics@4.1.1: {}
+  http-cache-semantics@4.2.0: {}
 
   http2-wrapper@1.0.3:
     dependencies:
@@ -7654,7 +7654,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.1.6
 
-  viem@2.29.1(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4):
+  viem@2.29.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4):
     dependencies:
       '@noble/curves': 1.8.2
       '@noble/hashes': 1.7.2
