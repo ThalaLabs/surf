@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.9.7
+
+### Patch Changes
+
+- ec01e73: upgrade aptos packages
+
 ## 1.9.6
 
 ### Patch Changes
