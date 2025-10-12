@@ -19,29 +19,41 @@ describe('get account resource', () => {
   // Teardown (cleanup) after assertions
   afterAll(() => {});
 
-  it('get CoinStore', async () => {
-    const result = await client.useABI(COIN_ABI).resource.CoinStore({
+  it('get CoinInfo', async () => {
+    const result = await client.useABI(COIN_ABI).resource.CoinInfo({
       typeArguments: ['0x1::aptos_coin::AptosCoin'],
       account: '0x1',
     });
 
-    expect(result.frozen).toBeFalsy();
-    expect(result.coin.value).toBeDefined();
-    expect(result.deposit_events).toBeDefined();
-    expect(result.withdraw_events).toBeDefined();
-
-    // can inference nested struct
-    expect(result.deposit_events.guid.id.creation_num.startsWith).toBeDefined();
-
-    // @ts-expect-error field not exist
-    expect(result.deposit_events.guid.id.abc).toBeUndefined();
-
-    // @ts-expect-error field not exist
-    expect(result.abc).toBeUndefined();
+    expect(result).toMatchInlineSnapshot(`
+{
+  "decimals": 8,
+  "name": "Aptos Coin",
+  "supply": {
+    "vec": [
+      {
+        "aggregator": {
+          "vec": [
+            {
+              "handle": "0x1b854694ae746cdbd8d44186ca4929b2b337df21d1c74633be19b2710552fdca",
+              "key": "0x619dc29a0aac8fa146714058e8dd6d2d0f3bdf5f6331907bf91f3acd81e6935",
+              "limit": "340282366920938463463374607431768211455",
+            },
+          ],
+        },
+        "integer": {
+          "vec": [],
+        },
+      },
+    ],
+  },
+  "symbol": "APT",
+}
+`);
   }, 60000);
 
-  it('get CoinStore with ledger version', async () => {
-    const result = await client.useABI(COIN_ABI).resource.CoinStore({
+  it('get CoinInfo with ledger version', async () => {
+    const result = await client.useABI(COIN_ABI).resource.CoinInfo({
       typeArguments: ['0x1::aptos_coin::AptosCoin'],
       account: '0x1',
       ledgerVersion: '562606728',
@@ -49,28 +61,27 @@ describe('get account resource', () => {
 
     expect(result).toMatchInlineSnapshot(`
 {
-  "coin": {
-    "value": "50000358",
-  },
-  "deposit_events": {
-    "counter": "61",
-    "guid": {
-      "id": {
-        "addr": "0x1",
-        "creation_num": "12",
+  "decimals": 8,
+  "name": "Aptos Coin",
+  "supply": {
+    "vec": [
+      {
+        "aggregator": {
+          "vec": [
+            {
+              "handle": "0x1b854694ae746cdbd8d44186ca4929b2b337df21d1c74633be19b2710552fdca",
+              "key": "0x619dc29a0aac8fa146714058e8dd6d2d0f3bdf5f6331907bf91f3acd81e6935",
+              "limit": "340282366920938463463374607431768211455",
+            },
+          ],
+        },
+        "integer": {
+          "vec": [],
+        },
       },
-    },
+    ],
   },
-  "frozen": false,
-  "withdraw_events": {
-    "counter": "0",
-    "guid": {
-      "id": {
-        "addr": "0x1",
-        "creation_num": "13",
-      },
-    },
-  },
+  "symbol": "APT",
 }
 `);
   }, 60000);

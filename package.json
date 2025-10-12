@@ -43,14 +43,14 @@
     }
   },
   "devDependencies": {
-    "@aptos-labs/ts-sdk": "^2.0.0",
-    "@aptos-labs/wallet-adapter-react": "^6.0.2",
+    "@aptos-labs/ts-sdk": "^5.1.1",
+    "@aptos-labs/wallet-adapter-react": "^7.1.2",
     "@changesets/cli": "^2.26.1",
     "@types/jest": "~29.5",
     "@types/node": "~18",
     "@types/react": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "~5.62",
-    "@initia/react-wallet-widget": "^1.5.9",
+    "@initia/react-wallet-widget": "^1.9.8",
     "@typescript-eslint/parser": "~5.62",
     "eslint": "~8.57",
     "eslint-config-prettier": "~9.1",
@@ -67,10 +67,10 @@
     "typescript": "~5.1"
   },
   "peerDependencies": {
-    "@aptos-labs/ts-sdk": "^2.0.0",
-    "@aptos-labs/wallet-adapter-react": "^6.0.2",
+    "@aptos-labs/ts-sdk": "^5.1.1",
+    "@aptos-labs/wallet-adapter-react": "^7.1.2",
     "react": "^18.2.0",
-    "@initia/react-wallet-widget": "^1.5.9"
+    "@initia/react-wallet-widget": "^1.9.8"
   },
   "peerDependenciesMeta": {
     "@aptos-labs/wallet-adapter-react": {

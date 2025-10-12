@@ -13,17 +13,17 @@ importers:
         version: 1.0.8(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
     devDependencies:
       '@aptos-labs/ts-sdk':
-        specifier: ^2.0.0
-        version: 2.0.0(got@11.8.6)
+        specifier: ^5.1.1
+        version: 5.1.1(got@11.8.6)
       '@aptos-labs/wallet-adapter-react':
-        specifier: ^6.0.2
-        version: 6.0.2(@aptos-labs/derived-wallet-ethereum@0.2.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4))(@aptos-labs/derived-wallet-solana@0.2.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bs58@6.0.0)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(@telegram-apps/bridge@1.9.2)(@types/react@18.3.21)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(axios@1.9.0)(got@11.8.6)(react@18.3.1)
+        specifier: ^7.1.2
+        version: 7.1.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@telegram-apps/bridge@1.9.2)(@types/react@18.3.21)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(react@18.3.1)
       '@changesets/cli':
         specifier: ^2.26.1
         version: 2.29.3
       '@initia/react-wallet-widget':
-        specifier: ^1.5.9
-        version: 1.6.6(29db3030079603c239ac098af89f1d24)
+        specifier: ^1.9.8
+        version: 1.9.8(5ce2faaa1de81be27acb3620d50b020d)
       '@types/jest':
         specifier: ~29.5
         version: 29.5.14
@@ -84,36 +84,26 @@ packages:
   '@adraffy/ens-normalize@1.10.1':
     resolution: {integrity: sha512-96Z2IP3mYmF1Xg2cDm8f1gWGf/HUVedQ3FMifV4kG/PQ4yEP51xDtRAEfhVNt5f/uzpNkZHwWQuUcu6D6K+Ekw==}
 
-  '@adraffy/ens-normalize@1.11.0':
-    resolution: {integrity: sha512-/3DDPKHqqIqxUULp8yP4zODUY1i+2xvVWsv8A79xGWdCAG+8sb0hRh0Rk2QyOJUnnbyPUAZYcpBuRe3nS2OIUg==}
-
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@aptos-connect/wallet-adapter-plugin@2.4.1':
-    resolution: {integrity: sha512-jFuOEtnNWvi8VjvrXrNFp4iI2dci8Jv0l1FIuC5khMZKj2sDHLNF1dbZtcXNTRbD32KDrzl0Lngi42K0gReX8Q==}
+  '@aptos-connect/wallet-adapter-plugin@2.6.2':
+    resolution: {integrity: sha512-sVrnkCk1s2u1I9CoIgAgDsNzkdEywUxvsXRs5HxKl0mTa9cIol6Gs23dlUUMfBDpK8BIDNtUXBoTC8QB12ppVw==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
-      '@aptos-labs/wallet-standard': ^0.3.0
+      '@aptos-labs/ts-sdk': ^1.33.1 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
 
-  '@aptos-connect/wallet-api@0.1.9':
-    resolution: {integrity: sha512-Olxvg/Jpf426uiEIUbxFuoRluhX3dja9EUqklY29yw/wOY7QDFv0+Es71xp8R2lgaU3gPFJxUwko1Jwz0XjswQ==}
+  '@aptos-connect/wallet-api@0.5.0':
+    resolution: {integrity: sha512-fXwgCj0ZZoNGfXuwjsWtb/L9n6nkspxPBPrvdmNxjKi0nbxUUGShYHIAujJwkmOs5ODjjI6fk26zRMkXFoVxlA==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
+      '@aptos-labs/ts-sdk': ^1.33.1 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
       aptos: ^1.20.0
 
-  '@aptos-connect/wallet-api@0.2.0':
-    resolution: {integrity: sha512-szCOoEfns7mGbBJHpfchQfN/hF2QVzS3tqLvmOfMXZ4s6eYJQZu9+NkTqIRxeNGIJKObYWKhHahRMmrA8f2Vsw==}
+  '@aptos-connect/web-transport@0.4.1':
+    resolution: {integrity: sha512-I/GeyDfpp6nlCWD7N6dPgFk9AYVV21L9Dm+yZL8YqfAjxV9lOAj9kDHY+CIbKvT0tpJbHZarbKCMK3Z8RhG2EQ==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
-      aptos: ^1.20.0
-
-  '@aptos-connect/web-transport@0.2.0':
-    resolution: {integrity: sha512-PzkXlJnUOuoXkBkOtuX4FHP2yiCZ/ySh0SpeA30XZxz+cOdYoxKWxRt82xPdTLCe0YmYl5SCG0Yh7DBL5lUvEg==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
-      '@aptos-labs/wallet-standard': ^0.3.0
+      '@aptos-labs/ts-sdk': ^1.33.1 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+      '@aptos-labs/wallet-standard': ^0.5.0
       '@telegram-apps/bridge': ^1.0.0
       aptos: ^1.20.0
 
@@ -126,92 +116,31 @@ packages:
     engines: {node: '>=15.10.0'}
     deprecated: <1.0.0 is no longer supported please upgrade to the latest version
 
-  '@aptos-labs/aptos-client@1.2.0':
-    resolution: {integrity: sha512-pBlIAT/W+Qa0TOr/318U8r0Gxw/jfyRLcvDGMEXgcVrPqO9Qhwsmozw6LPPIZ963FB7smwIaMeexWFDs3zijcg==}
-    engines: {node: '>=15.10.0'}
-    peerDependencies:
-      axios: ^1.8.4
-      got: ^11.8.6
-
   '@aptos-labs/aptos-client@2.0.0':
     resolution: {integrity: sha512-A23T3zTCRXEKURodp00dkadVtIrhWjC9uo08dRDBkh69OhCnBAxkENmUy/rcBarfLoFr60nRWt7cBkc8wxr1mg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       got: ^11.8.6
 
-  '@aptos-labs/aptos-dynamic-transaction-composer@0.1.3':
-    resolution: {integrity: sha512-bJl+Zq5QbhpcPIJakAkl9tnT3T02mxCYhZThQDhUmjsOZ5wMRlKJ0P7aaq1dmlybSHkVj7vRgOy2t86/NDKKng==}
-
-  '@aptos-labs/derived-wallet-base@0.2.1':
-    resolution: {integrity: sha512-0uOi8FFMWdhM3zyQqCPGJ2R2RSSxI7W35EJJ9VtzgxvHO1e84O7coKvMfFPc9Un1JOHTw9cSCnLKnpJ3FH/yBg==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.38.0 || ^2.0.0
-
-  '@aptos-labs/derived-wallet-ethereum@0.2.1':
-    resolution: {integrity: sha512-MSuN0AAc4jK1/YwtI37mWGC6ZkdGivC20eIDtc4bWB7Ork11P7gxQ6mlw8qfM4nwQGiiD2CMvuo/DGYY0zE4Cg==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.38.0 || ^2.0.0
-
-  '@aptos-labs/derived-wallet-solana@0.2.5':
-    resolution: {integrity: sha512-E/KG6PJCGXQmHHfQue1HjbDE5hfu3Y+xX9jvVhCpWc7v3x62Rs/l6iaRbsHzl5RmdcXjDKdZWcm9pF5XMYCjqQ==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.38.0 || ^2.0.0
-
-  '@aptos-labs/script-composer-pack@0.0.9':
-    resolution: {integrity: sha512-Y3kA1rgF65HETgoTn2omDymsgO+fnZouPLrKJZ9sbxTGdOekIIHtGee3A2gk84eCqa02ZKBumZmP+IDCXRtU/g==}
-
-  '@aptos-labs/siwa@0.2.5':
-    resolution: {integrity: sha512-BDiZa5z8a1DRG95OO1e9EwAnjLUurwpAKcnmJcqYwNH+q5p3NsdPeEF071xmZNB9urPbOOJyGwGwHDH2TgUBCw==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': '>=1.33.2'
-
-  '@aptos-labs/ts-sdk@1.39.0':
-    resolution: {integrity: sha512-VFEWZsqb8Mto8XbLK8lDRdUvyHjp+geiwFxRzRcQK6HftMGB4bYuEsOI2Vy6u/TqkUft8DvmpV5yX027R5/SMQ==}
+  '@aptos-labs/ts-sdk@5.1.1':
+    resolution: {integrity: sha512-2QhQzcbVa9o7uQTIfjAGFkWFgddg+R/Ftbo39ZPbNrs1L2b+oMhdB9/uZ0QStN25/h8HPCvH4h4aaPus2jabXQ==}
     engines: {node: '>=20.0.0'}
 
-  '@aptos-labs/ts-sdk@2.0.0':
-    resolution: {integrity: sha512-2sFX5nQZu70koLKs2AxJI0/P2ggevB0qa6F3i6FK6Zg0fhJXjHKr0TywwTvzM46qmn4vEygw+QTXnfhLGIbgEQ==}
-    engines: {node: '>=20.0.0'}
-
-  '@aptos-labs/wallet-adapter-core@5.5.0':
-    resolution: {integrity: sha512-l9BCSuWPlcH8onYTPoEWH38zgMVWVrwscGGf8EF6Qb++uU4YDq0kVWn2mKPt75LId4ByDLBbGZ0mJGrjS+uLUQ==}
+  '@aptos-labs/wallet-adapter-core@7.5.1':
+    resolution: {integrity: sha512-xZwMdd4HzhvrqtXFQgwCJe5u0L5L7P21meDSN0pGad0fbRAo8PUNC5DDddVTk5bGwPpDm+kaFNYlwp6ZYEzJPA==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.38.0 || ^2.0.0
+      '@aptos-labs/ts-sdk': ^5.0.0
 
-  '@aptos-labs/wallet-adapter-react@6.0.2':
-    resolution: {integrity: sha512-zkBlSXjScL6xdsHZO1YRHd4QbofwLlmOVmJzXf9Td3+KK6+KF5eVdnQ5jw+zcMlh9LBEwhCTyAHdVyrj87ufhA==}
+  '@aptos-labs/wallet-adapter-react@7.1.2':
+    resolution: {integrity: sha512-KeJmLaFvroUlnmtckgzeSpL+BMXictTgcYfPIiCWljJDHa86jhy/bdAxklNTvYLnDGaL1bjCEjfjj7po3fVjjw==}
     peerDependencies:
-      '@aptos-labs/derived-wallet-ethereum': 0.2.1
-      '@aptos-labs/derived-wallet-solana': 0.2.5
       react: ^18.0.0 || ^19.0.0
 
-  '@aptos-labs/wallet-standard@0.0.11':
-    resolution: {integrity: sha512-8dygyPBby7TaMJjUSyeVP4R1WC9D/FPpX9gVMMLaqTKCXrSbkzhGDxcuwbMZ3ziEwRmx3zz+d6BIJbDhd0hm5g==}
-
-  '@aptos-labs/wallet-standard@0.3.1':
-    resolution: {integrity: sha512-1cSmPxKB8R5HIlYPTKej7LzKflWbkod5t8peZ+OOHA3LbB1KI39qQn6gLid8kFBluvYsmkE1XEIIUyKLx07TsA==}
+  '@aptos-labs/wallet-standard@0.5.2':
+    resolution: {integrity: sha512-aFQOMLLRSmEYXHBGzhLGSOICoQRKqrtRyaMR7kDdyKtEI+4Ocgf2QeW+5yNZEUKoeWlydcBZGIuO7xAQpWU7dw==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.37.1
+      '@aptos-labs/ts-sdk': ^3.1.3 || ^4.0.0 || ^5.0.0
       '@wallet-standard/core': ^1.0.3
-
-  '@aptos-labs/wallet-standard@0.4.0':
-    resolution: {integrity: sha512-c38ZFQuqDMPzGPkksnXxwidlzG36PguplJGrMItPDmz/3u/GaM+2O9uE+0T721dTiuc6NJqbr8dZyw1kdQj2cg==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': ^2.0.0
-      '@wallet-standard/core': ^1.0.3
-
-  '@atomrigslab/aptos-wallet-adapter@0.1.21':
-    resolution: {integrity: sha512-LwT0OTOaGglctggMcihXLd4mzBFwRoJsR0aeFBHQRfTxZV1agNTgN/PxJl6N13+WYAvzc00j/WByxAmWgonorA==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.9.0
-
-  '@atomrigslab/dekey-web-wallet-provider@1.2.1':
-    resolution: {integrity: sha512-GMEGjARgle9lIRopvxm4uis+sRr/ih26HzBgFbnLsk8+G94Z5dE87EclAIGFQUSAxYj7SmSk6xpx7//qUJDW/A==}
-    engines: {node: '>=12.0.0'}
-
-  '@atomrigslab/providers@1.1.0':
-    resolution: {integrity: sha512-QLYxSCVrxwlN1oZ7vLnZbKZxkbZ6QG77Bj4pmTEowIpTcq7qZdBtU9pn+vqJAso1nnA3+AkmPuE9Jnx7+Jo1zQ==}
-    engines: {node: '>=12.0.0'}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -441,6 +370,7 @@ packages:
 
   '@cosmjs/crypto@0.33.1':
     resolution: {integrity: sha512-U4kGIj/SNBzlb2FGgA0sMR0MapVgJUg8N+oIAiN5+vl4GZ3aefmoL1RDyTrFS/7HrB+M+MtHsxC0tvEu4ic/zA==}
+    deprecated: This uses elliptic for cryptographic operations, which contains several security-relevant bugs. To what degree this affects your application is something you need to carefully investigate. See https://github.com/cosmos/cosmjs/issues/1708 for further pointers. Starting with version 0.34.0 the cryptographic library has been replaced. However, private keys might still be at risk.
 
   '@cosmjs/encoding@0.33.1':
     resolution: {integrity: sha512-nuNxf29fUcQE14+1p//VVQDwd1iau5lhaW/7uMz7V2AH3GJbFJoJVaKvVyZvdFk+Cnu+s3wCqgq4gJkhRCJfKw==}
@@ -547,11 +477,6 @@ packages:
   '@ethersproject/web@5.8.0':
     resolution: {integrity: sha512-j7+Ksi/9KfGviws6Qtf9Q7KCqRhpwrYKQPs+JBA/rKVFF/yaWLHJEH3zfVP2plVu+eys0d2DlFmhoQJayFewcw==}
 
-  '@graphql-typed-document-node/core@3.2.0':
-    resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
     engines: {node: '>=10.10.0'}
@@ -568,21 +493,21 @@ packages:
   '@identity-connect/api@0.7.0':
     resolution: {integrity: sha512-mn/LZGeb3xgBD644p67tYOjvYSSdZpwxiO4/ZjwjsJZ8eYvGha5FiZg+pqVH73lg1S36qikwbkA3HUQOAE5GKA==}
 
-  '@identity-connect/crypto@0.2.6':
-    resolution: {integrity: sha512-u+aj7uOlFNLtSVoWuIRDupTMBOo9y2s4l259tEouT2n0RvS2kp1Hl4RK+MIX9PQTdZDEnT2VddefymO6sz14Kw==}
+  '@identity-connect/crypto@0.2.11':
+    resolution: {integrity: sha512-vpJhHuHsttjYhCMhYNVBtDOhgM0nIH9tGg6S5g3kFCOll3OXqT8I5hsNFL4RtIjMBoS5wjn5S8GK2bARAUjaGA==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
+      '@aptos-labs/ts-sdk': ^1.33.1 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
 
-  '@identity-connect/dapp-sdk@0.10.5':
-    resolution: {integrity: sha512-2OTOIiOVnxW7ZvTbTHfsfkyTsWqmzHLz/l2cykHhvM3oOolBC9FGjiAkfW597V8UjN+Uqx2c0exI0ZGI5APjdw==}
+  '@identity-connect/dapp-sdk@0.13.0':
+    resolution: {integrity: sha512-mxx6L2tA0ApOTzaB4TyQSvwnA+rw9KIDVpLIVTwiughdgpDhh3MFnKlBxLN/gsbDgtrYXN1RKpfW/WCG7w0R8w==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
-      '@aptos-labs/wallet-standard': ^0.3.0
+      '@aptos-labs/ts-sdk': ^1.33.1 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+      '@aptos-labs/wallet-standard': ^0.5.0
 
-  '@identity-connect/wallet-api@0.1.2':
-    resolution: {integrity: sha512-8wyC0rWYb4+L0/K9Kf+LV9U8k5ZUkbauyf4lVVdUatCw1trsBVXObACKzgEidfpfgx23S9w7hctLpegb/QkwSg==}
+  '@identity-connect/wallet-api@0.1.4':
+    resolution: {integrity: sha512-nXEfUYl1t9mgQu1RRmqH7lcWnsxet5IWtnsno5Vx5jw8PibVZDD5kgy5sZ3k/Brvw8DlhKPIjDwcYNAgcNHhvg==}
     peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
+      '@aptos-labs/ts-sdk': ^1.33.1 || ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
       aptos: ^1.20.0
 
   '@improbable-eng/grpc-web@0.15.0':
@@ -614,13 +539,15 @@ packages:
   '@initia/opinit.proto@1.0.0':
     resolution: {integrity: sha512-I/VG4PFLEdGyb0qAxKImbA2le1SXeDlBtGRu/0qAiEq70OxEViQm2s3/Cme2vjBxS6Kx5vanyRHcOAhzWfSRXw==}
 
-  '@initia/react-wallet-widget@1.6.6':
-    resolution: {integrity: sha512-VrOKqGYnPhU6FRS6rPsTLYs5RAFKiVkExzyFoC4OpUcmWWsPm8FBAc3mEr+LDNA+vIDrr9FQ1NLELCHkkL+ZtA==}
+  '@initia/react-wallet-widget@1.9.8':
+    resolution: {integrity: sha512-x1n4pBIuZMPbbBLf8YDGRjC0B9Ypk+XSYPLNrSxmNTHK6lAYTd0+MJqs+T1vo+zI55Rh82g17UpY2dj0ytwJ8g==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     peerDependencies:
+      '@cosmjs/amino': ^0.33.1
       '@cosmjs/proto-signing': ^0.33.1
-      '@initia/initia.js': ^1.0.4
-      '@initia/utils': ^1.6.6
-      '@initia/wallet-widget': ^1.6.6
+      '@initia/initia.js': ^1.0.8
+      '@initia/utils': ^1.9.8
+      '@initia/wallet-widget': ^1.9.8
       '@keplr-wallet/types': ^0.12.211
       cosmjs-types: ^0.9.0
       ethers: ^6.13.5
@@ -785,34 +712,6 @@ packages:
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
 
-  '@metamask/object-multiplex@1.3.0':
-    resolution: {integrity: sha512-czcQeVYdSNtabd+NcYQnrM69MciiJyd1qvKH8WM2Id3C0ZiUUX5Xa/MK+/VUk633DBhVOwdNzAKIQ33lGyA+eQ==}
-    engines: {node: '>=12.0.0'}
-
-  '@metamask/safe-event-emitter@2.0.0':
-    resolution: {integrity: sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==}
-
-  '@microsoft/fetch-event-source@2.0.1':
-    resolution: {integrity: sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA==}
-
-  '@mizuwallet-sdk/core@1.4.0':
-    resolution: {integrity: sha512-03jKqKr+P4kCgcNQT2YNXmFBRVmeZ88vpEFKpQ9SaorCY4L9lF56kJS4Y+e/+A4Gb1bnqA7xuFmnEz13LjsZyg==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': '>=1.14.0'
-      '@mizuwallet-sdk/protocol': 0.0.2
-      graphql-request: '>=7.0.1'
-
-  '@mizuwallet-sdk/protocol@0.0.2':
-    resolution: {integrity: sha512-AIrwaYKlmdG7lnipOlwW7sjlFJicm7v3fngQ3FEruAFc1Ydhg6gdMm4quEortWTziUxvSFo7V8JrRWF8C/FxDQ==}
-
-  '@msafe/aptos-aip62-wallet@1.0.17':
-    resolution: {integrity: sha512-lqqFUr8ZiGl7tQzNIihHPAq26944O7MjMI4vDj17kgQCfkzwwuhQ/ai9/By3awpDZ2Sq3SZ2ppAbZkGYECrK+Q==}
-    peerDependencies:
-      '@aptos-labs/ts-sdk': ^1.33.1
-      '@aptos-labs/wallet-adapter-core': ^4.23.0
-      '@aptos-labs/wallet-standard': ^0.2.0
-      '@wallet-standard/core': ^1.1.0
-
   '@msgpack/msgpack@3.1.1':
     resolution: {integrity: sha512-DnBpqkMOUGayNVKyTLlkM6ILmU/m/+VUxGkuQlPQVAcvreLz5jn1OlQnWd8uHKL/ZSiljpM12rjRhr51VtvJUQ==}
     engines: {node: '>= 18'}
@@ -830,10 +729,6 @@ packages:
     resolution: {integrity: sha512-UTMhXK9SeDhFJVrHeUJ5uZlI6ajXg10O6Ddocf9S6GjbSBVZsJo88HzKwXznNfGpMTRDyJkqMjNDPYgf0qFWnw==}
     engines: {node: ^14.21.3 || >=16}
 
-  '@noble/curves@1.8.2':
-    resolution: {integrity: sha512-vnI7V6lFNe0tLAuJMu+2sX+FcL14TaCWy1qiczg1VwRmPrpQCdq5ESXQMqUc2tluRNf6irBXrWbl1mGN8uaU/g==}
-    engines: {node: ^14.21.3 || >=16}
-
   '@noble/curves@1.9.0':
     resolution: {integrity: sha512-7YDlXiNMdO1YZeH6t/kvopHHbIZzlxrCV9WLqCY6QhcXOoXiNCMDqJIglZ9Yjx5+w7Dz30TITFrlTjnRg7sKEg==}
     engines: {node: ^14.21.3 || >=16}
@@ -848,10 +743,6 @@ packages:
 
   '@noble/hashes@1.6.0':
     resolution: {integrity: sha512-YUULf0Uk4/mAA89w+k3+yUYh6NrEvxZa5T6SY3wlMvE2chHkxFUUIDI8/XW1QSC357iA5pSnqt7XEhvFOqmDyQ==}
-    engines: {node: ^14.21.3 || >=16}
-
-  '@noble/hashes@1.7.2':
-    resolution: {integrity: sha512-biZ0NUSxyjLLqo6KxEJ1b+C2NAx0wtDoFvCaXHGgUkeHzf3Xc1xKumFKREuT7f7DARNZ/slvYUwFG6B0f2b6hQ==}
     engines: {node: ^14.21.3 || >=16}
 
   '@noble/hashes@1.8.0':
@@ -931,17 +822,11 @@ packages:
   '@scure/base@1.2.5':
     resolution: {integrity: sha512-9rE6EOVeIQzt5TSu4v+K523F8u6DhBsoZWPGKlnCshhlDhy0kJzUX4V+tr2dWmzF1GdekvThABoEQBGBQI7xZw==}
 
-  '@scure/bip32@1.6.2':
-    resolution: {integrity: sha512-t96EPDMbtGgtb7onKKqxRLfE5g05k7uHnHRM2xdE6BP/ZmxaLtPek4J4KfVn/90IQNrU1IOAqMgiDtUdtbe3nw==}
-
   '@scure/bip32@1.7.0':
     resolution: {integrity: sha512-E4FFX/N3f4B80AKWp5dP6ow+flD1LQZo/w8UnLGYZO674jS6YnYeepycOOksv+vLPSpgN35wgKgy+ybfTb2SMw==}
 
   '@scure/bip39@1.2.1':
     resolution: {integrity: sha512-Z3/Fsz1yr904dduJD0NpiyRHhRYHdcnyh73FZWiV+/qhWi83wNJ3NWolYqCEN+ZWsUz2TWwajJggcRE9r1zUYg==}
-
-  '@scure/bip39@1.5.4':
-    resolution: {integrity: sha512-TFM4ni0vKvCfBpohoh+/lY05i9gRbSwXWngAsF4CABQxoaOHijxuaZ2R6cStDQ5CHtHO9aGJTr4ksVJASRRyMA==}
 
   '@scure/bip39@1.6.0':
     resolution: {integrity: sha512-+lF0BbLiJNwVlev4eKelw1WWLaiKXw7sSl8T6FvBlWkdX+94aGJ4o8XjUdlyhTCjd8c+B3KT3JfS8P0bLRNU6A==}
@@ -962,62 +847,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@solana/buffer-layout@4.0.1':
-    resolution: {integrity: sha512-E1ImOIAD1tBZFRdjeM4/pzTiTApC0AOBGwyAMS4fwIodCWArzJ3DWdoh8cKxeFM2fElkxBh2Aqts1BPC373rHA==}
-    engines: {node: '>=5.10'}
-
-  '@solana/codecs-core@2.1.0':
-    resolution: {integrity: sha512-SR7pKtmJBg2mhmkel2NeHA1pz06QeQXdMv8WJoIR9m8F/hw80K/612uaYbwTt2nkK0jg/Qn/rNSd7EcJ4SBGjw==}
-    engines: {node: '>=20.18.0'}
-    peerDependencies:
-      typescript: '>=5'
-
-  '@solana/codecs-numbers@2.1.0':
-    resolution: {integrity: sha512-XMu4yw5iCgQnMKsxSWPPOrGgtaohmupN3eyAtYv3K3C/MJEc5V90h74k5B1GUCiHvcrdUDO9RclNjD9lgbjFag==}
-    engines: {node: '>=20.18.0'}
-    peerDependencies:
-      typescript: '>=5'
-
-  '@solana/errors@2.1.0':
-    resolution: {integrity: sha512-l+GxAv0Ar4d3c3PlZdA9G++wFYZREEbbRyAFP8+n8HSg0vudCuzogh/13io6hYuUhG/9Ve8ARZNamhV7UScKNw==}
-    engines: {node: '>=20.18.0'}
-    hasBin: true
-    peerDependencies:
-      typescript: '>=5'
-
-  '@solana/wallet-adapter-base@0.9.26':
-    resolution: {integrity: sha512-1RcmfesJ8bTT+zfg4w+Z+wisj11HR+vWwl/pS6v/zwQPe0LSzWDpkXRv9JuDSCuTcmlglEfjEqFAW+5EubK/Jg==}
-    engines: {node: '>=20'}
-    peerDependencies:
-      '@solana/web3.js': ^1.98.0
-
-  '@solana/wallet-standard-chains@1.1.1':
-    resolution: {integrity: sha512-Us3TgL4eMVoVWhuC4UrePlYnpWN+lwteCBlhZDUhFZBJ5UMGh94mYPXno3Ho7+iHPYRtuCi/ePvPcYBqCGuBOw==}
-    engines: {node: '>=16'}
-
-  '@solana/wallet-standard-features@1.3.0':
-    resolution: {integrity: sha512-ZhpZtD+4VArf6RPitsVExvgkF+nGghd1rzPjd97GmBximpnt1rsUxMOEyoIEuH3XBxPyNB6Us7ha7RHWQR+abg==}
-    engines: {node: '>=16'}
-
-  '@solana/wallet-standard-util@1.1.2':
-    resolution: {integrity: sha512-rUXFNP4OY81Ddq7qOjQV4Kmkozx4wjYAxljvyrqPx8Ycz0FYChG/hQVWqvgpK3sPsEaO/7ABG1NOACsyAKWNOA==}
-    engines: {node: '>=16'}
-
-  '@solana/wallet-standard-wallet-adapter-base@1.1.4':
-    resolution: {integrity: sha512-Q2Rie9YaidyFA4UxcUIxUsvynW+/gE2noj/Wmk+IOwDwlVrJUAXCvFaCNsPDSyKoiYEKxkSnlG13OA1v08G4iw==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      '@solana/web3.js': ^1.98.0
-      bs58: ^6.0.0
-
-  '@solana/web3.js@1.98.2':
-    resolution: {integrity: sha512-BqVwEG+TaG2yCkBMbD3C4hdpustR4FpuUFRPUmqRZYYlPI9Hg4XMWxHWOWRzHE9Lkc9NDjzXFX7lDXSgzC7R1A==}
-
   '@starknet-io/types-js@0.7.10':
     resolution: {integrity: sha512-1VtCqX4AHWJlRRSYGSn+4X1mqolI1Tdq62IwzoU2vUuEE72S1OlEeGhpvd6XsdqXcfHmVzYfj8k1XtKBQqwo9w==}
-
-  '@swc/helpers@0.5.17':
-    resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
 
   '@szmarczak/http-timer@4.0.6':
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
@@ -1042,9 +873,11 @@ packages:
 
   '@telegram-apps/transformers@1.2.2':
     resolution: {integrity: sha512-vvMwXckd1D7Ozc0h66PSUwF5QLrRV9HlGJFFeBuUex8QEk5mSPtsJkLiqB8aBbwuFDa91+TUSM/CxqPZO/e9YQ==}
+    deprecated: This package is not supported anymore. Use @tma.js/transfomers instead
 
   '@telegram-apps/types@1.2.1':
     resolution: {integrity: sha512-so4HLh7clur0YyMthi9KVIgWoGpZdXlFOuQjk3+Q5NAvJZ11nAheBSwPlGw/Ko92+zwvrSBE/lQyN2+p17RP+w==}
+    deprecated: This package is not supported anymore. Use @tma.js/types instead
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1061,26 +894,11 @@ packages:
   '@types/cacheable-request@6.0.3':
     resolution: {integrity: sha512-IQ3EbTzGxIigb1I3qPZc1rWJnH0BmSKv5QYTalEwweFvyBDLSAe24zP0le/hyi7ecGfZVlIVAg4BZqb8WBwKqw==}
 
-  '@types/chrome@0.0.136':
-    resolution: {integrity: sha512-XDEiRhLkMd+SB7Iw3ZUIj/fov3wLd4HyTdLltVszkgl1dBfc3Rb7oPMVZ2Mz2TLqnF7Ow+StbR8E7r9lqpb4DA==}
-
-  '@types/connect@3.4.38':
-    resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
-
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
 
-  '@types/filesystem@0.0.36':
-    resolution: {integrity: sha512-vPDXOZuannb9FZdxgHnqSwAG/jvdGM8Wq+6N4D/d80z+D4HWH+bItqsZaVRQykAn6WEVeEkLm2oQigyHtgb0RA==}
-
-  '@types/filewriter@0.0.33':
-    resolution: {integrity: sha512-xFU8ZXTw4gd358lb2jw25nxY9QAgqn2+bKKjKOYfNCzN4DKCFetK7sPtrlpg66Ywe3vWY9FNxprZawAh9wfJ3g==}
-
   '@types/graceful-fs@4.1.9':
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
-
-  '@types/har-format@1.2.16':
-    resolution: {integrity: sha512-fluxdy7ryD3MV6h8pTfTYpy/xQzCFC7m89nOH9y94cNqJ1mDIDPut7MnRHI3F6qRmh/cT2fUjG1MLdCNb4hE9A==}
 
   '@types/http-cache-semantics@4.0.4':
     resolution: {integrity: sha512-1m0bIFVc7eJWyve9S0RnuRgcQqF/Xd5QsUZAZeQFr1Q3/p9JWoQQEqmVy+DPTNpGXwhgIetAoYF8JSc33q29QA==}
@@ -1129,15 +947,6 @@ packages:
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
-
-  '@types/uuid@8.3.4':
-    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
-
-  '@types/ws@7.4.7':
-    resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
-
-  '@types/ws@8.18.1':
-    resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
@@ -1257,17 +1066,6 @@ packages:
     resolution: {integrity: sha512-0aA81FScmJCPX+8UvkXLki3X1+yPQuWxEkqXBVKltgPAK79J+NB+Lp5DouMXa7L6f+zcRlIA/6XO7BN/q9fnvg==}
     hasBin: true
 
-  abitype@1.0.8:
-    resolution: {integrity: sha512-ZeiI6h3GnW06uYDLx0etQtX/p8E24UaHHBj57RSjK7YBFe7iuVn07EDpOeP451D06sF27VOz9JJPlIKJmXgkEg==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-      zod: ^3 >=3.22.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-      zod:
-        optional: true
-
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1280,10 +1078,6 @@ packages:
 
   aes-js@4.0.0-beta.5:
     resolution: {integrity: sha512-G965FqalsNyrPqgEGON7nIx1e/OVENSgiEIzyC63haUMuvNnwIgIjMs52hlTCKhkBny7A2ORNlfY9Zu+jmGk1Q==}
-
-  agentkeepalive@4.6.0:
-    resolution: {integrity: sha512-kja8j7PjmncONqaTsB8fQ+wE2mSU2DJ9D4XKoJ5PFWIdRMa6SLSN1ff4mOr4jCbfRSsxR4keIiySJU0N9T5hIQ==}
-    engines: {node: '>= 8.0.0'}
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -1387,9 +1181,6 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  base-x@3.0.11:
-    resolution: {integrity: sha512-xz7wQ8xDhdyP7tQxwdteLYeFfS68tSMNCZ/Y37WJ4bhGfKPpqEIlmIyueQHqOyoPhE6xNUqjzRr8ra0eF9VRvA==}
-
   base-x@4.0.1:
     resolution: {integrity: sha512-uAZ8x6r6S3aUM9rbHGVOIsR15U/ZSc82b3ymnCPsT45Gk1DDvhDPdIgB5MrhirZWt+5K0EEPQH985kNqZgNPFw==}
 
@@ -1425,9 +1216,6 @@ packages:
   bn.js@5.2.2:
     resolution: {integrity: sha512-v2YAxEmKaBLahNwE1mjp4WON6huMNeuDvagFZW+ASCuA/ku0bXR9hSMw0XpiqMoA3+rmnyck/tPRSFQkoC9Cuw==}
 
-  borsh@0.7.0:
-    resolution: {integrity: sha512-CLCsZGIBCFnPtkNnieW/a8wmreDmfUtjU2m9yHrzPXIlNbqVs0AQrSatSG6vdNYUqdc83tkQi2eHfF98ubzQLA==}
-
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
 
@@ -1452,9 +1240,6 @@ packages:
   bs-logger@0.2.6:
     resolution: {integrity: sha512-pd8DCoxmbgc7hyPKOvxtqNcjYoOsABPQdcCUjGp3d42VR2CX1ORhk2A87oqqu5R1kk+76nsxZupkmyd+MVtCog==}
     engines: {node: '>= 6'}
-
-  bs58@4.0.1:
-    resolution: {integrity: sha512-Ok3Wdf5vOIlBrgCvTq96gBkJw+JUEzdBgyaza5HLtPm7yTHkjRy8+JzNyHF7BHa0bNWOQIp3m5YF0nnFcOIKLw==}
 
   bs58@5.0.0:
     resolution: {integrity: sha512-r+ihvQJvahgYT50JD05dyJNKlmmSlMoOGwn1lCcEzanPglg7TxYjioQUYehQ9mAR/+hOSd2jRc/Z2y5UxBymvQ==}
@@ -1590,9 +1375,6 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
-  core-util-is@1.0.3:
-    resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
-
   cosmjs-types@0.9.0:
     resolution: {integrity: sha512-MN/yUe6mkJwHnCFfsNPeCfXVhyxHYW6c/xDUzrSbBycYzw++XvWDMJArXp2pLdgD6FQ8DW79vkPjeNKVrXaHeQ==}
 
@@ -1663,16 +1445,9 @@ packages:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
 
-  delay@5.0.0:
-    resolution: {integrity: sha512-ReEBKkIfe4ya47wlPYf/gu5ib6yUG0/Aez0JQZQz94kiWtRQvZIQbTiehsnwHvLSWJnQdhVeqYue7Id1dKr0qw==}
-    engines: {node: '>=10'}
-
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
-
-  detect-browser@5.3.0:
-    resolution: {integrity: sha512-53rsFbGdwMwlF7qvCt0ypLM5V5/Mbl0szB7GPN8y9NCcbknYOeVVXdrXEq+90IwAfrrzt6Hd+u2E2ntakICU8w==}
 
   detect-indent@6.1.0:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
@@ -1752,12 +1527,6 @@ packages:
   es-set-tostringtag@2.1.0:
     resolution: {integrity: sha512-j6vWzfrGVfyXxge+O0x5sh6cvxAog0a/4Rdd2K36zCMV5eJ+/+tOAngRO8cODMNWbVRdVlmGZQL2YS3yR8bIUA==}
     engines: {node: '>= 0.4'}
-
-  es6-promise@4.2.8:
-    resolution: {integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==}
-
-  es6-promisify@5.0.0:
-    resolution: {integrity: sha512-C+d6UdsYDk0lMebHNR4S2NybQMMngAOnOwYBQjTOiv0MkoJMP0Myw2mgpDLBcpfCmRLxyFqYhS/CfOENq4SJhQ==}
 
   escalade@3.2.0:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
@@ -1840,9 +1609,6 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  eth-rpc-errors@4.0.3:
-    resolution: {integrity: sha512-Z3ymjopaoft7JDoxZcEb3pwdGh7yiYMhOwm2doUt6ASXlMavpNlK6Cre0+IMl2VSGyEU9rkiperQhp5iRxn5Pg==}
-
   ethers@6.14.0:
     resolution: {integrity: sha512-KgHwltNSMdbrGWEyKkM0Rt2s+u1nDH/5BVDQakLinzGEJi4bWindBzZSCC4gKsbZjwDTI6ex/8suR9Ihbmz4IQ==}
     engines: {node: '>=14.0.0'}
@@ -1876,20 +1642,9 @@ packages:
   extendable-error@0.1.7:
     resolution: {integrity: sha512-UOiS2in6/Q0FK0R0q6UY9vYpQ21mr/Qn1KOnte7vsACuNJf514WvCCUHSRCPcgjPT2bAhNIJdlE6bVap1GKmeg==}
 
-  extension-port-stream@2.1.1:
-    resolution: {integrity: sha512-qknp5o5rj2J9CRKfVB8KJr+uXQlrojNZzdESUPhKYLXf97TPcGf6qWWKmpsNNtUyOdzFhab1ON0jzouNxHHvow==}
-    engines: {node: '>=12.0.0'}
-
   external-editor@3.1.0:
     resolution: {integrity: sha512-hMQ4CX1p1izmuLYyZqLMO/qGNw10wSv9QDCPfzXfyFrOaCSSoRfqE1Kf1s5an66J5JZC62NewG+mK49jOCtQew==}
     engines: {node: '>=4'}
-
-  eyes@0.1.8:
-    resolution: {integrity: sha512-GipyPsXO1anza0AOZdy69Im7hGFCNB7Y/NGjDlZGJ3GJJLtwNSb2vrzYrTYJRrRloVx7pl+bhUaTB8yiccPvFQ==}
-    engines: {node: '> 0.1.90'}
-
-  fast-deep-equal@2.0.1:
-    resolution: {integrity: sha512-bCK/2Z4zLidyB4ReuIsvALH6w31YfAQDmXMqMx6FyfHqvBxtjC0eRumeSu4Bs3XtXwpyIywtSTrVT99BxY1f9w==}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -1903,12 +1658,6 @@ packages:
 
   fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
-
-  fast-safe-stringify@2.1.1:
-    resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
-
-  fast-stable-stringify@1.0.0:
-    resolution: {integrity: sha512-wpYMUmFu5f00Sm0cj2pfivpmawLZ0NKdviQ4w9zJeR8JVtOpOxHmLaJuj0vxvGqMJQWyP/COUkF75/57OKyRag==}
 
   fastq@1.19.1:
     resolution: {integrity: sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==}
@@ -1961,6 +1710,10 @@ packages:
 
   form-data@4.0.2:
     resolution: {integrity: sha512-hGfm/slu0ZabnNt4oaRZ6uREyfCj6P4fT/n6A1rGV+Z0VdGXjfOhVUpkn6qVQONHGIFwmveGXyDs75+nr6FM8w==}
+    engines: {node: '>= 6'}
+
+  form-data@4.0.4:
+    resolution: {integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==}
     engines: {node: '>= 6'}
 
   fs-extra@10.1.0:
@@ -2071,15 +1824,6 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  graphql-request@7.1.2:
-    resolution: {integrity: sha512-+XE3iuC55C2di5ZUrB4pjgwe+nIQBuXVIK9J98wrVwojzDW3GMdSBZfxUk8l4j9TieIpjpggclxhNEU9ebGF8w==}
-    peerDependencies:
-      graphql: 14 - 16
-
-  graphql@16.11.0:
-    resolution: {integrity: sha512-mS1lbMsxgQj6hge1XZ6p7GPhbrtFwUFYi3wRzXAC/FmYnyXMTvvI3td3rjmQ2u8ewXueaSvRPWaEcgVVOT9Jnw==}
-    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
@@ -2130,9 +1874,6 @@ packages:
   human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
-
-  humanize-ms@1.2.1:
-    resolution: {integrity: sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==}
 
   husky@9.1.7:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
@@ -2228,9 +1969,6 @@ packages:
     resolution: {integrity: sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==}
     engines: {node: '>=0.10.0'}
 
-  isarray@1.0.0:
-    resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
-
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
@@ -2239,11 +1977,6 @@ packages:
 
   isomorphic-ws@4.0.1:
     resolution: {integrity: sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==}
-    peerDependencies:
-      ws: '*'
-
-  isows@1.0.6:
-    resolution: {integrity: sha512-lPHCayd40oW98/I0uvgaHKWCSvkzY27LjWLbtzOm64yQ+G3Q5npjjbdppU65iZXkK1Zt+kH9pfegli0AYfwYYw==}
     peerDependencies:
       ws: '*'
 
@@ -2273,11 +2006,6 @@ packages:
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
-
-  jayson@4.2.0:
-    resolution: {integrity: sha512-VfJ9t1YLwacIubLhONk0KFeosUBwstRWQ0IRT1KDjEjnVnSOVHC3uwugyV7L0c7R9lpVyrUGT2XWiBA1UTtpyg==}
-    engines: {node: '>=8'}
-    hasBin: true
 
   jest-changed-files@29.7.0:
     resolution: {integrity: sha512-fEArFiwf1BpQ+4bXSprcDc3/x4HSzL4al2tozwVpDFpsxALjLYdyiIK4e5Vz66GQJIbXJ82+35PtysofptNX2w==}
@@ -2444,21 +2172,11 @@ packages:
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
 
-  json-rpc-engine@6.1.0:
-    resolution: {integrity: sha512-NEdLrtrq1jUZyfjkr9OCz9EzCNhnRyWtt1PAnvnhwy6e8XETS0Dtc+ZNCO2gvuAoKsIn2+vCSowXTYE4CkgnAQ==}
-    engines: {node: '>=10.0.0'}
-
-  json-rpc-middleware-stream@3.0.0:
-    resolution: {integrity: sha512-JmZmlehE0xF3swwORpLHny/GvW3MZxCsb2uFNBrn8TOqMqivzCfz232NSDLLOtIQlrPlgyEjiYpyzyOPFOzClw==}
-
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
 
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
-
-  json-stringify-safe@5.0.1:
-    resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
 
   json5@2.2.3:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
@@ -2646,14 +2364,6 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
-  mipd@0.0.7:
-    resolution: {integrity: sha512-aAPZPNDQ3uMTdKbuO2YmAw2TxLHO0moa4YKAyETM/DTj5FloZo+a+8tU+iv4GmW+sOxKLSRwcSFuczk+Cpt6fg==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -2742,14 +2452,6 @@ packages:
 
   outdent@0.5.0:
     resolution: {integrity: sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==}
-
-  ox@0.6.9:
-    resolution: {integrity: sha512-wi5ShvzE4eOcTwQVsIPdFr+8ycyX+5le/96iAJutaZAvCes1J0+RvpEPg5QDPDiaR0XQQAvZVl7AwqQcINuUug==}
-    peerDependencies:
-      typescript: '>=5.4.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   p-cancelable@2.1.1:
     resolution: {integrity: sha512-BZOr3nRQHOntUjTrH8+Lh54smKHoHyur8We1V8DSMVrl5A2malOOwuJRnKRDjSnkoeBh4at6BwEnb5I7Jl31wg==}
@@ -2889,9 +2591,6 @@ packages:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  process-nextick-args@2.0.1:
-    resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
-
   prompts@2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
     engines: {node: '>= 6'}
@@ -2942,9 +2641,6 @@ packages:
   read-yaml-file@1.1.0:
     resolution: {integrity: sha512-VIMnQi/Z4HT2Fxuwg5KrY174U1VdUIASQVWXXyqtNRtxSr9IYkn1rsI6Tb6HsrHCmB7gVpNwX6JxPTHcH6IoTA==}
     engines: {node: '>=6'}
-
-  readable-stream@2.3.8:
-    resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
 
   readable-stream@3.6.2:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
@@ -3013,17 +2709,11 @@ packages:
   ripemd160@2.0.2:
     resolution: {integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==}
 
-  rpc-websockets@9.1.1:
-    resolution: {integrity: sha512-1IXGM/TfPT6nfYMIXkJdzn+L4JEsmb0FL1O2OBjaH03V3yuUDdKFulGLMFG6ErV+8pZ5HVC0limve01RyO+saA==}
-
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
   rxjs@7.8.2:
     resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
-
-  safe-buffer@5.1.2:
-    resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
 
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
@@ -3101,12 +2791,6 @@ packages:
   starknet@6.24.1:
     resolution: {integrity: sha512-g7tiCt73berhcNi41otlN3T3kxZnIvZhMi8WdC21Y6GC6zoQgbI2z1t7JAZF9c4xZiomlanwVnurcpyfEdyMpg==}
 
-  stream-chain@2.2.5:
-    resolution: {integrity: sha512-1TJmBx6aSWqZ4tx7aTpBDXK0/e2hhcNSTV8+CbFJtDjbb+I1mZ8lHit0Grw9GRT+6JbIrrDd8esncgBi8aBXGA==}
-
-  stream-json@1.9.1:
-    resolution: {integrity: sha512-uWkjJ+2Nt/LO9Z/JyKZbMusL8Dkh97uUBTv3AJQ74y07lVahLY4eEFsPsE97pxYBwr8nnjMAIch5eqI0gPShyw==}
-
   string-argv@0.3.2:
     resolution: {integrity: sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==}
     engines: {node: '>=0.6.19'}
@@ -3126,9 +2810,6 @@ packages:
   string-width@7.2.0:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==}
     engines: {node: '>=18'}
-
-  string_decoder@1.1.1:
-    resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
 
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
@@ -3161,10 +2842,6 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  superstruct@2.0.2:
-    resolution: {integrity: sha512-uV+TFRZdXsqXTL2pRvujROjdZQ4RAlBUS5BTh9IGm+jTqQntYThciG/qu57Gs69yjnVUSqdxF9YLmSnpupBW9A==}
-    engines: {node: '>=14.0.0'}
-
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
@@ -3192,9 +2869,6 @@ packages:
   test-exclude@6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
     engines: {node: '>=8'}
-
-  text-encoding-utf-8@1.0.2:
-    resolution: {integrity: sha512-8bw4MY9WjdsD2aMtO0OzOCY3pXGYNx2d2FfHRVUKkiCPDWjKuOlhLVASS+pD7VkLTVjW268LYJHwsnPFlBpbAg==}
 
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
@@ -3271,17 +2945,11 @@ packages:
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
-  tslib@2.8.1:
-    resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
-
   tsutils@3.21.0:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
-
-  tweetnacl-util@0.15.1:
-    resolution: {integrity: sha512-RKJBIj8lySrShN4w6i/BonWp2Z/uxwC3h4y7xsRrpP59ZboCd0GpEVsOnMDYLMmKBpYhb5TgHzZXy7wTfYFBRw==}
 
   tweetnacl@1.0.3:
     resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
@@ -3351,10 +3019,6 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  uuid@8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
-    hasBin: true
-
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
@@ -3371,26 +3035,8 @@ packages:
       typescript:
         optional: true
 
-  viem@2.29.1:
-    resolution: {integrity: sha512-mhLn0vDdsxZ4taB7XYgnIVNvXASm60KyPAkvw4k8uNCQ+HLH+5jUgKvLg4AP3y6VJxsgiVPwqUt0dJANDF5DZA==}
-    peerDependencies:
-      typescript: '>=5.0.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   walker@1.0.8:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
-
-  webextension-polyfill-ts@0.25.0:
-    resolution: {integrity: sha512-ikQhwwHYkpBu00pFaUzIKY26I6L87DeRI+Q6jBT1daZUNuu8dSrg5U9l/ZbqdaQ1M/TTSPKeAa3kolP5liuedw==}
-    deprecated: This project has moved to @types/webextension-polyfill
-
-  webextension-polyfill@0.12.0:
-    resolution: {integrity: sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q==}
-
-  webextension-polyfill@0.7.0:
-    resolution: {integrity: sha512-su48BkMLxqzTTvPSE1eWxKToPS2Tv5DLGxKexLEVpwFd6Po6N8hhSLIvG6acPAg7qERoEaDL+Y5HQJeJeml5Aw==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -3456,18 +3102,6 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.18.1:
-    resolution: {integrity: sha512-RKW2aJZMXeMxVpnZ6bck+RswznaxmzdULiBr6KY7XkTnW8uvt0iT9H5DkHUChXrc+uurzwa0rVI16n/Xzjdz1w==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
   ws@8.18.2:
     resolution: {integrity: sha512-DMricUmwGZUVr++AEAe2uiVM7UoO9MAVZMDu05UQOaUII0lp+zOzLLU4Xqh/JvTqklB1T4uELaaPBKyjE1r4fQ==}
     engines: {node: '>=10.0.0'}
@@ -3519,49 +3153,38 @@ snapshots:
 
   '@adraffy/ens-normalize@1.10.1': {}
 
-  '@adraffy/ens-normalize@1.11.0': {}
-
   '@ampproject/remapping@2.3.0':
     dependencies:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@aptos-connect/wallet-adapter-plugin@2.4.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
+  '@aptos-connect/wallet-adapter-plugin@2.6.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
     dependencies:
-      '@aptos-connect/wallet-api': 0.1.9(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@identity-connect/crypto': 0.2.6(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@identity-connect/dapp-sdk': 0.10.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@aptos-connect/wallet-api': 0.5.0(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
+      '@aptos-labs/wallet-standard': 0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)
+      '@identity-connect/crypto': 0.2.11(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@identity-connect/dapp-sdk': 0.13.0(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@aptos-labs/wallet-standard@0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)
     transitivePeerDependencies:
       - '@telegram-apps/bridge'
       - '@wallet-standard/core'
       - aptos
       - debug
 
-  '@aptos-connect/wallet-api@0.1.9(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
+  '@aptos-connect/wallet-api@0.5.0(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
     dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.3.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
+      '@aptos-labs/wallet-standard': 0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)
       '@identity-connect/api': 0.7.0
       aptos: 1.21.0
     transitivePeerDependencies:
       - '@wallet-standard/core'
 
-  '@aptos-connect/wallet-api@0.2.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
+  '@aptos-connect/web-transport@0.4.1(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@aptos-labs/wallet-standard@0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
     dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.3.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@identity-connect/api': 0.7.0
-      aptos: 1.21.0
-    transitivePeerDependencies:
-      - '@wallet-standard/core'
-
-  '@aptos-connect/web-transport@0.2.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
-    dependencies:
-      '@aptos-connect/wallet-api': 0.2.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
+      '@aptos-connect/wallet-api': 0.5.0(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
+      '@aptos-labs/wallet-standard': 0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)
       '@telegram-apps/bridge': 1.9.2
       aptos: 1.21.0
       uuid: 9.0.1
@@ -3579,91 +3202,11 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@aptos-labs/aptos-client@1.2.0(axios@1.9.0)(got@11.8.6)':
-    dependencies:
-      axios: 1.9.0
-      got: 11.8.6
-
   '@aptos-labs/aptos-client@2.0.0(got@11.8.6)':
     dependencies:
       got: 11.8.6
 
-  '@aptos-labs/aptos-dynamic-transaction-composer@0.1.3': {}
-
-  '@aptos-labs/derived-wallet-base@0.2.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)':
-    dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.3.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-    transitivePeerDependencies:
-      - '@wallet-standard/core'
-
-  '@aptos-labs/derived-wallet-ethereum@0.2.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4)':
-    dependencies:
-      '@aptos-labs/derived-wallet-base': 0.2.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@aptos-labs/siwa': 0.2.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.3.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@wallet-standard/app': 1.1.0
-      ethers: 6.14.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      mipd: 0.0.7(typescript@5.1.6)
-      viem: 2.29.1(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4)
-    transitivePeerDependencies:
-      - '@wallet-standard/core'
-      - bufferutil
-      - typescript
-      - utf-8-validate
-      - zod
-
-  '@aptos-labs/derived-wallet-solana@0.2.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bs58@6.0.0)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)':
-    dependencies:
-      '@aptos-labs/derived-wallet-base': 0.2.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@aptos-labs/siwa': 0.2.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.3.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@solana/wallet-adapter-base': 0.9.26(@solana/web3.js@1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))
-      '@solana/wallet-standard-util': 1.1.2
-      '@solana/wallet-standard-wallet-adapter-base': 1.1.4(@solana/web3.js@1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))(bs58@6.0.0)
-      '@solana/web3.js': 1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
-      '@wallet-standard/app': 1.1.0
-    transitivePeerDependencies:
-      - '@wallet-standard/core'
-      - bs58
-      - bufferutil
-      - encoding
-      - typescript
-      - utf-8-validate
-
-  '@aptos-labs/script-composer-pack@0.0.9':
-    dependencies:
-      '@aptos-labs/aptos-dynamic-transaction-composer': 0.1.3
-
-  '@aptos-labs/siwa@0.2.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)':
-    dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.3.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@noble/hashes': 1.8.0
-    transitivePeerDependencies:
-      - '@wallet-standard/core'
-
-  '@aptos-labs/ts-sdk@1.39.0(axios@1.9.0)(got@11.8.6)':
-    dependencies:
-      '@aptos-labs/aptos-cli': 1.0.2
-      '@aptos-labs/aptos-client': 1.2.0(axios@1.9.0)(got@11.8.6)
-      '@aptos-labs/script-composer-pack': 0.0.9
-      '@noble/curves': 1.9.0
-      '@noble/hashes': 1.8.0
-      '@scure/bip32': 1.7.0
-      '@scure/bip39': 1.6.0
-      eventemitter3: 5.0.1
-      form-data: 4.0.2
-      js-base64: 3.7.7
-      jwt-decode: 4.0.0
-      poseidon-lite: 0.2.1
-    transitivePeerDependencies:
-      - axios
-      - got
-
-  '@aptos-labs/ts-sdk@2.0.0(got@11.8.6)':
+  '@aptos-labs/ts-sdk@5.1.1(got@11.8.6)':
     dependencies:
       '@aptos-labs/aptos-cli': 1.0.2
       '@aptos-labs/aptos-client': 2.0.0(got@11.8.6)
@@ -3672,95 +3215,44 @@ snapshots:
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
       eventemitter3: 5.0.1
-      form-data: 4.0.2
+      form-data: 4.0.4
       js-base64: 3.7.7
       jwt-decode: 4.0.0
       poseidon-lite: 0.2.1
     transitivePeerDependencies:
       - got
 
-  '@aptos-labs/wallet-adapter-core@5.5.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(axios@1.9.0)(got@11.8.6)':
+  '@aptos-labs/wallet-adapter-core@7.5.1(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
     dependencies:
-      '@aptos-connect/wallet-adapter-plugin': 2.4.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@atomrigslab/aptos-wallet-adapter': 0.1.21(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(axios@1.9.0)(got@11.8.6)
-      '@msafe/aptos-aip62-wallet': 1.0.17(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-adapter-core@5.5.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(axios@1.9.0)(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@mizuwallet-sdk/protocol@0.0.2)(@wallet-standard/core@1.0.3)
+      '@aptos-connect/wallet-adapter-plugin': 2.6.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
+      '@aptos-labs/wallet-standard': 0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)
       buffer: 6.0.3
       eventemitter3: 4.0.7
       tweetnacl: 1.0.3
     transitivePeerDependencies:
-      - '@mizuwallet-sdk/protocol'
       - '@telegram-apps/bridge'
       - '@wallet-standard/core'
       - aptos
-      - axios
       - debug
-      - got
 
-  '@aptos-labs/wallet-adapter-react@6.0.2(@aptos-labs/derived-wallet-ethereum@0.2.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4))(@aptos-labs/derived-wallet-solana@0.2.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bs58@6.0.0)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(@telegram-apps/bridge@1.9.2)(@types/react@18.3.21)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(axios@1.9.0)(got@11.8.6)(react@18.3.1)':
+  '@aptos-labs/wallet-adapter-react@7.1.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@telegram-apps/bridge@1.9.2)(@types/react@18.3.21)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(react@18.3.1)':
     dependencies:
-      '@aptos-labs/derived-wallet-ethereum': 0.2.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4)
-      '@aptos-labs/derived-wallet-solana': 0.2.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(bs58@6.0.0)(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
-      '@aptos-labs/wallet-adapter-core': 5.5.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(axios@1.9.0)(got@11.8.6)
+      '@aptos-labs/wallet-adapter-core': 7.5.1(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)
       '@radix-ui/react-slot': 1.2.2(@types/react@18.3.21)(react@18.3.1)
       react: 18.3.1
     transitivePeerDependencies:
       - '@aptos-labs/ts-sdk'
-      - '@mizuwallet-sdk/protocol'
       - '@telegram-apps/bridge'
       - '@types/react'
       - '@wallet-standard/core'
       - aptos
-      - axios
       - debug
-      - got
 
-  '@aptos-labs/wallet-standard@0.0.11(axios@1.9.0)(got@11.8.6)':
+  '@aptos-labs/wallet-standard@0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)':
     dependencies:
-      '@aptos-labs/ts-sdk': 1.39.0(axios@1.9.0)(got@11.8.6)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
       '@wallet-standard/core': 1.0.3
-    transitivePeerDependencies:
-      - axios
-      - got
-
-  '@aptos-labs/wallet-standard@0.3.1(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)':
-    dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@wallet-standard/core': 1.0.3
-
-  '@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)':
-    dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@wallet-standard/core': 1.0.3
-
-  '@atomrigslab/aptos-wallet-adapter@0.1.21(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(axios@1.9.0)(got@11.8.6)':
-    dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.0.11(axios@1.9.0)(got@11.8.6)
-      '@atomrigslab/dekey-web-wallet-provider': 1.2.1
-    transitivePeerDependencies:
-      - axios
-      - got
-
-  '@atomrigslab/dekey-web-wallet-provider@1.2.1':
-    dependencies:
-      '@atomrigslab/providers': 1.1.0
-
-  '@atomrigslab/providers@1.1.0':
-    dependencies:
-      '@metamask/object-multiplex': 1.3.0
-      '@metamask/safe-event-emitter': 2.0.0
-      '@types/chrome': 0.0.136
-      detect-browser: 5.3.0
-      eth-rpc-errors: 4.0.3
-      extension-port-stream: 2.1.1
-      fast-deep-equal: 2.0.1
-      is-stream: 2.0.1
-      json-rpc-engine: 6.1.0
-      json-rpc-middleware-stream: 3.0.0
-      pump: 3.0.2
-      webextension-polyfill-ts: 0.25.0
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -4347,10 +3839,6 @@ snapshots:
       '@ethersproject/properties': 5.8.0
       '@ethersproject/strings': 5.8.0
 
-  '@graphql-typed-document-node/core@3.2.0(graphql@16.11.0)':
-    dependencies:
-      graphql: 16.11.0
-
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -4365,10 +3853,10 @@ snapshots:
 
   '@identity-connect/api@0.7.0': {}
 
-  '@identity-connect/crypto@0.2.6(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
+  '@identity-connect/crypto@0.2.11(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
     dependencies:
-      '@aptos-connect/wallet-api': 0.2.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
+      '@aptos-connect/wallet-api': 0.5.0(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
       '@noble/hashes': 1.8.0
       ed2curve: 0.3.0
       tweetnacl: 1.0.3
@@ -4376,15 +3864,15 @@ snapshots:
       - '@wallet-standard/core'
       - aptos
 
-  '@identity-connect/dapp-sdk@0.10.5(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
+  '@identity-connect/dapp-sdk@0.13.0(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@aptos-labs/wallet-standard@0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)':
     dependencies:
-      '@aptos-connect/wallet-api': 0.2.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@aptos-connect/web-transport': 0.2.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
+      '@aptos-connect/wallet-api': 0.5.0(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@aptos-connect/web-transport': 0.4.1(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@aptos-labs/wallet-standard@0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3))(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
+      '@aptos-labs/wallet-standard': 0.5.2(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)
       '@identity-connect/api': 0.7.0
-      '@identity-connect/crypto': 0.2.6(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
-      '@identity-connect/wallet-api': 0.1.2(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(aptos@1.21.0)
+      '@identity-connect/crypto': 0.2.11(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(@wallet-standard/core@1.0.3)(aptos@1.21.0)
+      '@identity-connect/wallet-api': 0.1.4(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(aptos@1.21.0)
       axios: 1.9.0
       uuid: 9.0.1
     transitivePeerDependencies:
@@ -4393,9 +3881,9 @@ snapshots:
       - aptos
       - debug
 
-  '@identity-connect/wallet-api@0.1.2(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(aptos@1.21.0)':
+  '@identity-connect/wallet-api@0.1.4(@aptos-labs/ts-sdk@5.1.1(got@11.8.6))(aptos@1.21.0)':
     dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
+      '@aptos-labs/ts-sdk': 5.1.1(got@11.8.6)
       aptos: 1.21.0
 
   '@improbable-eng/grpc-web@0.15.0(google-protobuf@3.21.4)':
@@ -4465,8 +3953,9 @@ snapshots:
       long: 5.3.2
       protobufjs: 7.5.1
 
-  '@initia/react-wallet-widget@1.6.6(29db3030079603c239ac098af89f1d24)':
+  '@initia/react-wallet-widget@1.9.8(5ce2faaa1de81be27acb3620d50b020d)':
     dependencies:
+      '@cosmjs/amino': 0.33.1
       '@cosmjs/proto-signing': 0.33.1
       '@initia/initia.js': 1.0.8(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
       '@initia/utils': 1.6.6(@cosmjs/amino@0.33.1)(@cosmjs/encoding@0.33.1)(@cosmjs/proto-signing@0.33.1)(@cosmjs/stargate@0.33.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))(@initia/initia-registry-types@1.0.5)(@initia/initia.js@1.0.8(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))(@initia/initia.proto@1.0.0)(@initia/opinit.proto@1.0.0)(@keplr-wallet/types@0.12.232(starknet@6.24.1))(@msgpack/msgpack@3.1.1)(@mysten/bcs@1.6.1)(@noble/hashes@1.8.0)(@types/ramda@0.30.2)(bech32@2.0.0)(bignumber.js@9.3.0)(change-case@5.4.4)(cosmjs-types@0.9.0)(ethers@6.14.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(ky@1.8.1)(long@5.3.2)(ramda@0.30.1)(rxjs@7.8.2)(zod@3.24.4)
@@ -4811,43 +4300,6 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@metamask/object-multiplex@1.3.0':
-    dependencies:
-      end-of-stream: 1.4.4
-      once: 1.4.0
-      readable-stream: 2.3.8
-
-  '@metamask/safe-event-emitter@2.0.0': {}
-
-  '@microsoft/fetch-event-source@2.0.1': {}
-
-  '@mizuwallet-sdk/core@1.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(graphql-request@7.1.2(graphql@16.11.0))':
-    dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@mizuwallet-sdk/protocol': 0.0.2
-      buffer: 6.0.3
-      graphql-request: 7.1.2(graphql@16.11.0)
-      jwt-decode: 4.0.0
-
-  '@mizuwallet-sdk/protocol@0.0.2':
-    dependencies:
-      '@microsoft/fetch-event-source': 2.0.1
-      tweetnacl: 1.0.3
-      tweetnacl-util: 0.15.1
-
-  '@msafe/aptos-aip62-wallet@1.0.17(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@aptos-labs/wallet-adapter-core@5.5.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(axios@1.9.0)(got@11.8.6))(@aptos-labs/wallet-standard@0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3))(@mizuwallet-sdk/protocol@0.0.2)(@wallet-standard/core@1.0.3)':
-    dependencies:
-      '@aptos-labs/ts-sdk': 2.0.0(got@11.8.6)
-      '@aptos-labs/wallet-adapter-core': 5.5.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(@telegram-apps/bridge@1.9.2)(@wallet-standard/core@1.0.3)(aptos@1.21.0)(axios@1.9.0)(got@11.8.6)
-      '@aptos-labs/wallet-standard': 0.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@wallet-standard/core@1.0.3)
-      '@mizuwallet-sdk/core': 1.4.0(@aptos-labs/ts-sdk@2.0.0(got@11.8.6))(@mizuwallet-sdk/protocol@0.0.2)(graphql-request@7.1.2(graphql@16.11.0))
-      '@telegram-apps/bridge': 1.9.2
-      '@wallet-standard/core': 1.0.3
-      graphql: 16.11.0
-      graphql-request: 7.1.2(graphql@16.11.0)
-    transitivePeerDependencies:
-      - '@mizuwallet-sdk/protocol'
-
   '@msgpack/msgpack@3.1.1': {}
 
   '@mysten/bcs@1.6.1':
@@ -4867,10 +4319,6 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.6.0
 
-  '@noble/curves@1.8.2':
-    dependencies:
-      '@noble/hashes': 1.7.2
-
   '@noble/curves@1.9.0':
     dependencies:
       '@noble/hashes': 1.8.0
@@ -4880,8 +4328,6 @@ snapshots:
   '@noble/hashes@1.3.3': {}
 
   '@noble/hashes@1.6.0': {}
-
-  '@noble/hashes@1.7.2': {}
 
   '@noble/hashes@1.8.0': {}
 
@@ -4942,12 +4388,6 @@ snapshots:
 
   '@scure/base@1.2.5': {}
 
-  '@scure/bip32@1.6.2':
-    dependencies:
-      '@noble/curves': 1.8.2
-      '@noble/hashes': 1.7.2
-      '@scure/base': 1.2.5
-
   '@scure/bip32@1.7.0':
     dependencies:
       '@noble/curves': 1.9.0
@@ -4958,11 +4398,6 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.3.3
       '@scure/base': 1.1.9
-
-  '@scure/bip39@1.5.4':
-    dependencies:
-      '@noble/hashes': 1.7.2
-      '@scure/base': 1.2.5
 
   '@scure/bip39@1.6.0':
     dependencies:
@@ -4986,91 +4421,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@solana/buffer-layout@4.0.1':
-    dependencies:
-      buffer: 6.0.3
-
-  '@solana/codecs-core@2.1.0(typescript@5.1.6)':
-    dependencies:
-      '@solana/errors': 2.1.0(typescript@5.1.6)
-      typescript: 5.1.6
-
-  '@solana/codecs-numbers@2.1.0(typescript@5.1.6)':
-    dependencies:
-      '@solana/codecs-core': 2.1.0(typescript@5.1.6)
-      '@solana/errors': 2.1.0(typescript@5.1.6)
-      typescript: 5.1.6
-
-  '@solana/errors@2.1.0(typescript@5.1.6)':
-    dependencies:
-      chalk: 5.4.1
-      commander: 13.1.0
-      typescript: 5.1.6
-
-  '@solana/wallet-adapter-base@0.9.26(@solana/web3.js@1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))':
-    dependencies:
-      '@solana/wallet-standard-features': 1.3.0
-      '@solana/web3.js': 1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
-      '@wallet-standard/base': 1.1.0
-      '@wallet-standard/features': 1.1.0
-      eventemitter3: 5.0.1
-
-  '@solana/wallet-standard-chains@1.1.1':
-    dependencies:
-      '@wallet-standard/base': 1.1.0
-
-  '@solana/wallet-standard-features@1.3.0':
-    dependencies:
-      '@wallet-standard/base': 1.1.0
-      '@wallet-standard/features': 1.1.0
-
-  '@solana/wallet-standard-util@1.1.2':
-    dependencies:
-      '@noble/curves': 1.9.0
-      '@solana/wallet-standard-chains': 1.1.1
-      '@solana/wallet-standard-features': 1.3.0
-
-  '@solana/wallet-standard-wallet-adapter-base@1.1.4(@solana/web3.js@1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))(bs58@6.0.0)':
-    dependencies:
-      '@solana/wallet-adapter-base': 0.9.26(@solana/web3.js@1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10))
-      '@solana/wallet-standard-chains': 1.1.1
-      '@solana/wallet-standard-features': 1.3.0
-      '@solana/wallet-standard-util': 1.1.2
-      '@solana/web3.js': 1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
-      '@wallet-standard/app': 1.1.0
-      '@wallet-standard/base': 1.1.0
-      '@wallet-standard/features': 1.1.0
-      '@wallet-standard/wallet': 1.1.0
-      bs58: 6.0.0
-
-  '@solana/web3.js@1.98.2(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)':
-    dependencies:
-      '@babel/runtime': 7.27.1
-      '@noble/curves': 1.9.0
-      '@noble/hashes': 1.8.0
-      '@solana/buffer-layout': 4.0.1
-      '@solana/codecs-numbers': 2.1.0(typescript@5.1.6)
-      agentkeepalive: 4.6.0
-      bn.js: 5.2.2
-      borsh: 0.7.0
-      bs58: 4.0.1
-      buffer: 6.0.3
-      fast-stable-stringify: 1.0.0
-      jayson: 4.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      node-fetch: 2.7.0
-      rpc-websockets: 9.1.1
-      superstruct: 2.0.2
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - typescript
-      - utf-8-validate
-
   '@starknet-io/types-js@0.7.10': {}
-
-  '@swc/helpers@0.5.17':
-    dependencies:
-      tslib: 2.8.1
 
   '@szmarczak/http-timer@4.0.6':
     dependencies:
@@ -5129,28 +4480,11 @@ snapshots:
       '@types/node': 18.19.100
       '@types/responselike': 1.0.3
 
-  '@types/chrome@0.0.136':
-    dependencies:
-      '@types/filesystem': 0.0.36
-      '@types/har-format': 1.2.16
-
-  '@types/connect@3.4.38':
-    dependencies:
-      '@types/node': 18.19.100
-
   '@types/estree@1.0.7': {}
-
-  '@types/filesystem@0.0.36':
-    dependencies:
-      '@types/filewriter': 0.0.33
-
-  '@types/filewriter@0.0.33': {}
 
   '@types/graceful-fs@4.1.9':
     dependencies:
       '@types/node': 18.19.100
-
-  '@types/har-format@1.2.16': {}
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -5203,16 +4537,6 @@ snapshots:
   '@types/semver@7.7.0': {}
 
   '@types/stack-utils@2.0.3': {}
-
-  '@types/uuid@8.3.4': {}
-
-  '@types/ws@7.4.7':
-    dependencies:
-      '@types/node': 18.19.100
-
-  '@types/ws@8.18.1':
-    dependencies:
-      '@types/node': 18.19.100
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -5372,11 +4696,6 @@ snapshots:
       fs-extra: 10.1.0
       yargs: 17.7.2
 
-  abitype@1.0.8(typescript@5.1.6)(zod@3.24.4):
-    optionalDependencies:
-      typescript: 5.1.6
-      zod: 3.24.4
-
   acorn-jsx@5.3.2(acorn@8.14.1):
     dependencies:
       acorn: 8.14.1
@@ -5384,10 +4703,6 @@ snapshots:
   acorn@8.14.1: {}
 
   aes-js@4.0.0-beta.5: {}
-
-  agentkeepalive@4.6.0:
-    dependencies:
-      humanize-ms: 1.2.1
 
   ajv@6.12.6:
     dependencies:
@@ -5451,7 +4766,7 @@ snapshots:
   axios@1.7.4:
     dependencies:
       follow-redirects: 1.15.9
-      form-data: 4.0.0
+      form-data: 4.0.4
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -5523,10 +4838,6 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  base-x@3.0.11:
-    dependencies:
-      safe-buffer: 5.2.1
-
   base-x@4.0.1: {}
 
   base-x@5.0.1: {}
@@ -5561,12 +4872,6 @@ snapshots:
 
   bn.js@5.2.2: {}
 
-  borsh@0.7.0:
-    dependencies:
-      bn.js: 5.2.2
-      bs58: 4.0.1
-      text-encoding-utf-8: 1.0.2
-
   brace-expansion@1.1.11:
     dependencies:
       balanced-match: 1.0.2
@@ -5594,10 +4899,6 @@ snapshots:
   bs-logger@0.2.6:
     dependencies:
       fast-json-stable-stringify: 2.1.0
-
-  bs58@4.0.1:
-    dependencies:
-      base-x: 3.0.11
 
   bs58@5.0.0:
     dependencies:
@@ -5728,8 +5029,6 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  core-util-is@1.0.3: {}
-
   cosmjs-types@0.9.0: {}
 
   create-jest@29.7.0(@types/node@18.19.100):
@@ -5794,11 +5093,7 @@ snapshots:
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
-  delay@5.0.0: {}
-
   delayed-stream@1.0.0: {}
-
-  detect-browser@5.3.0: {}
 
   detect-indent@6.1.0: {}
 
@@ -5875,12 +5170,6 @@ snapshots:
       get-intrinsic: 1.3.0
       has-tostringtag: 1.0.2
       hasown: 2.0.2
-
-  es6-promise@4.2.8: {}
-
-  es6-promisify@5.0.0:
-    dependencies:
-      es6-promise: 4.2.8
 
   escalade@3.2.0: {}
 
@@ -5984,10 +5273,6 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  eth-rpc-errors@4.0.3:
-    dependencies:
-      fast-safe-stringify: 2.1.1
-
   ethers@6.14.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
       '@adraffy/ens-normalize': 1.10.1
@@ -6043,19 +5328,11 @@ snapshots:
 
   extendable-error@0.1.7: {}
 
-  extension-port-stream@2.1.1:
-    dependencies:
-      webextension-polyfill: 0.12.0
-
   external-editor@3.1.0:
     dependencies:
       chardet: 0.7.0
       iconv-lite: 0.4.24
       tmp: 0.0.33
-
-  eyes@0.1.8: {}
-
-  fast-deep-equal@2.0.1: {}
 
   fast-deep-equal@3.1.3: {}
 
@@ -6070,10 +5347,6 @@ snapshots:
   fast-json-stable-stringify@2.1.0: {}
 
   fast-levenshtein@2.0.6: {}
-
-  fast-safe-stringify@2.1.1: {}
-
-  fast-stable-stringify@1.0.0: {}
 
   fastq@1.19.1:
     dependencies:
@@ -6132,6 +5405,14 @@ snapshots:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       es-set-tostringtag: 2.1.0
+      mime-types: 2.1.35
+
+  form-data@4.0.4:
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      es-set-tostringtag: 2.1.0
+      hasown: 2.0.2
       mime-types: 2.1.35
 
   fs-extra@10.1.0:
@@ -6261,13 +5542,6 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-request@7.1.2(graphql@16.11.0):
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.11.0)
-      graphql: 16.11.0
-
-  graphql@16.11.0: {}
-
   has-flag@4.0.0: {}
 
   has-property-descriptors@1.0.2:
@@ -6315,10 +5589,6 @@ snapshots:
   human-signals@2.1.0: {}
 
   human-signals@5.0.0: {}
-
-  humanize-ms@1.2.1:
-    dependencies:
-      ms: 2.1.3
 
   husky@9.1.7: {}
 
@@ -6389,8 +5659,6 @@ snapshots:
 
   is-windows@1.0.2: {}
 
-  isarray@1.0.0: {}
-
   isexe@2.0.0: {}
 
   isomorphic-fetch@3.0.0:
@@ -6403,10 +5671,6 @@ snapshots:
   isomorphic-ws@4.0.1(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
       ws: 7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-
-  isows@1.0.6(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
-    dependencies:
-      ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
 
   istanbul-lib-coverage@3.2.2: {}
 
@@ -6454,24 +5718,6 @@ snapshots:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
-
-  jayson@4.2.0(bufferutil@4.0.9)(utf-8-validate@5.0.10):
-    dependencies:
-      '@types/connect': 3.4.38
-      '@types/node': 12.20.55
-      '@types/ws': 7.4.7
-      commander: 2.20.3
-      delay: 5.0.0
-      es6-promisify: 5.0.0
-      eyes: 0.1.8
-      isomorphic-ws: 4.0.1(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      json-stringify-safe: 5.0.1
-      stream-json: 1.9.1
-      uuid: 8.3.2
-      ws: 7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
 
   jest-changed-files@29.7.0:
     dependencies:
@@ -6806,21 +6052,9 @@ snapshots:
 
   json-parse-even-better-errors@2.3.1: {}
 
-  json-rpc-engine@6.1.0:
-    dependencies:
-      '@metamask/safe-event-emitter': 2.0.0
-      eth-rpc-errors: 4.0.3
-
-  json-rpc-middleware-stream@3.0.0:
-    dependencies:
-      '@metamask/safe-event-emitter': 2.0.0
-      readable-stream: 2.3.8
-
   json-schema-traverse@0.4.1: {}
 
   json-stable-stringify-without-jsonify@1.0.1: {}
-
-  json-stringify-safe@5.0.1: {}
 
   json5@2.2.3: {}
 
@@ -6996,10 +6230,6 @@ snapshots:
 
   minipass@7.1.2: {}
 
-  mipd@0.0.7(typescript@5.1.6):
-    optionalDependencies:
-      typescript: 5.1.6
-
   mri@1.2.0: {}
 
   ms@2.1.3: {}
@@ -7066,20 +6296,6 @@ snapshots:
   os-tmpdir@1.0.2: {}
 
   outdent@0.5.0: {}
-
-  ox@0.6.9(typescript@5.1.6)(zod@3.24.4):
-    dependencies:
-      '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.2
-      '@noble/hashes': 1.7.2
-      '@scure/bip32': 1.6.2
-      '@scure/bip39': 1.5.4
-      abitype: 1.0.8(typescript@5.1.6)(zod@3.24.4)
-      eventemitter3: 5.0.1
-    optionalDependencies:
-      typescript: 5.1.6
-    transitivePeerDependencies:
-      - zod
 
   p-cancelable@2.1.1: {}
 
@@ -7193,8 +6409,6 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 18.3.1
 
-  process-nextick-args@2.0.1: {}
-
   prompts@2.4.2:
     dependencies:
       kleur: 3.0.3
@@ -7252,16 +6466,6 @@ snapshots:
       js-yaml: 3.14.1
       pify: 4.0.1
       strip-bom: 3.0.0
-
-  readable-stream@2.3.8:
-    dependencies:
-      core-util-is: 1.0.3
-      inherits: 2.0.4
-      isarray: 1.0.0
-      process-nextick-args: 2.0.1
-      safe-buffer: 5.1.2
-      string_decoder: 1.1.1
-      util-deprecate: 1.0.2
 
   readable-stream@3.6.2:
     dependencies:
@@ -7323,19 +6527,6 @@ snapshots:
       hash-base: 3.1.0
       inherits: 2.0.4
 
-  rpc-websockets@9.1.1:
-    dependencies:
-      '@swc/helpers': 0.5.17
-      '@types/uuid': 8.3.4
-      '@types/ws': 8.18.1
-      buffer: 6.0.3
-      eventemitter3: 5.0.1
-      uuid: 8.3.2
-      ws: 8.18.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-    optionalDependencies:
-      bufferutil: 4.0.9
-      utf-8-validate: 5.0.10
-
   run-parallel@1.2.0:
     dependencies:
       queue-microtask: 1.2.3
@@ -7343,8 +6534,6 @@ snapshots:
   rxjs@7.8.2:
     dependencies:
       tslib: 2.6.3
-
-  safe-buffer@5.1.2: {}
 
   safe-buffer@5.2.1: {}
 
@@ -7422,12 +6611,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  stream-chain@2.2.5: {}
-
-  stream-json@1.9.1:
-    dependencies:
-      stream-chain: 2.2.5
-
   string-argv@0.3.2: {}
 
   string-length@4.0.2:
@@ -7453,10 +6636,6 @@ snapshots:
       get-east-asian-width: 1.3.0
       strip-ansi: 7.1.0
 
-  string_decoder@1.1.1:
-    dependencies:
-      safe-buffer: 5.1.2
-
   string_decoder@1.3.0:
     dependencies:
       safe-buffer: 5.2.1
@@ -7478,8 +6657,6 @@ snapshots:
   strip-final-newline@3.0.0: {}
 
   strip-json-comments@3.1.1: {}
-
-  superstruct@2.0.2: {}
 
   supports-color@7.2.0:
     dependencies:
@@ -7517,8 +6694,6 @@ snapshots:
       '@istanbuljs/schema': 0.1.3
       glob: 7.2.3
       minimatch: 3.1.2
-
-  text-encoding-utf-8@1.0.2: {}
 
   text-table@0.2.0: {}
 
@@ -7579,14 +6754,10 @@ snapshots:
 
   tslib@2.7.0: {}
 
-  tslib@2.8.1: {}
-
   tsutils@3.21.0(typescript@5.1.6):
     dependencies:
       tslib: 1.14.1
       typescript: 5.1.6
-
-  tweetnacl-util@0.15.1: {}
 
   tweetnacl@1.0.3: {}
 
@@ -7640,8 +6811,6 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  uuid@8.3.2: {}
-
   uuid@9.0.1: {}
 
   v8-to-istanbul@9.3.0:
@@ -7654,34 +6823,9 @@ snapshots:
     optionalDependencies:
       typescript: 5.1.6
 
-  viem@2.29.1(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)(zod@3.24.4):
-    dependencies:
-      '@noble/curves': 1.8.2
-      '@noble/hashes': 1.7.2
-      '@scure/bip32': 1.6.2
-      '@scure/bip39': 1.5.4
-      abitype: 1.0.8(typescript@5.1.6)(zod@3.24.4)
-      isows: 1.0.6(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      ox: 0.6.9(typescript@5.1.6)(zod@3.24.4)
-      ws: 8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-    optionalDependencies:
-      typescript: 5.1.6
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - zod
-
   walker@1.0.8:
     dependencies:
       makeerror: 1.0.12
-
-  webextension-polyfill-ts@0.25.0:
-    dependencies:
-      webextension-polyfill: 0.7.0
-
-  webextension-polyfill@0.12.0: {}
-
-  webextension-polyfill@0.7.0: {}
 
   webidl-conversions@3.0.1: {}
 
@@ -7733,11 +6877,6 @@ snapshots:
       utf-8-validate: 5.0.10
 
   ws@8.17.1(bufferutil@4.0.9)(utf-8-validate@5.0.10):
-    optionalDependencies:
-      bufferutil: 4.0.9
-      utf-8-validate: 5.0.10
-
-  ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     optionalDependencies:
       bufferutil: 4.0.9
       utf-8-validate: 5.0.10
