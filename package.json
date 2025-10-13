@@ -64,7 +64,7 @@
     "ts-api-utils": "~0.0.44",
     "ts-jest": "~29.1",
     "tslib": "~2.6",
-    "typescript": "~5.1"
+    "typescript": "~5.9"
   },
   "peerDependencies": {
     "@aptos-labs/ts-sdk": "^5.1.1",
