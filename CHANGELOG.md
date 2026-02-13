@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 1.10.0
+
+### Minor Changes
+
+- 4cfacb1: upgrade aptos ts-sdk
+
 ## 1.9.7
 
 ### Patch Changes
