@@ -43,8 +43,8 @@
     }
   },
   "devDependencies": {
-    "@aptos-labs/ts-sdk": "^5.1.1",
-    "@aptos-labs/wallet-adapter-react": "^7.1.2",
+    "@aptos-labs/ts-sdk": "^6.0.0",
+    "@aptos-labs/wallet-adapter-react": "^8.2.1",
     "@changesets/cli": "^2.26.1",
     "@types/jest": "~29.5",
     "@types/node": "~18",
@@ -67,8 +67,8 @@
     "typescript": "~5.1"
   },
   "peerDependencies": {
-    "@aptos-labs/ts-sdk": "^5.1.1",
-    "@aptos-labs/wallet-adapter-react": "^7.1.2",
+    "@aptos-labs/ts-sdk": "^6.0.0",
+    "@aptos-labs/wallet-adapter-react": "^8.2.1",
     "react": "^18.2.0",
     "@initia/react-wallet-widget": "^1.9.8"
   },
