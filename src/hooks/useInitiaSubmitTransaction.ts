@@ -5,7 +5,7 @@ import { MsgExecute } from '@initia/initia.js';
 import { bcsEncoding } from '../utils/bcs.js';
 
 export const useInitiaSubmitTransaction = () => {
-  const { address, requestTxBlock } = useInterwovenKit();
+  const { hexAddress: address, requestTxBlock } = useInterwovenKit();
 
   const [isIdle, setIsIdle] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
