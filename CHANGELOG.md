@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 2.0.2
+
+### Patch Changes
+
+- 87ea343: use hex address for initia network, instead of init address
+
 ## 2.0.1
 
 ### Patch Changes
