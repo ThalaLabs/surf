@@ -5,7 +5,7 @@ import { MsgExecute } from '@initia/initia.js';
 import { bcsEncoding } from '../utils/bcs.js';
 
 export const useInitiaSubmitTransaction = () => {
-  const { initiaAddress, requestTxBlock } = useInterwovenKit();
+  const { address, requestTxBlock } = useInterwovenKit();
 
   const [isIdle, setIsIdle] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +37,7 @@ export const useInitiaSubmitTransaction = () => {
 
     let result;
     try {
-      if (initiaAddress && requestTxBlock) {
+      if (address && requestTxBlock) {
         if (!payload.abi) {
           throw new Error('abi is required for initia transactions');
         }
@@ -59,7 +59,7 @@ export const useInitiaSubmitTransaction = () => {
         }
 
         const msg = new MsgExecute(
-          initiaAddress,
+          address,
           moduleAddress as string,
           moduleName as string,
           functionName as string,
