@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 2.0.0
+
+### Major Changes
+
+- 424308c: migrate @initia/react-wallet-widget to @initia/interwovenkit-react
+
 ## 1.10.0
 
 ### Minor Changes
