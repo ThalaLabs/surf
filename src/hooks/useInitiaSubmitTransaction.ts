@@ -1,13 +1,11 @@
 import { useState, useRef } from 'react';
 import type { EntryPayload } from '../types/index.js';
-// @ts-ignore
-import { useWallet as useInitiaWallet } from '@initia/react-wallet-widget';
+import { useInterwovenKit } from '@initia/interwovenkit-react';
 import { MsgExecute } from '@initia/initia.js';
 import { bcsEncoding } from '../utils/bcs.js';
 
 export const useInitiaSubmitTransaction = () => {
-  const { address: initiaAddress, requestInitiaTx: initiaSign } =
-    useInitiaWallet();
+  const { initiaAddress, requestTxBlock } = useInterwovenKit();
 
   const [isIdle, setIsIdle] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +37,7 @@ export const useInitiaSubmitTransaction = () => {
 
     let result;
     try {
-      if (initiaAddress && initiaSign) {
+      if (initiaAddress && requestTxBlock) {
         if (!payload.abi) {
           throw new Error('abi is required for initia transactions');
         }
@@ -60,16 +58,21 @@ export const useInitiaSubmitTransaction = () => {
           bcsArgs.push(bcsEncoding(arg, paramType.toString()));
         }
 
-        result = await initiaSign({
-          msgs: [
-            new MsgExecute(
-              initiaAddress,
-              moduleAddress as string,
-              moduleName as string,
-              functionName as string,
-              payload.typeArguments,
-              bcsArgs,
-            ),
+        const msg = new MsgExecute(
+          initiaAddress,
+          moduleAddress as string,
+          moduleName as string,
+          functionName as string,
+          payload.typeArguments,
+          bcsArgs,
+        );
+
+        result = await requestTxBlock({
+          messages: [
+            {
+              typeUrl: msg.toData()['@type'],
+              value: msg.toProto(),
+            },
           ],
         });
       } else {
