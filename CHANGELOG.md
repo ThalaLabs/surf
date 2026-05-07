@@ -1,5 +1,11 @@
 # @thalalabs/surf
 
+## 2.0.3
+
+### Patch Changes
+
+- Support BCS encoding Initia Move string arguments.
+
 ## 2.0.2
 
 ### Patch Changes

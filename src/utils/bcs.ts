@@ -1,5 +1,9 @@
 import { bcs } from '@initia/initia.js';
 
+function isStringType(typeStr: string): boolean {
+  return typeStr === '0x1::string::String' || typeStr === 'string';
+}
+
 /**
  * Helper function to encode arguments using BCS based on their type
  *
@@ -8,7 +12,7 @@ import { bcs } from '@initia/initia.js';
  * @returns Base64 encoded BCS serialized value
  */
 export function bcsEncoding(
-  arg: any,
+  arg: unknown,
   typeStr: string,
   target: 'base64' | 'bytes' = 'base64',
 ): string {
@@ -53,6 +57,11 @@ export function bcsEncoding(
       .u256()
       .serialize(arg as string | number | bigint)
       [serializer]();
+  } else if (isStringType(typeStr)) {
+    return bcs
+      .string()
+      .serialize(arg as string)
+      [serializer]();
   } else if (typeStr.startsWith('vector<u8>')) {
     return bcs
       .vector(bcs.u8())
@@ -60,14 +69,19 @@ export function bcsEncoding(
       [serializer]();
   } else if (typeStr.startsWith('vector<')) {
     const innerTypeMatch = typeStr.match(/vector<([^>]+)>/);
-    if (!innerTypeMatch) {
+    const innerType = innerTypeMatch?.[1];
+    if (!innerType) {
       throw new Error(`Unsupported vector type: ${typeStr}`);
     }
 
-    const innerType = innerTypeMatch[1];
     if (innerType === 'address') {
       return bcs
         .vector(bcs.address())
+        .serialize(arg as string[])
+        [serializer]();
+    } else if (isStringType(innerType)) {
+      return bcs
+        .vector(bcs.string())
         .serialize(arg as string[])
         [serializer]();
     } else if (innerType === 'bool') {
